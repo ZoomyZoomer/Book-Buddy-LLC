@@ -34,7 +34,7 @@ const StoragePage = () => {
     const audioRefOpen = useRef(null);
     const audioRefClose = useRef(null);
 
-    const validList = [0, 10,11,30,31,50];
+    const validList = [0,10,11,30,31,50];
 
     const navigate = useNavigate('/');
 

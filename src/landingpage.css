@@ -664,17 +664,53 @@
     margin-top: 6rem;
 }
 
-.warehouse-item2 {
-    height: 3.2rem;
-    width: 3.2rem;
-    padding: 1rem;
-    background-color: #FCFCFC;
+.warehouse-item2-hidden {
+    height: 5.2rem;
+    width: 5.2rem;
+    background-color: #f0f0f0;
     border: 1px dashed rgb(212, 212, 212);
     border-radius: 0.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease-in-out;
+    z-index: 10;
+}
+
+.warehouse-empty {
+    height: 5.2rem;
+    width: 5.2rem;
+    background-color: #FCFCFC;
+    border: 1px dashed rgb(212, 212, 212);
+    border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 10;
+    position: relative;
+    justify-content: center;
+}
+
+.warehouse-empty:hover {
+    cursor: pointer;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid rgb(184, 184, 184);
+    transition: background-color 0.3s ease-in-out;
+    z-index: 90;
+}
+
+.warehouse-item2 {
+    height: 5.2rem;
+    width: 5.2rem;
+    background-color: #FCFCFC;
+    border: 1px dashed rgb(212, 212, 212);
+    border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 10;
+    position: relative;
+    justify-content: center;
 }
 
 .warehouse-item2:hover {
@@ -682,11 +718,12 @@
     background-color: rgb(194, 233, 212);
     border: 1px solid #06AB78;
     transition: background-color 0.3s ease-in-out;
+    z-index: 90;
 }
 
 .landing-warehouse-cont {
     display: grid;
-    grid-template-columns: 5.3rem 5.3rem 5.3rem 5.3rem 5.3rem;
+    grid-template-columns: 5.33rem 5.33rem 5.33rem 5.33rem 5.33rem;
     border: 1px solid #8c8e92;
     border-radius: 0.4rem;
     box-shadow: 0px 0px 10px rgb(201, 201, 201);
@@ -732,5 +769,23 @@
 
 .live-cleared {
     font-size: 0.9em;
+}
+
+.avail-active {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #78C6A3;
+    animation: availActive 1s ease-in-out 1;
+    left: 0;
+}
+
+@keyframes availActive {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
 }
 

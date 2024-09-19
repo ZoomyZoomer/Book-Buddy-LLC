@@ -1,6 +1,48 @@
 import React from 'react'
+import { useState, useRef } from 'react';
 
-const WarehouseItemShowcase = ({item}) => {
+const WarehouseItemShowcase = ({item, key, index, availSpaces, setWarehouse, warehouse}) => {
+
+  const [isHeld, setIsHeld] = useState(false);
+  const timerRef = useRef(null);
+
+  const modifyEntry = (rowIndex, colIndex, newValue) => {
+    // Create a copy of the availableSpaces array
+    const updatedSpaces = warehouse.map((row, rIndex) => 
+      row.map((value, cIndex) => 
+        rIndex === rowIndex && cIndex === colIndex ? newValue : value
+      )
+    );
+    
+    // Update the state with the modified array
+    setWarehouse(updatedSpaces);
+  };
+
+  const handleMouseDown = () => {
+    // Start the timer when the mouse is pressed down
+    if (item !== 0 && availSpaces?.some(subArr => subArr[0] === index[0] && subArr[1] === index[1])){
+      setIsHeld(true);
+    }
+    timerRef.current = setTimeout(() => {
+      setIsHeld(false);
+      modifyEntry(index[0], index[1], 0);
+      // You can add additional actions here when the div is held for 2 seconds
+    }, 1000);
+  };
+
+  const handleMouseUp = () => {
+    // Clear the timer when the mouse is released
+    clearTimeout(timerRef.current);
+    setIsHeld(false);
+    timerRef.current = null;
+  };
+
+  const handleMouseLeave = () => {
+    // Clear the timer if the mouse leaves the div
+    clearTimeout(timerRef.current);
+    setIsHeld(false);
+    timerRef.current = null;
+  };
 
   const warehouseMap = new Map([
     [0, {display: undefined, name: 'Cleared Space', type: 'Path'}],
@@ -18,10 +60,11 @@ const WarehouseItemShowcase = ({item}) => {
 ])
 
   return (
-    <div className='warehouse-item2'>
-      {item !== 0 && (
+    <div className={availSpaces?.some(subArr => subArr[0] === index[0] && subArr[1] === index[1]) ? 'warehouse-item2' : item === 0 ? 'warehouse-empty' : 'warehouse-item2-hidden'} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onMouseLeave={handleMouseLeave}>
+      {item !== 0 && item !== 3 && (
         <img src={`/${warehouseMap.get(item)?.display}.png`} style={{height: '3.2em', zIndex: '2'}}/>
       )}
+      {isHeld && <div className='avail-active'/>}
     </div>
   )
 }

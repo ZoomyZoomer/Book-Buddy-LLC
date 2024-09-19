@@ -25,9 +25,16 @@ function LandingPage() {
   const [miniFire, setMiniFire] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isScrolled2, setIsScrolled2] = useState(false);
-  const [warehouse, setWarehouse] = useState([[[0],[0],[2],[0]],[[0],[2],[2],[0]],[[2],[0],[0],[2]],[[2],[2],[1],[1]],[[1],[2],[1],[7]]]);
+  const [availSpaces, setAvailSpaces] = useState();
   const audioRefTorch = useRef(null);
   const audioRefCheck = useRef(null);
+  const [warehouse, setWarehouse] = useState([
+    [0, 0, 2, 3],
+    [0, 2, 2, 3],
+    [2, 3, 3, 2],
+    [2, 2, 1, 1],
+    [1, 2, 1, 7]
+  ]);
 
   const playAudioRefTorch = () => {
     audioRefTorch.current.volume = 0.1;
@@ -117,6 +124,58 @@ const warehouseMap = new Map([
       playAudioRefTorch();
     }
   }
+
+  const validList = [0,10,11,30,31,50];
+  
+  function findAvailableSpaces(grid) {
+    const availableSpaces = [];
+    const directions = [
+      [1, 0],   // down
+      [-1, 0],  // up
+      [0, 1],   // right
+      [0, -1]   // left
+    ];
+  
+    function bfs(r, c) {
+      const queue = [[r, c]];
+  
+      while (queue.length > 0) {
+        const [currentR, currentC] = queue.shift();
+  
+        // Check all four directions from the current cell
+        for (const [dr, dc] of directions) {
+          const nr = currentR + dr;
+          const nc = currentC + dc;
+  
+          // Ensure the neighbor is within bounds
+          if (nr >= 0 && nr < grid.length && nc >= 0 && nc < grid[nr].length) {
+            if (grid[nr][nc] !== 0 && grid[nr][nc] !== 3) {
+              availableSpaces.push([nr, nc]);
+            } else if (grid[nr][nc] === 3) {
+              // Turn '3' into '0' and add it to the queue to check its neighbors
+              grid[nr][nc] = 0;
+              queue.push([nr, nc]);
+            }
+          }
+        }
+      }
+    }
+  
+    // Iterate through each cell in the grid
+    for (let r = 0; r < grid.length; r++) {
+      for (let c = 0; c < grid[r].length; c++) {
+        if (validList.includes(grid[r][c])) {
+          bfs(r, c);  // Start BFS from each '0' found
+        }
+      }
+    }
+  
+    setAvailSpaces(availableSpaces)
+  }
+
+  useEffect(() => {
+    findAvailableSpaces(warehouse);
+  }, [warehouse])
 
   const fillBar = () => {
         
@@ -321,7 +380,7 @@ const warehouseMap = new Map([
               {warehouse.map((row, rowIndex) => (
                 <div key={rowIndex} className="row">
                   {row.map((item, itemIndex) => (
-                    <WarehouseItemShowcase key={itemIndex} item={item[0]} />
+                    <WarehouseItemShowcase key={itemIndex} index={[rowIndex, itemIndex]} item={item} availSpaces={availSpaces} setWarehouse={setWarehouse} warehouse={warehouse}/>
                   ))}
                 </div>
               ))}
