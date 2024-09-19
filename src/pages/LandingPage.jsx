@@ -25,7 +25,7 @@ function LandingPage() {
   const [miniFire, setMiniFire] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isScrolled2, setIsScrolled2] = useState(false);
-  const [warehouse, setWarehouse] = useState([[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]],[[],[],[],[]]]);
+  const [warehouse, setWarehouse] = useState([[[0],[0],[2],[0]],[[0],[2],[2],[0]],[[2],[0],[0],[2]],[[2],[2],[1],[1]],[[1],[2],[1],[7]]]);
   const audioRefTorch = useRef(null);
   const audioRefCheck = useRef(null);
 
@@ -49,6 +49,20 @@ function LandingPage() {
     ['0', {id: '0', item_name: 'Cold Brew', stock: 5, img: 'coffee_cup', type: 'Consumable', use: `Refreshes the top portion of the Rewards Market`, desc: 'It’s a lukewarm coffee at best', cost: {coins: true, dollar: false, file: null, amount: 150, discounted_amount: 100}}],
     ['1', {id: '1', item_name: 'Coupon', stock: 5, img: 'coupon', type: 'Consumable', use: 'Discounts the top portion of the Rewards Market', desc: `Coupons for sale? What's the point!?`, cost: {coins: true, dollar: false, file: null, amount: 200, discounted_amount: 125}}],
     ['2', {id: '2', item_name: 'Jar of Jam', stock: 5, img: 'jam', type: 'Consumable', use: "Instantly completes the 'dusting process' of a file", desc: "Just a jar.. of (probably) strawberry jam", cost: {coins: true, dollar: false, file: null, amount: 300, discounted_amount: 200}}]
+])
+
+const warehouseMap = new Map([
+  [0, {display: undefined, name: 'Cleared Space', type: 'Path'}],
+  [1, {display: 'bricks', name: 'Bricks', type: 'Obstruction', cost: 26}],
+  [2, {display: 'board', name: 'Boards', type: 'Obstruction', cost: 14}],
+  [8, {display: 'present_icon', cost: 0, name: 'Mystery Gift', type: 'Lootable'}],
+  [9, {display: 'package_icon', cost: 0, name: 'Package', type: 'Lootable'}],
+  [10, {display: 'file_1', id: '0', name: 'File', type: 'File', cost: 0, time: {hours: 1, minutes: 0, seconds: 0}}],
+  [11, {display: 'file_4', id: '1', name: 'Stat Sheet', type: 'File', cost: 0, time: {hours: 1, minutes: 30, seconds: 0}}],
+  [30, {display: 'file_2', id: '20', name: 'Certificate', type: 'File', cost: 0, time: {hours: 4, minutes: 0, seconds: 0}}],
+  [31, {display: 'file_3', id: '21', name: 'Love Letter', type: 'File', cost: 0, time: {hours: 5, minutes: 0, seconds: 0}}],
+  [50, {display: 'file_5', id: '40', name: 'Diploma', type: 'File', cost: 0, time: {hours: 12, minutes: 0, seconds: 0}}],
+  [51, {display: 'file_5', id: '40', name: 'Diploma', type: 'File', cost: 0, time: {hours: 12, minutes: 0, seconds: 0}}],
 ])
 
   useEffect(() => {
@@ -307,7 +321,7 @@ function LandingPage() {
               {warehouse.map((row, rowIndex) => (
                 <div key={rowIndex} className="row">
                   {row.map((item, itemIndex) => (
-                    <WarehouseItemShowcase key={itemIndex} item={item} />
+                    <WarehouseItemShowcase key={itemIndex} item={item[0]} />
                   ))}
                 </div>
               ))}

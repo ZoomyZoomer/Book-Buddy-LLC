@@ -674,6 +674,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.warehouse-item2:hover {
+    cursor: pointer;
+    background-color: rgb(194, 233, 212);
+    border: 1px solid #06AB78;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .landing-warehouse-cont {
@@ -725,3 +733,4 @@
 .live-cleared {
     font-size: 0.9em;
 }
+
