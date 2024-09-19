@@ -6,10 +6,12 @@ import {ReactComponent as Arrow} from '../pointer-arrow.svg'
 import {ReactComponent as Arrow2} from '../hidden-arrow2.svg'
 import {ReactComponent as Plus} from '../right-circle.svg'
 import {ReactComponent as Minus} from '../left-circle.svg'
+import {ReactComponent as Clock} from '../clock.svg'
 import {ReactComponent as ProgressArrow} from '../progress_arrow.svg'
 import {ReactComponent as ProgressArrow2} from '../progress_arrow2.svg'
 import LibraryBookShowcase from '../components/LibraryBookShowcase';
 import WarehouseItemShowcase from '../components/WarehouseItemShowcase';
+import QuestItemShowcase from '../components/QuestItemShowcase';
 
 function LandingPage() {
 
@@ -375,6 +377,7 @@ const warehouseMap = new Map([
             {isScrolled && (<div className='hero-title-underline'/>)}
             <div className='hero-sub'>There’s always something to do!</div>
           </div>
+
           <div className='explore-container'>
               <div className='landing-warehouse-cont'>
               {warehouse.map((row, rowIndex) => (
@@ -399,6 +402,41 @@ const warehouseMap = new Map([
                 </div>
               </div>
           </div>
+
+          <div className='explore-container'>
+            <div className='explore-grid'>
+            <div className='explore-0'>Daily Tasks</div>
+                <div className='explore-1'>Complete Daily Quests</div>
+                <div className='explore-2'>Complete 3 quests daily from a random selection of over 20 quests. Completing all 3 quests in a day brings you one step closer to achieving an exclusive quest streak reward.
+                <div style={{marginTop: '2rem'}}>
+                  <button className='landing-button2'>Let’s Get Questing</button>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '1rem'}}>
+                  <div className='live-count'/>
+                  <div className='live-cleared'><strong>104</strong>quests completed by users this week</div>
+                </div>
+            </div>
+          </div>
+          <div className='landing-quest-container'>
+            <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', marginBottom: '1rem'}}>
+                <div className='landing-quest-header0'>
+                  <div>Book Quests</div>
+                  <div className='lqh-0'>New rewards every day!</div>
+                </div>
+                <div className='landing-quest-header1'>
+                  <div className='landing-time-remaining-abs'>
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '0.2rem'}}><Clock /></div>
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>6 hours</div>
+                  </div>
+                </div>
+            </div>
+            <QuestItemShowcase index={0} quest={{title: 'A New Day', quest: 'Read 50 pages', quantity_required: 50}}/>
+            <QuestItemShowcase index={1} quest={{title: 'Merchant', quest: 'Buy something from the Market', quantity_required: 1}}/>
+            <QuestItemShowcase index={2} quest={{title: 'Something New', quest: 'Add a book to your library', quantity_required: 1}}/>
+          </div>
+
+          </div>
+
         </div>
 
       </div>

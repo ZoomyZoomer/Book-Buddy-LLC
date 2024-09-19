@@ -789,3 +789,56 @@
     }
 }
 
+.landing-quest-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: fit-content;
+    border: 1px solid #8c8e92;
+    border-radius: 0.4rem;
+    padding: 1rem;
+    box-shadow: 0px 0px 10px rgb(201, 201, 201);
+}
+
+.landing-quest-header0 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 50%;
+    font-weight: 500;
+    color: #06AB78;
+}
+
+.landing-quest-header1 {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 50%;
+    position: relative;
+}
+
+.lqh-0 {
+    color: #9D9D9D;
+    font-size: 0.625rem;
+    font-weight: 400;
+}
+
+.landing-time-remaining-abs {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 0.3rem 0.45rem 0.3rem 0.45rem;
+    height: fit-content;
+    color: #454B54;
+    font-size: 0.9rem;
+    border-radius: 0.8rem;
+    background-color: #ebebeb;
+    border: 1px solid #d5d5d5;
+}
