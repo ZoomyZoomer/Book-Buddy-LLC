@@ -1,0 +1,149 @@
+.popup {
+    height: 30vh;
+    width: 50vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 100;
+    border-radius: 20px;
+    padding: 24px 14px 18px 14px;
+    animation: popUp 0.4s ease-in-out 1;
+}
+
+@keyframes popUp {
+    0%{
+        transform: scale(0.4);
+        opacity: 0.7;
+    }
+    90%{
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.de-0 {
+    font-family: "Inter";
+    font-size: 20px;
+    font-weight: 600;
+    color: #454B54;
+}
+
+.de-1 {
+    font-family: "Inter";
+    font-size: 13px;
+    font-weight: 500;
+    color: #7f8997;
+    margin-top: 6px;
+}
+
+.de-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.de-2-1 {
+    height: 80px;
+    animation: idle 1.6s ease-in-out infinite;
+    cursor: pointer;
+}
+
+.de-2-2 {
+    font-family: "Inter";
+    font-size: 18px;
+    color:#eb6767;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.de-2-3 {
+    color: #eb6767;
+    font-family: "Inter";
+    margin: 2px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+@keyframes idle {
+    50%{
+        transform: translateY(8px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+
+.de-3 {
+    margin-top: 50px;
+    font-family: "Inter";
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px 16px 10px 16px;
+    background-color: #eb6767;
+    border-color: #dd5252;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease-in-out;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.de-3:hover {
+    background-color: #dd5252;
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    margin-left: 20px;
+}
+
+.close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    cursor: pointer;
+    height: 32px;
+    border-radius: 6px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close:hover {
+    background-color: #e7e7e7;
+}
+
+.rarity-Common {
+    color: #7fd394;
+    font-weight: 700;
+    font-family: "Inter";
+}
+
+  .rarity-Rare {
+    color: #7798C0;
+    font-weight: 700;
+    font-family: "Inter";
+}
+
+  .rarity-Epic {
+    color: #a577c0;
+    font-weight: 700;
+    font-family: "Inter";
+}

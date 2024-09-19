@@ -1,0 +1,165 @@
+.entry-timeline-popup-container {
+    position: absolute;
+    display: flex;
+    background-color: white;
+    border-radius: 0.5rem;
+    z-index: 100;
+    font-size: 1.1rem;
+    height: 60%;
+    width: 19rem;
+    padding: 0rem 6rem 1rem 7rem;
+    animation: Popup 0.5s ease-in-out;
+    overflow: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+.entry-timeline-popup-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.e-timeline-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.e-timeline-section-contents {
+    margin-top: 6rem;
+}
+
+.e-timeline-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    height: 100%;
+    width: 100%;
+}
+
+.e-timeline-card-flex {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    height: fit-content;
+    width: 100%;
+}
+
+.e-timeline-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.e-dot {
+    height: 0.6rem;
+    width: 0.6rem;
+    background-color: white;
+    border: 0.2rem solid #06AB78;
+    background-color: #06AB78;
+    border-radius: 100%;
+    position: relative;
+}
+
+.e-time {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: max-content;
+    right: 1rem;
+    font-size: 0.65em;
+    font-weight: 500;
+    color:#7a7a7a;
+}
+
+.e-dot2 {
+    height: 0.6rem;
+    width: 0.6rem;
+    background-color: white;
+    border: 0.2rem solid #06AB78;
+    background-color: #06AB78;
+    border-radius: 100%;
+    position: relative;
+}
+
+.e-timeline-top-container {
+    background-color: white;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+}
+
+.e-timeline-top {
+    margin-bottom: 3rem;
+    position: fixed;
+    z-index: 1000;
+}
+
+.e-line {
+    width: 0.2rem;
+    height: 7.4rem;
+    background-color: #06AB78;
+}
+
+.e-line-separate {
+    height: 3rem;
+    width: 1px;
+    margin-left: -1px;
+    border-right: 0.1rem dashed #06AB78;
+}
+
+.e-timeline-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    background-color: #f3f3f3;
+    height: fit-content;
+    width: max-content;
+    margin-left: 2rem;
+    border-radius: 0.6rem;
+    padding: 0.6rem 2.6rem 0.7rem 1rem;
+    margin-bottom: 3rem;
+}
+
+.e-timeline-item-info-main {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    width: 100%;
+    font-weight: 600;
+}
+
+.e-timeline-item-info-icon {
+    height:4rem;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    margin-left: -0.3rem;
+}
+
+.e-timeline-card-flex2{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: fit-content;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.e-timeline-remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+

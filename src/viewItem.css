@@ -1,0 +1,493 @@
+.popup-item {
+    height: 40vh;
+    width: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 100;
+    animation: popUp 0.4s ease-in-out 1;
+}
+
+.cont {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 30px 18px 30px 18px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.vi-0 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vi-0-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vi-0-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter";
+    color: #454B54;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.progress_container {
+    width: 54%;
+    height: 8px;
+    border-radius: 6px;
+    background-color: #D9D9D9;
+    margin-top: 10px;
+    position: relative;
+}
+
+.progress_container_fill {
+    width: 0%;
+    height: 8px;
+    border-radius: 6px;
+    background-color: #78C6A3;
+    position: absolute;
+    transition: width 0.7s ease-in-out;
+}
+
+.vi-desc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #67707C;
+    font-family: "Inter";
+    font-size: 14px;
+    width: 74%;
+    margin-top: 14px;
+}
+
+.vi-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    position: relative;
+    z-index: 10;
+}
+
+.vi-1-item-container {
+    padding: 12px;
+    border: solid 2px #78C6A3;
+    border-radius: 8px;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.vi-1-abs {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 160px;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+}
+
+.triangle-top-left {
+    width: 0;
+    height: 0;
+    border-top: 105px solid #78C6A3;
+    border-right: 30px solid transparent;
+}
+
+.rectangle {
+    width: 40px;
+    height: 100%;
+    background-color: #78C6A3;
+}
+
+.vi-2-grid {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.vi-2-val {
+    color:#454B54;
+    font-weight: 700;
+    font-family: "Inter";
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.vi-2-subval {
+    color: #67707C;
+    font-weight: 500;
+    font-family: "Inter";
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.vi-img {
+    animation: idle 1.6s ease-in-out infinite;
+}
+
+@keyframes idle {
+    50%{
+        transform: translateY(8px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+
+.rarity-Common2 {
+    color: #6ec56b;
+    font-weight:500;
+    font-family: "Inter";
+}
+
+  .rarity-Rare2 {
+    color: #6488b4;
+    font-weight: 500;
+    font-family: "Inter";
+}
+
+  .rarity-Epic2 {
+    color: #a577c0;
+    font-weight: 500;
+    font-family: "Inter";
+}
+
+.vi-3 {
+    margin-top: 50px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.vi-3-abs {
+    position: absolute;
+    height: 40px;
+    width: 80px;
+}
+
+.vi-button-unactive {
+    background-color: #C5E2D5;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    color: #67707C;
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 18px;
+    width: 100%;
+    height: 56px;
+    cursor: pointer;
+}
+
+.vi-button-active {
+    background-color:#78C6A3;
+    color:#454B54;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 18px;
+    width: 100%;
+    height: 56px;
+    cursor: pointer;
+}
+
+.vi-button-loading {
+    background-color: white;
+    border: 2px solid #78C6A3;
+}
+
+.button-load {
+    height: 56px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    background-color: #78C6A3;
+    border-radius: 8px;
+    animation: load 5s ease-in-out 1;
+}
+
+@keyframes load {
+    0% {
+        width: 0%;
+    }
+    30% {
+        width: 40%;
+    }
+    50% {
+        width: 50%;
+    }
+    70% {
+        width: 65%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.vi-d {
+    font-family: "Inter";
+    font-size: 12px;
+    color: #78C6A3;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.vi-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    transition: opacity 1s ease-in-out;
+}
+
+.checkmark2 {
+    height: 100%;
+    width: 40px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+    animation: dash 2s ease-in-out;
+    -webkit-animation: dash 2s ease-in-out;
+  }
+  
+  .spin {
+    animation: spin 2s;
+    -webkit-animation: spin 2s;
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+  }
+
+  
+  @-webkit-keyframes dash {
+   0% {
+     stroke-dashoffset: 1000;
+   }
+   100% {
+     stroke-dashoffset: 0;
+   }
+  }
+  
+  @keyframes dash {
+   0% {
+     stroke-dashoffset: 1000;
+   }
+   100% {
+     stroke-dashoffset: 0;
+   }
+  }
+  
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  
+  @-webkit-keyframes text {
+    0% {
+      opacity: 0; }
+    100% {
+      opacity: 1;
+    }
+}
+    
+    @keyframes text {
+    0% {
+      opacity: 0; }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-15deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(15deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+  }
+
+.ref-cont {
+    height: 38vh;
+    width: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ref-anim {
+    animation: refine 5s ease-in-out 1;
+}
+
+@keyframes refine {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    15% {
+        transform: scale(1.4) rotate(-20deg);
+    }
+    30% {
+        transform: scale(2) rotate(20deg);
+    }
+    49% {
+        transform: scale(2) rotate(20deg);
+    }
+    50% {
+        transform: scale(2.5) rotate(-20deg);
+    }
+    70% {
+        transform: scale(2.5) rotate(-20deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    
+}
+
+.ref-0 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.ref-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter";
+    font-size: 32px;
+    color: #78C6A3;
+    font-weight: 600;
+    margin-bottom: 40px;
+    transition: opacity 1s ease-in-out;
+}
+
+.ref-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-in-out;
+    margin-bottom: 10px;
+}
+
+.ref-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #67707C;
+    font-family: "Inter";
+    font-size: 14px;
+    width: 74%;
+    margin-top: 44px;
+    transition: opacity 1s ease-in-out;
+}
+
+.showStats {
+    animation: translate 1s ease-in-out 1;
+}
+
+@keyframes translate {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-86px);
+    }
+}
+
+#ref-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.vi-3-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    animation: entryOpacity 0.7s ease-in-out 1;
+    width: 100%;
+}
+
+@keyframes entryOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.vi-3-title {
+    font-family: "Inter";
+    font-size: 20px;
+    color:#454B54;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bar {
+    height: 2px;
+    background-color: #d3d7dd;
+    width: 100%;
+    transition: opacity 1s ease-in-out;
+}

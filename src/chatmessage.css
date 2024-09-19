@@ -1,0 +1,140 @@
+.content_container_ai, .content_container_user {
+    width: 100%;
+    display: flex;
+    z-index: 0;
+}
+
+.content_container_ai {
+    justify-content: left;
+}
+
+.content_container_user {
+    justify-content: right;
+}
+
+.chat_message_container_ai, .chat_message_container_user {
+    padding: 14px 20px 14px 20px;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-family: "Inter";
+    font-size: 14px;
+    z-index: 0;
+}
+
+.chat_message_container_ai {
+    background-color: rgb(242, 242, 242);
+    margin: 6px 0px 6px 70px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.chat_message_container_user {
+    background-color: #78C6A3;
+    margin: 38px 50px 26px 0px;
+    border-radius: 8px;
+    color: white;
+}
+
+.ai_message_icon {
+    position: absolute;
+    border-radius: 100%;
+    border-color: #C7D7E2;
+    border-style: solid;
+    border-width: 1px;
+    left: -54px;
+    bottom: 10px;
+    padding: 6px;
+}
+
+.message_icon {
+    width: 30px;
+    display: block;
+}
+
+.time_sent {
+    position: absolute;
+    bottom: -20px;
+    font-size: 12px;
+    color:  #9c9c9c;
+}
+
+.start_chat {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    color: #78C6A3;
+    margin-bottom: 20px;
+}
+
+.end_chat_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 17.6%;
+}
+
+.end_chat_heading {
+    font-family: "Inter";
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.end_chat_subheading {
+    font-family: "Martel sans";
+    font-size: 16px;
+    font-weight: 500;
+    width: 280px;
+    display: flex;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.end_chat_buttons {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.end_chat_button {
+    padding: 16px 80px 16px 80px;
+    color: white;
+    background-color: #78C6A3;
+    border: none;
+    border-radius: 8px;
+    font-family: "Inter";
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-bottom: 14px;
+}
+
+.end_chat_button:hover {
+    background-color: #69b99e;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.go_back_button {
+    padding: 16px 80px 16px 80px;
+    background-color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: "Inter";
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #78C6A3;
+    height: 3.5rem;
+}
+
+.go_back_button:hover {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #78C6A3;
+    background-color: rgb(248, 248, 248);
+}

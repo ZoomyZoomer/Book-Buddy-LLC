@@ -1,0 +1,43 @@
+.customize_tab {
+    position: absolute;
+    top: 10%;
+    right: -60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 10px 0px 10px 30px;
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.customize_tab:hover {
+    transform: translateX(16px);
+    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.customize_tab_active {
+    position: absolute;
+    top: 10%;
+    right: -76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 10px 0px 10px 30px;
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.customize_tab_active:hover {
+    transform: translateX(-16px);
+    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.stickyNote {
+    height: 30px;
+}

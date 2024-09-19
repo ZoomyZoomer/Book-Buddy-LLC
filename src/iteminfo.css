@@ -1,0 +1,13 @@
+.item-info-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 4rem 3rem 4rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    z-index: 100;
+    font-size: 0.86rem;
+    min-width: 20rem;
+    animation: Popup 0.5s ease-in-out;
+}

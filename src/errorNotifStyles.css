@@ -1,0 +1,58 @@
+.error-notif-container {
+    position: absolute;
+    right: 0rem;
+    top: 12%;
+    background-color: #06AB78;
+    border-radius: 0.8rem;
+    border: 1px solid #029676;
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+    border-right: none;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    color: white;
+    animation: error-notif 0.3s ease-in-out 1;
+    z-index: 999;
+}
+
+@keyframes error-notif {
+    0%{
+        transform: translateX(10rem);
+    }
+    100% {
+        transform: translateX(0rem);
+    }
+}
+
+.enc-0 {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.enc-1 {
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-top: 0.1rem;
+}
+
+.enc-bar {
+    background-color: white;
+    margin-top: 1rem;
+    height: 0.15rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    animation: enc-bar 3.5s ease-in-out 1
+}
+
+@keyframes enc-bar {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+

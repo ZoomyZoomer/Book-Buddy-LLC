@@ -1,0 +1,118 @@
+.book-info-popup {
+    position: absolute;
+    display: flex;
+    background-color: white;
+    border-radius: 0.5rem;
+    z-index: 100;
+    font-size: 1.1rem;
+    height: 60%;
+    width: 34rem;
+    padding: 2rem;
+    padding-top: 0rem;
+    animation: Popup 0.5s ease-in-out;
+    overflow: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+.book-info-popup::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.book-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    font-size: 1rem
+}
+
+.book-info-main {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    position: fixed;
+    background-color: white;
+    width: 34rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    transition: padding 0.3s ease-in-out;
+}
+
+.bi-0 {
+    font-size: 1.4em;
+    font-weight: 600;
+    position: relative;
+    color: #06AB78;
+}
+
+.bi-1 {
+    margin-top: 0.1rem;
+    color: #67707C;
+}
+
+.summary-contents {
+    margin-top: 5rem;
+}
+
+.sum {
+    margin-top: 1rem;
+    color: #67707C;
+    font-size: 0.9em;
+    font-weight: 400;
+}
+
+.bi-sep {
+    height: 1px;
+    width: 100%;
+    background-color: #d6d6d6;
+    margin-top: 2rem;
+}
+
+.details-contents {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: left;
+    align-items: left;
+    padding-bottom: 2rem;
+}
+
+.detail-entry {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    margin-top: 1.5rem;
+}
+
+.dc-0 {
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.dc-1 {
+    font-size: 0.875em;
+    margin-top: 0.3rem;
+    color: #67707C;
+    font-weight: 500;
+}
+
+.scrolling {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    transition: padding 0.3s ease-in-out;
+}
+
+.book-info-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 100%;
+}
+
+.book-info-close:hover {
+    display: flex;
+    cursor: pointer;
+    background-color: #D9D9D9;
+}

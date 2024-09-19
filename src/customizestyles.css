@@ -1,0 +1,291 @@
+.customize-popup {
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 100;
+    animation: popUp 0.4s ease-in-out 1;
+    background-color: white;
+    border-radius: 0.6rem;
+    padding: 1.5rem 2rem 4rem 2rem;
+}
+
+.customize-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.bookitem_container_preview {
+    background-color: rgb(254, 254, 254);
+    width: 25.5rem;
+    height: 11.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 20px 40px 20px 20px;
+    border-radius: 16px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    z-index: 2;
+    backface-visibility: hidden;
+    box-sizing: border-box;
+    border: 2px solid #DFE1E5;
+}
+
+.customize-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    width: 100%;
+    font-size: 1.6rem;
+    margin-bottom: 3rem;
+    font-weight: 500;
+    color:#06AB78;
+}
+
+.ccc-buttons {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.ccc-clear {
+    border: 1px solid #DFE1E5;
+    background-color: #F7F7F7;
+    cursor: pointer;
+    padding: 0.5rem 2.7rem 0.5rem 2.7rem;
+    font-size: 1rem;
+    font-family: "Inter";
+    font-weight: 500;
+    border-radius: 0.3rem;
+    color: #454B54;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.ccc-clear:hover {
+    background-color: #ececec;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.ccc-save {
+    background-color: #88D4AB;
+    border: 1px solid #88D4AB;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 2.7rem 0.5rem 2.7rem;
+    font-size: 1rem;
+    font-family: "Inter";
+    font-weight: 500;
+    border-radius: 0.3rem;
+    color: #454B54;
+    margin-left: 2rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.ccc-save:hover {
+    background-color: #6aca97;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.ccc-save:active {
+    background-color: #4bb87e;
+}
+
+
+.customize-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    padding: 0.1rem;
+    border-radius: 100%;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.customize-close:hover {
+    background-color: rgb(230, 230, 230);
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.ch-0 {
+    font-size: 0.9rem;
+    color: #5A5A5A;
+    font-weight: 400;
+}
+
+.customize-0 {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.customize-1 {
+    font-size: 1.2em;
+    color: #06AB78;
+    font-weight: 500;
+}
+
+.customize-2 {
+    font-size: 0.9em;
+    color: #06AB78;
+    font-weight: 500;
+}
+
+.customize-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    width: 100%;
+}
+
+.cg-0 {
+    display: flex;
+    font-size: 0.75em;
+    color: #5A5A5A;
+    margin-top: 0.8125rem;
+    margin-left: 0.1rem;
+}
+
+.customize-flex {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+
+.customize-choose-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 4rem;
+    margin-top: -1rem;
+    position: relative;
+}
+
+.customize-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    width: 100%;
+}
+
+.ccc-0 {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.ccc-input {
+    height: 1.6rem;
+    background-color: #F7F7F7;
+    border: 1px solid #DFE1E5;
+    border-radius: 0.8rem;
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+    font-size: 0.8125em;
+    font-weight: 500;
+    display: flex;
+    position: relative;
+    padding: 0 4rem 0 0;
+}
+
+.ccc-input:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.ccc-input-container {
+    display: flex;
+    justify-self: left;
+    align-items: center;
+    margin-left: 0.8rem;
+    width: 20rem;
+}
+
+.ccc-input-container2 {
+    display: flex;
+    justify-self: left;
+    align-items: center;
+    padding: 0.2rem 0 0.2rem 0;
+    width: 100%;
+}
+
+.ccc-input-container2:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+.top-sticker-absolute {
+    position: absolute;
+    display: flex;
+    bottom: 100%;
+    left: 2%;
+}
+
+.top-sticker-img {
+    height: 2.6rem;
+}
+
+.bottom-sticker-absolute {
+    position: absolute;
+    display: flex;
+    top: 80%;
+    left: 70%;
+}
+
+.bottom-sticker-img {
+    height: 2.6rem;
+    z-index: 10;
+}
+
+.ccc-triangle {
+    display: flex;
+    position: absolute;
+    right: 0.8125rem;
+    margin: 0;
+}
+
+.ccc-input-dropdown {
+    position: absolute;
+    top: 103%;
+    width: 100%;
+    height: fit-content;
+    padding: 0.5rem 0 0.5rem 0;
+    background-color: white;
+    animation: ccc-dropdown 0.3s ease-in-out 1;
+    box-shadow: -4px 4px 6px #e9e9e9;
+    border-radius: 0.3rem;
+}
+
+@keyframes ccc-dropdown {
+    0%{
+        padding: 0;
+    }
+    100% {
+        padding: 0.5rem 0 0.5rem 0;
+    }
+}
+
+.tlg-0 {
+    margin-left: 0.4rem;
+}
