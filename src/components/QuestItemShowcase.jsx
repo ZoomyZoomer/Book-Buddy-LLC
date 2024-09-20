@@ -12,7 +12,7 @@ const QuestItemShowcase = ({quest, index}) => {
     }
 
 return (
-    <div className='quest-item-container' onClick={() => handleClaim()}>
+    <div className='quest-item-container2' onClick={() => handleClaim()}>
 
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', alignItems: 'center', width: '75%'}}>
             <div className='qi-0'>

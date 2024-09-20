@@ -478,6 +478,7 @@
     width: fit-content;
     position: relative;
     transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    z-index: 10;
 }
 
 .library-book-container:hover {
@@ -505,6 +506,14 @@
     border: 1px solid #454B54;
 }
 
+.sticker0y-abs {
+    position: absolute;
+    height: 2.6rem;
+    display: flex;
+    bottom: 95%;
+    z-index: 0;
+}
+
 .sticker0z-abs {
     position: absolute;
     height: 2.6rem;
@@ -519,9 +528,18 @@
     bottom: 100%;
 }
 
+.sticker1y-abs {
+    position: absolute;
+    height: 2.6rem;
+    display: flex;
+    top: 68%;
+    left: 63%;
+    z-index: 404; 
+}
+
 .sticker1z-abs {
     position: absolute;
-    height: 3.6rem;
+    height: 2.6rem;
     display: flex;
     top: 65%;
     left: 60%;
@@ -532,7 +550,7 @@
     position: absolute;
     height: 2.6rem;
     display: flex;
-    top: 80%;
+    top: 70%;
     left: 70%;
     z-index: 404;
 }

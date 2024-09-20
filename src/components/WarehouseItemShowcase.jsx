@@ -25,7 +25,9 @@ const WarehouseItemShowcase = ({item, key, index, availSpaces, setWarehouse, war
     }
     timerRef.current = setTimeout(() => {
       setIsHeld(false);
-      modifyEntry(index[0], index[1], 0);
+      if (item !== 0 && availSpaces?.some(subArr => subArr[0] === index[0] && subArr[1] === index[1])){
+        modifyEntry(index[0], index[1], 0);
+      }
       // You can add additional actions here when the div is held for 2 seconds
     }, 1000);
   };

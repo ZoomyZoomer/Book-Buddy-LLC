@@ -240,7 +240,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                                 {activeStickers.find(sticker => sticker.location == 0) && (
                                     <img 
                                         src={`/${activeStickers.find(sticker => sticker.location == 0).sticker_name}-i.png`}
-                                        className={activeStickers.find(sticker => sticker.location == 0).sticker_id == '7' ? 'sticker0z-abs' : 'sticker0-abs'}
+                                        className={activeStickers.find(sticker => sticker.location == 0).sticker_id == ('7') ? 'sticker0z-abs' : 'sticker0-abs'}
                                     />
                                 )}
                                 {activeStickers.find(sticker => sticker.location == 1) && (

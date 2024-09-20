@@ -1,6 +1,5 @@
 .landing-page-bg {
     background-color: #F8F8F8;
-    height: 300%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -287,6 +286,14 @@
     margin-top: 3rem;
     color: #3F3F3F;
     font-size: 0.9rem;
+}
+
+.loot-seg2 {
+    height: 1px;
+    width: 28%;
+    background-color: #cecece;
+    margin-right: 0.7rem;
+    margin-left: 0.7rem; 
 }
 
 .loot-seg {
@@ -659,9 +666,19 @@
 
 .explore-container {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     margin-top: 6rem;
+    width: 66rem;
+}
+
+
+.explore-container2 {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 6rem;
+    width: 66rem;
 }
 
 .warehouse-item2-hidden {
@@ -736,7 +753,6 @@
     justify-content: center;
     font-size: 1rem;
     font-weight: 500;
-    margin-left: 3rem;
 }
 
 .explore-0 {
@@ -794,10 +810,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: left;
-    width: fit-content;
+    width: 26rem;
     border: 1px solid #8c8e92;
     border-radius: 0.4rem;
     padding: 1rem;
+    background-color: #FCFCFC;
     box-shadow: 0px 0px 10px rgb(201, 201, 201);
 }
 
@@ -807,7 +824,8 @@
     justify-content: center;
     align-items: left;
     width: 50%;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 1.1rem;
     color: #06AB78;
 }
 
@@ -837,8 +855,240 @@
     padding: 0.3rem 0.45rem 0.3rem 0.45rem;
     height: fit-content;
     color: #454B54;
-    font-size: 0.9rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
     border-radius: 0.8rem;
     background-color: #ebebeb;
     border: 1px solid #d5d5d5;
+}
+
+.quest-item-container2 {
+    width: 92%;
+    height: fit-content;
+    padding: 4%;
+    border-radius: 0.8rem;
+    border: 1px solid #DFE1E5;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.quest-item-container2:hover {
+    background-color: #fafafa;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.landing-sticker-container {
+    background-color: #FCFCFC;
+    border: 1px solid #8c8e92;
+    border-radius: 0.4rem;
+    padding: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    box-shadow: 0px 0px 10px rgb(201, 201, 201);
+    width: 26rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+}
+
+.landing-sticker-item-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 18% 18% 18% 18% 18%;
+    column-gap: 0.4rem;
+    row-gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.landing-sticker-item-null {
+    padding: 0.4rem;
+    border: 1px solid #b6b8bb;
+    border-radius: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    background-color: #e6e6e6;
+    cursor: not-allowed;
+}
+
+.landing-sticker-item {
+    padding: 0.4rem;
+    border: 1px solid #b6b8bb;
+    border-radius: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.landing-sticker-item:hover {
+    cursor: pointer;
+    background-color: rgb(241, 241, 241);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.landing-sticker-active {
+    padding: 0.4rem;
+    background-color: rgb(194, 233, 212);
+    border: 1px solid #06AB78;
+    border-radius: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out
+}
+
+.landing-sticker-active:hover {
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.landing-sec4 {
+    margin-top: 6rem;
+}
+
+.questions-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.questions-seg {
+    height: 1px;
+    width: 100%;
+    background-color: rgb(180, 180, 180);
+}
+
+.questions-question {
+    color: #454B54;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    margin-top: 1.4rem;
+    margin-bottom: 1.4rem;
+    position: relative;
+}
+
+.question-dropdown {
+    position: absolute;
+    right: 103%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem;
+    border-radius: 0.4rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.question-dropdown:hover {
+    cursor: pointer;
+    background-color: rgb(231, 231, 231);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.answer {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    height: 4rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    animation: show-answer 0.7s ease-in-out 1;
+    overflow: hidden;
+}
+
+@keyframes show-answer {
+    0% {
+        height: 0rem;
+    }
+    100% {
+        height: 4rem;
+    }
+}
+
+.landing-contact-container {
+    border: 1px solid #b6b8bb;
+    padding: 1rem 3rem 2rem 3rem;
+    padding-top: 2rem;
+    border-radius: 0.8rem;
+    background-color: #FCFCFC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25rem;
+    font-size: 1rem;
+}
+
+.contact-circle {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 100%;
+    background-color: #A6D8C2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.contact-0 {
+    color: #454B54;
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+.contact-1 {
+    color: #989898;
+    font-size: 0.9em;
+    font-weight: 400;
+    margin-top: 0.4rem;
+}
+
+.footer-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.fg0 {
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.fg1 {
+    font-size: 0.8125em;
+    margin-top: 0.4rem;
+    padding-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-icon {
+    padding: 0.2rem;
+    border-radius: 0.4rem;
+    transition: background-color 0.3s ease-in-out;
+    margin-right: 0.2rem;
+}
+
+.footer-icon:hover {
+    cursor: pointer;
+    background-color: rgb(212, 212, 212);
+    transition: background-color 0.3s ease-in-out;
 }
