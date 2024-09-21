@@ -447,6 +447,13 @@ const stickerMap = [
                   ))}
                 </div>
               ))}
+                <div className='warehouse-info-arrow'>
+                  <div className='warehouse-arrow-flip'><Arrow /></div>
+                  <div>Hold-Click to remove <strong>visible</strong> debris</div>
+                </div>
+                <div className='warehouse-info-sub'>
+                  *Destroy debris to uncover hidden secrets
+                </div>
               </div>
               <div className='explore-grid' style={{marginLeft: '7rem'}}>
                 <div className='explore-0'>Side Quests</div>
@@ -495,6 +502,12 @@ const stickerMap = [
             <QuestItemShowcase index={0} quest={{title: 'A New Day', quest: 'Read 50 pages', quantity_required: 50}}/>
             <QuestItemShowcase index={1} quest={{title: 'Merchant', quest: 'Buy something from the Market', quantity_required: 1}}/>
             <QuestItemShowcase index={2} quest={{title: 'Something New', quest: 'Add a book to your library', quantity_required: 1}}/>
+          
+            <div className='landing-quest-arrow'>
+              <div>Claim your completed quests!</div>
+              <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.5rem'}}><Arrow /></div>
+            </div>     
+                    
           </div>
 
           </div>
@@ -512,6 +525,9 @@ const stickerMap = [
                 {stickerMap.map((sticker) => (
                   <StickerItemShowcase sticker={sticker} stickers={stickers} setStickers={setStickers}/>
                 ))}
+              </div>
+              <div className='warehouse-info-sub'>
+                  *Grayed out stickers indicate conflicting position
               </div>
             </div>
             <div className='explore-grid' style={{marginLeft: '7rem'}}>

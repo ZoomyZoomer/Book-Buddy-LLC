@@ -907,6 +907,9 @@
     box-shadow: 0px 0px 10px rgb(201, 201, 201);
     position: relative;
     z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .explore-circle {
@@ -1006,6 +1009,7 @@
     padding: 1rem;
     background-color: #FCFCFC;
     box-shadow: 0px 0px 10px rgb(201, 201, 201);
+    position: relative;
 }
 
 .landing-quest-header0 {
@@ -1284,4 +1288,121 @@
     cursor: pointer;
     background-color: rgb(212, 212, 212);
     transition: background-color 0.3s ease-in-out;
+}
+
+.warehouse-info-arrow {
+    position: absolute;
+    display: flex;
+    z-index: 100;
+    bottom: 106%;
+    left: 45%;
+    font-size: 0.8125rem;
+    width: 18rem;
+}
+
+.warehouse-arrow-flip {
+    transform: scaleX(-1);
+    margin-right: 0.5rem;
+}
+
+.warehouse-info-sub {
+    position: absolute;
+    top: 105%;
+    left: 1%;
+    font-size: 0.8125rem;
+    color: #06AB78;
+}
+
+.warehouse-item2-loot {
+    height: 5.2rem;
+    width: 5.2rem;
+    border-radius: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 20;
+    background-color: #78C6A3;
+    border: 1px solid #068f63;
+    position: relative;
+}
+
+.warehouse-item2-loot:hover {
+    cursor: pointer;
+    background-color: #52a490;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 101;
+}
+
+.warehouse-img-loot {
+    animation: img-loot-dance 1s ease-in-out infinite;
+}
+
+@keyframes img-loot-dance {
+    0% {
+        transform: rotate(0deg);
+    }
+    30% {
+        transform: rotate(10deg);
+    }
+    70% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.landing-unbox {
+    animation: landing-unbox 2s ease-in-out 1;
+}
+
+@keyframes landing-unbox {
+    0% {
+        transform: translateY(0rem) rotate(0deg);
+    }
+    10% {
+        transform:  rotate(-10deg);
+    }
+    20% {
+        transform:  rotate(10deg);
+    }
+    30% {
+        transform:  rotate(-10deg)
+    }
+    45% {
+        transform: translateY(-1rem) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-1rem) rotate(0deg);
+    }
+    100% { 
+        transform: translateY(0rem) rotate(0deg);
+    }
+    
+}
+
+.landing-quest-arrow {
+    position: absolute;
+    bottom: 105%;
+    right: 0%;
+    font-size: 0.8125rem;
+    width: 18rem;
+    display: flex;
+}
+
+.warehouse-debris-avail {
+    animation: avail-debris 2s ease-in-out infinite;
+}
+
+@keyframes avail-debris {
+    0% {
+        transform: scale(0.95);
+    }
+    60% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(0.95);
+    }
 }

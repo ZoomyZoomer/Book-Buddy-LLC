@@ -6,6 +6,18 @@ const WarehouseItemShowcase = ({item, key, index, availSpaces, setWarehouse, war
   const [isHeld, setIsHeld] = useState(false);
   const timerRef = useRef(null);
 
+  const audioRefDestroy = useRef(null);
+    const playAudioRefDestroy = () => {
+        audioRefDestroy.current.volume = 0.07;
+        audioRefDestroy.current.play();
+  };
+
+  const audioRefPop = useRef(null);
+  const playAudioRefPop = () => {
+    audioRefPop.current.volume = 0.1;
+    audioRefPop.current.play();
+  };
+
   const modifyEntry = (rowIndex, colIndex, newValue) => {
     // Create a copy of the availableSpaces array
     const updatedSpaces = warehouse.map((row, rIndex) => 
@@ -26,6 +38,11 @@ const WarehouseItemShowcase = ({item, key, index, availSpaces, setWarehouse, war
     timerRef.current = setTimeout(() => {
       setIsHeld(false);
       if (item !== 0 && availSpaces?.some(subArr => subArr[0] === index[0] && subArr[1] === index[1])){
+        if (item !== 7){
+          playAudioRefDestroy();
+        } else {
+          playAudioRefPop();
+        }
         modifyEntry(index[0], index[1], 0);
       }
       // You can add additional actions here when the div is held for 2 seconds
@@ -62,11 +79,13 @@ const WarehouseItemShowcase = ({item, key, index, availSpaces, setWarehouse, war
 ])
 
   return (
-    <div className={availSpaces?.some(subArr => subArr[0] === index[0] && subArr[1] === index[1]) ? 'warehouse-item2' : item === 0 ? 'warehouse-empty' : 'warehouse-item2-hidden'} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onMouseLeave={handleMouseLeave}>
+    <div className={availSpaces?.some(subArr => subArr[0] === index[0] && subArr[1] === index[1]) ? (item === 7 ? 'warehouse-item2-loot' : 'warehouse-item2') : item === 0 ? 'warehouse-empty' : 'warehouse-item2-hidden'} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onMouseLeave={handleMouseLeave}>
       {item !== 0 && item !== 3 && (
-        <img src={`/${warehouseMap.get(item)?.display}.png`} style={{height: '3.2em', zIndex: '2'}}/>
+        <img src={`/${warehouseMap.get(item)?.display}.png`} style={{height: '3.2em', zIndex: '2'}} className={(availSpaces?.some(subArr => subArr[0] === index[0] && subArr[1] === index[1])) ? (item === 7 ? 'warehouse-img-loot' : 'warehouse-debris-avail') : ''}/>
       )}
       {isHeld && <div className='avail-active'/>}
+      <audio ref={audioRefDestroy} src="/destroy.wav" />
+      <audio ref={audioRefPop} src="/pop.mp3" />
     </div>
   )
 }

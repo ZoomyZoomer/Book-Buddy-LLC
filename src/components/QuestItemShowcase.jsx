@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const QuestItemShowcase = ({quest, index}) => {
 
@@ -7,12 +7,28 @@ const QuestItemShowcase = ({quest, index}) => {
 
     const handleClaim = () => {
         if (!questClaimed){
-            setQuestClaimed(true);
+            const elem = document.getElementById(`landing-quest-${index}`);
+            elem.classList.remove('claim-quest-item');
+            elem.classList.add('landing-unbox');
+
+            setTimeout(() => {
+                playAudioRefPop();
+                setQuestClaimed(true);
+            }, 900)
+
         }
     }
 
+    const audioRefPop = useRef(null);
+    const playAudioRefPop = () => {
+        audioRefPop.current.volume = 0.1;
+        audioRefPop.current.play();
+    };
+
 return (
     <div className='quest-item-container2' onClick={() => handleClaim()}>
+
+        <audio ref={audioRefPop} src="/pop.mp3" />
 
         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', alignItems: 'center', width: '75%'}}>
             <div className='qi-0'>
@@ -31,7 +47,7 @@ return (
 
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '25%'}}>
             <div className={`${(quest.quantity_required / quest.quantity_required) >= 1 ? 'claim-quest-item-background' : 'quest-item-background'}`} style={{marginLeft: '10%'}}>
-                <img src={questClaimed ? '/package_opened.png' : '/package_icon.png'} style={{height: '3rem', marginTop: '0.2rem'}} draggable='false' className={`${(quest.quantity_required / quest.quantity_required) >= 1 && !questClaimed ? 'claim-quest-item' : ''}`}/>
+                <img id={`landing-quest-${index}`} src={questClaimed ? '/package_opened.png' : '/package_icon.png'} style={{height: '3rem', marginTop: '0.2rem'}} draggable='false' className={`${(quest.quantity_required / quest.quantity_required) >= 1 && !questClaimed ? 'claim-quest-item' : ''}`}/>
             </div>
         </div>
 

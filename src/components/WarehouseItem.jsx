@@ -36,7 +36,6 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
         audioRefDestroy.current.volume = 0.07;
         audioRefDestroy.current.play();
     };
-
     
     const removeItem = async() => {
 
