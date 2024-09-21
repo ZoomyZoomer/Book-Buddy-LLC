@@ -254,7 +254,12 @@ const stickerMap = [
 
         <div className='hero-section'>
 
-            <div className='hero-grid'>
+            <div className='hero-grid' style={{position: 'relative'}}>
+
+            <div className='hero-circle-0'/>
+            <div className='hero-circle-1'/>
+            <div className='hero-circle-2'/>
+            <div className='hero-circle-3'/>
                 <div className='hero-title'>
                   Make Your Reading Habits Feel More Like a <a className='hero-flip'>Quest <div className='hero-flip-line'/></a>
                 </div>
@@ -296,10 +301,16 @@ const stickerMap = [
                 </div>
                 <div className='lootanditems-cont'>
                   {itemsMap.map((item, index) => (
-                    <StorageItemShowcase file={item} index={index} myCt={myCt}/>
+                    <StorageItemShowcase file={item} index={index} myCt={myCt} itemsMap={itemsMap}/>
                   ))}
                   {itemsMap.length === 0 && (
-                    <StorageItemShowcase file={{img: 'no_file'}}/>
+                    <>
+                      <StorageItemShowcase file={{img: 'no_file'}}/>
+                      <StorageItemShowcase file={{img: 'no_file'}}/>
+                      <StorageItemShowcase file={{img: 'no_file'}}/>
+                      <StorageItemShowcase file={{img: 'no_file'}}/>
+                      <StorageItemShowcase file={{img: 'no_file'}}/>
+                    </>
                   )}
                 </div>
             </div>
@@ -307,8 +318,29 @@ const stickerMap = [
         </div>
 
         <div className='landing-sec2'>
+          <div className='landing-sec2-bg'/>
+          <div className='lsb-0'>
+            <div className='lsb-0-circle'>
+              <img className='lsb-0-img' src='/book_stack.png'/>
+            </div>   
+          </div>
+          <div className='lsb-1'>
+            <div className='lsb-1-circle'>
+              <img className='lsb-1-img' src='/file_4.png'/>
+            </div> 
+          </div>
+          <div className='lsb-2'>
+            <div className='lsb-0-circle'>
+              <img className='lsb-0-img' src='/basket2.png' style={{transform: 'rotate(15deg)'}}/>
+            </div>
+          </div>
+          <div className='lsb-3'>
+            <div className='lsb-1-circle'>
+              <img className='lsb-1-img' src='/coin.png' style={{transform: 'rotate(-15deg)'}}/>
+            </div> 
+          </div>
           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: 'fit-content'}}>
-            <div className='hero-title2'>Reading Trackers Don't Have to be Boring</div>
+            <div className='hero-title2' style={{color: 'white'}}>Reading Trackers Don't Have to be Boring</div>
             {isScrolled && (<div className='hero-title-underline'/>)}
             <div className='hero-sub'>Make the action of tracking your reads interactive and fun!</div>
           </div>
@@ -403,7 +435,7 @@ const stickerMap = [
           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: 'fit-content'}}>
             <div className='hero-title2'>Explore Unique Content</div>
             {isScrolled && (<div className='hero-title-underline'/>)}
-            <div className='hero-sub'>There’s always something to do!</div>
+            <div className='hero-sub' style={{color: '#454b54'}}>There’s always something to do!</div>
           </div>
 
           <div className='explore-container'>
@@ -416,7 +448,7 @@ const stickerMap = [
                 </div>
               ))}
               </div>
-              <div className='explore-grid' style={{marginLeft: '3rem'}}>
+              <div className='explore-grid' style={{marginLeft: '7rem'}}>
                 <div className='explore-0'>Side Quests</div>
                 <div className='explore-1'>Tidy Up The Warehouse</div>
                 <div className='explore-2'>Clear the debris in the warehouse and make space for your files so they can accrue dust over time. Files are an important currency for purchasing items.
@@ -428,6 +460,7 @@ const stickerMap = [
                   <div className='live-cleared'><strong>72</strong> tiles cleared by users this week</div>
                 </div>
                 </div>
+                <div className='explore-circle'/>
               </div>
           </div>
 
@@ -444,6 +477,7 @@ const stickerMap = [
                   <div className='live-cleared'><strong>104</strong> quests completed by users this week</div>
                 </div>
             </div>
+            <div className='explore-circle2'/>
           </div>
           <div className='landing-quest-container'>
             <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', marginBottom: '1rem'}}>
@@ -480,7 +514,7 @@ const stickerMap = [
                 ))}
               </div>
             </div>
-            <div className='explore-grid' style={{marginLeft: '3rem'}}>
+            <div className='explore-grid' style={{marginLeft: '7rem'}}>
             <div className='explore-0'>Decorations</div>
                 <div className='explore-1'>Decorate Your Books</div>
                 <div className='explore-2'>Unlock stickers from packages, random drops, or market purchases to decorate your books with! Currently there are 6 sticker sets available, with each set containing 2 unique matching stickers.
@@ -492,6 +526,7 @@ const stickerMap = [
                   <div className='live-cleared'><strong>14</strong> stickers unlocked by users this week</div>
                 </div>
             </div>
+            <div className='explore-circle'/>
           </div>
           </div>
 
@@ -577,7 +612,7 @@ const stickerMap = [
                 <img src='/email_open.png' style={{height: '4rem'}}/>
               </div>
               <div className='contact-0'>Still Have Questions?</div>
-              <div className='contact-1'>If you have questions not covered by the FAQ or feature requests, contact <a>bookbuddysupport@gmail.com</a> or click the button below!</div>
+              <div className='contact-1'>If you have questions not covered by the FAQ or you have feature requests, contact <a>bookbuddysupport@gmail.com</a> or click the button below!</div>
               <div style={{display: 'flex', justifyContent: 'center', alignContent: 'center', width: '100%', marginTop: '1.5rem'}}><button className='landing-button2'><a style={{textDecoration: 'none', color: 'inherit'}} href="mailto:bookbuddysupport@gmail.com">CONTACT US</a></button></div>
           </div>
         </div>
