@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
 import '../landingpage.css'
 import MarketItemShowcase from '../components/MarketItemShowcase'
 import StorageItemShowcase from '../components/StorageItemShowcase';
@@ -17,6 +18,7 @@ import LibraryBookShowcase from '../components/LibraryBookShowcase';
 import WarehouseItemShowcase from '../components/WarehouseItemShowcase';
 import QuestItemShowcase from '../components/QuestItemShowcase';
 import StickerItemShowcase from '../components/StickerItemShowcase';
+import axios from 'axios';
 
 function LandingPage() {
 
@@ -34,6 +36,7 @@ function LandingPage() {
   const [isScrolled2, setIsScrolled2] = useState(false);
   const [availSpaces, setAvailSpaces] = useState();
   const [stickers, setStickers] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const [question1, setQuestion1] = useState(false);
   const [question2, setQuestion2] = useState(false);
@@ -41,6 +44,8 @@ function LandingPage() {
   const [question4, setQuestion4] = useState(false);
   const [question5, setQuestion5] = useState(false);
   const [question6, setQuestion6] = useState(false);
+
+  const navigate = useNavigate('/');
 
   const audioRefTorch = useRef(null);
   const audioRefCheck = useRef(null);
@@ -146,6 +151,25 @@ const stickerMap = [
 
   }, [reFetchItem])
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/profile', {
+          withCredentials: true,
+        });
+
+        if (response.data.user){
+            setLoggedIn(true);
+        }
+        
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
   const lightTorch = () => {
     if (!streakClaimed){
       setMiniFire(true);
@@ -244,6 +268,43 @@ const stickerMap = [
     };
   }, []);
 
+  const [cycleText, setCycleText] = useState('Quest');
+  const [cycleCount, setCycleCount] = useState(0);
+
+  useEffect(() => {
+
+      setTimeout(() => {
+        const elem = document.getElementsByClassName('cycle-text')[0];
+        elem?.classList?.remove('hero-flip-in-anim');
+        elem?.classList?.add('hero-flip-out-anim');
+        setTimeout(() => {
+          setCycleText('Game');
+          elem?.classList?.remove('hero-flip-out-anim');
+          elem?.classList?.add('hero-flip-in-anim');
+          setTimeout(() => {
+            elem?.classList?.remove('hero-flip-in-anim');
+            elem?.classList?.add('hero-flip-out-anim');
+            setTimeout(() => {
+              setCycleText('Journey');
+              elem?.classList?.remove('hero-flip-out-anim');
+              elem?.classList?.add('hero-flip-in-anim');
+              setTimeout(() => {
+                elem?.classList?.remove('hero-flip-in-anim');
+                elem?.classList?.add('hero-flip-out-anim');
+                setTimeout(() => {
+                  setCycleText('Quest');
+                  elem?.classList?.remove('hero-flip-out-anim');
+                  elem?.classList?.add('hero-flip-in-anim');
+                  setCycleCount(prev => prev + 1);
+                }, 680)
+              }, 2000)
+            }, 680)
+          }, 2000)
+        }, 680);
+      }, 2000)
+
+  }, [cycleCount])
+
   return (
     <div className='landing-page-bg'>
 
@@ -261,7 +322,7 @@ const stickerMap = [
             <div className='hero-circle-2'/>
             <div className='hero-circle-3'/>
                 <div className='hero-title'>
-                  Make Your Reading Habits Feel More Like a <a className='hero-flip'>Quest <div className='hero-flip-line'/></a>
+                  Make Your Reading Habits Feel More Like a <a className='hero-flip'><span className='cycle-text hero-flip-in-anim'>{cycleText}</span><div className='hero-flip-line'/></a>
                 </div>
                 <div className='hero-desc'>
                   Make reading feel rewarding with milestones, collectibles, and stickers for your books!
@@ -269,21 +330,20 @@ const stickerMap = [
                 <div className='hero-buttons-container'>
                   <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: 'fit-content'}}>
                       <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                      <div className='hero-create-acc-button'></div>
-                      <div className='hero-create-acc-text'>START YOUR QUEST</div>
                         <div className='create-acc-circle'>
-                          <img src='/map.png' style={{height: '65%', zIndex: '50'}} className='heromap'/>
+                          <img src='/map.png' style={{height: '60%', zIndex: '50'}} className='heromap'/>
                         </div>
+                        <div className='start-your-quest' onClick={() => navigate('/register')}>START YOUR QUEST</div>
                       </div>
                   </div>
-                  <div className='hero-have-acc'>
+                  <div className='hero-have-acc' onClick={() => {!loggedIn ? navigate('/signin') : navigate('/library')}}>
                     I HAVE AN ACCOUNT
                   </div>
                 </div>
 
             </div>
 
-            <div className='hero-grid'>
+            <div id='itemstuff' className='hero-gridX'>
                 <div className='hero-item-container'>
                   <MarketItemShowcase market={market} type={1} coupon={true} setReFetchItem={setReFetchItem}/>
                   <div id='bg0' className='hero-item-bg0'/>
@@ -295,7 +355,7 @@ const stickerMap = [
                 </div>
                 <div className='lootanditems'>
                   <div className='loot-seg'/>
-                  <div style={{display: 'flex'}}>Loot & Items</div>
+                  <div className='lai-text' style={{display: 'flex'}}>Loot & Items</div>
                   <div style={{display: 'flex'}}><Arrow2 /></div>
                   <div className='loot-seg'/>
                 </div>
@@ -318,7 +378,6 @@ const stickerMap = [
         </div>
 
         <div className='landing-sec2'>
-          <div className='landing-sec2-bg'/>
           <div className='lsb-0'>
             <div className='lsb-0-circle'>
               <img className='lsb-0-img' src='/book_stack.png'/>
@@ -375,7 +434,7 @@ const stickerMap = [
                 <button className={!entrySent ? 'landing-button' : 'landing-button-sent'} onClick={() => handleSend()}>{!entrySent ? 'CREATE ENTRY' : 'SUCCESSFULLY SENT'}</button>
                 </div>
             </div>
-            <div style={{margin: '0 0.5rem 0 1.4rem'}}>{entrySent ? <ProgressArrow /> : <ProgressArrow2 />}</div>
+            <div className='land-arr' style={{margin: '0 0.5rem 0 1.4rem'}}>{entrySent ? <ProgressArrow /> : <ProgressArrow2 />}</div>
             <div className='step-box'>
                 <div className='step-text'>Step 2</div>
                 <div className='step-cont'>
@@ -393,7 +452,7 @@ const stickerMap = [
                   </div>
                 </div>
             </div>
-            <div style={{margin: '0 0.5rem 0 1.4rem'}}>{entrySent ? <ProgressArrow /> : <ProgressArrow2 />}</div>
+            <div className='land-arr' style={{margin: '0 0.5rem 0 1.4rem'}}>{entrySent ? <ProgressArrow /> : <ProgressArrow2 />}</div>
             <div className='step-box'>
                 <div className='step-text'>Step 3</div>
                 <div className='step-cont'>
@@ -433,8 +492,7 @@ const stickerMap = [
 
         <div className='landing-sec3'>
           <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: 'fit-content'}}>
-            <div className='hero-title2'>Explore Unique Content</div>
-            {isScrolled && (<div className='hero-title-underline'/>)}
+            <div className='hero-title2' style={{marginBottom: '0.7rem'}}>Explore Unique Content</div>
             <div className='hero-sub' style={{color: '#454b54'}}>There’s always something to do!</div>
           </div>
 
@@ -455,12 +513,12 @@ const stickerMap = [
                   *Destroy debris to uncover hidden secrets
                 </div>
               </div>
-              <div className='explore-grid' style={{marginLeft: '7rem'}}>
+              <div className='explore-grid'>
                 <div className='explore-0'>Side Quests</div>
                 <div className='explore-1'>Tidy Up The Warehouse</div>
                 <div className='explore-2'>Clear the debris in the warehouse and make space for your files so they can accrue dust over time. Files are an important currency for purchasing items.
                 <div style={{marginTop: '2rem'}}>
-                  <button className='landing-button2'>Let’s Get To Work </button>
+                  <button className='landing-button2' onClick={() => navigate('/register')}>Let’s Get To Work </button>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '1rem'}}>
                   <div className='live-count'/>
@@ -472,12 +530,12 @@ const stickerMap = [
           </div>
 
           <div className='explore-container2'>
-            <div className='explore-grid' style={{marginRight: '3rem'}}>
+            <div className='explore-grid2'>
             <div className='explore-0'>Daily Tasks</div>
                 <div className='explore-1'>Complete Daily Quests</div>
                 <div className='explore-2'>Complete 3 quests daily from a random selection of over 20 quests. Completing all 3 quests in a day brings you one step closer to achieving an exclusive quest streak reward.
                 <div style={{marginTop: '2rem'}}>
-                  <button className='landing-button2'>Let’s Get Questing</button>
+                  <button className='landing-button2' onClick={() => navigate('/register')}>Let’s Get Questing</button>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '1rem'}}>
                   <div className='live-count'/>
@@ -530,12 +588,12 @@ const stickerMap = [
                   *Grayed out stickers indicate conflicting position
               </div>
             </div>
-            <div className='explore-grid' style={{marginLeft: '7rem'}}>
+            <div className='explore-grid'>
             <div className='explore-0'>Decorations</div>
                 <div className='explore-1'>Decorate Your Books</div>
                 <div className='explore-2'>Unlock stickers from packages, random drops, or market purchases to decorate your books with! Currently there are 6 sticker sets available, with each set containing 2 unique matching stickers.
                 <div style={{marginTop: '2rem'}}>
-                  <button className='landing-button2'>Let’s Decorate</button>
+                  <button className='landing-button2' onClick={() => navigate('/register')}>Let’s Decorate</button>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '1rem'}}>
                   <div className='live-count'/>

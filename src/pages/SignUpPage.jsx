@@ -23,7 +23,7 @@ function SignUpPage() {
             setUserInfo(response.data.user);
 
             if (response.data.user){
-                navigate('/error');
+
             }
 
             console.log(userInfo);
@@ -56,7 +56,7 @@ function SignUpPage() {
     
             if (response.status === 200) {
                 alert("Registration successful");
-                navigate('/signin')
+                navigate('/signin');
             } else {
                 alert("Registration failed");
             }

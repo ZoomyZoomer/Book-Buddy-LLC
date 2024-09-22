@@ -51,7 +51,7 @@ function LoginPage() {
     
             if (response.status === 200) {
                 console.log("Login successful");
-                navigate('/');
+                navigate('/library');
             } else {
                 alert("Login failed");
             }

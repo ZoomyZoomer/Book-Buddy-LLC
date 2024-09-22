@@ -10,10 +10,11 @@
 .hero-section {
     display: flex;
     align-items: center;
-    width: 100%;
-    margin-top: 16rem;
+    justify-content: center;
+    width: 80rem;
+    margin-top: 8rem;
     position: relative;
-    z-index: 1;
+    z-index: 999;
 }
 
 .hero-circle-0 {
@@ -66,7 +67,18 @@
     justify-content: center;
     align-items: left;
     font-size: 1.1rem;
+    width: fit-content;
+    z-index: 99;
+}
+
+.hero-gridX {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
     width: 50%;
+    z-index: 99;
 }
 
 .landing-page-middle {
@@ -100,10 +112,48 @@
     margin-top: -0.4rem;
 }
 
+.cycleText-abs {
+    position: absolute;
+}
+
+.cycle-text {
+    display: block;
+    position: relative;
+    white-space: nowrap;
+}
+
+.hero-flip-in-anim {
+    animation: hero-flip-in 0.7s ease-in-out 1;
+}
+
+.hero-flip-out-anim {
+    animation: hero-flip-out 0.7s ease-in-out 1;
+}
+
 .hero-flip {
     color: #78C6A3;
     font-weight: 700;
     position: relative;
+    display: inline-block;
+    overflow: hidden;
+    height: 1.2em; /* adjust to match the text size */
+    vertical-align: bottom;
+}
+
+@keyframes hero-flip-in {
+    0% {
+        transform: translateY(-4rem);
+    } 100% {
+        transform: translateY(0rem);
+    }
+}
+
+@keyframes hero-flip-out {
+    0% {
+        transform: translateY(0rem);
+    } 100% {
+        transform: translateY(4rem);
+    }
 }
 
 .hero-flip-line {
@@ -229,7 +279,7 @@
 .hero-have-acc {
     display: flex;
     margin-top: 0.4rem;
-    margin-left: 3.8rem;
+    margin-left: 3.4rem;
     color: #77797B;
     font-weight: 500;
     font-size: 0.8125rem;
@@ -248,11 +298,18 @@
     z-index: 100;
 }
 
+.market-item-large-container {
+    position:  relative !important;
+    z-index: 99 !important;
+}
+
 .hero-item-container {
     position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;   
+    justify-content: right;
+    align-items: center;
+    width: fit-content;
+    z-index: 999;
 }
 
 .hero-item-bg0 {
@@ -263,9 +320,9 @@
     border: 1px solid #949494;
     border-radius: 0.4rem;
     bottom: 8%;
-    left: 28%;
+    right: 0%;
     transform: rotate(-8deg);
-    z-index: 5;
+    z-index: 2;
 }
 
 .hero-item-bg2 {
@@ -273,11 +330,12 @@
     background-color: #b1b1b1;
     border: 1px solid #b1b1b1;
     bottom: 32%;
+    right: 0%;
     height: 6rem;
     width: 16rem;
     border-radius: 0.4rem;
     transform: rotate(2deg);
-    z-index: 4;
+    z-index: 0;
 }
 
 .showcase-item-throw {
@@ -335,9 +393,9 @@
 }
 
 .lootanditems {
-    width: 100%;
+    width: fit-content;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     margin-top: 3rem;
     color: #3F3F3F;
@@ -346,7 +404,7 @@
 
 .loot-seg2 {
     height: 1px;
-    width: 28%;
+    width: 6rem;
     background-color: #cecece;
     margin-right: 0.7rem;
     margin-left: 0.7rem; 
@@ -354,14 +412,14 @@
 
 .loot-seg {
     height: 1px;
-    width: 20%;
+    width: 6rem;
     background-color: #cecece;
     margin-right: 0.7rem;
     margin-left: 0.7rem;
 }
 
 .lootanditems-cont {
-    width: 100%;
+    width: fit-content;
     height: 4rem;
     display: flex;
     justify-content: center;
@@ -417,7 +475,7 @@
 
 .hero-arrow {
     position: absolute;
-    right: 20%;
+    right: -5%;
     top: -38%;
     z-index: 100;
     display: flex;
@@ -452,13 +510,17 @@
 }
 
 .landing-sec2 {
-    width: 100%;
+    width: 140%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 16rem;
     position: relative;
+    height: max-content;
+    background-color: #78C6A3;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 .landing-sec2-bg {
@@ -479,8 +541,8 @@
     border-radius: 100%;
     height: 12rem;
     width: 12rem;
-    bottom: 85%;
-    left: -5%;
+    top: -5rem;
+    left: 6rem;
 }
 
 .lsb-0-circle {
@@ -511,8 +573,8 @@
     height: 6rem;
     width: 6rem;
     border-radius: 100%;
-    bottom: 97%;
-    left: 6%;
+    top: -1rem;
+    left: 16rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -534,8 +596,8 @@
     height: 12rem;
     width: 12rem;
     border-radius: 100%;
-    bottom: 85%;
-    right: -5%;
+    top: -5rem;
+    right: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -547,16 +609,16 @@
     height: 6rem;
     width: 6rem;
     border-radius: 100%;
-    bottom: 97%;
-    right: 6%;
+    top: -1rem;
+    right: 16rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .landing-sec2-container {
-    width: 100%;
-    height: 10rem;
+    width: fit-content;
+    height: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -778,8 +840,8 @@
 .hero-title-underline {
     height: 2px;
     width: 100%;
-    background-color: #028f7c;
-    margin-bottom: 0.625rem;
+    background-color: white;
+    margin-bottom: 1rem;
     animation: hero-underline 0.7s ease-in-out 1;
 }
 
@@ -814,7 +876,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 22rem;
+    margin-top: 12rem;
 }
 
 .explore-container {
@@ -941,6 +1003,19 @@
     font-weight: 500;
     position: relative;
     z-index: 20;
+    margin-left: 7rem;
+}
+
+.explore-grid2 {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 20;
+    margin-right: 3rem;
 }
 
 .explore-0 {
@@ -1156,7 +1231,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 40rem;
 }
 
 .questions-seg {
@@ -1404,5 +1479,699 @@
     }
     100% {
         transform: scale(0.95);
+    }
+}
+
+.start-your-quest {
+    font-size: 0.9rem;
+    background-color: #FCFCFC;
+    color: #06AB78;
+    border: 1px solid #06AB78;
+    border-radius: 1.4rem;
+    height: 3rem;
+    padding: 0 2rem 0 3rem;
+    margin-left: -2rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.start-your-quest:hover {
+    cursor: pointer;
+    background-color: #98d1b7;
+    color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.landing-nav {
+    background-color: #FCFCFC;
+    padding: 0.6rem 2rem 0.6rem 2rem;
+    border: 1px solid #454B54;
+    border-radius: 0.8rem;
+}
+
+#showcase-item {
+    z-index: 999 !important;
+    position: relative !important;
+}
+
+/* Media Queries */
+
+@media only screen and (min-width: 360px) and (max-width: 449px) {
+    .hero-grid {
+        font-size: 0.625rem;
+        align-items: center !important;
+    }
+    .create-acc-circle {
+        height: 3rem;
+        width: 3rem;
+    }
+    .start-your-quest {
+        height: 2.4rem;
+        font-size: 0.8125rem;
+    }
+    .hero-have-acc {
+        margin-left: 2.4rem;
+    }
+    .hero-title {
+        width: 20rem;
+    }
+    .loot-seg {
+        width: 2rem;
+    }
+    .lai-text {
+        width: 6rem;
+    }
+    .hero-desc {
+        width: 20rem;
+        font-size: 1.1em;
+    }
+    .hero-section {
+        width: 100%;
+        flex-direction: column;
+    }
+    #itemstuff {
+        transform: scale(0.75);
+        margin-top: 4rem;
+    }
+    .hero-item-container {
+        justify-content: center;
+    }
+    .lootanditems {
+        justify-content: center;
+    }
+    .lootanditems-cont {
+        justify-content: center;
+    }
+    .landing-sec2-container {
+        margin-top: 0rem;
+        flex-direction: column;
+        height: fit-content;
+    }
+    .step-box {
+        transform: scale(0.7);
+    }
+    .landing-sec2-bg {
+        height: 100rem;
+    }
+    .land-arr {
+        transform: rotate(90deg);
+    }
+    .lsb-0 {
+        height: 9rem;
+        width: 9rem;
+        opacity: 0;
+    }
+    .lsb-0-circle {
+        height: 6.5rem;
+        width: 6.5rem;
+    }
+    .lsb-0-img {
+        height: 4.25rem;
+        width: 4.25rem;
+    }
+    .lsb-1 {
+        height: 4.8rem !important;
+        width: 4.8rem !important;
+        left: 13rem !important;
+        opacity: 0;
+    }
+    .lsb-1-circle {
+        height: 3.7rem !important;
+        width: 3.7rem !important;
+    }
+    .lsb-1-img {
+        height: 2rem !important;
+        width: 2rem !important; 
+    }
+    .lsb-2 {
+        height: 10rem;
+        width: 10rem;
+    }
+    .lsb-2-circle {
+        height: 8rem;
+        width: 8rem;
+    }
+    .lsb-2-img {
+        height: 5rem;
+        width: 5rem;
+    }
+    .lsb-3 {
+        height: 5rem !important;
+        width: 5rem !important;
+        right: 14rem !important;
+    }
+    .lsb-3-circle {
+        height: 4.2rem !important;
+        width: 4.2rem !important;
+    }
+    .lsb-3-img {
+        height: 2.5rem !important;
+        width: 2.5rem !important; 
+    }
+    .landing-sec2 {
+        padding-top: 7rem;
+    }
+    .hero-title2 {
+        font-size: 1.5em;
+        width: 18rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .hero-sub {
+        font-size: 0.75em;
+        width: 21rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .hero-title-underline {
+        width: 0;
+    }
+    .explore-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0.75);
+        margin-top: 0rem;
+    }
+    .explore-container2 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0.75);
+        margin-top: 0rem;
+    }
+    .explore-grid {
+        margin-top: 12rem;
+        margin-left: 0rem;
+    }
+    .explore-grid2 {
+        margin-bottom: 12rem;
+        margin-right: 0rem;
+    }
+    .questions-container {
+        width: 17rem;
+    }
+    .questions-question {
+        font-size: 0.9rem;
+    }
+    .answer {
+        font-size: 0.9rem;
+    }
+    .landing-contact-container {
+        font-size: 0.8125rem;
+        padding: 0.8rem 0rem 1.6rem 0rem;
+        width: 22rem;
+    }
+    .contact-1 {
+        width: 20rem;
+    }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 649px) {
+    .hero-grid {
+        font-size: 0.625rem;
+        align-items: center !important;
+    }
+    .create-acc-circle {
+        height: 3rem;
+        width: 3rem;
+    }
+    .start-your-quest {
+        height: 2.4rem;
+        font-size: 0.8125rem;
+    }
+    .hero-have-acc {
+        margin-left: 2.4rem;
+    }
+    .hero-title {
+        width: 20rem;
+    }
+    .loot-seg {
+        width: 2rem;
+    }
+    .lai-text {
+        width: 6rem;
+    }
+    .hero-desc {
+        width: 20rem;
+        font-size: 1.1em;
+    }
+    .hero-section {
+        width: 100%;
+        flex-direction: column;
+    }
+    #itemstuff {
+        transform: scale(0.75);
+        margin-top: 4rem;
+    }
+    .hero-item-container {
+        justify-content: center;
+    }
+    .lootanditems {
+        justify-content: center;
+    }
+    .lootanditems-cont {
+        justify-content: center;
+    }
+    .landing-sec2-container {
+        margin-top: 0rem;
+        flex-direction: column;
+        height: fit-content;
+    }
+    .step-box {
+        transform: scale(0.8);
+    }
+    .landing-sec2-bg {
+        height: 100rem;
+    }
+    .land-arr {
+        transform: rotate(90deg);
+    }
+    .lsb-0 {
+        height: 9rem;
+        width: 9rem;
+        opacity: 0;
+    }
+    .lsb-0-circle {
+        height: 6.5rem;
+        width: 6.5rem;
+    }
+    .lsb-0-img {
+        height: 4.25rem;
+        width: 4.25rem;
+    }
+    .lsb-1 {
+        height: 4.8rem !important;
+        width: 4.8rem !important;
+        left: 13rem !important;
+        opacity: 0;
+    }
+    .lsb-1-circle {
+        height: 3.7rem !important;
+        width: 3.7rem !important;
+    }
+    .lsb-1-img {
+        height: 2rem !important;
+        width: 2rem !important; 
+    }
+    .lsb-2 {
+        height: 10rem;
+        width: 10rem;
+    }
+    .lsb-2-circle {
+        height: 8rem;
+        width: 8rem;
+    }
+    .lsb-2-img {
+        height: 5rem;
+        width: 5rem;
+    }
+    .lsb-3 {
+        height: 5rem !important;
+        width: 5rem !important;
+        right: 14rem !important;
+    }
+    .lsb-3-circle {
+        height: 4.2rem !important;
+        width: 4.2rem !important;
+    }
+    .lsb-3-img {
+        height: 2.5rem !important;
+        width: 2.5rem !important; 
+    }
+    .landing-sec2 {
+        padding-top: 7rem;
+    }
+    .hero-title2 {
+        font-size: 1.5em;
+        width: 22rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .hero-sub {
+        font-size: 0.75em;
+        width: 22rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .hero-title-underline {
+        width: 0;
+    }
+    .explore-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0.9);
+        margin-top: 0rem;
+    }
+    .explore-container2 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0.9);
+        margin-top: 0rem;
+    }
+    .explore-grid {
+        margin-top: 12rem;
+        margin-left: 0rem;
+    }
+    .explore-grid2 {
+        margin-bottom: 12rem;
+        margin-right: 0rem;
+    }
+    .questions-container {
+        width: 22rem;
+    }
+    .landing-contact-container {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.2rem 1.6rem 1.2rem
+    }
+    .contact-1 {
+        width: 24rem;
+    }
+}
+
+@media only screen and (min-width: 650px) and (max-width: 899px) {
+    .hero-grid {
+        font-size: 1rem;
+        width: 80%;
+    }
+    .hero-title {
+        width: 34rem;
+    }
+    .lai-text {
+        width: 7rem;
+    }
+    .hero-desc {
+        width: 30rem;
+    }
+    .hero-section {
+        width: 100%;
+        flex-direction: column;
+    }
+    #itemstuff {
+        transform: scale(0.9);
+        margin-top: 4rem;
+    }
+    .hero-item-container {
+        justify-content: center;
+    }
+    .lootanditems {
+        justify-content: center;
+    }
+    .lootanditems-cont {
+        justify-content: center;
+    }
+    .landing-sec2-container {
+        transform: scale(1);
+        margin-top: 8rem;
+        flex-direction: column;
+        height: fit-content;
+    }
+    .landing-sec2-bg {
+        height: 100rem;
+    }
+    .land-arr {
+        transform: rotate(90deg);
+    }
+    .lsb-0 {
+        height: 9rem;
+        width: 9rem;
+    }
+    .lsb-0-circle {
+        height: 6.5rem;
+        width: 6.5rem;
+    }
+    .lsb-0-img {
+        height: 4.25rem;
+        width: 4.25rem;
+    }
+    .lsb-1 {
+        height: 4.8rem !important;
+        width: 4.8rem !important;
+        left: 13rem !important;
+    }
+    .lsb-1-circle {
+        height: 3.7rem !important;
+        width: 3.7rem !important;
+    }
+    .lsb-1-img {
+        height: 2rem !important;
+        width: 2rem !important; 
+    }
+    .lsb-2 {
+        height: 10rem;
+        width: 10rem;
+    }
+    .lsb-2-circle {
+        height: 8rem;
+        width: 8rem;
+    }
+    .lsb-2-img {
+        height: 5rem;
+        width: 5rem;
+    }
+    .lsb-3 {
+        height: 5rem !important;
+        width: 5rem !important;
+        right: 14rem !important;
+    }
+    .lsb-3-circle {
+        height: 4.2rem !important;
+        width: 4.2rem !important;
+    }
+    .lsb-3-img {
+        height: 2.5rem !important;
+        width: 2.5rem !important; 
+    }
+    .landing-sec2 {
+        padding-top: 7rem;
+    }
+    .hero-title2 {
+        font-size: 1.625em;
+    }
+    .explore-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .explore-container2 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .explore-grid {
+        margin-top: 12rem;
+        margin-left: 0rem;
+    }
+    .explore-grid2 {
+        margin-bottom: 12rem;
+        margin-right: 0rem;
+    }
+    .questions-container {
+        width: 30rem;
+    }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1149px) {
+    .hero-grid {
+        font-size: 1.2rem;
+    }
+    .hero-title {
+        width: 50rem;
+    }
+    .hero-desc {
+        width: 44rem;
+    }
+    .hero-section {
+        width: 100%;
+        flex-direction: column;
+    }
+    #itemstuff {
+        transform: scale(0.9);
+        margin-top: 4rem;
+    }
+    .hero-item-container {
+        justify-content: center;
+    }
+    .lootanditems {
+        justify-content: center;
+    }
+    .lootanditems-cont {
+        justify-content: center;
+    }
+    .landing-sec2-container {
+        transform: scale(0.6);
+        margin-top: 6rem;
+    }
+    .landing-sec2-bg {
+        height: 30rem;
+    }
+    .lsb-0 {
+        height: 10rem;
+        width: 10rem;
+    }
+    .lsb-0-circle {
+        height: 8rem;
+        width: 8rem;
+    }
+    .lsb-0-img {
+        height: 5rem;
+        width: 5rem;
+    }
+    .lsb-1 {
+        height: 5rem !important;
+        width: 5rem !important;
+        left: 14rem !important;
+    }
+    .lsb-1-circle {
+        height: 4.2rem !important;
+        width: 4.2rem !important;
+    }
+    .lsb-1-img {
+        height: 2.5rem !important;
+        width: 2.5rem !important; 
+    }
+    .lsb-2 {
+        height: 10rem;
+        width: 10rem;
+    }
+    .lsb-2-circle {
+        height: 8rem;
+        width: 8rem;
+    }
+    .lsb-2-img {
+        height: 5rem;
+        width: 5rem;
+    }
+    .lsb-3 {
+        height: 5rem !important;
+        width: 5rem !important;
+        right: 14rem !important;
+    }
+    .lsb-3-circle {
+        height: 4.2rem !important;
+        width: 4.2rem !important;
+    }
+    .lsb-3-img {
+        height: 2.5rem !important;
+        width: 2.5rem !important; 
+    }
+    .landing-sec2 {
+        padding-top: 7rem;
+    }
+    .landing-sec2-container {
+        margin-top: 2rem;
+    }
+    .explore-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .explore-container2 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .explore-grid {
+        margin-top: 12rem;
+    }
+    .explore-grid2 {
+        margin-bottom: 12rem;
+    }
+}
+
+@media only screen and (min-width: 1150px) and (max-width: 1299px) {
+    .hero-grid {
+        font-size: 1rem;
+    }
+    .hero-section {
+        width: 100%;
+    }
+    #itemstuff {
+        transform: scale(0.9);
+    }
+    .landing-sec2-container {
+        transform: scale(0.75);
+        margin-top: 8rem;
+    }
+    .landing-sec2-bg {
+        height: 34rem;
+    }
+    .lsb-0 {
+        height: 10rem;
+        width: 10rem;
+    }
+    .lsb-0-circle {
+        height: 8rem;
+        width: 8rem;
+    }
+    .lsb-0-img {
+        height: 5rem;
+        width: 5rem;
+    }
+    .lsb-1 {
+        height: 5rem !important;
+        width: 5rem !important;
+        left: 14rem !important;
+    }
+    .lsb-1-circle {
+        height: 4.2rem !important;
+        width: 4.2rem !important;
+    }
+    .lsb-1-img {
+        height: 2.5rem !important;
+        width: 2.5rem !important; 
+    }
+    .lsb-2 {
+        height: 10rem;
+        width: 10rem;
+    }
+    .lsb-2-circle {
+        height: 8rem;
+        width: 8rem;
+    }
+    .lsb-2-img {
+        height: 5rem;
+        width: 5rem;
+    }
+    .lsb-3 {
+        height: 5rem !important;
+        width: 5rem !important;
+        right: 14rem !important;
+    }
+    .lsb-3-circle {
+        height: 4.2rem !important;
+        width: 4.2rem !important;
+    }
+    .lsb-3-img {
+        height: 2.5rem !important;
+        width: 2.5rem !important; 
+    }
+    .landing-sec2-container {
+        margin-top: 4rem;
+    }
+}
+
+@media only screen and (min-width: 1300px) and (max-width: 1440px) {
+    .hero-section {
+        width: 100%;
+    }
+    .landing-sec2-container {
+        transform: scale(0.85);
+    }
+    .landing-sec2-container {
+        margin-top: 6rem;
     }
 }
