@@ -9,9 +9,7 @@ import {ReactComponent as Plus} from '../library-plus.svg'
 import {ReactComponent as Expand} from '../library-expand.svg'
 import {ReactComponent as Settings} from '../library-settings.svg'
 import {ReactComponent as Arrow2} from '../pointer-arrow.svg'
-import {ReactComponent as ArrowRight} from '../arrow-right-goal.svg'
-import {ReactComponent as ArrowLeft} from '../arrow-left-goal.svg'
-import {ReactComponent as ArrowBack} from '../entry-back2.svg'
+import {ReactComponent as ArrowRight} from '../arrow_right.svg'
 import '../library.css'
 import LibraryBook from '../components/LibraryBook'
 import axios from 'axios'
@@ -292,16 +290,26 @@ function Library() {
             { !expand && (
               <div className='goals-section'>
    
+              {texty && (
+                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '90%'}}>
+                  <div className='goal-table-main'>
+                    <div className='reading-goal-table-title'>
+                          <div style={{fontSize: '1.2rem', color: '#06AB78'}}>Recent Reading Entries</div>
+                    </div>
+                    <div style={{fontSize: '0.8125em', color: '#9D9D9D'}}>Claim a random file for each entry!</div>
+                  </div>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1rem'}}>
+                    <div className='goal-arrow' style={{transform: 'scaleX(-1)'}} onClick={() => setInd(prev => (ind - 4) + 1 < 0 ? 0 : prev -4)}><ArrowRight /></div>
+                    <div>{(ind / 4) + 1}/{Math.ceil(maxLen / 4) < 1 ? 1 : Math.ceil(maxLen / 4)}</div>
+                    <div className='goal-arrow' onClick={() => setInd(prev => (ind + 4) >= maxLen ? prev : prev + 4)}><ArrowRight /></div>
+                  </div>
+                </div>
+              )}
                 
                 {texty && (
                   <div className='goals-section-container'>
 
-
                   <div className='recent-entries-container'>
-                  <div className='reading-goal-table-title'>
-                        <div style={{fontSize: '1.2rem', color: '#06AB78'}}>Recent Reading Entries</div>
-                  </div>
-                  <div style={{fontSize: '0.8125em', color: '#9D9D9D'}}>Claim a random file for each entry!</div>
 
                       <div className='goal-sec-grid0'>
 
@@ -312,13 +320,6 @@ function Library() {
                         </div>
 
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-                            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                              <div className='goal-arrow' onClick={() => setInd(prev => (ind - 4) + 1 < 0 ? 0 : prev -4)}><ArrowLeft /></div>
-                              <div className='goal-arrow' onClick={() => setInd(prev => (ind + 4) >= maxLen ? prev : prev + 4)}><ArrowRight /></div>
-                            </div>
-                            <div>{(ind / 4) + 1}/{Math.ceil(maxLen / 4) < 1 ? 1 : Math.ceil(maxLen / 4)}</div>
-                        </div>
 
                   </div>
 
@@ -330,7 +331,7 @@ function Library() {
 
                   <div className='streak-sec-container'>
                     
-                    <div style={{display: 'flex'}}>
+                    <div className='streak-box-omega'>
 
                       <div className='streak-fire-circle'>
                         <img src={`/${streakInfo?.is_claimed ? 'lighter_on' : 'lighter_off'}.png`} className='fire-icon'/>
@@ -346,7 +347,7 @@ function Library() {
 
                     </div>
 
-                    <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', marginTop: '1rem'}}>
+                    <div className='streak-btnxD'>
                       <div className='prog-0'>{`Progress Today (${streakInfo ? (streakInfo.is_claimed ? 1 : 0) : 0}/1)`}</div>
                       <div style={{width: '65%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '10'}}>
                         <button className={streakInfo?.is_claimed ? 'light-fire-null' : !streakInfo?.today ? 'light-fire-null' : 'light-fire'} onClick={() => lightTorch()}>{streakInfo?.is_claimed ? 'STREAK ACTIVE' : !streakInfo?.today ? 'REQUIRES ENTRY' : 'IGNITE'}</button>
@@ -402,7 +403,11 @@ function Library() {
                     </div>
                     <div id='library-sort' className='library-sort-container'>
                         <div id='library-sort' className='library-sort' onClick={() => setShowDropDown(prev => !prev)}>
-                            <div id='library-sort' style={{marginRight: '0.625rem'}}><Sort /></div> {dropFilter} <Arrow />
+                            <div id='library-sort' style={{marginRight: '0.625rem'}}><Sort /></div> 
+                            <div className='drop-filter-text'>
+                              {dropFilter} 
+                            </div>
+                            <Arrow />
                             {showDropDown && (
                                 <div className='library-sort-abs'>
                                     <div className='library-sort-tab' onClick={() => setDropFilter('Last Read')}>

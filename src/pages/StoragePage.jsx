@@ -294,7 +294,7 @@ const StoragePage = () => {
         <div className={(displayReward) ? 'rewards-popup-filter' : 'storage-container'}>
 
         <div className='storage-box'>
-            <BookBuddyNavbar tab={2} currency={currency}/>
+ 
             <div className='storage-top-flex'>
 
                 <div className='warehouse-container'>
@@ -326,12 +326,12 @@ const StoragePage = () => {
                         <div className='ct-0'>For paperwork... yeah</div>
                     </div>
 
-                    <div className='cabinet-contents'>
+                    <div className={(folderClosed && !collectableFolderOpen) ? 'cabinet-contents' : 'cabinet-contents-open'}>
 
                         <audio ref={audioRefOpen} src="/open-folder.wav" />
                         <audio ref={audioRefClose} src="/close-folder.wav" />
                         
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'}}>
 
                             {folderClosed && (
                                 <div className='folder-box' onClick={() => {playAudioOpen(); setFolder1(false); setFolderClosed(false); setCollectableFolderOpen(false); collectableFolderOpen ? playAudioClose(): setCollectableFolderOpen(false)}} onMouseEnter={() => setFolder0(true)} onMouseLeave={() => setFolder0(false)}>
@@ -390,7 +390,8 @@ const StoragePage = () => {
 
                     </div>
 
-                    <div className='cabinet-hidden'>
+                    {folderClosed && !collectableFolderOpen && (
+                        <div className='cabinet-hidden'>
                         
                         <div className='hidden-title'>
                             <div className='hidden-line'/>
@@ -411,6 +412,7 @@ const StoragePage = () => {
                         </div>
 
                     </div>
+                    )}
 
                 </div>
 
@@ -480,11 +482,6 @@ const StoragePage = () => {
                             )}
                             
                         </div>
-                    </div>
-
-                    <div className='lightbulb-stickers'>
-                        <Lightbulb />
-                        <div style={{marginTop: '0.2rem', marginLeft: '0.2rem'}}>You can apply these stickers in the Library tab by selecting Customize in the 3 dots option menu on a book</div>
                     </div>
 
                 </div>
