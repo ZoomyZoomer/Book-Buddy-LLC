@@ -284,10 +284,7 @@ function Library() {
 
   return (
     <div className='library-container'>
-
-        <BookBuddyNavbar tab={0} currency={[0,0]}/>
       
-
         <div className='library-box'>
           
         <audio ref={audioRefTorch} src="/torch.wav" />
@@ -313,17 +310,15 @@ function Library() {
                             <GoalSectionItem entry={entry} index={index} username={userInfo?.username} setReFetchEntries={setReFetchEntries}/>
                           ))}
                         </div>
-                        
 
-                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                               <div className='goal-arrow' onClick={() => setInd(prev => (ind - 4) + 1 < 0 ? 0 : prev -4)}><ArrowLeft /></div>
                               <div className='goal-arrow' onClick={() => setInd(prev => (ind + 4) >= maxLen ? prev : prev + 4)}><ArrowRight /></div>
                             </div>
                             <div>{(ind / 4) + 1}/{Math.ceil(maxLen / 4) < 1 ? 1 : Math.ceil(maxLen / 4)}</div>
                         </div>
-
-                    </div>
 
                   </div>
 

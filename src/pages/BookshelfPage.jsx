@@ -466,30 +466,6 @@ const [activeFavorite, setActiveFavorite] = useState(false);
 
     <div className='bokshelf-wrapper'>
       {customizePopup && <CustomizePopup customizeRef={customizeRef.current} tab_name={tab} username={userInfo.username} setCustomizePopup={setCustomizePopup} setStickerChanged={setStickerChanged}/>}
-      <section className={'book-details-navbar' + " " + "book-details-navbar-default"}>
-        <div className='navbar-logo' onClick={() => navigate('/')}>
-          <div>
-            <BookLogo />
-          </div>
-          <div className='logo-0'>
-            Book
-          </div>
-          <div className='logo-1'>
-            Buddy
-          </div>
-        </div>
-        <div className='navbar-options'>
-          <div className='navbar-item' style={{marginLeft: '0.7rem'}} onClick={() => navigate('/bookshelf')}>
-            Library
-          </div>
-          <div className='navbar-item'>
-            Rewards
-          </div>
-          <div className='navbar-item' onClick={() => navigate('/storage')}>
-            Storage
-          </div>
-        </div>
-      </section>
     <div className={customizePopup ? "bookshelf_container" + ' ' + 'popup-filter2' : "bookshelf_container"}>
       
 
