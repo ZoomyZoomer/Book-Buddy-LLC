@@ -75,7 +75,7 @@ const AchievementItem = ({achievement, index, clientAchievements, isCompleted, u
 
         <div id={`achieve-bg-${index}`} className='achievement-container-fill'/>
 
-        <img src={`/${achievement.icon}.png`} style={{height: '2.4rem', zIndex: '3'}} draggable='false' className={clientAchievements?.quantity >= achievement?.quantity && !isCompleted ? 'claim-achievement-anim' : ''}/>
+        <img src={`/${achievement.icon}.png`} style={{zIndex: '3'}} draggable='false' className={clientAchievements?.quantity >= achievement?.quantity && !isCompleted ? 'claim-achievement-anim achi-img' : 'achi-img'}/>
         
         <div id={`achieve-${index}`} className='achievement-info invalid'>
             <div className='achievement-title'>

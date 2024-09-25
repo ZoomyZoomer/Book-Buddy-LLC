@@ -515,7 +515,6 @@ function RewardsPage() {
       
 
         <div className='rewards-box'>
-          <BookBuddyNavbar tab={1} currency={currency}/>
 
             <section className='rewards-shop-container'>
 
@@ -623,7 +622,7 @@ function RewardsPage() {
                         </div>
                         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30%'}}>
                             <div className='quest-streak-item-container' onClick={() => handleClick()}>
-                                <img src='/present_icon.png' style={{height: '3rem'}} draggable='false' className={streak >= 3 ? 'quest-streak-item-claim-container' : ''}/>
+                                <img src='/present_icon.png' draggable='false' className={streak >= 3 ? 'quest-streak-item-claim-container quest-img-0' : 'quest-img-0'}/>
                             </div>
                         </div>
                     </div>
@@ -644,7 +643,7 @@ function RewardsPage() {
                   <div className='market-section'>
 
                     <div className='market-section-top'>
-                      <div style={{marginRight: '3%'}}>
+                      <div className='market-margin'>
                         <MarketItem type={0} market={marketInfo[0]} coupon={marketInfo[2]} setShowPopup={setShowPopup} itemInfoRef={itemInfoRef} username={userInfo?.username} setReFetchMarket={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} numStickers={numStickers}/>
                       </div>
                       <div>
@@ -653,7 +652,7 @@ function RewardsPage() {
                     </div>
 
                     <div className='market-section-bottom'>
-                      <div style={{marginRight: '3%'}}>
+                      <div className='market-margin'>
                         <MarketItem type={2} market={{id: '14', item_name: 'Sticker Basket I', type: 'Loot', use: 'Receive a random, non-duplicate sticker', stock: 5, img: 'basket', desc: 'A random sticker fresh off the shelves!', cost: {coins: false, dollar: true, amount: '1.99', discounted_amount: '1.99'}}} coupon={marketInfo[2]} setShowPopup={setShowPopup} itemInfoRef={itemInfoRef} username={userInfo?.username} setReFetchMarket={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} stripePromise={stripePromise} numStickers={numStickers}/>
                       </div>
                       <div>
@@ -673,7 +672,7 @@ function RewardsPage() {
 
                           <div className='market-banner-circle'>
                             <div className='coupon-abs'>
-                              <img src='/coupon.png' style={{height: '6rem'}} className='coupon-img'/>
+                              <img src='/coupon.png' className='coupon-img'/>
                             </div>
                           </div>
 
@@ -710,7 +709,7 @@ function RewardsPage() {
 
                           <div className='market-banner-circle'>
                             <div className='coffee-abs'>
-                              <img src='/coffee_cup.png' style={{height: '4.6rem'}} className='coupon-img'/>
+                              <img src='/coffee_cup.png' className='coffee-img'/>
                             </div>
                           </div>
 

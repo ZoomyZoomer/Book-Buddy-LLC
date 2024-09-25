@@ -284,7 +284,7 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
             )}
 
             {item !== 0 && item !== 3 ? (
-                <img src={`/${warehouseMap.get(itemFinished ? item + 20 : item)?.display}.png`} style={{height: '2.6rem', zIndex: '2'}} className={itemFinished ? 'claim-warehouse-file-dance' : (item === 9 || item == 8) && availSpaces.some(arr => arr.length === index.length && arr.every((value, ind) => value === index[ind])) ? 'claim-available' : ''} onClick={() => claimFile()}/>
+                <img src={`/${warehouseMap.get(itemFinished ? item + 20 : item)?.display}.png`} style={{zIndex: '2'}} className={itemFinished ? 'claim-warehouse-file-dance wih' : (item === 9 || item == 8) && availSpaces.some(arr => arr.length === index.length && arr.every((value, ind) => value === index[ind])) ? 'claim-available wih' : 'wih'} onClick={() => claimFile()}/>
             ): <></>}
        
             

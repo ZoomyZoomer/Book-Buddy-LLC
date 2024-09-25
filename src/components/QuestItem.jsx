@@ -51,7 +51,7 @@ const QuestItem = ({index, quest, activeQuest, setShowItemPopup, username, setRe
 
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '25%'}}>
             <div className={`${(activeQuest.quantity_achieved / quest.quantity_required) >= 1 ? 'claim-quest-item-background' : 'quest-item-background'}`} style={{marginLeft: '10%'}}>
-                <img src={activeQuest.claimed ? '/package_opened.png' : '/package_icon.png'} style={{height: '3rem', marginTop: '0.2rem'}} draggable='false' className={`${(activeQuest.quantity_achieved / quest.quantity_required) >= 1 && !activeQuest.claimed ? 'claim-quest-item' : ''}`}/>
+                <img src={activeQuest.claimed ? '/package_opened.png' : '/package_icon.png'} style={{marginTop: '0.2rem'}} draggable='false' className={`${(activeQuest.quantity_achieved / quest.quantity_required) >= 1 && !activeQuest.claimed ? 'claim-quest-item quest-img-0' : 'quest-img-0'}`}/>
             </div>
         </div>
 

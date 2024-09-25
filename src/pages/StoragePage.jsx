@@ -326,7 +326,7 @@ const StoragePage = () => {
                         <div className='ct-0'>For paperwork... yeah</div>
                     </div>
 
-                    <div className={(folderClosed && !collectableFolderOpen) ? 'cabinet-contents' : 'cabinet-contents-open'}>
+                    <div className={'cabinet-contents'}>
 
                         <audio ref={audioRefOpen} src="/open-folder.wav" />
                         <audio ref={audioRefClose} src="/close-folder.wav" />
@@ -390,13 +390,12 @@ const StoragePage = () => {
 
                     </div>
 
-                    {folderClosed && !collectableFolderOpen && (
                         <div className='cabinet-hidden'>
                         
                         <div className='hidden-title'>
                             <div className='hidden-line'/>
                             <div className='hidden-title-flex'>
-                                Encrypted Files & Items
+                                Encrypted {hiddenFiles.length === 0 ? 'Items' : 'Files'}
                                 <div style={{marginLeft: '0.4rem'}}><Arrow /></div>
                             </div>
                             <div className='hidden-line'/>
@@ -406,39 +405,43 @@ const StoragePage = () => {
                             {hiddenFiles.map((file, index) => (
                                 <StorageItem file={file} index={index} hidden={true} username={userInfo.username} isAddingFile={isAddingFile} activeIndex={activeIndex} setReFetchWarehouse={setReFetchWarehouse} setIsAddingFile={setIsAddingFile} setFolderClosed={setFolderClosed} playAudioClose={playAudioClose} fileWasClaimed={fileWasClaimed} setShowError={setShowError} errorRef={errorRef}/>
                             ))}
-                            {hiddenItems.map((file, index) => (
+                            {hiddenFiles.length === 0 && hiddenItems.map((file, index) => (
                                 <StorageItem file={file} index={index} hidden={true} username={userInfo.username} isAddingFile={isAddingFile} activeIndex={activeIndex} setReFetchWarehouse={setReFetchWarehouse} setIsAddingFile={setIsAddingFile} setFolderClosed={setFolderClosed} playAudioClose={playAudioClose} fileWasClaimed={fileWasClaimed} setShowError={setShowError} errorRef={errorRef}/>
                             ))}
                         </div>
 
                     </div>
-                    )}
+                  
 
                 </div>
 
             </div>
             <div className='storage-bottom-flex'>
+                
 
                 <div className='stickers-container'>
-
                     <div className='stickers-title'>
                         <div>Stickers</div>
                         <div className='ss-0'>Great to put on your favorite books!</div>
                     </div>
-                    <div className='stickers-box'>
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '0.625rem'}}>
                         <div className='stickers-flex'>
 
-                            <div className='stickers-grid'  onClick={() => setBarLeft(true)}>
-                                <div style={{color: barLeft ? '#06AB78' : '#D9D9D9', fontWeight: barLeft ? '500' : '400'}}>{`Found (${ownedStickers0.length + ownedStickers1.length})`}</div>
-                            </div>
-                            <div className='stickers-grid' onClick={() => setBarLeft(false)}>
-                                <div style={{color: !barLeft ? '#06AB78' : '#D9D9D9', fontWeight: !barLeft ? '500' : '400'}}>{`Hidden (${hiddenStickers0.length + hiddenStickers1.length})`}</div>
-                            </div>
+                                <div className='stickers-grid'  onClick={() => setBarLeft(true)}>
+                                    <div style={{color: barLeft ? '#06AB78' : '#D9D9D9', fontWeight: barLeft ? '500' : '400'}}>{`Found (${ownedStickers0.length + ownedStickers1.length})`}</div>
+                                </div>
+                                <div className='stickers-grid' onClick={() => setBarLeft(false)}>
+                                    <div style={{color: !barLeft ? '#06AB78' : '#D9D9D9', fontWeight: !barLeft ? '500' : '400'}}>{`Hidden (${hiddenStickers0.length + hiddenStickers1.length})`}</div>
+                                </div>
 
                         </div>
                         <div className={barLeft ? 'stickers-slider' : 'stickers-slider-right'}>
-                            <div className='stickers-slider-fill'/>
-                        </div>
+                                    <div className='stickers-slider-fill'/>
+                                </div>
+                    </div>
+
+                    
+                    <div className='stickers-box'>
                         <div className='owned-stickers-container'>
                             {barLeft && activeAchievementTab == 0 && (
                                 ownedStickers0.map((sticker, index) => (
