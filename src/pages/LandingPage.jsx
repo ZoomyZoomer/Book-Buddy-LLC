@@ -640,7 +640,7 @@ const stickerMap = [
                 {question3 && (
                   <div className='answer'>
                     In the scenario in which you're unable to locate your desired book within the database we use, please reach out to us &#40;email below&#41;
-                    and we will manually add your desired book to your collection. If doing so, please specify the Title, Author, and ISBN if possible.
+                    and we will manually add your desired book to your collection. If doing so, please specify the book ISBN.
                   </div>
                 )}
                 <div className='questions-seg'/>
