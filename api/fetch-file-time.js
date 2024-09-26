@@ -5,9 +5,21 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { username, index } = req.query;
 
-    // Check if username and index are provided
     if (!username || !index) {
       return res.status(400).json({ message: 'Missing username or index' });
+    }
+
+    let parsedIndex;
+
+    // Ensure index is an array
+    try {
+      parsedIndex = JSON.parse(index); // If index is a stringified array, parse it
+    } catch (error) {
+      return res.status(400).json({ message: 'Invalid index format' });
+    }
+
+    if (!Array.isArray(parsedIndex) || parsedIndex.length !== 2) {
+      return res.status(400).json({ message: 'Index must be an array with two elements' });
     }
 
     try {
@@ -20,9 +32,9 @@ export default async function handler(req, res) {
         return res.status(404).json({ message: 'Inventory not found' });
       }
 
-      // Ensure index is in a proper format
+      // Find file using index
       const file = inventory.active_files.find(file => 
-        file.index[0] === index[0] && file.index[1] === index[1]
+        file.index[0] === parsedIndex[0] && file.index[1] === parsedIndex[1]
       );
 
       if (!file) {

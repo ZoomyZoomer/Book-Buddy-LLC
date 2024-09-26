@@ -160,7 +160,7 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
             const res = await axios.get('/api/fetch-file-time', {
                 params: {
                     username,
-                    index: index
+                    index: JSON.stringify([index[0], index[1]])
                 }
             })
 
