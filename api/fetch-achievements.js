@@ -1,5 +1,5 @@
 import { connectToDatabase } from './utils/db'; // Adjust the path to your database connection utility
-import Quest from './models/Quest'; // Adjust the path to your Quest model
+import Quest from './models/Quests'; // Adjust the path to your Quest model
 import Inventory from './models/Inventory'; // Adjust the path to your Inventory model
 
 const achievementMap = new Map([
