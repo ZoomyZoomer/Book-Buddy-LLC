@@ -1,6 +1,6 @@
-import connectToDatabase from './utils/db'; // adjust the path to your database utility
+import { connectToDatabase }  from './utils/db'
 import Quest from './models/Quests';
-import Inventory from './models/Inventory'; // adjust the path to your Inventory model
+import Inventory from './models/Inventory';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -23,12 +23,9 @@ export default async function handler(req, res) {
       }
 
       // Check if claim is valid (achievement is 100% complete)
-      if (clientAchievement.quantity < achievement.quantity) {
+      if (clientAchievement?.quantity < achievement?.quantity) {
         return res.status(400).json({ message: 'Achievement Incomplete' });
       }
-
-      res.status(200).json({message: 'k'});
-      return;
 
       // Claim the reward
       const inventory = await Inventory.findOne({ username: username });
