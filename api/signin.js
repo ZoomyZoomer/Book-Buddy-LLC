@@ -7,6 +7,10 @@ import { connectToDatabase } from '../../utils/db';
 const secret = process.env.JWT_SECRET; // Ensure this is stored in your environment variables
 
 export default async function handler(req, res) {
+
+    res.status(200).json({message: "OK"});
+    return;
+
   if (req.method === 'POST') {
     const { username, password } = req.body;
 
@@ -54,7 +58,7 @@ export default async function handler(req, res) {
       }
     } catch (e) {
       console.error(e);
-      res.status(500).json({ message: 'Server error' });
+      res.status(501).json({ message: 'Server error' });
     }
   } else {
     res.status(405).json({ message: 'Method not allowed' });
