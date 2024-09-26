@@ -13,10 +13,10 @@
 .rewards-box {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: fit-content;
     height: 90%;
+    min-height: 68rem;
 }
 
 .rewards-shop-container {
