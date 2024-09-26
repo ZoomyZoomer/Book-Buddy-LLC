@@ -277,15 +277,51 @@ function Library() {
 
       }
 
+
     }
+
+
+    const [currency, setCurrency] = useState([0,0,0]);
+
+    const fetchCurrency = async() => {
+
+      try {
+
+        const res = await axios.get('http://localhost:4000/fetch-currency', {
+          params: {
+            username: userInfo.username
+          }
+        })
+
+        setCurrency(res.data);
+
+      } catch(e) {
+        console.error({error: e});
+      }
+
+    }
+
+    useEffect(() => {
+      if (userInfo){
+        fetchCurrency();
+      }
+    }, [userInfo])
+
 
 
   return (
     <div className='library-container'>
+
+
+        <div style={{width: '78%', marginBottom: '1rem'}}>
+          <BookBuddyNavbar tab={0} currency={currency}/>
+        </div>
       
         <div className='library-box'>
           
-        <audio ref={audioRefTorch} src="/torch.wav" />
+          <audio ref={audioRefTorch} src="/torch.wav" />
+
+ 
 
             { !expand && (
               <div className='goals-section'>
@@ -377,7 +413,7 @@ function Library() {
                         <div className='adding-book-banner'>
                             <button className='abb-1' onClick={() => setIsAddingBook(false)}>Cancel</button>
                             <div className='adding-book-banner-info'>
-                                <div>You are currently adding books</div>
+                                <div className='abb-xd'>You are currently adding books</div>
                                 <div className='abb-0'>Click enter to confirm search</div>
                             </div>
                         </div>

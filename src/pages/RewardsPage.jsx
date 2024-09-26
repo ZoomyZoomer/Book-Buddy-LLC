@@ -512,9 +512,10 @@ function RewardsPage() {
 
       <div className={(showPopup || displayReward) ? 'rewards-popup-filter' : 'rewards-container'}>
 
-      
 
         <div className='rewards-box'>
+
+        <BookBuddyNavbar tab={1} currency={currency}/>
 
             <section className='rewards-shop-container'>
 

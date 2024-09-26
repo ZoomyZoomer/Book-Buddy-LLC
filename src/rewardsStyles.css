@@ -1652,11 +1652,11 @@
     }
     .rewards-quests-container {
         height: 38rem;
-        width:  26%;
+        width:  100%;
     }
     .rewards-achievements-container {
         height: 46rem;
-        width:  26%;
+        width:  100%;
         margin-left: 0rem;
         margin-top: 1rem;
     }
@@ -1673,9 +1673,8 @@
         font-size: 0.8125rem;
     }
     .rewards-shop-container {
-        width: 26%;
+        width: 20.8rem;
         height: 14rem;
-        margin-top: 2rem;
     }
     .achievement-flex {
         margin-top: 0.4rem;
@@ -1684,7 +1683,7 @@
         transform: scale(0.75);
     }
     .rewards-bottom-flex {
-        width: 80rem;
+        width: 20.8rem;
     }
     .achievement-box {
         width: 80%;
@@ -1770,6 +1769,28 @@
         width: 18rem;
         font-size: 0.8125rem;
     }
+    .bb-nav-container {
+        margin-top: 1rem;
+        transform: scale(0.6);
+        margin-left: 8rem;
+     }
+     .bb-nav-active {
+         padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+         font-size: 0.8125rem;
+     }
+     .bb-nav-inactive {
+         padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+         font-size: 0.8125rem;
+     }
+     .bb-nav-img-active {
+         height: 1.3rem;
+     }
+     .bb-nav-img {
+         height: 1.3rem;
+     }
+     .bb-nav-1 {
+        opacity: 0;
+     }
 }
 
 @media screen and (min-width: 540px) and (max-width: 799px){
@@ -1781,23 +1802,22 @@
     }
     .rewards-quests-container {
         height: 44rem;
-        width:  40%;
+        width:  100%;
     }
     .rewards-achievements-container {
         height: 36rem;
-        width:  40%;
+        width:  100%;
         margin-left: 0rem;
         margin-top: 1rem;
     }
     .rewards-shop-container {
-        width: 40%;
-        margin-top: 2rem;
+        width: 32rem;
     }
     .market-section {
         transform: scale(0.7);
     }
     .rewards-bottom-flex {
-        width: 80rem;
+        width: 32rem;
     }
     .achievement-box {
         width: 80%;
@@ -1851,6 +1871,27 @@
     .item-reward-popup {
         transform: scale(0.9);
     }
+    .bb-nav-container {
+        margin-top: 1rem;
+        transform: scale(0.8);
+     }
+     .bb-nav-active {
+         padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+         font-size: 0.8125rem;
+     }
+     .bb-nav-inactive {
+         padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+         font-size: 0.8125rem;
+     }
+     .bb-nav-img-active {
+         height: 1.3rem;
+     }
+     .bb-nav-img {
+         height: 1.3rem;
+     }
+     .bb-nav-1 {
+        opacity: 0;
+     }
 }
 
 @media screen and (min-width: 800px) and (max-width: 1199px){
@@ -1862,28 +1903,44 @@
     }
     .rewards-quests-container {
         height: 44rem;
-        width:  60%;
+        width:  100%;
     }
     .rewards-achievements-container {
         height: 36rem;
-        width:  60%;
+        width:  100%;
         margin-left: 0rem;
         margin-top: 1rem;
     }
     .rewards-shop-container {
-        width: 60%;
-        margin-top: 2rem;
+        width: 48rem;
     }
     .market-section {
         transform: scale(0.9);
     }
     .rewards-bottom-flex {
-        width: 80rem;
+        width: 48rem;
     }
     .achievement-box {
         width: 80%;
         overflow-x: auto;
         justify-content: left;
+    }
+    .bb-nav-container {
+       margin-top: 1rem;
+    }
+    .bb-nav-active {
+        padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+        font-size: 0.8125rem;
+    }
+    .bb-nav-inactive {
+        padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+        font-size: 0.8125rem;
+    }
+    .bb-nav-img-active {
+        height: 1.3rem;
+    }
+    .bb-nav-img {
+        height: 1.3rem;
     }
 }
 

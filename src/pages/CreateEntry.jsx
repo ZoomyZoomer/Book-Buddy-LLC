@@ -275,7 +275,7 @@ const CreateEntry = () => {
                     </div>
                 </div>
 
-                <div style={{display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                <div className='entry-stuff'>
 
             <div className='create-entry-section'>
                 <div className='create-entry-title'>Create An Entry..</div>
@@ -372,7 +372,9 @@ const CreateEntry = () => {
                 <div className='create-entry-seg'/>
                 <div className='create-entry-sub-title' style={{marginBottom: '0.625rem'}}>Preview</div>
                 {book && (
-                    <LibraryBook book={book} addingBook={false} isPreview={true} username={userInfo?.username} volumeId={volume_id} index={0} reFetchStickers={reFetchStickers}/>
+                    <div className='book-cont-lol'>
+                        <LibraryBook book={book} addingBook={false} isPreview={true} username={userInfo?.username} volumeId={volume_id} index={0} reFetchStickers={reFetchStickers}/>
+                    </div>
                 )}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', fontWeight: '400', fontSize: '0.8125rem', marginTop: '2rem', marginBottom: '1rem', color: 'rgb(214, 214, 214)'}}>
                     <div className='line'/>

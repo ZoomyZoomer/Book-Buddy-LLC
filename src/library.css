@@ -1530,6 +1530,10 @@
     background-color: #78C6A3;
 }
 
+.abb-xd {
+    font-size: 1.4rem;
+}
+
 /* Media Queries */
 
 @media screen and (min-width: 320px) and (max-width: 569px){
@@ -1629,6 +1633,21 @@
     .drop-filter-text {
         font-size: 0px;
     }
+    .adding-book-banner {
+        width: 45%;
+        margin-left: 3rem;
+        height: 3rem;
+    }
+    .abb-xd {
+        font-size: 0.625rem;
+    }
+    .abb-0 {
+        font-size: 0rem;
+    }
+    .abb-1 {
+        font-size: 0.8125rem;
+        padding: 0.2rem 0.35rem 0.2rem 0.35rem;
+    }
 }
 
 @media screen and (min-width: 570px) and (max-width: 999px){
@@ -1672,6 +1691,21 @@
     }
     .drop-filter-text {
         font-size: 0px;
+    }
+    .adding-book-banner {
+        width: 55%;
+        margin-left: 3rem;
+        height: 4rem;
+    }
+    .abb-xd {
+        font-size: 0.8125rem;
+    }
+    .abb-0 {
+        font-size: 0.7rem;
+    }
+    .abb-1 {
+        font-size: 1rem;
+        padding: 0.2rem 0.45rem 0.2rem 0.45rem;
     }
 }
 

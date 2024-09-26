@@ -294,6 +294,8 @@ const StoragePage = () => {
         <div className={(displayReward) ? 'rewards-popup-filter' : 'storage-container'}>
 
         <div className='storage-box'>
+
+        <BookBuddyNavbar tab={2} currency={currency}/>
  
             <div className='storage-top-flex'>
 
