@@ -8,9 +8,6 @@ const secret = 'asdjaisd1203810';
 
 export default async function handler(req, res) {
 
-    res.status(200).json({message: "OK"});
-    return;
-
   if (req.method === 'POST') {
     const { username, password } = req.body;
 
