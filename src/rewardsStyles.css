@@ -1965,8 +1965,26 @@
     }
 }
 
-@media screen and (min-width: 800px) and (max-height: 1100px){
+@media screen and (min-height: 700px) and (max-height: 1100px){
     .rewards-box {
         transform: scale(0.9);
+    } 
+    .achievement-item-container {
+        padding: 0.6rem;
+    }
+    .achi-img {
+        height: 2rem;
+    }
+    .achievement-item-container-complete {
+        padding: 0.6rem;
+    }
+    .rewards-container {
+        margin-top: 3rem;
+    }
+    .achievement-box {
+        margin-top: 0.4rem;
+    }
+    .rewards-shop-container {
+        padding-bottom: 0.625rem;
     }
 }
