@@ -13,9 +13,8 @@ export default async function handler(req, res) {
 
     try {
       // Use the connectToDatabase function to establish a database connection
-      console.log('here');
+
       await connectToDatabase(); // You still need to connect to the database, but you won't use the db object
-      console.log('here2');
 
       // Find the user by username or email using the User model
       let userDoc = await User.findOne({ username: username });
