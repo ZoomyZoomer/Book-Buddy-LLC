@@ -175,12 +175,12 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
     let notFiles = [0,1,2,3,8,9];
 
     useEffect(() => {
-        if (username){
+        if (username && index){
             if (!notFiles.includes(item)){
                 fetchFileTime();
             }
         }
-    }, [username, item])
+    }, [username, item, index])
 
     useEffect(() => {
         if (fileTime && !itemFinished){
