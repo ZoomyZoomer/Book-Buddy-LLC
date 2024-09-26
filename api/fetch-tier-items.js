@@ -1,6 +1,6 @@
 import { connectToDatabase } from './utils/db'; // Import your DB connection utility
 import Inventory from './models/Inventory'; // Adjust the path if necessary
-import Quest from './models/Quest'; // Adjust the path if necessary
+import Quest from './models/Quests'; // Adjust the path if necessary
 
 const stickerMap = new Map([
     ['0', {sticker_name: 'dapper-bird', sticker_id: '0', location: 0, sticker_display: 'Dapper Bird', sticker_set: {set: 'Christmas', set_item_id: 0, unique_color_name: 'Winter Mint', border_color: '#94F0E7'}}],

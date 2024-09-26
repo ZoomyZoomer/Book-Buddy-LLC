@@ -1,7 +1,7 @@
 import User from './models/User';
 import Bookshelf from './models/Bookshelf';
 import Inventory from './models/Inventory';
-import Quest from './models/Quest';
+import Quest from './models/Quests';
 import bcrypt from 'bcryptjs';
 import { connectToDatabase } from './utils/db';
 

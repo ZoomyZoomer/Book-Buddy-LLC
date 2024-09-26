@@ -1,6 +1,6 @@
 import { connectToDatabase } from './utils/db'; // Adjust the path to your DB connection utility
 import Inventory from './models/Inventory'; // Adjust the path if necessary
-import Quest from './models/Quest'; // Adjust the path if necessary
+import Quest from './models/Quests'; // Adjust the path if necessary
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
