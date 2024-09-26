@@ -18,7 +18,7 @@ function LoginPage() {
     useEffect(() => {
         const fetchProfile = async () => {
           try {
-            const response = await axios.get('http://localhost:4000/profile', {
+            const response = await axios.get('https://help-five-weld.vercel.app:4000/profile', {
               withCredentials: true,
             });
             setUserInfo(response.data.user);
@@ -40,7 +40,7 @@ function LoginPage() {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:4000/signin", {
+            const response = await axios.post("https://help-five-weld.vercel.app:4000/signin", {
                 username,
                 password
             }, {
