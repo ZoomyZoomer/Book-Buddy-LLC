@@ -15,7 +15,7 @@ const OpenAI = require('openai');
 const QuestsModel = require('./models/Quests');
 
 app.use(express.json());
-app.use(cors({credentials:true, origin:'https://help-five-weld.vercel.app:3000'}));
+app.use(cors({credentials:true, origin:'https://help-five-weld.vercel.app'}));
 app.use(cookieParser());
 
 require('dotenv').config();
