@@ -17,7 +17,7 @@ function SignUpPage() {
     useEffect(() => {
         const fetchProfile = async () => {
           try {
-            const response = await axios.get('http://localhost:4000/profile', {
+            const response = await axios.get('/api/profile', {
               withCredentials: true,
             });
             setUserInfo(response.data.user);
@@ -44,7 +44,7 @@ function SignUpPage() {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:4000/register", {
+            const response = await axios.post("/api/register", {
                 username,
                 password,
                 email
