@@ -49,7 +49,7 @@ function RewardsPage() {
     useEffect(() => {
         const fetchProfile = async () => {
           try {
-            const response = await axios.get('http://localhost:4000/profile', {
+            const response = await axios.get('/api/profile', {
               withCredentials: true,
             });
 
@@ -74,7 +74,7 @@ function RewardsPage() {
 
         try {
     
-          const res = await axios.get('http://localhost:4000/fetch-achievements', {
+          const res = await axios.get('/api/fetch-achievements', {
             params: {
               username: userInfo.username
             }
@@ -128,7 +128,7 @@ function RewardsPage() {
 
       if (finishedQuests.length === 3){
 
-        const res = await axios.post('http://localhost:4000/update-streak', {
+        const res = await axios.post('/api/update-streak', {
           username: userInfo.username
         })
 
@@ -172,7 +172,7 @@ function RewardsPage() {
 
       try {
 
-        const res = await axios.get('http://localhost:4000/fetch-quests', {
+        const res = await axios.get('/api/fetch-quests', {
             params: {
                 username: userInfo.username
             }
@@ -200,7 +200,7 @@ function RewardsPage() {
 
       try {
 
-        const res = await axios.get('http://localhost:4000/fetch-currency', {
+        const res = await axios.get('/api/fetch-currency', {
           params: {
             username: userInfo.username
           }
@@ -244,7 +244,7 @@ function RewardsPage() {
 
     if (userInfo?.username){
 
-      const res = await axios.get('http://localhost:4000/fetch-market', {
+      const res = await axios.get('/api/fetch-market', {
         params: {
           username: userInfo.username
         }
@@ -342,7 +342,7 @@ function RewardsPage() {
 
       setShowItemPopup2(true);
 
-      await axios.post('http://localhost:4000/update-streak-reward', {
+      await axios.post('/api/update-streak-reward', {
         username: userInfo.username
       })
 
@@ -415,7 +415,7 @@ function RewardsPage() {
 
     try {
 
-      await axios.post('http://localhost:4000/set-coupon', {
+      await axios.post('/api/set-coupon', {
         username: userInfo.username
       })
 
@@ -441,7 +441,7 @@ function RewardsPage() {
 
     try {
 
-      await axios.post('http://localhost:4000/use-coffee', {
+      await axios.post('/api/use-coffee', {
         username: userInfo.username
       })
 
@@ -472,17 +472,24 @@ function RewardsPage() {
 
     if (sessionId && marketString && value && userInfo) {
 
-      // Call backend to verify the session
-      axios.get(`http://localhost:4000/verify-payment?session_id=${sessionId}&market=${marketString}&value=${value}&username=${userInfo.username}`)
-        .then(response => {
-          if (response.data.paymentSuccess) {
-            setWasPurchased(true);
-            setShowPopup(true);
-          }
-        })
-        .catch(error => {
-          console.error('Verification failed', error);
-        });
+      axios.get(`/api/verify-payment`, {
+        params: {
+            session_id: sessionId,
+            market: marketString,
+            value: value,
+            username: userInfo?.username,
+        },
+    })
+    .then(response => {
+      if (response.data.paymentSuccess) {
+        setWasPurchased(true);
+        setShowPopup(true);
+      }
+    })
+    .catch(error => {
+        console.error('Error verifying payment:', error);
+    });
+      
     }
 
   }, [location, userInfo])
