@@ -43,7 +43,7 @@ const AchievementItem = ({achievement, index, clientAchievements, isCompleted, u
     const handleClaim = async() => {
         try {
 
-            await axios.post('http://localhost:4000/claim-achievement', {
+            await axios.post('/api/claim-achievement', {
                 username,
                 achievement,
                 clientAchievement: clientAchievements,
