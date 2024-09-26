@@ -21,9 +21,8 @@ export default async function handler(req, res) {
       }
 
       // Ensure index is in a proper format
-      const parsedIndex = JSON.parse(index); // Expecting a JSON array, e.g., "[0,1]"
       const file = inventory.active_files.find(file => 
-        file.index[0] === parsedIndex[0] && file.index[1] === parsedIndex[1]
+        file.index[0] === index[0] && file.index[1] === index[1]
       );
 
       if (!file) {
