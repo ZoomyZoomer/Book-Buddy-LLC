@@ -27,6 +27,9 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: 'Achievement Incomplete' });
       }
 
+      res.status(200).json({message: 'k'});
+      return;
+
       // Claim the reward
       const inventory = await Inventory.findOne({ username: username });
 
@@ -38,7 +41,6 @@ export default async function handler(req, res) {
         } else {
           related_file.quantity += 1;
         }
-        await inventory.save();
 
       // Handle item reward
       } else if (achievement.reward?.item) {
@@ -48,7 +50,7 @@ export default async function handler(req, res) {
         } else {
           related_item.quantity += 1;
         }
-        await inventory.save();
+      
       }
 
       // Mark achievement as claimed
@@ -57,6 +59,7 @@ export default async function handler(req, res) {
       related_achievement.date = new Date();
 
       await quest.save();
+      await inventory.save();
 
       res.status(200).json({ message: 'Achievement claimed' });
 
