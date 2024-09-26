@@ -1,10 +1,10 @@
-import User from '../../models/User'; // Adjust the path as necessary
+import User from './models/User'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie'; // Vercel requires this package for handling cookies
-import { connectToDatabase } from '../../utils/db';
+import { connectToDatabase } from './utils/db';
 
-const secret = process.env.JWT_SECRET; // Ensure this is stored in your environment variables
+const secret = 'asdjaisd1203810';
 
 export default async function handler(req, res) {
 
