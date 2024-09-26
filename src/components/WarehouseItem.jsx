@@ -87,7 +87,7 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
     }
 
     useEffect(() => {
-        if (username){
+        if (username && item !== 0){
             fetchJam();
         }
     }, [username, fetchJamy])

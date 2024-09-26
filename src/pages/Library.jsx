@@ -313,7 +313,7 @@ function Library() {
     <div className='library-container'>
 
 
-        <div style={{width: '78%', marginBottom: '1rem'}}>
+        <div style={{width: '72%', marginBottom: '1rem'}}>
           <BookBuddyNavbar tab={0} currency={currency}/>
         </div>
       
