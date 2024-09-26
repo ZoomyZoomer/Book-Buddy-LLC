@@ -41,7 +41,7 @@ const StoragePage = () => {
     useEffect(() => {
         const fetchProfile = async () => {
           try {
-            const response = await axios.get('http://localhost:4000/profile', {
+            const response = await axios.get('/api/profile', {
               withCredentials: true,
             });
 
@@ -70,7 +70,7 @@ const StoragePage = () => {
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-warehouse-grid', {
+            const res = await axios.get('/api/fetch-warehouse-grid', {
                 params: {
                     username: userInfo.username
                 }
@@ -91,7 +91,7 @@ const StoragePage = () => {
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-currency', {
+            const res = await axios.get('/api/fetch-currency', {
                 params: {
                     username: userInfo.username
                 }
@@ -112,7 +112,7 @@ const StoragePage = () => {
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-items', {
+            const res = await axios.get('/api/fetch-items', {
                 params: {
                     username: userInfo.username
                 }
@@ -132,7 +132,7 @@ const StoragePage = () => {
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-files', {
+            const res = await axios.get('/api/fetch-files', {
                 params: {
                     username: userInfo.username
                 }
@@ -158,7 +158,7 @@ const StoragePage = () => {
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-stickers', {
+            const res = await axios.get('/api/fetch-stickers', {
                 params: {
                     username: userInfo.username
                 }

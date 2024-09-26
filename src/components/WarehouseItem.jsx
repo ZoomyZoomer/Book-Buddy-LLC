@@ -41,7 +41,7 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
 
         try {
 
-            await axios.post('http://localhost:4000/remove-obstruction', {
+            await axios.post('/api/remove-obstruction', {
                 username,
                 index,
                 payment_required: warehouseMap.get(item).cost
@@ -72,7 +72,7 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-jam', {
+            const res = await axios.get('/api/fetch-jam', {
                 params: {
                     username
                 }
@@ -97,7 +97,7 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
 
         if (isJam > 0){
 
-            await axios.post('http://localhost:4000/use-jam', {
+            await axios.post('/api/use-jam', {
                 username,
                 index
             })
@@ -157,7 +157,7 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-file-time', {
+            const res = await axios.get('/api/fetch-file-time', {
                 params: {
                     username,
                     index: index
@@ -232,7 +232,7 @@ const WarehouseItem = ({item, setEatItem, index, availSpaces, username, setReFet
 
             try {
 
-                await axios.post('http://localhost:4000/claim-file', {
+                await axios.post('/api/claim-file', {
                     username,
                     index,
                     new_file: warehouseMap.get(item + 20)

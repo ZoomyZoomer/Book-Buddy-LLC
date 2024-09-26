@@ -10,7 +10,7 @@ const PickSticker = ({setShowPickSticker, setDisplayReward, username, setShowIte
 
     const fetchStickers = async() => {
 
-        const res = await axios.get('http://localhost:4000/fetch-unowned-stickers', {
+        const res = await axios.get('/api/fetch-unowned-stickers', {
             params: {
                 username
             }
@@ -22,7 +22,7 @@ const PickSticker = ({setShowPickSticker, setDisplayReward, username, setShowIte
 
     const handleConfirm = async() => {
 
-        await axios.post('http://localhost:4000/confirm-picked-stickers', {
+        await axios.post('/api/confirm-picked-stickers', {
             username,
             stickerList
         })

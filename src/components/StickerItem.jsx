@@ -11,7 +11,7 @@ const StickerItem = ({sticker, hidden, username, isPreview, activeStickers, setR
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-date-acquired', {
+            const res = await axios.get('/api/fetch-date-acquired', {
                 params: {
                     username,
                     sticker_id: sticker.sticker_id
@@ -31,7 +31,7 @@ const StickerItem = ({sticker, hidden, username, isPreview, activeStickers, setR
         try {
 
             if (isPreview){
-                await axios.post('http://localhost:4000/set-active-sticker', {
+                await axios.post('/api/set-active-sticker', {
                     username,
                     sticker,
                     volumeId: volume_id

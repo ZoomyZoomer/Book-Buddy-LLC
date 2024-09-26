@@ -26,7 +26,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetch-quantity', {
+            const res = await axios.get('/api/fetch-quantity', {
                 params: {
                     username,
                     file_id: file.id
@@ -145,7 +145,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
 
         try {
 
-            await axios.post('http://localhost:4000/add-file', {
+            await axios.post('/api/add-file', {
                 username,
                 file_id: file.id,
                 index: activeIndex
@@ -219,7 +219,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
 
         try {
 
-            await axios.post('http://localhost:4000/sell-file', {
+            await axios.post('/api/sell-file', {
                 username,
                 file,
                 quant
@@ -252,7 +252,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
 
         if (file.id === '0' && file.quantity > 0){
             playAudioCoins2();
-            await axios.post('http://localhost:4000/use-coffee', {
+            await axios.post('/api/use-coffee', {
                 username: username
             })
             setReFetchWarehouse();
@@ -260,7 +260,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
 
         if (file.id === '1' && file.quantity > 0){
             playAudioCoins2();
-            await axios.post('http://localhost:4000/set-coupon', {
+            await axios.post('/api/set-coupon', {
                 username: username
             })
             setReFetchWarehouse();

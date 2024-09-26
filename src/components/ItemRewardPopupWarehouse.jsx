@@ -91,7 +91,7 @@ const ItemRewardPopupWarehouse = ({setShowItemPopup, username, item, setReFetch,
 
       if (item != 14 && item != 15){
 
-        let res = await axios.get('http://localhost:4000/fetch-tier-items', {
+        let res = await axios.get('/api/fetch-tier-items', {
           params: {
             username,
             itemNum: item,
@@ -111,7 +111,7 @@ const ItemRewardPopupWarehouse = ({setShowItemPopup, username, item, setReFetch,
 
       } else {
 
-        let res = await axios.get('http://localhost:4000/fetch-sticker-purchase', {
+        let res = await axios.get('/api/fetch-sticker-purchase', {
           params: {
             username,
             random: item == 14 ? 1 : 0,

@@ -24,7 +24,7 @@ function LoginPage() {
             setUserInfo(response.data.user);
 
             if (response.data.user){
-                navigate('/error');
+            
             }
             
           } catch (e) {
