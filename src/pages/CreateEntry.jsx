@@ -137,26 +137,19 @@ const CreateEntry = () => {
 
     const fetchActiveStickers = async() => {
 
-        const res = await axios.get('/api/fetchActiveStickers', {
-            params: {
-                username: userInfo?.username,
-                volumeId: volume_id
-            }
-        })
-
-        setActiveStickers(res.data);
+        setActiveStickers(book.active_stickers);
 
     }
 
     useEffect(() => {
-        if (userInfo?.username){
+        if (userInfo?.username && book){
             try {
                 fetchActiveStickers();
             } catch(e) {
                 
             }
         }
-    }, [userInfo, reFetchStickers])
+    }, [userInfo, reFetchStickers, book])
 
     useEffect(() => {
         if (userInfo?.username){

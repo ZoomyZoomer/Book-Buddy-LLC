@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       }
 
       // Get the locations of active stickers
-      const activeStickers = rel_book.active_stickers.map(sticker => sticker.location);
+      const activeStickers = rel_book.active_stickers;
 
       // Return the active stickers
       return res.status(200).json({ activeStickers });
