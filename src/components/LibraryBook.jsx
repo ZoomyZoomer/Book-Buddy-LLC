@@ -130,14 +130,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const getGenreColor = async() => {
 
-      const res = await axios.get('/api/getGenreColor', {
-        params: {
-          username: username,
-          genre: book.genre
-        }
-      })
-
-      setCurrReadingColor(res.data.color);
+    
 
     }
 
@@ -192,21 +185,6 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
     };
 
     const fetchActiveStickers = async() => {
-
-        try {
-
-            const res = await axios.get('/api/fetchActiveStickers', {
-                params: {
-                    username,
-                    volumeId
-                }
-            })
-
-            setActiveStickers(res.data);
-
-        } catch(e) {
-            
-        }
 
     }
 
