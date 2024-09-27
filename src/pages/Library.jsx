@@ -297,7 +297,7 @@ function Library() {
             
               <div className='goals-section'>
    
-              {texty && (
+              
                 <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '90%'}}>
                   <div className='goal-table-main'>
                     <div className='reading-goal-table-title'>
@@ -311,7 +311,7 @@ function Library() {
                     <div className='goal-arrow' onClick={() => setInd(prev => (ind + 4) >= maxLen ? prev : prev + 4)}><ArrowRight /></div>
                   </div>
                 </div>
-              )}
+             
                 
                 
                   <div className='goals-section-container'>
@@ -333,7 +333,7 @@ function Library() {
                 </div>
                
               
-                {texty && (
+              
                   <div className='streak-sec-box'>
 
                   <div className='streak-sec-container'>
@@ -371,7 +371,7 @@ function Library() {
                   </div>
 
                 </div>
-                )}
+               
 
               </div>
             
@@ -461,7 +461,15 @@ function Library() {
                                 </div>
                             )}
                       
-                        
+                        <div className='library-grid'>
+                            {isAddingBook && addingCollection.map((book, index) => (
+                                    <LibraryBook book={book?.volumeInfo} index={index} isPreview={false} reFetchStickers={reFetchStickers} volumeId={book.id} addingBook={true} username={userInfo?.username} setIsAddingBook={setIsAddingBook} setUpdatedRating={setUpdatedRating}/>
+                                ))
+                            }
+                            {!isAddingBook && userCollection.map((book, index) => (
+                                    <LibraryBook book={book} index={index} isPreview={false} reFetchStickers={reFetchStickers} volumeId={book.volume_id} addingBook={false} username={userInfo?.username} setIsAddingBook={setIsAddingBook} setUpdatedRating={setUpdatedRating}/>
+                                ))}
+                        </div>
                     </div>
                 </div>
 
