@@ -195,7 +195,8 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const fetchActiveStickers = () => {
 
-        console.log(book.activeStickers);
+        console.log(book.active_stickers);
+        setActiveStickers(book.active_stickers);
         console.log(book);
 
     }
