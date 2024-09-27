@@ -41,7 +41,7 @@ export default async function handler(req, res) {
             let newQuests = [];
 
             // New day has started
-            if (now >= quest.daily_quest_time) {
+            if ((now >= quest.daily_quest_time) && !quest.questTime) {
                 for (let i = 0; i < 3; i++) {
                     let randomQuest = questMap.get((Math.floor(Math.random() * questMap.size)).toString());
 
@@ -86,11 +86,16 @@ export default async function handler(req, res) {
                 }
 
                 // Update time
-                const midnightTomorrow = new Date(now);
-                midnightTomorrow.setDate(now.getDate() + 1);
-                midnightTomorrow.setHours(0, 0, 0, 0);
-
-                quest.daily_quest_time = midnightTomorrow;
+                if (quest.streakTime){
+                    const midnightTomorrow = new Date(now);
+                    midnightTomorrow.setDate(now.getDate() + 1);
+                    midnightTomorrow.setHours(0, 0, 0, 0);
+                    quest.daily_quest_time = midnightTomorrow;
+                    quest.streakTime = false;
+                    quest.questTime = false;
+                } else {
+                    quest.questTime = true;
+                }
 
                 await quest.save();
 

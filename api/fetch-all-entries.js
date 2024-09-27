@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       const now = new Date();
 
       // If a new day has started, reset streak-related data
-      if (now >= quest.daily_quest_time) {
+      if ((now >= quest.daily_quest_time) && !quest.streakTime) {
         // Check if streak was not completed yesterday
         if (!shelf.streak_today) {
           shelf.streak = 0;
@@ -42,10 +42,17 @@ export default async function handler(req, res) {
         await shelf.save();
 
         // Set the next daily quest time to midnight tomorrow
-        const midnightTomorrow = new Date(now);
-        midnightTomorrow.setDate(now.getDate() + 1);
-        midnightTomorrow.setHours(0, 0, 0, 0);
-        quest.daily_quest_time = midnightTomorrow;
+        if (quest.questTime){
+          const midnightTomorrow = new Date(now);
+          midnightTomorrow.setDate(now.getDate() + 1);
+          midnightTomorrow.setHours(0, 0, 0, 0);
+          quest.daily_quest_time = midnightTomorrow;
+          quest.streakTime = false;
+          quest.questTime = false;
+        } else {
+          quest.streakTime = true;
+        }
+
 
         await quest.save();
       }

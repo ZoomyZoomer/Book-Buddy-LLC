@@ -56,6 +56,14 @@ const QuestsSchema = new Schema({
         type: Date,
         default: null
     },
+    streakTime : {
+        type: Boolean,
+        default: false
+    }, 
+    questTime : {
+        type: Boolean,
+        default: false
+    },
     streak: {
         type: Number,
         default: 0
