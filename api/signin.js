@@ -1,4 +1,4 @@
-import User from './models/User'
+import User from './models/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie'; // Vercel requires this package for handling cookies
@@ -13,7 +13,6 @@ export default async function handler(req, res) {
 
     try {
       // Use the connectToDatabase function to establish a database connection
-
       await connectToDatabase(); // You still need to connect to the database, but you won't use the db object
 
       // Find the user by username or email using the User model
@@ -31,8 +30,8 @@ export default async function handler(req, res) {
       const validPassword = bcrypt.compareSync(password, userDoc.password);
 
       if (validPassword) {
-        // Generate JWT token
-        jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
+        // Use userDoc.username for the token payload instead of the input username
+        jwt.sign({ username: userDoc.username, id: userDoc._id }, secret, {}, (err, token) => {
           if (err) throw err;
 
           // Set the token in cookies
@@ -47,7 +46,7 @@ export default async function handler(req, res) {
           // Return user details as a JSON response
           res.status(200).json({
             id: userDoc._id,
-            username,
+            username: userDoc.username, // Return the username stored in userDoc
           });
         });
       } else {
