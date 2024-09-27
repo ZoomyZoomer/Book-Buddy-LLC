@@ -1,4 +1,3 @@
-
 import mongoose from 'mongoose';
 
 let isConnected; // Track the connection state
@@ -16,11 +15,8 @@ export const connectToDatabase = async () => {
     throw new Error('Please add your Mongo URI to the environment variables');
   }
 
-  // Connect to the MongoDB database
-  await mongoose.connect(uri, {
-    useUnifiedTopology: true,
-    // Removed useNewUrlParser as it's deprecated
-  });
+  // Connect to the MongoDB database without deprecated options
+  await mongoose.connect(uri);
 
   isConnected = true; // Update connection state
 };
