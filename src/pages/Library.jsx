@@ -57,29 +57,6 @@ function Library() {
         fetchProfile();
       }, []);
 
-      useEffect(() => {
-        const checkScrollPosition = () => {
-          if (divRef.current.scrollTop > 0) {
-            setHasScrolled(true);
-            console.log('hereeee');
-          } else {
-            setHasScrolled(false);
-          }
-        };
-    
-        const div = divRef.current;
-        if (div) {
-          div.addEventListener('scroll', checkScrollPosition);
-          checkScrollPosition(); // Initial check
-        }
-    
-        return () => {
-          if (div) {
-            div.removeEventListener('scroll', checkScrollPosition);
-          }
-        };
-      }, []);
-
       const fetchCollection = async () => {
         try {
           const response = await axios.get('/api/getBooksBySearch', {
@@ -182,12 +159,6 @@ function Library() {
 
 
     }
-
-    useEffect(() => {
-      setTimeout(() => {
-        setTexty(true);
-      }, 600)
-    }, [])
 
     const callBooksApi = async() => {
 
