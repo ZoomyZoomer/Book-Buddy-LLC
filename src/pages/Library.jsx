@@ -109,7 +109,54 @@ function Library() {
 
     const expandLibrary = () => {
 
-  
+    try {
+      if (!expand){
+
+        setTexty(false);
+
+        const elem = document.getElementsByClassName('goals-section')[0];
+        elem?.classList.remove('goals-section');
+        elem?.classList.add('goals-section-hide');
+
+        const elem2 = document.getElementsByClassName('library-section')[0];
+        elem2?.classList.remove('library-section');
+        elem2?.classList.add('library-section-expand');
+
+        setTimeout(() => {
+          const elem3 = document.getElementsByClassName('library-grid')[0];
+          elem3?.classList.remove('library-grid');
+          elem3?.classList.add('library-grid-expand');
+        }, 400)
+
+        setTimeout(() => {
+          setExpand(prev => !prev);
+        }, 699)
+
+      } else {
+
+        setExpand(prev => !prev);
+
+        const elem = document.getElementsByClassName('goals-section-hide')[0];
+        elem?.classList.remove('goals-section-hide');
+        elem?.classList.add('goals-section');
+
+        const elem2 = document.getElementsByClassName('library-section-expand')[0];
+        elem2?.classList.remove('library-section-expand');
+        elem2?.classList.add('library-section');
+
+        setTimeout(() => {
+          const elem3 = document.getElementsByClassName('library-grid-expand')[0];
+          elem3?.classList.remove('library-grid-expand');
+          elem3?.classList.add('library-grid');
+          setTexty(true);
+        }, 400)
+
+      }
+
+    } catch(e) {
+
+    }
+
 
     }
 
@@ -247,7 +294,7 @@ function Library() {
 
  
 
-            { !expand && (
+            
               <div className='goals-section'>
    
               {texty && (
@@ -266,7 +313,7 @@ function Library() {
                 </div>
               )}
                 
-                {texty && (
+                
                   <div className='goals-section-container'>
 
                   <div className='recent-entries-container'>
@@ -284,7 +331,7 @@ function Library() {
                   </div>
 
                 </div>
-                )}
+               
               
                 {texty && (
                   <div className='streak-sec-box'>
@@ -327,7 +374,7 @@ function Library() {
                 )}
 
               </div>
-            )}
+            
 
             <div className='library-section'>
 
@@ -414,6 +461,7 @@ function Library() {
                                 </div>
                             )}
                       
+                        
                     </div>
                 </div>
 
