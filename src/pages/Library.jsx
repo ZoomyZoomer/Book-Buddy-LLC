@@ -462,11 +462,11 @@ function Library() {
                             )}
                       
                         <div className='library-grid'>
-                            {isAddingBook && addingCollection.map((book, index) => (
+                            {isAddingBook && addingCollection[0].map((book, index) => (
                                     <LibraryBook book={book?.volumeInfo} index={index} isPreview={false} reFetchStickers={reFetchStickers} volumeId={book.id} addingBook={true} username={userInfo?.username} setIsAddingBook={setIsAddingBook} setUpdatedRating={setUpdatedRating}/>
                                 ))
                             }
-                            {!isAddingBook && userCollection.map((book, index) => (
+                            {!isAddingBook && userCollection[0].map((book, index) => (
                                     <LibraryBook book={book} index={index} isPreview={false} reFetchStickers={reFetchStickers} volumeId={book.volume_id} addingBook={false} username={userInfo?.username} setIsAddingBook={setIsAddingBook} setUpdatedRating={setUpdatedRating}/>
                                 ))}
                         </div>
