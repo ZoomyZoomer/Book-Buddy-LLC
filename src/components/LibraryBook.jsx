@@ -219,6 +219,12 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
   return (
     <div style={{marginTop: '1rem', border: addingBook ? '1px solid #d2d4d8' : (book.pages_read / book.total_pages) == 1 ? '1px solid #78C6A3' : '1px solid #d2d4d8'}} className={(isHolding) ? 'library-hold-container' : (!addingBook && (book.pages_read / book.total_pages == 1) ? 'library-book-completed' : 'library-book-container')} onClick={(e) => checkRedirect(e)} onMouseDown={(e) => handleMouseDown(e)} onMouseUp={handleMouseUpOrLeave} onMouseLeave={handleMouseUpOrLeave}>
 
+        {isFavorite && !addingBook && (
+            <img src='/heart-icon.png' className='heart-icon'/>
+        )}
+
+            <audio ref={audioRefHeart} src="/pop.mp3" />
+
         {!addingBook && isHolding && (
             <div className='favorite-progress'/>
         )}
@@ -281,7 +287,13 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
             </div>
 
         </div>
-
+        
+        {!addingBook && (
+            <>
+                <div id='star' className='library-page-abs' style={{color: (book.pages_read / book.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book.pages_read}/{book.total_pages} {isPinned ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><PinFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><PinEmpty /></div>}</div>
+                <audio ref={audioRefPin} src="/staple.mp3" />
+            </>
+        )}
 
         {addingBook && (
             <div className='library-page-abs'>{book.pageCount} pages</div>
