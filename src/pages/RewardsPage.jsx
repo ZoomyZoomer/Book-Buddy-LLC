@@ -522,12 +522,13 @@ function RewardsPage() {
 
         <div className='rewards-box'>
 
+        <BookBuddyNavbar tab={2} currency={currency}/>
+
             <section className='rewards-shop-container'>
 
               <div className='rq-title2'>
                 <div>Achievements</div>
                 <div className='rq-0'>A little something to work towards</div>
-                <div className='to-storage' onClick={() => navigate('/storage')}>{'Storage >'}</div>
               </div>
 
               <div className='achievement-flex'>

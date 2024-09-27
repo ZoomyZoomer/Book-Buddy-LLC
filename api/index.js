@@ -34,12 +34,6 @@ mongoose.connect("mongodb+srv://kcw90:oJQDQrLG9h466RKf@cluster0.ajxucqi.mongodb.
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdjaisd1203810';
 
-const file_items = new Map([
-    ['File', '"A mysterious file: Handle with care—could be a game changer or just more paperwork."'],
-    ['Certificate', '"A certificate: Proof that you’ve mastered something—at least on paper!"'],
-    ['Love Letter', '"A love letter: More powerful than any spell, but handle with care—hearts are fragile!"']
-  ]);
-
 const global_tiers = new Map([
     ['I', {value: 20, rarity: 'Common', name: 'file_1', display: 'File', tier: 'I', desc: '"A mysterious file: Handle with care—could be a game changer or just more paperwork."'}],
     ['II', {value: 30, rarity: 'Rare', name: 'file_2', display: 'Certificate', tier: 'II', desc: '"A certificate: Proof that you’ve mastered something—at least on paper!"'}],
@@ -96,31 +90,6 @@ app.get('/getCollection', async (req, res) => {
 
 })
 
-app.post('/deleteBook', async (req, res) => {
-
-    const {volume_id, tab_name, username} = req.body;
-
-    try {
-        await Bookshelf.updateOne(
-          { username: username, 'tabs.tab_name': tab_name },
-          { $pull: { 'tabs.$.books': { volume_id: volume_id } } }
-        );
-
-        await Bookshelf.updateOne(
-            { username: username, "tabs.tab_name": tab_name },
-            { $pull: { "tabs.$.last_read": volume_id } }
-        );
-        
-        res.status(200).json({message: "Book successfully deleted"});
-      } catch (err) {
-        res.status(500).json({message: "Could not delete book"});
-      }
-
-
-})
-
-
-
 app.get('/getRating', async (req, res) => {
 
     const {tab_name, volume_id, username} = req.query;
@@ -166,33 +135,6 @@ app.get('/fetch-ratings', async(req, res) => {
         })
 
         res.status(200).json(ratingsArray);
-
-    } catch(e) {
-        res.status(500).json({error: e});
-    }
-
-})
-
-app.get('/getPages', async (req, res) => {
-
-    const {volume_id, tab_name, username} = req.query;
-
-    try {
-
-        const shelf = await Bookshelf.findOne({ username: username });
-        const tab = shelf.tabs.find(tab => tab.tab_name === tab_name);
-
-        if (!tab) {
-            res.status(500).json({message: "Requested tab not found"});
-        }
-
-        const book = tab.books.find(book => book.volume_id === volume_id);
-
-        if (!book) {
-            res.status(500).json({message: "Requested book not found"});
-        }
-
-        res.status(200).json([book.pages_read, book.total_pages]);
 
     } catch(e) {
         res.status(500).json({error: e});
@@ -334,149 +276,6 @@ app.post('/process-claim', async(req,res) => {
         await shelf.save();
 
         res.status(201).json({message: "Tier successfully updated"});
-
-    } catch(e) {
-        res.status(500).json({error: e});
-    }
-
-})
-
-app.post("/send-entry", async(req,res) => {
-
-    const {username, tab_name, volume_id, pages_added, total_pages_read, title} = req.body;
-
-    try{
-
-        const shelf = await Bookshelf.findOne({ username: username });
-        const tab = shelf.tabs.find(tab => tab.tab_name === tab_name);
-        const book = tab.books.find(book => book.volume_id === volume_id);
-
-        if (pages_added <= 0){
-            res.status(500).json({message: 'Invalid number of pages'});
-            return;
-        }
-
-        if (tab.last_read.length > 0){
-            const index = tab.last_read.indexOf(book.volume_id);
-            if (index !== -1) {
-                // Remove the entry with the corresponding volume_id
-                tab.last_read.splice(index, 1);
-            }
-            tab.last_read.push(book.volume_id);
-        } else {
-            tab.last_read.push(book.volume_id);
-        }
-
-        // Check if page read quest is present (id: 1)
-        const quest = await Quest.findOne({ username: username });
-        const relevant_quest = quest.active_quests.find(quest => quest.id === '0');
-
-        if (relevant_quest){
-
-            if (relevant_quest.quantity_achieved + pages_added > 50){
-                relevant_quest.quantity_achieved = 50;
-            } else {
-                relevant_quest.quantity_achieved += pages_added;
-            }
-
-            await quest.save();
-
-        }
-
-        book.pages_read = total_pages_read;
-
-        const inventory = await Inventory.findOne({username: username});
-        const item_set = inventory.items.find(set => set.item_set_id === book.icon_set);
-
-        const now = new Date();
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const month = monthNames[now.getMonth()];
-        const day = String(now.getDate()).padStart(2, '0');
-        const year = now.getFullYear();
-
-        // Check if the date of the prev Entry is the same as the one we're trying to add...
-        // If so, combine total pages read into a single entry (Each entry should represent one day)
-
-        if(book.page_entries.length > 0){
-
-            const entry = book.page_entries[book.page_entries.length - 1];
-
-            if ((entry.date.month == month) && (entry.date.day == day) && (entry.date.year == year)){
-
-                entry.pages_added += pages_added;
-                entry.new_page_total += pages_added;
-
-                // Check total_entries for the same
-                const relatedEntry = shelf.total_entries.find(book => (book.date.month == month) && (book.date.day == day) && (book.date.year == year) && book.volume_id == volume_id);
-                relatedEntry.pages_added += pages_added;
-                relatedEntry.new_page_total += pages_added;
-
-                await shelf.save();
-                res.status(201).json({message: "Entry successfully combined and recorded"});
-
-                return;
-
-            }
-
-        }
-
-        let icon = `${book.icon_set}_1`;
-        let rarity = 'Common';
-        let value = 10;
-        let streak = 0;
-        let display = shelf.settings.entry_default_icon;
-        let tier = 'I';
-        let desc = '"A mysterious file: Handle with care—could be a game changer or just more paperwork."';
-        let max = 5;
-
-        if (book.page_entries.length > 0){
-            if (book.page_entries[book.page_entries.length - 1].icon.name == `${book.icon_set}_1`){
-                icon = `${book.icon_set}_2`;
-                rarity = 'Rare';
-                value = 20;
-                display = 'Certificate';
-                tier = 'II';
-                desc = file_items['Certificate'];
-            } else if (book.page_entries[book.page_entries.length - 1].icon.name == (`${book.icon_set}_2`)){
-                icon = `${book.icon_set}_3`;
-                rarity = 'Epic'
-                value = 40;
-                display = "Love Letter";
-                tier = 'III';
-                desc = file_items['Love Letter'];
-            } else if (book.page_entries[book.page_entries.length - 1].icon.name == (`${book.icon_set}_3`)){
-                icon = `${book.icon_set}_3`;
-                rarity = 'Epic'
-                value = 40;
-                display = "Love Letter";
-                tier = 'III';
-                desc = file_items['Love Letter'];
-            }
-        }
-        
-        const item = item_set.item_set.find(set => set.item === display); 
-
-        item.quantity += 1;
-
-        await inventory.save();
-
-        let prevDates = [];
-
-        if (book.page_entries.length > 0){
-            streak = book.page_entries[book.page_entries.length - 1].streak.days + 1;
-            prevDates = book.page_entries[book.page_entries.length - 1].streak.dates;
-        }
-
-        if (!shelf.streak_today){
-            shelf.streak_today = true;
-        }
-        
-        book.page_entries.push({volume_id: volume_id, title: title, pages_added: Number(pages_added), new_page_total: Number(total_pages_read), date: {month: month, day: day, year: year}, icon: {name: icon, display: display, tier: tier, rarity: rarity, value: value, desc: desc}, streak: {days: streak, dates: [`${month} ${day}`, ...prevDates]}});
-        shelf.total_entries.push({volume_id: volume_id, title: title, pages_added: Number(pages_added), new_page_total: Number(total_pages_read), date: {month: month, day: day, year: year}, icon: {name: icon, display: display, tier: tier, rarity: rarity, value: value, desc: desc}, streak: {days: streak, dates: [`${month} ${day}`, ...prevDates]}});
-
-        await shelf.save();
-
-        res.status(201).json({message: "Entry successfully recorded"});
 
     } catch(e) {
         res.status(500).json({error: e});
@@ -1287,24 +1086,6 @@ app.post('/create-checkout-session', async (req, res) => {
         res.status(500).json({ error: 'Verification failed' });
     }
   });
-
-app.get('/getBook', async(req, res) => {
-
-    const {username, volumeId} = req.query;
-
-    try {
-
-        const shelf = await Bookshelf.findOne({ username: username });
-        const tab = shelf.tabs.find(tab => tab.tab_name === 'Favorites');
-        const rel_book = tab.books.find(booky => booky.volume_id === volumeId);
-
-        res.status(200).json(rel_book);
-
-    } catch(e) {
-        res.status(500).json({ error: e});
-    }
-
-})
 
 app.listen(4000, () => {
     console.log("port connected");

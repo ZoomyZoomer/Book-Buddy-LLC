@@ -60,7 +60,7 @@ const CreateEntry = () => {
     useEffect(() => {
         const fetchProfile = async () => {
           try {
-            const response = await axios.get('http://localhost:4000/profile', {
+            const response = await axios.get('/api/profile', {
               withCredentials: true,
             });
             setUserInfo(response.data.user);
@@ -81,7 +81,7 @@ const CreateEntry = () => {
 
     const fetchStickers = async() => {
 
-        const res = await axios.get('http://localhost:4000/fetch-stickers', {
+        const res = await axios.get('/api/fetch-stickers', {
             params: {
                 username: userInfo?.username
             }
@@ -95,7 +95,7 @@ const CreateEntry = () => {
 
         try {
 
-            const res = await axios.get('http://localhost:4000/getPages', {
+            const res = await axios.get('/api/getPages', {
                 params: {
                     volume_id,
                     tab_name: 'Favorites',
@@ -118,7 +118,7 @@ const CreateEntry = () => {
 
         try {
 
-            const res = await axios.get('http://localhost:4000/getBook', {
+            const res = await axios.get('/api/getBook', {
                 params: {
                     volumeId: volume_id,
                     username: userInfo?.username
@@ -137,7 +137,7 @@ const CreateEntry = () => {
 
     const fetchActiveStickers = async() => {
 
-        const res = await axios.get('http://localhost:4000/fetchActiveStickers', {
+        const res = await axios.get('/api/fetchActiveStickers', {
             params: {
                 username: userInfo?.username,
                 volumeId: volume_id
@@ -177,7 +177,7 @@ const CreateEntry = () => {
 
             if (isChecked2){
 
-                await axios.post('http://localhost:4000/send-entry', {
+                await axios.post('/api/send-entry', {
                     username: userInfo?.username,
                     tab_name: 'Favorites',
                     volume_id,
@@ -242,7 +242,7 @@ const CreateEntry = () => {
 
         try {
 
-            await axios.post('http://localhost:4000/deleteBook', {
+            await axios.post('/api/deleteBook', {
                 username: userInfo?.username,
                 volume_id,
                 tab_name: 'Favorites'
