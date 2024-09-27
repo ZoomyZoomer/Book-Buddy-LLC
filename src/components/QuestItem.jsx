@@ -17,7 +17,7 @@ const QuestItem = ({index, quest, activeQuest, setShowItemPopup, username, setRe
             if (!activeQuest.claimed){
                 setShowItemPopup(true);
 
-                await axios.post('/api/mark-claimed', {
+                await axios.post('/api/markClaimed', {
                     username,
                     index
                 })
