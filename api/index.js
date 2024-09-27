@@ -894,26 +894,6 @@ const questMap = new Map([
     ['9', {id: '9', title: 'Pretty Penny', quest: 'Profit 25 coins today', quantity_required: 25}]
 ])
 
-app.post('/mark-claimed', async(req, res) => {
-
-    const {username, index} = req.body;
-
-    try {
-
-        const quest = await Quest.findOne({ username: username });
-
-        quest.active_quests[index].claimed = true;
-
-        await quest.save();
-
-        res.status(200).json({message: 'Reward claimed'});
-
-    } catch(e) {
-        res.status(500).json({error: e});
-    }
-
-})
-
 const marketMapSmall = new Map([
     ['0', {id: '0', item_name: 'Cold Brew', stock: 1, img: 'coffee_cup', type: 'Consumable', use: `Refreshes the top portion of the Rewards Market`, desc: 'It’s a lukewarm coffee at best', cost: {coins: true, dollar: false, file: null, amount: 150, discounted_amount: 100}}],
     ['1', {id: '1', item_name: 'Coupon', stock: 1, img: 'coupon', type: 'Consumable', use: 'Discounts the top portion of the Rewards Market', desc: `Coupons for sale? What's the point!?`, cost: {coins: true, dollar: false, file: null, amount: 200, discounted_amount: 125}}],
