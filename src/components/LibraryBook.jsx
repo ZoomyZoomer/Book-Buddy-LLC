@@ -219,12 +219,6 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
   return (
     <div style={{marginTop: '1rem', border: addingBook ? '1px solid #d2d4d8' : (book.pages_read / book.total_pages) == 1 ? '1px solid #78C6A3' : '1px solid #d2d4d8'}} className={(isHolding) ? 'library-hold-container' : (!addingBook && (book.pages_read / book.total_pages == 1) ? 'library-book-completed' : 'library-book-container')} onClick={(e) => checkRedirect(e)} onMouseDown={(e) => handleMouseDown(e)} onMouseUp={handleMouseUpOrLeave} onMouseLeave={handleMouseUpOrLeave}>
 
-        {isFavorite && !addingBook && (
-            <img src='/heart-icon.png' className='heart-icon'/>
-        )}
-
-            <audio ref={audioRefHeart} src="/pop.mp3" />
-
         {!addingBook && isHolding && (
             <div className='favorite-progress'/>
         )}
@@ -237,21 +231,57 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                         <div style={{height: 'fit-content', width: 'fit-content', position: 'absolute', top: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                             <div style={{position: 'relative'}}>
                                 <img src={addingBook ? (book?.imageLinks?.thumbnail ? book.imageLinks.thumbnail : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api') : book?.cover} className='library-cover'/>
+                                {activeStickers.find(sticker => sticker.location == 0) && (
+                                    <img 
+                                        src={`/${activeStickers.find(sticker => sticker.location == 0).sticker_name}-i.png`}
+                                        className={activeStickers.find(sticker => sticker.location == 0).sticker_id == ('7') ? 'sticker0z-abs' : 'sticker0-abs'}
+                                    />
+                                )}
+                                {activeStickers.find(sticker => sticker.location == 1) && (
+                                    <img 
+                                        src={`/${activeStickers.find(sticker => sticker.location == 1).sticker_name}-i.png`}
+                                        className={activeStickers.find(sticker => sticker.location == 1).sticker_id == '6' ? 'sticker1z-abs' : 'sticker1-abs'}
+                                    />
+                                )}
+                                {activeStickers.find(sticker => sticker.location == 2) && (
+                                    <img 
+                                        src={`/${activeStickers.find(sticker => sticker.location == 2).sticker_name}-i.png`}
+                                        className='sticker2-abs'
+                                    />
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div className='library-book-info'>
+                    <div className='library-book-title'>{book?.title}</div>
+                    <div className='library-book-author'>{addingBook ? (book?.authors[0] ? book.authors[0] : 'No author') : book?.author}</div>
+                    <div id='star' style={{marginTop: '0.625rem', width: 'fit-content'}} onClick={() => setFluidRating(prev => !prev)}>{(!fluidRating) ? <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/> : !isPreview && !addingBook ? (!addingBook && <RatingFluid tabName={'Favorites'} volumeId={volumeId} username={username} book_name={book?.title} setFluidRating={setFluidRating} setUpdatedRating={setUpdatedRating}/>) : isPreview && <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/>}</div>
+                    <div className='library-book-genre-tag' style={{color: currReadingColor, borderColor: currReadingColor, backgroundColor: lightenColor(currReadingColor, 0.28)}}>
+                        <div className='library-book-genre-circle' style={{backgroundColor: currReadingColor}}/>
+                        {addingBook ? (book?.categories ? book.categories : 'No genre') : book?.genre}
+                    </div>
+                </div>
+
+                {!addingBook && (
+                    <div className='library-vert-bar-container'>
+                        <div className='library-vert-bar'>
+                            <div id={`fill${index}`} className='library-vert-bar-fill'/>
+                        </div>
+                    </div>
+                )}
+
+                {addingBook && (
+                    <div id='star' className='add-book-lib' onClick={() => addBook()}>
+                        <Plus />
+                    </div>
+                )}
+
             </div>
 
         </div>
-        
-        {!addingBook && (
-            <>
-                <div id='star' className='library-page-abs' style={{color: (book.pages_read / book.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book.pages_read}/{book.total_pages} {isPinned ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><PinFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><PinEmpty /></div>}</div>
-                <audio ref={audioRefPin} src="/staple.mp3" />
-            </>
-        )}
+
 
         {addingBook && (
             <div className='library-page-abs'>{book.pageCount} pages</div>
