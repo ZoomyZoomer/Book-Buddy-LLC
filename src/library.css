@@ -864,7 +864,7 @@
     top: 0.625rem;
     transform: rotate(20deg);
     animation: heart-icon 4s ease-in-out infinite;
-    z-index: 4000;
+    z-index: 3000;
 }
 
 @keyframes heart-icon {
