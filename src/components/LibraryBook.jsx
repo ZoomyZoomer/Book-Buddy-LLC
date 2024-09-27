@@ -197,13 +197,15 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
         setActiveStickers(book.activeStickers);
         console.log(book.activeStickers);
+        console.log(book);
+
     }
 
     useEffect(() => {
         if (!addingBook){
             fetchActiveStickers();
         }
-    }, [reFetchStickers])
+    }, [reFetchStickers, book])
 
   return (
     <div style={{marginTop: '1rem', border: addingBook ? '1px solid #d2d4d8' : (book.pages_read / book.total_pages) == 1 ? '1px solid #78C6A3' : '1px solid #d2d4d8'}} className={(isHolding) ? 'library-hold-container' : (!addingBook && (book.pages_read / book.total_pages == 1) ? 'library-book-completed' : 'library-book-container')} onClick={(e) => checkRedirect(e)} onMouseDown={(e) => handleMouseDown(e)} onMouseUp={handleMouseUpOrLeave} onMouseLeave={handleMouseUpOrLeave}>
@@ -224,7 +226,27 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                 <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
                     <div className='library-book-circle'>
                         <div style={{height: 'fit-content', width: 'fit-content', position: 'absolute', top: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-
+                            <div style={{position: 'relative'}}>
+                                <img src={addingBook ? (book?.imageLinks?.thumbnail ? book.imageLinks.thumbnail : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api') : book?.cover} className='library-cover'/>
+                                {activeStickers?.find(sticker => sticker?.location == 0) && (
+                                    <img 
+                                        src={`/${activeStickers?.find(sticker => sticker?.location == 0)?.sticker_name}-i.png`}
+                                        className={activeStickers?.find(sticker => sticker?.location == 0)?.sticker_id == ('7') ? 'sticker0z-abs' : 'sticker0-abs'}
+                                    />
+                                )}
+                                {activeStickers.find(sticker => sticker.location == 1) && (
+                                    <img 
+                                        src={`/${activeStickers?.find(sticker => sticker?.location == 1)?.sticker_name}-i.png`}
+                                        className={activeStickers?.find(sticker => sticker?.location == 1)?.sticker_id == '6' ? 'sticker1z-abs' : 'sticker1-abs'}
+                                    />
+                                )}
+                                {activeStickers.find(sticker => sticker?.location == 2) && (
+                                    <img 
+                                        src={`/${activeStickers?.find(sticker => sticker?.location == 2)?.sticker_name}-i.png`}
+                                        className='sticker2-abs'
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
