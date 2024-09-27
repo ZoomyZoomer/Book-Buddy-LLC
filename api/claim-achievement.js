@@ -1,6 +1,6 @@
-import connectToDatabase from './utils/db'; // adjust the path to your database utility
+import { connectToDatabase }  from './utils/db'
 import Quest from './models/Quests';
-import Inventory from './models/Inventory'; // adjust the path to your Inventory model
+import Inventory from './models/Inventory';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       }
 
       // Check if claim is valid (achievement is 100% complete)
-      if (clientAchievement.quantity < achievement.quantity) {
+      if (clientAchievement?.quantity < achievement?.quantity) {
         return res.status(400).json({ message: 'Achievement Incomplete' });
       }
 
@@ -38,7 +38,6 @@ export default async function handler(req, res) {
         } else {
           related_file.quantity += 1;
         }
-        await inventory.save();
 
       // Handle item reward
       } else if (achievement.reward?.item) {
@@ -48,7 +47,7 @@ export default async function handler(req, res) {
         } else {
           related_item.quantity += 1;
         }
-        await inventory.save();
+      
       }
 
       // Mark achievement as claimed
@@ -57,6 +56,7 @@ export default async function handler(req, res) {
       related_achievement.date = new Date();
 
       await quest.save();
+      await inventory.save();
 
       res.status(200).json({ message: 'Achievement claimed' });
 
