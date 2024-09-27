@@ -45,7 +45,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
             setLoadBook(true);
 
-            await axios.post('http://localhost:4000/addBook', {
+            await axios.post('/api/addBook', {
                 volumeId: volumeId,
                 title: book?.title,
                 author: book?.authors[0] ? book.authors[0] : 'No author',
@@ -71,7 +71,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
             setLoadBook(true);
 
-            await axios.post('http://localhost:4000/set-favorite', {
+            await axios.post('/api/set-favorite', {
                 username,
                 volume_id: volumeId,
                 tab_name: 'Favorites'
@@ -96,7 +96,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
         }
 
 
-        await axios.post('http://localhost:4000/pin-book', {
+        await axios.post('/api/pin-book', {
             username,
             volumeId
         })
@@ -130,7 +130,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const getGenreColor = async() => {
 
-      const res = await axios.get('http://localhost:4000/getGenreColor', {
+      const res = await axios.get('/api/getGenreColor', {
         params: {
           username: username,
           genre: book.genre
@@ -195,7 +195,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
         try {
 
-            const res = await axios.get('http://localhost:4000/fetchActiveStickers', {
+            const res = await axios.get('/api/fetchActiveStickers', {
                 params: {
                     username,
                     volumeId

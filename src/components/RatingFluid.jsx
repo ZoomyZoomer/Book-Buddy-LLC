@@ -16,7 +16,7 @@ const RatingFluid = ({ tabName, volumeId, username, book_name, fluidRating, setU
     const handle_change = async() => {
 
       try{
-        await axios.post('http://localhost:4000/updateRating',{
+        await axios.post('/api/updateRating',{
           tab_name: tabName,
           volume_id: volumeId,
           rating: ratingValue,

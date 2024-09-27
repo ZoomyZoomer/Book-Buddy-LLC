@@ -38,7 +38,7 @@ function Library() {
     useEffect(() => {
         const fetchProfile = async () => {
           try {
-            const response = await axios.get('http://localhost:4000/profile', {
+            const response = await axios.get('/api/profile', {
               withCredentials: true,
             });
             setUserInfo(response.data.user);
@@ -82,7 +82,7 @@ function Library() {
 
       const fetchCollection = async () => {
         try {
-          const response = await axios.get('http://localhost:4000/getBooksBySearch', {
+          const response = await axios.get('/api/getBooksBySearch', {
             params: {
               username: userInfo.username,
               tab_name: tab,
@@ -227,7 +227,7 @@ function Library() {
 
       try {
 
-        const res = await axios.get('http://localhost:4000/fetch-all-entries', {
+        const res = await axios.get('/api/fetch-all-entries', {
           params: {
             username: userInfo.username,
             index: ind
@@ -264,7 +264,7 @@ function Library() {
 
       try {
 
-        await axios.post('http://localhost:4000/ignite-streak', {
+        await axios.post('/api/ignite-streak', {
           username: userInfo?.username
         })
 
@@ -287,7 +287,7 @@ function Library() {
 
       try {
 
-        const res = await axios.get('http://localhost:4000/fetch-currency', {
+        const res = await axios.get('/api/fetch-currency', {
           params: {
             username: userInfo.username
           }

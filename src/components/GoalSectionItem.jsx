@@ -18,7 +18,7 @@ const GoalSectionItem = ({entry, index, username, setReFetchEntries}) => {
 
     try {
 
-      await axios.post('http://localhost:4000/claim-entry-item', {
+      await axios.post('/api/claim-entry-item', {
           username,
           index
       })
