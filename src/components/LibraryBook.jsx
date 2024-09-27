@@ -195,7 +195,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const fetchActiveStickers = async() => {
 
-        
+        setActiveStickers(book.activeStickers);
 
     }
 
