@@ -1,4 +1,4 @@
-import connectToDatabase from './utils/db'; // Adjust the path to your database utility
+import { connectToDatabase } from './utils/db'; // Adjust the path to your database utility
 import Bookshelf from './models/Bookshelf'; // Adjust the path to your Bookshelf model
 
 export default async function handler(req, res) {
