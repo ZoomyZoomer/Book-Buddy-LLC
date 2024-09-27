@@ -466,7 +466,7 @@ function Library() {
                                     <LibraryBook book={book?.volumeInfo} index={index} isPreview={false} reFetchStickers={reFetchStickers} volumeId={book.id} addingBook={true} username={userInfo?.username} setIsAddingBook={setIsAddingBook} setUpdatedRating={setUpdatedRating}/>
                                 ))
                             }
-                            {!isAddingBook && userCollection[0].map((book, index) => (
+                            {!isAddingBook && userCollection[1].map((book, index) => (
                                     <LibraryBook book={book} index={index} isPreview={false} reFetchStickers={reFetchStickers} volumeId={book.volume_id} addingBook={false} username={userInfo?.username} setIsAddingBook={setIsAddingBook} setUpdatedRating={setUpdatedRating}/>
                                 ))}
                         </div>
