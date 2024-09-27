@@ -80,7 +80,7 @@ const ItemRewardPopupWarehouse = ({setShowItemPopup, username, item, setReFetch,
     setIsUnwrapping(true);
 
     const popup = document.getElementsByClassName('item-reward-popup')[0];
-    popup.style.width = '100%';
+    popup.style.width = '32rem';
 
     const elem = document.getElementsByClassName('item-reward-icon')[0];
 
