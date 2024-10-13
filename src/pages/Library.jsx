@@ -283,199 +283,47 @@ function Library() {
   return (
     <div className='library-container'>
 
-
-        <div style={{width: '72%', marginBottom: '1rem'}}>
-          <BookBuddyNavbar tab={0} currency={currency}/>
-        </div>
-      
         <div className='library-box'>
-          
-          <audio ref={audioRefTorch} src="/torch.wav" />
 
- 
+          <div className='n-library-left'>
+            <div className='n-library-box-small'>
 
-            
-              <div className='goals-section'>
-   
-              
-                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '90%'}}>
-                  <div className='goal-table-main'>
-                    <div className='reading-goal-table-title'>
-                          <div style={{fontSize: '1.2rem', color: '#06AB78'}}>Recent Reading Entries</div>
-                    </div>
-                    <div style={{fontSize: '0.8125em', color: '#9D9D9D'}}>Claim a random file for each entry!</div>
-                  </div>
-                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1rem'}}>
-                    <div className='goal-arrow' style={{transform: 'scaleX(-1)'}} onClick={() => setInd(prev => (ind - 4) + 1 < 0 ? 0 : prev -4)}><ArrowRight /></div>
-                    <div>{(ind / 4) + 1}/{Math.ceil(maxLen / 4) < 1 ? 1 : Math.ceil(maxLen / 4)}</div>
-                    <div className='goal-arrow' onClick={() => setInd(prev => (ind + 4) >= maxLen ? prev : prev + 4)}><ArrowRight /></div>
-                  </div>
+              <div className='n-library-banner'>
+                <img src='/fire_icon.png' className='n-banner-img'/>
+                <div className='n-library-banner-info'>
+                  <div className='n-banner-title'>Light your streak</div>
+                  <div>Just record an entry daily!</div>
                 </div>
-             
-                
-                
-                  <div className='goals-section-container'>
-
-                  <div className='recent-entries-container'>
-
-                      <div className='goal-sec-grid0'>
-
-                        <div className='goal-sec-flex'>
-                          {recentEntries.map((entry, index) => (
-                            <GoalSectionItem entry={entry} index={index} username={userInfo?.username} setReFetchEntries={setReFetchEntries}/>
-                          ))}
-                        </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-               
-              
-              
-                  <div className='streak-sec-box'>
-
-                  <div className='streak-sec-container'>
-                    
-                    <div className='streak-box-omega'>
-
-                      <div className='streak-fire-circle'>
-                        <img src={`/${streakInfo?.is_claimed ? 'lighter_on' : 'lighter_off'}.png`} className='fire-icon'/>
-                      </div>
-
-                      <div className='streak-fire-info'>
-                          <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
-                            <div className='rs-0'>Reading streak:&nbsp;</div>
-                            <div className='rs-1'>{streakInfo ? streakInfo.streak : 0} days</div>
-                          </div>
-                          <div className='rs-2'>{`Create a reading entry once a day to maintain your streak! (Rewards coming soon)`}</div>
-                      </div>
-
-                    </div>
-
-                    <div className='streak-btnxD'>
-                      <div className='prog-0'>{`Progress Today (${streakInfo ? (streakInfo.is_claimed ? 1 : 0) : 0}/1)`}</div>
-                      <div style={{width: '65%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '10'}}>
-                        <button className={streakInfo?.is_claimed ? 'light-fire-null' : !streakInfo?.today ? 'light-fire-null' : 'light-fire'} onClick={() => lightTorch()}>{streakInfo?.is_claimed ? 'STREAK ACTIVE' : !streakInfo?.today ? 'REQUIRES ENTRY' : 'IGNITE'}</button>
-                        {miniFire && (
-                          <>
-                            <img src='/fire_icon.png' className='mini-fire0'/>
-                            <img src='/fire_icon.png' className='mini-fire1'/>
-                            <img src='/fire_icon.png' className='mini-fire2'/>
-                          </>
-                        )}
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
-               
-
               </div>
-            
 
-            <div className='library-section'>
-
-                <div className='library-banner'>
-
-                    {isAddingBook && (
-                        <div className='adding-book-banner'>
-                            <button className='abb-1' onClick={() => setIsAddingBook(false)}>Cancel</button>
-                            <div className='adding-book-banner-info'>
-                                <div className='abb-xd'>You are currently adding books</div>
-                                <div className='abb-0'>Click enter to confirm search</div>
-                            </div>
-                        </div>
-                    )}
-
-                    <div className='library-input-container'>
-
-                        <input 
-                            className='library-input'
-                            placeholder={`Search By ${searchBy ? 'Author' : 'Title'}`}
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                            onKeyDown={handleKeyDown}
-                        />
-
-                        <div class="theme-switch-container"> 
-                            <label class="theme-slider" for="checkbox"> 
-                                <input type="checkbox" onChange={() => setSearchBy(prev => !prev)} id="checkbox" defaultChecked /> 
-                                <div class="round slider"></div> 
-                            </label> 
-                        </div>
-
-                    </div>
-                    <div id='library-sort' className='library-sort-container'>
-                        <div id='library-sort' className='library-sort' onClick={() => setShowDropDown(prev => !prev)}>
-                            <div id='library-sort' style={{marginRight: '0.625rem'}}><Sort /></div> 
-                            <div className='drop-filter-text'>
-                              {dropFilter} 
-                            </div>
-                            <Arrow />
-                            {showDropDown && (
-                                <div className='library-sort-abs'>
-                                    <div className='library-sort-tab' onClick={() => setDropFilter('Last Read')}>
-                                        <div style={{display: 'flex', marginRight: '0.6rem'}}><Refresh /></div>
-                                            Last Read
-                                    </div>
-                                    <div className='library-sort-tab' onClick={() => setDropFilter('Completed')}>
-                                        <div style={{display: 'flex', marginRight: '0.6rem'}}><Bookmark /></div>
-                                            Completed
-                                    </div>
-                                    <div className='library-sort-tab' onClick={() => setDropFilter('Reading')}>
-                                        <div style={{display: 'flex', marginRight: '0.6rem'}}><Reading /></div>
-                                            Reading
-                                    </div>
-                                    <div className='library-sort-tab' onClick={() => setDropFilter('Favorites')}>
-                                        <div style={{display: 'flex', marginRight: '0.6rem'}}><Favorite /></div>
-                                            Favorites
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+              <div className='n-streak-container'>
+                <div className='n-streak-circle'>
+                  <img src='./lighter_off.png' className='n-lighter-img'/>
                 </div>
-
-                <div className='library-contents'>
-                    <div className={'library-nav'}>
-                            <div style={{display: 'flex', width: '90%'}}>
-                                <div className='library-contents-left'>
-                                    <div>Library</div>
-                                    <div className='library-plus' style={{display: 'flex', marginLeft: '0.5rem'}} onClick={() => {setAddingCollection([]); setIsAddingBook(true)}}><Plus /></div>
-                                </div>
-                                <div className='library-contents-right'>
-                                    <div className='library-plus' style={{paddingTop: '0.3rem', paddingBottom: '0.3rem'}} onClick={() => expandLibrary()}><Expand /></div>
-                                </div>
-                            </div>
-                            <div className='library-holding-books'>{!isAddingBook ? `Holding ${userCollection.length} books` : 'Adding Books..'}</div>
-                    </div>
-                    <div className='library-books-box' ref={divRef} style={{position: 'relative'}}>
-
-                            {userCollection.length > 0 && !isAddingBook && (
-                              <div className='library-book-arrow'>
-                                <div style={{transform: 'scaleX(-1)'}}><Arrow2 /></div>
-                                <div className='hold-click'>Hold-click to mark as Favorite</div>
-                                </div>
-                            )}
-                      
-                        <div className='library-grid'>
-                            {isAddingBook && addingCollection?.map((book, index) => (
-                                    <LibraryBook book={book?.volumeInfo} index={index} isPreview={false} reFetchStickers={reFetchStickers} volumeId={book.id} addingBook={true} username={userInfo?.username} setIsAddingBook={setIsAddingBook} setUpdatedRating={setUpdatedRating}/>
-                                ))
-                            }
-                            {!isAddingBook && userCollection?.map((book, index) => (
-                                    <LibraryBook book={book} index={index} isPreview={false} reFetchStickers={reFetchStickers} volumeId={book.volume_id} addingBook={false} username={userInfo?.username} setIsAddingBook={setIsAddingBook} setUpdatedRating={setUpdatedRating}/>
-                                ))}
-                        </div>
-                    </div>
+                <div className='n-lighter-info'>
+                    <div className='n-lighter-title'>Reading Streak: 0 days</div>
+                    <div>Make a flame once per day after reading a book and logging it!</div>
+                    <button className='n-lighter-btn'>IGNITE</button>
                 </div>
+              </div>
+
+              <div className='n-streak-seg'/>
 
             </div>
+            <div className='n-library-box-sep' />
+            <div className='n-library-box-small'>
+
+            </div>
+          </div>
+
+          <div className='n-library-sep'/>
+
+          <div className='n-library-right'>
+
+          </div>
 
         </div>
+
     </div>
   )
 }
