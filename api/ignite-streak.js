@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       }
 
       // Check if streak has already been claimed or streak_today is false
-      if (shelf.streak_claimed || !shelf.streak_today) {
+      if (shelf.streak_claimed) {
         return res.status(400).json({ message: 'Streak already ignited' });
       }
 

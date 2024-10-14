@@ -160,6 +160,15 @@ function Library() {
 
     }
 
+    const [torch, setTorch] = useState(0);
+    const audioRefTorch = useRef(null);
+    const [miniFire, setMiniFire] = useState(false);
+
+    const playAudioRefTorch = () => {
+      audioRefTorch.current.volume = 0.1;
+      audioRefTorch.current.play();
+    };
+
     const callBooksApi = async() => {
 
         if (text == '') return;
@@ -182,6 +191,44 @@ function Library() {
         }
     };
 
+    const [streakInfo, setStreakInfo] = useState([false,0]);
+    const [streakClicked, setStreakClicked] = useState(false);
+
+    const igniteStreak = async() => {
+
+      try {
+
+        await axios.post('/api/ignite-streak' , {
+          username: userInfo.username
+        });
+        setStreakClicked(prev => !prev)
+        playAudioRefTorch();
+
+      } catch(e) {
+
+      }
+
+    }
+
+    const fetchStreak = async() => {
+
+      const res = await axios.get('/api/fetch-ignite-streak', {
+        params: {
+          username: userInfo.username
+        }
+      })
+
+      setStreakInfo(res.data);
+
+    }
+
+    useEffect(() => {
+      if (userInfo){
+        fetchStreak();
+      }
+  
+    }, [userInfo, streakClicked])
+
     useEffect(() => {
         if (!isAddingBook){
             setText('');
@@ -192,7 +239,6 @@ function Library() {
     const [ind, setInd] = useState(0);
     const [maxLen, setMaxLen] = useState(0);
     const [reFetchEntries, setReFetchEntries] = useState(false);
-    const [streakInfo, setStreakInfo] = useState(undefined);
 
     const fetchAllEntries = async() => {
 
@@ -207,7 +253,6 @@ function Library() {
 
         setRecentEntries(res.data[0]);
         setMaxLen(res.data[1]);
-        setStreakInfo(res.data[2]);
 
 
       } catch(e) {
@@ -221,15 +266,6 @@ function Library() {
         fetchAllEntries();
       }
     }, [userInfo, ind, reFetchEntries])
-
-    const [torch, setTorch] = useState(0);
-    const audioRefTorch = useRef(null);
-    const [miniFire, setMiniFire] = useState(false);
-
-    const playAudioRefTorch = () => {
-      audioRefTorch.current.volume = 0.1;
-      audioRefTorch.current.play();
-    };
 
     const lightTorch = async() => {
 
@@ -283,6 +319,8 @@ function Library() {
   return (
     <div className='library-container'>
 
+        <audio ref={audioRefTorch} src="torch.wav" preload="auto" />
+
         <div className='library-box'>
 
           <div className='n-library-left'>
@@ -298,16 +336,36 @@ function Library() {
 
               <div className='n-streak-container'>
                 <div className='n-streak-circle'>
-                  <img src='./lighter_off.png' className='n-lighter-img'/>
+                  <img src={`./${streakInfo[0] ? 'lighter_on' : 'lighter_off'}.png`} className='n-lighter-img'/>
                 </div>
                 <div className='n-lighter-info'>
-                    <div className='n-lighter-title'>Reading Streak: 0 days</div>
+                    <div className='n-lighter-title'>Reading Streak: {streakInfo[1]} days</div>
                     <div>Make a flame once per day after reading a book and logging it!</div>
-                    <button className='n-lighter-btn'>IGNITE</button>
+                    <button className={streakInfo[0] ? 'n-lighter-btn-null' : 'n-lighter-btn'} onClick={() => igniteStreak()}>{streakInfo[0] ? 'STREAK ACTIVE' : 'IGNITE'}</button>
                 </div>
               </div>
 
               <div className='n-streak-seg'/>
+
+              <div className='n-streak-check'>
+
+                  <div className='n-streak-check-stats'>
+                    <div className='n-streak-check-title'>
+                      <div style={{marginRight: '0.2rem', fontWeight: '700', color: '#454b54'}}>Streak: </div>
+                      3 days
+                    </div>
+                    <div className='n-streak-check-title'>
+                      <div style={{marginRight: '0.2rem', fontWeight: '700', color: '#454b54'}}>Consistency:</div>
+                      100% 
+                    </div>
+                    <div className='n-streak-check-title'>
+                      <div style={{marginRight: '0.2rem', fontWeight: '700', color: '#454b54'}}>Check-ins:</div>
+                      3
+                    </div>
+
+                  </div>
+
+              </div>
 
             </div>
             <div className='n-library-box-sep' />
