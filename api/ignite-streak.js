@@ -23,6 +23,7 @@ export default async function handler(req, res) {
       // Ignite streak: set streak_claimed to true and increment streak
       shelf.streak_claimed = true;
       shelf.streak += 1;
+      shelf.streak_dates.push(new Date);
 
       await shelf.save();
 

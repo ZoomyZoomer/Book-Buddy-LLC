@@ -206,6 +206,7 @@ const bookshelfSchema = new Schema({
     type: Boolean,
     default: false
   },
+  streak_dates: [],
   settings: {
     bookBot_intro: {
       type: Boolean

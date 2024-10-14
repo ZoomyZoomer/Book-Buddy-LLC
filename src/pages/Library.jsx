@@ -191,7 +191,7 @@ function Library() {
         }
     };
 
-    const [streakInfo, setStreakInfo] = useState([false,0]);
+    const [streakInfo, setStreakInfo] = useState([false,0, []]);
     const [streakClicked, setStreakClicked] = useState(false);
 
     const igniteStreak = async() => {
@@ -362,7 +362,18 @@ function Library() {
                       <div style={{marginRight: '0.2rem', fontWeight: '700', color: '#454b54'}}>Check-ins:</div>
                       3
                     </div>
+                  </div>
 
+                  <div className='calendar-grid'>
+                    {streakInfo[2].map((week, weekIndex) => (
+                      <div key={weekIndex} className="week-row">
+                        {week.map((day, dayIndex) => (
+                          <div key={dayIndex} className={`day-cell ${day === 1 ? 'filled' : 'empty'}`}>
+                            
+                          </div>
+                        ))}
+                      </div>
+                    ))}
                   </div>
 
               </div>

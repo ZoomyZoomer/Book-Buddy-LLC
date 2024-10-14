@@ -16,6 +16,32 @@
     width: 86rem; 
 }
 
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(24, 0.8rem);
+    align-items: center;
+    gap: 0.1rem;
+    width: 100%;
+}
+
+.week-row {
+    width: fit-content;
+}
+
+.filled {
+    height: 0.8rem;
+    width: 0.8rem;
+    background-color: #06AB78;
+    margin-top: 0.1rem;
+}
+
+.empty {
+    height: 0.8rem;
+    width: 0.8rem;
+    background-color: red;
+    margin-top: 0.1rem;
+}
+
 .n-library-left {
     display: flex;
     flex-direction: column;
