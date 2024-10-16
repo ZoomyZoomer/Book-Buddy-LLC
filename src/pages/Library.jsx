@@ -191,7 +191,7 @@ function Library() {
         }
     };
 
-    const [streakInfo, setStreakInfo] = useState([false,0, []]);
+    const [streakInfo, setStreakInfo] = useState([false,0, [[], []]]);
     const [streakClicked, setStreakClicked] = useState(false);
 
     const igniteStreak = async() => {
@@ -308,9 +308,24 @@ function Library() {
 
     }
 
+    const processNewDay = async() => {
+
+      try {
+
+        await axios.post('/api/process-new-day', {
+          username: userInfo.username
+        })
+
+      } catch(e) {
+
+      }
+
+    }
+
     useEffect(() => {
       if (userInfo){
         fetchCurrency();
+        processNewDay();
       }
     }, [userInfo])
 
@@ -349,31 +364,35 @@ function Library() {
 
               <div className='n-streak-check'>
 
-                  <div className='n-streak-check-stats'>
-                    <div className='n-streak-check-title'>
-                      <div style={{marginRight: '0.2rem', fontWeight: '700', color: '#454b54'}}>Streak: </div>
-                      3 days
-                    </div>
-                    <div className='n-streak-check-title'>
-                      <div style={{marginRight: '0.2rem', fontWeight: '700', color: '#454b54'}}>Consistency:</div>
-                      100% 
-                    </div>
-                    <div className='n-streak-check-title'>
-                      <div style={{marginRight: '0.2rem', fontWeight: '700', color: '#454b54'}}>Check-ins:</div>
-                      3
-                    </div>
-                  </div>
+                <div className='n-streak-months'>
+                  {streakInfo[2][1].map((month, index) => (
+                    <div className='n-month'>{month}</div>
+                  ))}
+                </div>
 
                   <div className='calendar-grid'>
-                    {streakInfo[2].map((week, weekIndex) => (
+                    {streakInfo[2][0].map((week, weekIndex) => (
                       <div key={weekIndex} className="week-row">
                         {week.map((day, dayIndex) => (
-                          <div key={dayIndex} className={`day-cell ${day === 1 ? 'filled' : 'empty'}`}>
-                            
-                          </div>
+                          <>
+                            {dayIndex === 1 && weekIndex === 0 && <div className='n-week'>Mon</div>}
+                            {dayIndex === 3 && weekIndex === 0 && <div className='n-week'>Wed</div>}
+                            {dayIndex === 5 && weekIndex === 0 && <div className='n-week'>Fri</div>}
+                            <div key={dayIndex} className={`day-cell ${day === 1 ? 'filled' : day === 0 ? 'empty' : day === 2 ? 'soon' : 'empty'}`} />
+                          </>
                         ))}
                       </div>
                     ))}
+                  </div>
+
+                  <div className='calendar-legend'>
+
+                      <div className='legend-text'>Missed</div>
+                      <div className='filled' style={{marginLeft: '0.2rem'}}/>
+
+                      <div className='legend-text' style={{marginLeft: '0.625rem'}}>Streak</div>
+                      <div className='filled' style={{marginLeft: '0.2rem'}}/>
+
                   </div>
 
               </div>
