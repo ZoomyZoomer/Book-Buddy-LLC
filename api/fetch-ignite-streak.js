@@ -23,7 +23,6 @@ export default async function handler(req, res) {
                 const generateDateMatrixAndMonths = (dates, weeks) => {
                     const totalDays = weeks * 7;
                     const dateMatrix = [];
-                    let currentWeek = [];
                     const monthsIncluded = new Set();  // To track unique months
                     
                     // Month abbreviations
@@ -37,10 +36,12 @@ export default async function handler(req, res) {
                     // Create a Set of stringified date values for quick lookup
                     const dateSet = new Set(dates.map(date => date.toDateString()));
 
-                    // Track if we have encountered the first '1' for marking 2
+                    // Track if we have encountered the first '1' and last '1' for marking
                     let firstMarkedDateInWeek = false;
+                    let lastMarkedDay = -1; // Will track the last day index of 1 in the week
 
                     // Fill the current week, track the months encountered
+                    const currentWeek = [];
                     for (let i = -mostRecentDayOfWeek; i <= 6 - mostRecentDayOfWeek; i++) {
                         const currentDay = new Date(mostRecentDate);
                         currentDay.setDate(mostRecentDate.getDate() + i);
@@ -52,11 +53,19 @@ export default async function handler(req, res) {
 
                         if (isStreakDate) {
                             currentWeek.push(1);  // Mark the day as 1 if it matches a streak date
-                            firstMarkedDateInWeek = true;  // Found the first date marked with 1
-                        } else if (firstMarkedDateInWeek) {
-                            currentWeek.push(2);  // Mark days ahead of the first `1` as 2
+                            firstMarkedDateInWeek = true;
+                            lastMarkedDay = i;  // Update the last streak date
                         } else {
-                            currentWeek.push(0);  // Days before the first marked date should remain 0
+                            currentWeek.push(0);  // Fill unmarked days as 0 for now
+                        }
+                    }
+
+                    // Now update the current week array:
+                    for (let i = -mostRecentDayOfWeek; i <= 6 - mostRecentDayOfWeek; i++) {
+                        if (i > lastMarkedDay) {
+                            currentWeek[i + mostRecentDayOfWeek] = 5;  // Days after last 1 in the current week marked as 5
+                        } else if (i > -mostRecentDayOfWeek && currentWeek[i + mostRecentDayOfWeek] === 0 && firstMarkedDateInWeek) {
+                            currentWeek[i + mostRecentDayOfWeek] = 4;  // Days after first 1 and before last marked as 4
                         }
                     }
 
@@ -68,6 +77,9 @@ export default async function handler(req, res) {
 
                     for (let week = 1; week < weeks; week++) {
                         const weekArray = [];
+                        let firstMarkedDayInWeek = false;
+                        let lastMarkedDayInWeek = -1;
+
                         for (let day = 0; day < 7; day++) {
                             const currentDay = new Date(currentDate);
                             currentDay.setDate(currentDate.getDate() - day);
@@ -75,30 +87,28 @@ export default async function handler(req, res) {
                             // Track the month
                             monthsIncluded.add(currentDay.getMonth());
 
-                            // Fill with 1 for matching streakDates, or 0 for empty spots
-                            let dayValue = dateSet.has(currentDay.toDateString()) ? 1 : 0;
-                            weekArray.unshift(dayValue);
-                        }
-                        dateMatrix.push(weekArray);
-                        currentDate.setDate(currentDate.getDate() - 7); // Move back by a full week
-                    }
+                            const isStreakDate = dateSet.has(currentDay.toDateString());
 
-                    // ** New Logic to fill 3 for remaining days after most recent date if not 1 **
-                    // Iterate through the entire matrix and mark remaining days after streakDates[0]
-                    const mostRecentDateInStreak = dates[0]; // streakDates[0] is the latest entered date
-                    for (let week = 0; week < dateMatrix.length; week++) {
-                        for (let day = 0; day < 7; day++) {
-                            // Skip days that are already filled with 1
-                            if (dateMatrix[week][day] !== 1) {
-                                const currentDay = new Date(mostRecentDate);
-                                currentDay.setDate(currentDay.getDate() - (week * 7 + day));
-
-                                // If this day is ahead of streakDates[0], mark it as 3
-                                if (currentDay > mostRecentDateInStreak) {
-                                    dateMatrix[week][day] = 3;
-                                }
+                            if (isStreakDate) {
+                                weekArray.unshift(1);  // Mark as 1 for streak dates
+                                firstMarkedDayInWeek = true;
+                                lastMarkedDayInWeek = day;  // Track the last marked day
+                            } else {
+                                weekArray.unshift(0);  // Initially mark as 0
                             }
                         }
+
+                        // After filling the week, update the 0s to either 4 or 2 as per the rules
+                        for (let day = 0; day < 7; day++) {
+                            if (day > lastMarkedDayInWeek) {
+                                weekArray[day] = 2;  // Mark days after the last 1 with 2 in past weeks
+                            } else if (day > 0 && weekArray[day] === 0 && firstMarkedDayInWeek) {
+                                weekArray[day] = 4;  // Mark days between the first and last 1 as 4
+                            }
+                        }
+
+                        dateMatrix.push(weekArray);
+                        currentDate.setDate(currentDate.getDate() - 7); // Move back by a full week
                     }
 
                     // Convert month numbers to 3-letter month abbreviations

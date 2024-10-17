@@ -334,7 +334,7 @@ function Library() {
   return (
     <div className='library-container'>
 
-        <audio ref={audioRefTorch} src="torch.wav" preload="auto" />
+        <audio ref={audioRefTorch} src="scribble.wav" preload="auto" />
 
         <div className='library-box'>
 
@@ -378,7 +378,7 @@ function Library() {
                             {dayIndex === 1 && weekIndex === 0 && <div className='n-week'>Mon</div>}
                             {dayIndex === 3 && weekIndex === 0 && <div className='n-week'>Wed</div>}
                             {dayIndex === 5 && weekIndex === 0 && <div className='n-week'>Fri</div>}
-                            <div key={dayIndex} className={`day-cell ${day === 1 ? 'filled' : day === 0 ? 'empty' : day === 2 ? 'soon' : 'empty'}`} />
+                            <div key={dayIndex} className={`day-cell ${day === 1 ? 'filled' : (day === 2 || day === 0) ? 'empty' : day === 5 ? 'soon' : day === 3 ? 'empty' : 'missed'}`} />
                           </>
                         ))}
                       </div>
@@ -388,7 +388,7 @@ function Library() {
                   <div className='calendar-legend'>
 
                       <div className='legend-text'>Missed</div>
-                      <div className='filled' style={{marginLeft: '0.2rem'}}/>
+                      <div className='missed' style={{marginLeft: '0.2rem'}}/>
 
                       <div className='legend-text' style={{marginLeft: '0.625rem'}}>Streak</div>
                       <div className='filled' style={{marginLeft: '0.2rem'}}/>
@@ -400,6 +400,29 @@ function Library() {
             </div>
             <div className='n-library-box-sep' />
             <div className='n-library-box-small'>
+
+            <div className='n-library-banner'>
+                <img src='/flag.png' className='n-banner-img'/>
+                <div className='n-library-banner-info'>
+                  <div className='n-banner-title'>Achieve Your Goals</div>
+                  <div>Set your own goals and get rewarded</div>
+                </div>
+            </div>
+
+            <div className='n-goals-container'>
+                <div className='n-goals-box'>
+                    <div className='n-goals-box-top'>
+                      <div className='n-goals-circle-active'>
+                        <img src='/package_icon.png' className='n-goals-circle-img'/>
+                      </div>
+                      <div className='n-goals-box-info'>
+                        <div className='n-goals-box-info-title-active'>Thursday Reading</div>
+                        <div className='n-goals-box-info-desc'><strong style={{color: '#454b54'}}>Goal:</strong> 30 minutes</div>
+                        <div className='n-goals-box-info-desc'><strong style={{color: '#454b54'}}>Reading Rate:</strong> 225 WPM</div>
+                      </div>
+                    </div>
+                </div>
+            </div>
 
             </div>
           </div>
