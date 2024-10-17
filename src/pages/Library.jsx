@@ -16,6 +16,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import GoalSectionItem from '../components/GoalSectionItem'
 import BookBuddyNavbar from '../components/BookBuddyNavbar'
+import LibraryGoal from '../components/LibraryGoal'
 
 function Library() {
 
@@ -329,7 +330,25 @@ function Library() {
       }
     }, [userInfo])
 
+    const [goals, setGoals] = useState([undefined, undefined]);
 
+    const fetchGoals = async() => {
+
+        const res = await axios.get('/api/fetch-goals', {
+            params: {
+                username: userInfo?.username
+            }
+        })
+
+        setGoals(res.data);
+
+    }
+
+    useEffect(() => {
+        if (userInfo){
+            fetchGoals();
+        }
+    }, [userInfo])
 
   return (
     <div className='library-container'>
@@ -410,18 +429,15 @@ function Library() {
             </div>
 
             <div className='n-goals-container'>
-                <div className='n-goals-box'>
-                    <div className='n-goals-box-top'>
-                      <div className='n-goals-circle-active'>
-                        <img src='/package_icon.png' className='n-goals-circle-img'/>
-                      </div>
-                      <div className='n-goals-box-info'>
-                        <div className='n-goals-box-info-title-active'>Thursday Reading</div>
-                        <div className='n-goals-box-info-desc'><strong style={{color: '#454b54'}}>Goal:</strong> 30 minutes</div>
-                        <div className='n-goals-box-info-desc'><strong style={{color: '#454b54'}}>Reading Rate:</strong> 225 WPM</div>
-                      </div>
-                    </div>
-                </div>
+
+                {goals.map((goal, index) => (
+                  <>
+                    <LibraryGoal goal={goal}/>
+                  </>
+                ))}
+
+                
+
             </div>
 
             </div>

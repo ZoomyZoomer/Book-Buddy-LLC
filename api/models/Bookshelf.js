@@ -180,6 +180,24 @@ const genreColorSchema = new Schema({
   }
 });
 
+const goalInfoSchema = new Schema({
+  goal_name: {
+    type: String
+  },
+  quantity_achieved: {
+    type: Number,
+    default: 0
+  },
+  quantity_required: {
+    type: Number,
+    default: 1
+  },
+  WPM: {
+    type: Number,
+    default: 225
+  }
+})
+
 const bookshelfSchema = new Schema({
   username: {
     type: String,
@@ -210,6 +228,7 @@ const bookshelfSchema = new Schema({
   curr_day: {
     type: Date
   },
+  goals: [goalInfoSchema],
   settings: {
     bookBot_intro: {
       type: Boolean
