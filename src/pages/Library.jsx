@@ -446,7 +446,17 @@ function Library() {
           <div className='n-library-sep'/>
 
           <div className='n-library-right'>
+            <div className='n-library-main'>
+                <div className='n-library-banner2'>
+                  <input 
+                    className='n-library-input'
+                  />
+                </div>
+            </div>
+            <div className='n-library-box-sep'/>
+            <div className='n-library-wide'>
 
+            </div>
           </div>
 
         </div>

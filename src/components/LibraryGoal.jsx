@@ -6,10 +6,10 @@ import axios from 'axios'
 const LibraryGoal = ({goal}) => {
 
     return (
-        <div className='n-goals-box'>
+        <div className={goal ? 'n-goals-box-active' : 'n-goals-box-inactive'}>
 
             {goal && (<div className='n-goals-x'><Close /></div>)}
-            {!goal && (<div className='n-goals-check'></div>)}
+            {goal && (<div className='n-goals-check'></div>)}
 
             <div className='n-goals-box-top'>
                 <div className={goal ? 'n-goals-circle-active' : 'n-goals-circle-inactive'}>
