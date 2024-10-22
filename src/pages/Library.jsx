@@ -447,11 +447,33 @@ function Library() {
 
           <div className='n-library-right'>
             <div className='n-library-main'>
+
                 <div className='n-library-banner2'>
-                  <input 
-                    className='n-library-input'
-                  />
+                  <div className='n-library-input-container'>
+                    <input 
+                      className='n-library-input'
+                      placeholder={`Search By Title`}
+                    >
+                    </input>
+                    <div className='n-switch-container'>
+                      <label class="switch">
+                        <input type="checkbox" />
+                        <span class="slider round" />
+                      </label>
+                    </div>
+                  </div>
                 </div>
+
+                <div className='n-library-books-container'>
+
+                  <div className='n-library-books-grid'>
+                    {userCollection.map((book, index) => (
+                      <LibraryBook book={book} addingBook={false} username={userInfo?.username} volumeId={book.volume_id}/>
+                    ))}
+                  </div>
+
+                </div>
+
             </div>
             <div className='n-library-box-sep'/>
             <div className='n-library-wide'>

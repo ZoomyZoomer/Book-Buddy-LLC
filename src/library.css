@@ -356,7 +356,7 @@
 }
 
 .n-library-banner2 {
-    height: 16%;
+    height: 13%;
     width: 100%;
     background-color: #78C6A3;
     border-radius: 0.8rem;
@@ -368,7 +368,22 @@
 }
 
 .n-library-input {
-    
+    height: 2rem;
+    border: 1px solid #06AB78;
+    border-radius: 0.8rem;
+    font-family: "Inter";
+    color: #5A5A5A;
+    width: 15rem;
+    padding-left: 4.5rem;
+}
+
+.n-library-input:focus {
+    outline: none;
+    border: 2px solid #06AB78;
+}
+
+.n-library-input::placeholder {
+    font-family: "Inter";
 }
 
 .n-banner-img {
@@ -414,6 +429,106 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* The switch - the box around the slider */
+.n-switch-container {
+    position: absolute;
+    height: 24px;
+    left: 0.8125rem;
+}
+
+.switch {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #06AB78;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #06AB78;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    margin-left: -0.35rem;
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+    margin-bottom: -0.1rem;
+    margin-left: -0.05rem;
+  }
+
+.n-library-input-container {
+    position: relative;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2rem;
+}
+
+.n-library-books-container {
+    height: 87%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-library-books-grid {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    row-gap: 2rem;
+    place-items: center;
+    overflow-y: auto;
 }
 
 .n-lighter-img {
@@ -929,10 +1044,11 @@
 }
 
 .library-book-circle {
-    height: 6.6rem;
-    width: 6.6rem;
+    height: 6rem;
+    width: 6rem;
     border-radius: 100%;
     background-color: #A6D8C2;
+    border: 1px solid #78C6A3;
     position: relative;
     display: flex;
     justify-content: center;
@@ -940,8 +1056,8 @@
 }
 
 .library-cover {
-    height: 7.4rem;
-    width: 4.6rem;
+    height: 6.5rem;
+    width: 4rem;
     border-radius: 0.2rem;
     border: 1px solid #454B54;
 }

@@ -111,6 +111,15 @@ export default async function handler(req, res) {
                         currentDate.setDate(currentDate.getDate() - 7); // Move back by a full week
                     }
 
+                    // Update 2s to 4s if previous days are marked with 1 or 4
+                    for (let week of dateMatrix) {
+                        for (let day = 2; day < week.length; day++) {
+                            if (week[day] === 2 && (week[day - 1] === 1 || week[day - 1] === 4 || week[day - 2] === 1 || week[day - 2] === 4)) {
+                                week[day] = 4;  // Re-mark 2 as 4 if conditions are met
+                            }
+                        }
+                    }
+
                     // Convert month numbers to 3-letter month abbreviations
                     const monthArray = [...monthsIncluded].sort().map(monthIndex => monthAbbreviations[monthIndex]);
 

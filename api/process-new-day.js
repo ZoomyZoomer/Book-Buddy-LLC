@@ -33,6 +33,9 @@ export default async function handler(req, res) {
 
         // Check if curr_day is not set or if tempDate (today) is later than currDate
         if (!currDate || tempDate > currDate) {
+            if (!shelf.streak_claimed) {
+                shelf.streak = 0;
+            }
             shelf.streak_claimed = false;
             shelf.curr_day = new Date(); // Set curr_day to today
             await shelf.save(); // Save the changes
