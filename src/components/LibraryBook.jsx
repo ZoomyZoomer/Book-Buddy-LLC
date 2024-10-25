@@ -206,11 +206,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
     }, [reFetchStickers, book])
 
   return (
-    <div style={{marginTop: '1rem', border: addingBook ? '1px solid #d2d4d8' : (book.pages_read / book.total_pages) == 1 ? '1px solid #78C6A3' : '1px solid #d2d4d8'}} className={(isHolding) ? 'library-hold-container' : (!addingBook && (book.pages_read / book.total_pages == 1) ? 'library-book-completed' : 'library-book-container')} onClick={(e) => checkRedirect(e)} onMouseDown={(e) => handleMouseDown(e)} onMouseUp={handleMouseUpOrLeave} onMouseLeave={handleMouseUpOrLeave}>
-
-        {isFavorite && !addingBook && (
-            <img src='/heart-icon.png' className='heart-icon'/>
-        )}
+    <div style={{marginTop: '1rem', border: addingBook ? '1px solid #d2d4d8' : '1px solid #d2d4d8'}} className={'library-book-container'} onClick={(e) => checkRedirect(e)} onMouseDown={(e) => handleMouseDown(e)} onMouseUp={handleMouseUpOrLeave} onMouseLeave={handleMouseUpOrLeave}>
 
             <audio ref={audioRefHeart} src="/pop.mp3" />
 
