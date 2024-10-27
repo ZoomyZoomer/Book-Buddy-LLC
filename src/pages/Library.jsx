@@ -1,15 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {ReactComponent as Sort} from '../library-sort.svg'
-import {ReactComponent as Arrow} from '../library-arrow.svg'
-import {ReactComponent as Refresh} from '../library-refresh.svg'
-import {ReactComponent as Bookmark} from '../library-bookmark.svg'
-import {ReactComponent as Reading} from '../library-reading.svg'
-import {ReactComponent as Favorite} from '../library-heart.svg'
-import {ReactComponent as Plus} from '../library-plus.svg'
-import {ReactComponent as Expand} from '../library-expand.svg'
-import {ReactComponent as Settings} from '../library-settings.svg'
-import {ReactComponent as Arrow2} from '../pointer-arrow.svg'
-import {ReactComponent as ArrowRight} from '../arrow_right.svg'
+import {ReactComponent as ChevronDown} from '../n-chevron-down.svg'
 import '../library.css'
 import LibraryBook from '../components/LibraryBook'
 import axios from 'axios'
@@ -468,9 +458,13 @@ function Library() {
 
                   <div className='n-library-books-grid'>
                     {userCollection.map((book, index) => (
-                      <LibraryBook book={book} addingBook={false} username={userInfo?.username} volumeId={book.volume_id}/>
+                      <LibraryBook book={book} index={index} addingBook={false} username={userInfo?.username} volumeId={book.volume_id}/>
                     ))}
                   </div>
+
+                </div>
+
+                <div className='n-library-chevron'>
 
                 </div>
 

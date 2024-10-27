@@ -66,8 +66,18 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
             }, 500)
 
         }
+       
 
-        if (!addingBook){
+    }
+
+    const callPin = async() => {
+
+        if (addingBook || isPreview){
+            return;
+        }
+
+
+  
 
             setLoadBook(true);
 
@@ -82,30 +92,9 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                 if (!isFavorite){
                     playAudioRefHeart();
                 }
+                
                 setIsFavorite(prev => !prev);
 
-        }
-       
-
-    }
-
-    const callPin = async() => {
-
-        if (addingBook || isPreview){
-            return;
-        }
-
-
-        await axios.post('/api/pin-book', {
-            username,
-            volumeId
-        })
-
-        if (!isPinned){
-            playAudioRefPin();
-        }
-
-        setIsPinned(prev => !prev);
 
     }
 
@@ -275,7 +264,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
         
         {!addingBook && (
             <>
-                <div id='star' className='library-page-abs' style={{color: (book.pages_read / book.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book.pages_read}/{book.total_pages} {isPinned ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><PinFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><PinEmpty /></div>}</div>
+                <div id='star' className='library-page-abs' style={{color: (book.pages_read / book.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book.pages_read}/{book.total_pages} {isFavorite ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartEmpty /></div>}</div>
                 <audio ref={audioRefPin} src="/staple.mp3" />
             </>
         )}

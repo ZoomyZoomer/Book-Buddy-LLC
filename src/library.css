@@ -515,12 +515,18 @@
 }
 
 .n-library-books-container {
-    height: 78%;
+    height: 76%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow-y: auto;
+}
+
+.n-library-chevron {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
 }
 
 .n-library-books-grid {
@@ -1020,7 +1026,7 @@
 }
 
 .library-book-container {
-    border: 1px solid #d2d4d8;
+    border: 1px solid #b3b5b7;
     background-color: #FDFDFD;
     padding: 1rem;
     padding-bottom: 1.8rem;
@@ -1036,6 +1042,7 @@
     position: relative;
     transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
     z-index: 10;
+    box-shadow: 0px 0px 4px rgb(216, 216, 216);
 }
 
 .library-book-container:hover {
@@ -1438,7 +1445,7 @@
 
 .library-page-abs {
     position: absolute;
-    right: 1.4rem;
+    right: 1.15rem;
     bottom: 0.2rem;
     font-size: 0.7rem;
     font-weight: 500;
