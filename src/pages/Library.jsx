@@ -450,7 +450,7 @@ function Library() {
                   <div className='n-library-input-container'>
                     <input 
                       className='n-library-input'
-                      placeholder={`Search By Title`}
+                      placeholder={`Search By ${!searchBy ? 'Title' : 'Author'}`}
                       onChange={(e) => setText(e.target.value)}
                       value={text}
                     >
@@ -458,7 +458,7 @@ function Library() {
                     <div className='n-switch-container'>
                       <label class="switch">
                         <input type="checkbox" />
-                        <span class="slider round" />
+                        <span class="slider round" onClick={() => setSearchBy(prev => !prev)}/>
                       </label>
                     </div>
                   </div>

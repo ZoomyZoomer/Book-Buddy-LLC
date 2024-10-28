@@ -3,7 +3,8 @@ import Bookshelf from './models/Bookshelf'; // adjust the path to your Bookshelf
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const { search_query, tab_name, username, title, filter } = req.query;
+    const { tab_name, username, title, filter } = req.query;
+    const search_query = req.query.search_query.replace(/\+/g, ' ');
 
     try {
       await connectToDatabase();
