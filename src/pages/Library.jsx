@@ -21,6 +21,7 @@ function Library() {
     const [updatedRating, setUpdatedRating] = useState(false);
     const [hasScrolled, setHasScrolled] = useState(false);
     const [reFetchStickers, setReFetchStickers] = useState(false);
+    const bottomRef = useRef(null);
     const divRef = useRef(null);
     const navigate = useNavigate('/');
     const tab = 'Favorites';
@@ -56,7 +57,7 @@ function Library() {
               tab_name: tab,
               title: searchBy ? 'author' : 'title',
               search_query: text,
-              filter: dropFilter
+              filter: 'Reading'
             },
           });
 
@@ -67,6 +68,13 @@ function Library() {
           console.error({ error: e });
         }
       };
+
+      const scrollToBottom = () => {
+        bottomRef.current.scrollTo({
+          top: bottomRef.current.scrollHeight,
+          behavior: 'smooth'
+        })
+      }
 
       useEffect(() => {
         if (userInfo?.username) { // Ensure userInfo is not null
@@ -443,6 +451,8 @@ function Library() {
                     <input 
                       className='n-library-input'
                       placeholder={`Search By Title`}
+                      onChange={(e) => setText(e.target.value)}
+                      value={text}
                     >
                     </input>
                     <div className='n-switch-container'>
@@ -454,18 +464,26 @@ function Library() {
                   </div>
                 </div>
 
-                <div className='n-library-books-container'>
+                <div className='n-library-books-container' ref={bottomRef}>
 
                   <div className='n-library-books-grid'>
                     {userCollection.map((book, index) => (
                       <LibraryBook book={book} index={index} addingBook={false} username={userInfo?.username} volumeId={book.volume_id}/>
                     ))}
+                    
                   </div>
+
+                  
 
                 </div>
 
                 <div className='n-library-chevron'>
-
+                  {userCollection.length > 4 && (
+                    <div className='n-library-chevron-circle' onClick={() => scrollToBottom()}>
+                      <ChevronDown />
+                    </div>
+                  )}
+                    
                 </div>
 
             </div>

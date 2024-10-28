@@ -6,10 +6,8 @@ export default async function handler(req, res) {
     const { search_query, tab_name, username, title, filter } = req.query;
 
     try {
-      // Connect to the database
       await connectToDatabase();
 
-      // Fetch the user's bookshelf
       const shelf = await Bookshelf.findOne({ username: username });
       if (!shelf) {
         return res.status(404).json({ message: 'Bookshelf not found' });
@@ -17,10 +15,9 @@ export default async function handler(req, res) {
 
       let tab = shelf.tabs.find(tab => tab.tab_name === tab_name);
       if (!tab) {
-        // Create a new tab if it doesn't exist
         shelf.tabs.push({ tab_name: tab_name, books: [] });
         await shelf.save();
-        tab = shelf.tabs.find(tab => tab.tab_name === tab_name); // Re-fetch the tab after saving
+        tab = shelf.tabs.find(tab => tab.tab_name === tab_name);
       }
 
       let matchingBooks = [];
@@ -33,7 +30,7 @@ export default async function handler(req, res) {
         matchingBooks = tab.books;
       }
 
-      // Apply filters
+      // Apply filters (keep as-is from your original code)
       if (filter === 'Completed') {
         let pinnedCompletedBooks = matchingBooks.filter(book => (book.pages_read / book.total_pages) === 1 && book.is_pinned);
         let nonPinnedCompletedBooks = matchingBooks.filter(book => (book.pages_read / book.total_pages) === 1 && !book.is_pinned);
@@ -58,7 +55,6 @@ export default async function handler(req, res) {
         matchingBooks = [...pinnedFavoriteBooks, ...nonPinnedFavoriteBooks];
       }
 
-      // Send matching books in response
       res.status(200).json(matchingBooks);
 
     } catch (e) {

@@ -514,6 +514,42 @@
     margin-left: 2rem;
 }
 
+.n-library-chevron-circle {
+    height: 2.4rem;
+    width: 2.4rem;
+    border-radius: 100%;
+    background-color: #78C6A3;
+    border: 1px solid #06AB78;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgb(203, 203, 203);
+    animation: chevron-anim 1.4s ease-in-out infinite;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.n-library-chevron-circle:hover {
+    cursor: pointer;
+    background-color: #67b79b;
+    border: 1px solid #049682;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+@keyframes chevron-anim {
+    0% {
+        transform: translateY(0%);
+    }
+    40% {
+        transform: translateY(0.665rem);
+    }
+    50% {
+        transform: translateY(0.7rem);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
 .n-library-books-container {
     height: 76%;
     width: 100%;
@@ -523,8 +559,27 @@
     overflow-y: auto;
 }
 
+.n-library-books-container::-webkit-scrollbar-button {
+    display: none;
+}
+
+.n-library-books-container::-webkit-scrollbar {
+    width: 0.4rem;
+}
+
+.n-library-books-container::-webkit-scrollbar-track {
+    background-color: #D9D9D9;
+    border-radius: 0.8rem;
+}
+
+.n-library-books-container::-webkit-scrollbar-thumb {
+    background-color: #78C6A3;
+    border-radius: 0.8rem;
+}
+
 .n-library-chevron {
     display: flex;
+    justify-content: center;
     width: 100%;
     flex-grow: 1;
 }

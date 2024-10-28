@@ -115,22 +115,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
         return `#${newColor.toString(16).padStart(6, '0')}`;
       }
 
-    const [currReadingColor, setCurrReadingColor] = useState('#b1e4d4');
-
-    const getGenreColor = async() => {
-
-        /*
-      const res = await axios.get('/api/getGenreColor', {
-        params: {
-          username: username,
-          genre: book.genre
-        }
-      })
-
-      setCurrReadingColor(res.data.color);
-      */
-
-    }
+    const [currReadingColor, setCurrReadingColor] = useState('#FFA9A9');
 
     useEffect(() => {
         setIsFavorite(book?.is_favorite ? book.is_favorite : false);
@@ -146,7 +131,6 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
     useEffect(() => {
         if (!addingBook){
             fillBar();
-            getGenreColor();
         }
     }, [book])
 
@@ -161,27 +145,6 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     }
 
-    const handleMouseDown = (e) => {
-        if (e.target.id != 'star' && !addingBook && !isPreview){
-            setMouseDownTime(Date.now());
-            setIsHolding(true);
-            timerRef.current = setTimeout(() => {
-                addBook();
-                setIsHolding(false);
-            }, 2000);
-        }
-      };
-    
-    const handleMouseUpOrLeave = () => {
-        setIsHolding(false);
-        const mouseUpTime = Date.now();
-        setDuration(mouseUpTime - mouseDownTime);
-        if (timerRef.current) {
-          clearTimeout(timerRef.current);
-          timerRef.current = null;
-        }
-    };
-
     const fetchActiveStickers = () => {
 
         setActiveStickers(book.active_stickers);
@@ -195,7 +158,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
     }, [reFetchStickers, book])
 
   return (
-    <div style={{marginTop: '1rem', border: addingBook ? '1px solid #d2d4d8' : '1px solid #d2d4d8'}} className={'library-book-container'} onClick={(e) => checkRedirect(e)} onMouseDown={(e) => handleMouseDown(e)} onMouseUp={handleMouseUpOrLeave} onMouseLeave={handleMouseUpOrLeave}>
+    <div style={{marginTop: '1rem', border: addingBook ? '1px solid #d2d4d8' : '1px solid #d2d4d8'}} className={'library-book-container'} onClick={(e) => checkRedirect(e)}>
 
             <audio ref={audioRefHeart} src="/pop.mp3" />
 
