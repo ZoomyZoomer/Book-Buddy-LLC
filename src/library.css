@@ -11,7 +11,6 @@
 .library-box {
     display: flex;
     justify-content: center;
-    align-items: center;
     height: 50rem;
     width: 86rem; 
 }
@@ -288,13 +287,131 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 80%;
+    width: 29%;
+}
+
+.filter-list {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-left: 4rem;
+    height: fit-content;
+}
+
+.filter-bar {
+    width: 1px;
+    height: 130%;
+    background-color: gray;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.filter-item {
+    padding: 0.35rem 0.75rem 0.35rem 0.75rem;
+    border-radius: 0.8rem;
+    background-color: #F4F4F4;
+    border: 1px solid #D8D8D8;
+    font-size: 0.7rem;
+    margin-right: 0.625rem;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.filter-item:hover {
+    cursor: pointer;
+    background-color: #e6e6e6;
+    border: 1px solid #bebebe;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.filter-search {
+    border: 1px solid #D9D9D9;
+    border-radius: 0.8rem;
+    height: 1.9rem;
+    margin-top: 1rem;
+    width: 80%;
+    padding-left: 1rem;
+    font-family: "Inter";
+    color: #454b54;
+}
+
+.filter-search:focus {
+    outline: 1px solid #bbbbbb;
+}
+
+.filter-search::placeholder {
+    font-family: "Inter";
+}
+
+.n-reading-entry-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.reading-entry-item-cont {
+    width: 100%;
+    height: 6rem;
+    background-color: #F2F2F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-reading-entry-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 100%;
-    width: 31%;
+    margin-right: 2rem;
+}
+
+.n-reading-entry-circle {
+    height: 3.2rem;
+    width: 3.2rem;
+    background-color: #78C6A3;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-reading-entry-info {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    font-size: 0.9rem;
+    width: 14rem;
+    margin-left: 1rem;
+}
+
+.n-ret {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.n-tag {
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 0.8rem;
+    width: fit-content;
+    display: flex;
+    place-items: center;
+    font-size: 0.7rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
 }
 
 .n-library-sep {
     height: 100%;
-    width: 2%;
+    width: 3%;
 }
 
 .n-library-right {
@@ -306,7 +423,7 @@
 }
 
 .n-library-main {
-    height: 70%;
+    height: 80%;
     width: 100%;
     border: 1px solid #7E7E7E;
     background-color: #FAFAFA;
@@ -327,8 +444,8 @@
     align-items: center;
 }
 
-.n-library-box-small {
-    height: 49%;
+.n-library-box-med {
+    height: 78%;
     width: 100%;
     background-color: #FAFAFA;
     border-radius: 0.8rem;
@@ -336,10 +453,40 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    box-shadow: 0px 4px 6px rgb(189, 189, 189);
+}
+
+.filter-num {
+    font-size: 0.9rem;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+.filter-num-title {
+    font-weight: 500;
+    color: #454B54;
+}
+
+.n-library-box-small {
+    height: 25%;
+    width: 100%;
+    background-color: #78C6A3;
+    border-radius: 0.8rem;
+    border: 1px solid #7E7E7E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0px 4px 6px rgb(189, 189, 189);
 }
 
 .n-library-box-sep {
-    height: 2%;
+    height: 3%;
     width: 100%;
 }
 
@@ -411,7 +558,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1.2rem;
 }
 
 .n-streak-seg {
@@ -425,11 +571,32 @@
 .n-streak-circle {
     height: 6rem;
     width: 6rem;
-    background-color: #A6D8C2;
+    background-color: #FAFAFA;
+    border: 1px solid #06AB78;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.streak-tiny-circle1 {
+    position: absolute;
+    top: 0.625rem;
+    left: 0.8125rem;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 100%;
+    background-color: white;
+}
+
+.streak-tiny-circle2 {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.8125rem;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 100%;
+    background-color: white;
 }
 
 /* The switch - the box around the slider */
@@ -604,20 +771,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: left;
-    color: #77797B;
+    color: #F5F5F5;
     font-size: 0.625rem;
-    width: 14rem;
+    width: 12rem;
     margin-left: 1rem;
 }
 
 .n-lighter-title {
-    color: #06AB78;
+    color: white;
     font-size: 1rem;
     font-weight: 600;
 }
 
 .n-lighter-btn, .n-lighter-btn-null {
-    background-color: #92ddbc;
+    background-color: white;
     border: 1px solid #454b54;
     border-radius: .4rem;
     color: #454b54;
@@ -638,7 +805,7 @@
 
 .n-lighter-btn:hover {
     cursor: pointer;
-    background-color: #83d3bb;
+    background-color: #b7e2d5;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
@@ -1081,10 +1248,10 @@
 }
 
 .library-book-container {
-    border: 1px solid #b3b5b7;
-    background-color: #FDFDFD;
-    padding: 1rem;
-    padding-bottom: 1.8rem;
+    border: 1px solid #ABABAB;
+    background-color: white;
+    padding: 1.2rem;
+    padding-bottom: 2rem;
     border-radius: 0.8rem;
     padding-right: 2rem;
     padding-left: 1rem;
@@ -1097,7 +1264,6 @@
     position: relative;
     transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
     z-index: 10;
-    box-shadow: 0px 0px 4px rgb(216, 216, 216);
 }
 
 .library-book-container:hover {
@@ -1235,6 +1401,7 @@
 
 .library-book-info {
     margin-left: 2rem;
+    margin-right: 0.625rem;
     width: max-content;
     display: flex;
     flex-direction: column;

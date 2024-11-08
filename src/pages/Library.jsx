@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import GoalSectionItem from '../components/GoalSectionItem'
 import BookBuddyNavbar from '../components/BookBuddyNavbar'
 import LibraryGoal from '../components/LibraryGoal'
+import ReadingEntryItem from '../components/ReadingEntryItem'
 
 function Library() {
 
@@ -358,87 +359,47 @@ function Library() {
           <div className='n-library-left'>
             <div className='n-library-box-small'>
 
-              <div className='n-library-banner'>
-                <img src='/fire_icon.png' className='n-banner-img'/>
-                <div className='n-library-banner-info'>
-                  <div className='n-banner-title'>Light your streak</div>
-                  <div>Just record an entry daily!</div>
-                </div>
-              </div>
-
               <div className='n-streak-container'>
                 <div className='n-streak-circle'>
                   <img src={`./${streakInfo[0] ? 'lighter_on' : 'lighter_off'}.png`} className='n-lighter-img'/>
                 </div>
                 <div className='n-lighter-info'>
                     <div className='n-lighter-title'>Reading Streak: {streakInfo[1]} days</div>
-                    <div>Make a flame once per day after reading a book and logging it!</div>
+                    <div>Make a flame everyday after reading a book and logging it!</div>
                     <button className={streakInfo[0] ? 'n-lighter-btn-null' : 'n-lighter-btn'} onClick={() => igniteStreak()}>{streakInfo[0] ? 'STREAK ACTIVE' : 'IGNITE'}</button>
                 </div>
               </div>
 
-              <div className='n-streak-seg'/>
+              <div className='streak-tiny-circle1'/>
+              <div className='streak-tiny-circle2'/>
 
-              <div className='n-streak-check'>
+            </div>
 
-                <div className='n-streak-months'>
-                  {streakInfo[2][1].map((month, index) => (
-                    <div className='n-month'>{month}</div>
-                  ))}
-                </div>
+            <div className='n-library-box-sep' />
 
-                  <div className='calendar-grid'>
-                    {streakInfo[2][0].map((week, weekIndex) => (
-                      <div key={weekIndex} className="week-row">
-                        {week.map((day, dayIndex) => (
-                          <>
-                            {dayIndex === 1 && weekIndex === 0 && <div className='n-week'>Mon</div>}
-                            {dayIndex === 3 && weekIndex === 0 && <div className='n-week'>Wed</div>}
-                            {dayIndex === 5 && weekIndex === 0 && <div className='n-week'>Fri</div>}
-                            <div key={dayIndex} className={`day-cell ${day === 1 ? 'filled' : (day === 2 || day === 0) ? 'empty' : day === 5 ? 'soon' : day === 3 ? 'empty' : 'missed'}`} />
-                          </>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
+            <div className='n-library-box-med'>
 
-                  <div className='calendar-legend'>
+              <div className='filter-list'>
+                <div className='filter-num'><div className='filter-num-title'>Filters</div>&nbsp;(1)</div>
+                <div className='filter-bar'/>
+                <div className='filter-item'>Most Recent</div>
+                <div className='filter-item'>Page Read</div>
+                <div className='filter-item'>Title</div>
+              </div>
 
-                      <div className='legend-text'>Missed</div>
-                      <div className='missed' style={{marginLeft: '0.2rem'}}/>
+              <input 
+                className='filter-search'
+                placeholder='Search Entry Title...'
+              />
 
-                      <div className='legend-text' style={{marginLeft: '0.625rem'}}>Streak</div>
-                      <div className='filled' style={{marginLeft: '0.2rem'}}/>
-
-                  </div>
-
+              <div className='n-reading-entry-box'>
+                <ReadingEntryItem />
+                <ReadingEntryItem />
+                <ReadingEntryItem />
               </div>
 
             </div>
-            <div className='n-library-box-sep' />
-            <div className='n-library-box-small'>
 
-            <div className='n-library-banner'>
-                <img src='/flag.png' className='n-banner-img'/>
-                <div className='n-library-banner-info'>
-                  <div className='n-banner-title'>Achieve Your Goals</div>
-                  <div>Set your own goals and get rewarded</div>
-                </div>
-            </div>
-
-            <div className='n-goals-container'>
-
-                {goals.map((goal, index) => (
-                  <>
-                    <LibraryGoal goal={goal}/>
-                  </>
-                ))}
-
-                
-
-            </div>
-
-            </div>
           </div>
 
           <div className='n-library-sep'/>
@@ -487,10 +448,7 @@ function Library() {
                 </div>
 
             </div>
-            <div className='n-library-box-sep'/>
-            <div className='n-library-wide'>
 
-            </div>
           </div>
 
         </div>
