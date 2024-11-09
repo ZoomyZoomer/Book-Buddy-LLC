@@ -303,14 +303,14 @@
 
 .filter-bar {
     width: 1px;
-    height: 130%;
+    height: 80%;
     background-color: gray;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: 0.625rem;
+    margin-right: 0.625rem;
 }
 
 .filter-item {
-    padding: 0.35rem 0.75rem 0.35rem 0.75rem;
+    padding: 0.3rem 0.75rem 0.3rem 0.75rem;
     border-radius: 0.8rem;
     background-color: #F4F4F4;
     border: 1px solid #D8D8D8;
@@ -324,6 +324,25 @@
     background-color: #e6e6e6;
     border: 1px solid #bebebe;
     transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.filter-item-active {
+    padding: 0.3rem 0.5rem 0.3rem 0.75rem;
+    border-radius: 0.8rem;
+    background-color: #A6D8C2;
+    border: 1px solid #368B65;
+    font-size: 0.7rem;
+    margin-right: 0.625rem;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-item-active:hover {
+    cursor: pointer;
+    background-color: #9bcebd;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .filter-search {
@@ -357,10 +376,72 @@
 .reading-entry-item-cont {
     width: 100%;
     height: 6rem;
-    background-color: #F2F2F2;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader3 {
+    width: 160px;
+    height: 20px;
+    border-radius: 0.8rem;
+    background: 
+      linear-gradient(90deg,rgba(78, 78, 78, 0.067) 33%,rgba(68, 68, 68, 0.333) 50%,rgba(78, 78, 78, 0.067) 66%)
+      #f2f2f2;
+    background-size:300% 100%;
+    animation: l1 1s infinite linear;
+  }
+  @keyframes l1 {
+    0% {background-position: right}
+  }
+
+.loader3_small {
+    width: 70px;
+    height: 20px;
+    border-radius: 0.8rem;
+    background: 
+    linear-gradient(90deg,rgba(78, 78, 78, 0.067) 33%,rgba(68, 68, 68, 0.333) 50%,rgba(78, 78, 78, 0.067) 66%)
+      #f2f2f2;
+    background-size:300% 100%;
+    animation: l1 1s infinite linear;
+}
+
+.n-entry-dots-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.8125rem;
+}
+
+.n-dot-empty {
+    height: 0.6125rem;
+    width: 0.6125rem;
+    background-color: #e9e9e9;
+    border: 1px solid #dfdfdf;
+    border-radius: 100%;
+    margin: 0.1rem;
+}
+
+.n-dot-empty:hover {
+    cursor: pointer;
+    background-color: #dfdfdf;
+    border: 1px solid #d3d3d3;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.n-dot-full {
+    height: 0.8125rem;
+    width: 0.8125rem;
+    background-color: #78C6A3;
+    border: 1px solid #06AB78;
+    border-radius: 100%;
+    margin: 0.1rem
+}
+
+.n-dot-full:hover {
+    cursor: pointer;
 }
 
 .n-reading-entry-flex {
@@ -375,7 +456,6 @@
 .n-reading-entry-circle {
     height: 3.2rem;
     width: 3.2rem;
-    background-color: #78C6A3;
     border-radius: 100%;
     display: flex;
     justify-content: center;
@@ -390,6 +470,15 @@
     font-size: 0.9rem;
     width: 14rem;
     margin-left: 1rem;
+    position: relative;
+}
+
+.n-entry-date {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 0.7em;
+    color: #7E7E7E;
 }
 
 .n-ret {
@@ -458,7 +547,7 @@
 }
 
 .filter-num {
-    font-size: 0.9rem;
+    font-size: 0.8125rem;
     font-weight: 400;
     display: flex;
     justify-content: center;
@@ -569,8 +658,8 @@
 }
 
 .n-streak-circle {
-    height: 6rem;
-    width: 6rem;
+    height: 5rem;
+    width: 5rem;
     background-color: #FAFAFA;
     border: 1px solid #06AB78;
     border-radius: 100%;
@@ -764,6 +853,7 @@
 .n-lighter-img {
     height: 5rem;
     margin-right: 1rem;
+    margin-top: 0.625rem;
 }
 
 .n-lighter-info {

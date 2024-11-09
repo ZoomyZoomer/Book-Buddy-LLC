@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {ReactComponent as ChevronDown} from '../n-chevron-down.svg'
+import {ReactComponent as Close} from '../n-close-filter.svg';
 import '../library.css'
 import LibraryBook from '../components/LibraryBook'
 import axios from 'axios'
@@ -235,23 +236,32 @@ function Library() {
         }
     }, [isAddingBook])
 
-    const [recentEntries, setRecentEntries] = useState([]);
+    const [recentEntries, setRecentEntries] = useState([null, null, null]);
     const [ind, setInd] = useState(0);
     const [maxLen, setMaxLen] = useState(0);
     const [reFetchEntries, setReFetchEntries] = useState(false);
+    const [threeEntries, setThreeEntries] = useState([null, null, null]);
+    const [filter, setFilter] = useState('recent');
+    const [filterQuery, setFilterQuery] = useState('');
 
     const fetchAllEntries = async() => {
+
+      setThreeEntries([null, null, null]);
+      setRecentEntries([null, null, null]);
 
       try {
 
         const res = await axios.get('/api/fetch-all-entries', {
           params: {
             username: userInfo.username,
-            index: ind
+            index: ind,
+            filter: filter,
+            filterQuery
           }
         })
 
         setRecentEntries(res.data[0]);
+        console.log(res.data[0]);
         setMaxLen(res.data[1]);
 
 
@@ -265,7 +275,7 @@ function Library() {
       if (userInfo?.username){
         fetchAllEntries();
       }
-    }, [userInfo, ind, reFetchEntries])
+    }, [userInfo, reFetchEntries, filter, filterQuery])
 
     const lightTorch = async() => {
 
@@ -349,6 +359,17 @@ function Library() {
         }
     }, [userInfo])
 
+    const sortArray = () => {
+      setThreeEntries(recentEntries.slice(ind, parseInt(ind) + 3).slice(0, 3));
+    }
+
+    useEffect(() => {
+      if (userInfo){
+        sortArray();
+      }
+    }, [ind, recentEntries])
+
+
   return (
     <div className='library-container'>
 
@@ -380,22 +401,33 @@ function Library() {
             <div className='n-library-box-med'>
 
               <div className='filter-list'>
-                <div className='filter-num'><div className='filter-num-title'>Filters</div>&nbsp;(1)</div>
+                <div className='filter-num'><div className='filter-num-title'>Filter</div></div>
                 <div className='filter-bar'/>
-                <div className='filter-item'>Most Recent</div>
-                <div className='filter-item'>Page Read</div>
-                <div className='filter-item'>Title</div>
+                <div className={filter != 'recent' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'recent' && setFilter('recent')}>Most Recent {filter == 'recent' && <Close />}</div>
+                <div className={filter != 'pages' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'pages' ? setFilter('pages') : setFilter('recent')}>Pages Read {filter == 'pages' && <Close />}</div>
+                <div className={filter != 'title' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'title' ? setFilter('title') : setFilter('recent')}>Title {filter == 'title' && <Close />}</div>
               </div>
 
               <input 
                 className='filter-search'
                 placeholder='Search Entry Title...'
+                value={filterQuery}
+                onChange={(e) => {setFilterQuery(e.target.value); setInd(0)}}
               />
 
               <div className='n-reading-entry-box'>
-                <ReadingEntryItem />
-                <ReadingEntryItem />
-                <ReadingEntryItem />
+
+                {threeEntries.map((entry, index) => (
+                  <ReadingEntryItem index={index} entry={entry}/>
+                ))}
+
+                <div className='n-entry-dots-box'>
+                  {maxLen >= 3 && (<div className={ind !== 0 ? 'n-dot-empty' : 'n-dot-full'} onClick={() => setInd(0)}/>)}
+                  {maxLen >= 6 && (<div className={ind !== 3 ? 'n-dot-empty' : 'n-dot-full'} onClick={() => setInd(3)}/>)}
+                  {maxLen >= 9 && (<div className={ind !== 6 ? 'n-dot-empty' : 'n-dot-full'} onClick={() => setInd(6)}/>)}
+                  {maxLen >= 12 && (<div className={ind !== 9 ? 'n-dot-empty' : 'n-dot-full'} onClick={() => setInd(9)}/>)}
+                </div>
+
               </div>
 
             </div>

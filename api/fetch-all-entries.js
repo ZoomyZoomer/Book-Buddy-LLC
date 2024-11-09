@@ -4,7 +4,7 @@ import Quest from './models/Quests'; // Adjust the path to your Quest model
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const { username, index } = req.query;
+    const { username, index, filter, filterQuery } = req.query;
 
     try {
       // Connect to the database
@@ -16,10 +16,34 @@ export default async function handler(req, res) {
         return res.status(404).json({ message: 'Bookshelf not found' });
       }
 
-      // Reverse the total entries and slice the array as needed
-      const reversedEntries = [...shelf.total_entries].reverse();
-      const arr = reversedEntries.slice(index, parseInt(index) + 4).slice(0, 4);
-      const fillArr = arr.length >= 4 ? arr : arr.concat(Array(4 - arr.length).fill(null));
+      let fillArr = shelf.total_entries;
+
+      if (filter === 'pages') {
+        fillArr = fillArr.sort((a, b) => b.pages_added - a.pages_added);
+      } else if (filter === 'recent') {
+        fillArr = fillArr.reverse();
+      } else if (filter === 'title') {
+        fillArr = fillArr.sort((a, b) => {
+          if (a.title.toLowerCase() < b.title.toLowerCase()) {
+            return -1;
+          }
+          if (a.title.toLowerCase() > b.title.toLowerCase()) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+
+      if (filterQuery) {
+        // Replace + with spaces in filterQuery
+        const query = filterQuery.replace(/\+/g, ' ').toLowerCase();
+        fillArr = fillArr.filter(entry => entry.title.toLowerCase().includes(query));
+      }
+
+      // Ensure fillArr length is a multiple of 3 by adding null elements if needed
+      while (fillArr.length % 3 !== 0) {
+        fillArr.push('none');
+      }
 
       // Fetch the user's quest information
       const quest = await Quest.findOne({ username: username });
@@ -42,7 +66,7 @@ export default async function handler(req, res) {
         await shelf.save();
 
         // Set the next daily quest time to midnight tomorrow
-        if (quest.questTime){
+        if (quest.questTime) {
           const midnightTomorrow = new Date(now);
           midnightTomorrow.setDate(now.getDate() + 1);
           midnightTomorrow.setHours(0, 0, 0, 0);
@@ -53,14 +77,13 @@ export default async function handler(req, res) {
           quest.streakTime = true;
         }
 
-
         await quest.save();
       }
 
       // Send the response with the fetched data
       res.status(200).json([
         fillArr,
-        shelf.total_entries.length,
+        fillArr.length,
         { streak: shelf.streak, is_claimed: shelf.streak_claimed, today: shelf.streak_today }
       ]);
 
