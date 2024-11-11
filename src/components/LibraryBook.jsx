@@ -124,7 +124,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const fillBar = () => {
         
-        document.getElementById(`fill${index}`).style.height = `${(book.pages_read / book.total_pages) * 100}%`;
+        document.getElementById(`fill${index}`).style.height = `${(book?.pages_read / book?.total_pages) * 100}%`;
         
     }
 
@@ -147,7 +147,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const fetchActiveStickers = () => {
 
-        setActiveStickers(book.active_stickers);
+        setActiveStickers(book?.active_stickers);
 
     }
 
@@ -173,20 +173,20 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                     <div className='library-book-circle'>
                         <div style={{height: 'fit-content', width: 'fit-content', position: 'absolute', top: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                             <div style={{position: 'relative'}}>
-                                <img src={addingBook ? (book?.imageLinks?.thumbnail ? book.imageLinks.thumbnail : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api') : book?.cover} className='library-cover'/>
-                                {activeStickers.length > 0 && activeStickers?.find(sticker => sticker?.location == 0) && (
+                                <img src={addingBook ? (book?.imageLinks?.thumbnail ? book.imageLinks.thumbnail : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api') : (book?.cover ? book.cover : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api')} className='library-cover'/>
+                                {activeStickers?.length > 0 && activeStickers?.find(sticker => sticker?.location == 0) && (
                                     <img 
                                         src={`/${activeStickers?.find(sticker => sticker?.location == 0)?.sticker_name}-i.png`}
                                         className={activeStickers?.find(sticker => sticker?.location == 0)?.sticker_id == ('7') ? 'sticker0z-abs' : 'sticker0-abs'}
                                     />
                                 )}
-                                {activeStickers.length > 0 && activeStickers.find(sticker => sticker.location == 1) && (
+                                {activeStickers?.length > 0 && activeStickers.find(sticker => sticker.location == 1) && (
                                     <img 
                                         src={`/${activeStickers?.find(sticker => sticker?.location == 1)?.sticker_name}-i.png`}
                                         className={activeStickers?.find(sticker => sticker?.location == 1)?.sticker_id == '6' ? 'sticker1z-abs' : 'sticker1-abs'}
                                     />
                                 )}
-                                {activeStickers.length > 0 && activeStickers.find(sticker => sticker?.location == 2) && (
+                                {activeStickers?.length > 0 && activeStickers.find(sticker => sticker?.location == 2) && (
                                     <img 
                                         src={`/${activeStickers?.find(sticker => sticker?.location == 2)?.sticker_name}-i.png`}
                                         className='sticker2-abs'
@@ -198,13 +198,18 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                 </div>
 
                 <div className='library-book-info'>
-                    <div className='library-book-title'>{book?.title}</div>
-                    <div className='library-book-author'>{addingBook ? (book?.authors[0] ? book.authors[0] : 'No author') : book?.author}</div>
-                    <div id='star' style={{marginTop: '0.625rem', width: 'fit-content'}} onClick={() => setFluidRating(prev => !prev)}>{(!fluidRating) ? <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/> : !isPreview && !addingBook ? (!addingBook && <RatingFluid tabName={'Favorites'} volumeId={volumeId} username={username} book_name={book?.title} setFluidRating={setFluidRating} setUpdatedRating={setUpdatedRating}/>) : isPreview && <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/>}</div>
-                    <div className='library-book-genre-tag' style={{color: currReadingColor, borderColor: currReadingColor, backgroundColor: lightenColor(currReadingColor, 0.28)}}>
+                    <div className='library-book-title'>{book?.title ? book.title : (<div class="loader3" />)}</div>
+                    <div className='library-book-author'>{addingBook ? (book?.authors[0] ? book.authors[0] : 'No author') : (book?.author ? book.author : <div class='loader3_thin'/>)}</div>
+
+                    {book?.title ? <div id='star' style={{marginTop: '0.625rem', width: 'fit-content'}} onClick={() => setFluidRating(prev => !prev)}>{(!fluidRating) ? <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/> : !isPreview && !addingBook ? (!addingBook && <RatingFluid tabName={'Favorites'} volumeId={volumeId} username={username} book_name={book?.title} setFluidRating={setFluidRating} setUpdatedRating={setUpdatedRating}/>) : isPreview && <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/>}</div>
+                     : (<div class='loader3_med' style={{marginTop: '0.4rem'}}/>)}
+                    
+                    {book?.title ? <div className='library-book-genre-tag' style={{color: currReadingColor, borderColor: currReadingColor, backgroundColor: lightenColor(currReadingColor, 0.28)}}>
                         <div className='library-book-genre-circle' style={{backgroundColor: currReadingColor}}/>
                         {addingBook ? (book?.categories ? book.categories : 'No genre') : book?.genre}
                     </div>
+                     : (<div class='loader3_thin' style={{marginTop: '0.2rem'}}/>)}
+
                 </div>
 
                 {!addingBook && (
@@ -227,7 +232,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
         
         {!addingBook && (
             <>
-                <div id='star' className='library-page-abs' style={{color: (book.pages_read / book.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book.pages_read}/{book.total_pages} {isFavorite ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartEmpty /></div>}</div>
+                <div id='star' className='library-page-abs' style={{color: (book?.pages_read / book?.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book?.pages_read}/{book?.total_pages} {isFavorite ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartEmpty /></div>}</div>
                 <audio ref={audioRefPin} src="/staple.mp3" />
             </>
         )}

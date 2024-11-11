@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {ReactComponent as ChevronDown} from '../n-chevron-down.svg'
+import {ReactComponent as ChevronDownBlack} from '../n-chevron-down-black.svg'
 import {ReactComponent as Close} from '../n-close-filter.svg';
+import {ReactComponent as Sort} from '../n-sort.svg'
+import {ReactComponent as LastRead} from '../n-last-read.svg';
+import {ReactComponent as Favorite} from '../n-favorite.svg';
+import {ReactComponent as Completed} from '../n-completed.svg';
+import {ReactComponent as Reading} from '../n-reading.svg'
 import '../library.css'
 import LibraryBook from '../components/LibraryBook'
 import axios from 'axios'
@@ -52,6 +58,9 @@ function Library() {
       }, []);
 
       const fetchCollection = async () => {
+
+        setUserCollection([null, null, null, null])
+
         try {
           const response = await axios.get('/api/getBooksBySearch', {
             params: {
@@ -59,7 +68,7 @@ function Library() {
               tab_name: tab,
               title: searchBy ? 'author' : 'title',
               search_query: text,
-              filter: 'Reading'
+              filter: dropFilter
             },
           });
 
@@ -84,26 +93,6 @@ function Library() {
         }
       }, [userInfo, text, updatedRating, dropFilter]);
 
-    useEffect(() => {
-        const handleClick = (event) => {
-          // Check if the click was a left-click (event.button === 0)
-          if ((event.button === 0) && (event.target.id !== 'library-sort')) {
-            
-            setTimeout(() => {
-                setShowDropDown(false);
-            }, 15)
-            // You can handle the click event here
-          }
-        };
-    
-        // Add the event listener to the document
-        document.addEventListener('click', handleClick);
-    
-        // Cleanup the event listener on component unmount
-        return () => {
-          document.removeEventListener('click', handleClick);
-        };
-    }, []);
 
     const [expand, setExpand] = useState(false);
     const [texty, setTexty] = useState(false);
@@ -403,9 +392,9 @@ function Library() {
               <div className='filter-list'>
                 <div className='filter-num'><div className='filter-num-title'>Filter</div></div>
                 <div className='filter-bar'/>
-                <div className={filter != 'recent' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'recent' && setFilter('recent')}>Most Recent {filter == 'recent' && <Close />}</div>
-                <div className={filter != 'pages' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'pages' ? setFilter('pages') : setFilter('recent')}>Pages Read {filter == 'pages' && <Close />}</div>
-                <div className={filter != 'title' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'title' ? setFilter('title') : setFilter('recent')}>Title {filter == 'title' && <Close />}</div>
+                <div className={filter != 'recent' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'recent' && setFilter('recent')}>Most Recent {filter == 'recent' && <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '-0.1rem'}}><Close /></div>}</div>
+                <div className={filter != 'pages' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'pages' ? setFilter('pages') : setFilter('recent')}>Pages Read {filter == 'pages' && <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '-0.1rem'}}><Close /></div>}</div>
+                <div className={filter != 'title' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'title' ? setFilter('title') : setFilter('recent')}>Title {filter == 'title' && <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '-0.1rem'}}><Close /></div>}</div>
               </div>
 
               <input 
@@ -455,13 +444,69 @@ function Library() {
                       </label>
                     </div>
                   </div>
+                  <div className='n-library-filter-box' onClick={() => setShowDropDown(prev => !prev)}>
+                        <div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
+
+                          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.625rem'}}>
+                            <Sort />
+                          </div>
+                          {dropFilter}
+                          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.2rem'}}>
+                            <ChevronDownBlack />
+                          </div>
+
+                          {showDropDown && (
+                          <div className='n-filter-dropdown-box'>
+
+                            {dropFilter !== 'LastRead' && (
+                              <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Last Read')}>
+                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
+                                  <LastRead /> 
+                                </div>
+                                Last Read
+                              </div>
+                            )}
+
+                            {dropFilter !== 'Completed' && (
+                              <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Completed')}>
+                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
+                                  <Completed /> 
+                                </div>
+                                Completed
+                              </div>
+                            )}
+
+                            {dropFilter !== 'Reading' && (
+                              <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Reading')}>
+                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
+                                  <Reading /> 
+                                </div>
+                                Reading
+                              </div>
+                            )}
+
+                            {dropFilter !== 'Favorite' && (
+                              <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Favorites')}>
+                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
+                                  <Favorite /> 
+                                </div>
+                                Favorites
+                              </div>
+                            )}
+                              
+                          </div>
+                        )}
+
+                        </div>
+
+                  </div>
                 </div>
 
                 <div className='n-library-books-container' ref={bottomRef}>
 
                   <div className='n-library-books-grid'>
                     {userCollection.map((book, index) => (
-                      <LibraryBook book={book} index={index} addingBook={false} username={userInfo?.username} volumeId={book.volume_id}/>
+                      <LibraryBook book={book} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
                     ))}
                     
                   </div>
