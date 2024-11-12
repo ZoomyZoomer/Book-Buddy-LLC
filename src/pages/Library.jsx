@@ -7,6 +7,9 @@ import {ReactComponent as LastRead} from '../n-last-read.svg';
 import {ReactComponent as Favorite} from '../n-favorite.svg';
 import {ReactComponent as Completed} from '../n-completed.svg';
 import {ReactComponent as Reading} from '../n-reading.svg'
+import {ReactComponent as LibraryRight} from '../n-library-right.svg';
+import {ReactComponent as Chart} from '../n-chart.svg';
+import {ReactComponent as AddBook} from '../n-add-book.svg';
 import '../library.css'
 import LibraryBook from '../components/LibraryBook'
 import axios from 'axios'
@@ -24,7 +27,7 @@ function Library() {
     const [userInfo, setUserInfo] = useState(null);
     const [isAddingBook, setIsAddingBook] = useState(false);
     const [userCollection, setUserCollection] = useState([]);
-    const [addingCollection, setAddingCollection] = useState([]);
+    const [addingCollection, setAddingCollection] = useState([null, null, null, null]);
     const [dropFilter, setDropFilter] = useState('Last Read');
     const [updatedRating, setUpdatedRating] = useState(false);
     const [hasScrolled, setHasScrolled] = useState(false);
@@ -59,25 +62,31 @@ function Library() {
 
       const fetchCollection = async () => {
 
-        setUserCollection([null, null, null, null])
+        if (!isAddingBook){
 
-        try {
-          const response = await axios.get('/api/getBooksBySearch', {
-            params: {
-              username: userInfo.username,
-              tab_name: tab,
-              title: searchBy ? 'author' : 'title',
-              search_query: text,
-              filter: dropFilter
-            },
-          });
+          setUserCollection([null, null, null, null]);
 
-          setReFetchStickers(prev => !prev);
-          setUserCollection(response.data);
+          try {
+            const response = await axios.get('/api/getBooksBySearch', {
+              params: {
+                username: userInfo.username,
+                tab_name: tab,
+                title: searchBy ? 'author' : 'title',
+                search_query: text,
+                filter: dropFilter
+              },
+            });
 
-        } catch (e) {
-          console.error({ error: e });
+            setReFetchStickers(prev => !prev);
+            setUserCollection(response.data);
+
+          } catch (e) {
+            console.error({ error: e });
+          }
+
         }
+
+      
       };
 
       const scrollToBottom = () => {
@@ -91,7 +100,7 @@ function Library() {
         if (userInfo?.username) { // Ensure userInfo is not null
           fetchCollection();
         }
-      }, [userInfo, text, updatedRating, dropFilter]);
+      }, [userInfo, text, updatedRating, dropFilter, isAddingBook]);
 
 
     const [expand, setExpand] = useState(false);
@@ -174,9 +183,10 @@ function Library() {
         }
 
     }
+    
 
     const handleKeyDown = (event) => {
-        if ((event.key === 'Enter') && (isAddingBook)) {
+        if ((event?.key === 'Enter') && (isAddingBook)) {
           callBooksApi();
         }
     };
@@ -265,6 +275,10 @@ function Library() {
         fetchAllEntries();
       }
     }, [userInfo, reFetchEntries, filter, filterQuery])
+
+    useEffect(() => {
+      setUserCollection([null, null, null, null])
+    }, [isAddingBook])
 
     const lightTorch = async() => {
 
@@ -432,9 +446,10 @@ function Library() {
                   <div className='n-library-input-container'>
                     <input 
                       className='n-library-input'
-                      placeholder={`Search By ${!searchBy ? 'Title' : 'Author'}`}
+                      placeholder={!isAddingBook ? `Search By ${!searchBy ? 'Title' : 'Author'}` : `Add Books By ${!searchBy ? 'Title' : 'Author'}`}
                       onChange={(e) => setText(e.target.value)}
                       value={text}
+                      onKeyDown={handleKeyDown}
                     >
                     </input>
                     <div className='n-switch-container'>
@@ -458,7 +473,7 @@ function Library() {
                           {showDropDown && (
                           <div className='n-filter-dropdown-box'>
 
-                            {dropFilter !== 'LastRead' && (
+                            {dropFilter !== 'Last Read' && (
                               <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Last Read')}>
                                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
                                   <LastRead /> 
@@ -485,7 +500,7 @@ function Library() {
                               </div>
                             )}
 
-                            {dropFilter !== 'Favorite' && (
+                            {dropFilter !== 'Favorites' && (
                               <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Favorites')}>
                                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
                                   <Favorite /> 
@@ -504,10 +519,46 @@ function Library() {
 
                 <div className='n-library-books-container' ref={bottomRef}>
 
+                  <div className='n-library-options-nav'>
+                        <div className='n-library-options-left'>
+                          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left'}}>
+                            <div className='option-library'><div style={{display: 'flex', marginRight: '0.4rem'}}><LibraryRight /></div>{!isAddingBook ? 'Library' : 'Catalog'}</div>
+                            <div className='option-showing'>Showing 4 of 4 books</div>
+                          </div>
+                        </div>
+                        <div className='n-library-options-right'>
+                            <div className='option-right-item' onClick={() => {setIsAddingBook(prev => !prev); setAddingCollection([null, null, null, null])}}>{isAddingBook ? 'Return To Library' : 'Add Books'}<div style={{display: 'flex', marginLeft: '0.4rem'}}><AddBook /></div></div>
+                            <div className='option-right-item'><Chart /></div>
+                        </div>
+                  </div>
+
+                  {isAddingBook && text == '' && (
+                        <div className='n-adding-info-box'>
+                            <div className='library-book-circle-gray'>
+                              <img style={{height: '6.5rem', width: '4.2rem', marginTop: '1rem', border: '1px solid #454b54'}} src='http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api'/>
+                            </div>
+                            <div className='n-library-book-temp-info-grid'>
+                              <div className='n-temp-0'> Search the Catalog for the Book of Your Interests Using the Search Bar Above </div>
+                              <div className='n-temp-1'>Press ‘Enter’ to confirm your search!</div>
+                              <button className='n-temp-2' onClick={() => {setIsAddingBook(false); setAddingCollection([null, null, null, null])}}>Back To My Library</button>
+                            </div>
+                            <img src='/eagle-i.png' style={{height: '4rem', position: 'absolute', right: '1.4rem', bottom: '1.4rem', transform: 'scaleX(-1)'}}/>
+                            <div className='streak-tiny-circle2' style={{backgroundColor: '#D9D9D9'}}/>
+                            <div className='streak-tiny-circle1' style={{backgroundColor: '#D9D9D9'}}/>
+                        </div>
+                    )}
+
                   <div className='n-library-books-grid'>
-                    {userCollection.map((book, index) => (
+                    
+                    {(!isAddingBook) && userCollection.map((book, index) => (
                       <LibraryBook book={book} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
                     ))}
+
+                    {isAddingBook && text != '' && addingCollection.map((book, index) => (
+                      <LibraryBook book={book} setIsAddingBook={setIsAddingBook} setAddingCollection={setAddingCollection} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
+                    ))}
+
+              
                     
                   </div>
 
@@ -516,7 +567,7 @@ function Library() {
                 </div>
 
                 <div className='n-library-chevron'>
-                  {userCollection.length > 4 && (
+                  {(userCollection.length > 4 && !isAddingBook) && (
                     <div className='n-library-chevron-circle' onClick={() => scrollToBottom()}>
                       <ChevronDown />
                     </div>

@@ -6,12 +6,13 @@ import {ReactComponent as PinFull} from '../library-pin-filled.svg'
 import {ReactComponent as Plus} from '../library-plus.svg'
 import {ReactComponent as HeartEmpty} from '../library-heart-empty.svg'
 import {ReactComponent as HeartFull} from '../library-heart-full.svg'
+import {ReactComponent as Add} from '../n-add-circle.svg'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import RatingFluid from './RatingFluid'
 import BookBuddyNavbar from './BookBuddyNavbar'
 
-const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, setUpdatedRating, index, isPreview, reFetchStickers}) => {
+const LibraryBook = ({book, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, setUpdatedRating, index, isPreview, reFetchStickers}) => {
 
     const [showCheck, setShowCheck] = useState(false);
     const [loadBook, setLoadBook] = useState(false);
@@ -41,17 +42,15 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const addBook = async() => {
 
-        if (addingBook){
-
             setLoadBook(true);
 
             await axios.post('/api/addBook', {
-                volumeId: volumeId,
-                title: book?.title,
-                author: book?.authors[0] ? book.authors[0] : 'No author',
-                cover: book?.imageLinks?.thumbnail ? book.imageLinks.thumbnail : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api',
-                genre: book?.categories ? book.categories : 'No Genre',
-                pages: book?.pageCount,
+                volumeId: book?.id,
+                title: book?.volumeInfo?.title,
+                author: book?.volumeInfo?.authors[0] ? book.volumeInfo.authors[0] : 'No author',
+                cover: book?.volumeInfo?.imageLinks?.thumbnail ? book.volumeInfo.imageLinks.thumbnail : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api',
+                genre: book?.volumeInfo?.categories ? book.volumeInfo.categories : 'No Genre',
+                pages: book?.volumeInfo?.pageCount,
                 tabName: 'Favorites',
                 username
             })
@@ -61,11 +60,12 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                 setLoadBook(false);
                 playAudioRefHeart();
                 setTimeout(() => {
+                    setAddingCollection([null, null, null, null]);
                     setIsAddingBook(false);
                 }, 200)
             }, 500)
 
-        }
+        
        
 
     }
@@ -124,7 +124,12 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const fillBar = () => {
         
-        document.getElementById(`fill${index}`).style.height = `${(book?.pages_read / book?.total_pages) * 100}%`;
+        if (!book){
+            document.getElementById(`fill${index}`).style.height = '0%';
+        } else {
+            document.getElementById(`fill${index}`).style.height = `${(book?.pages_read / book?.total_pages) * 100}%`;
+        }
+
         
     }
 
@@ -136,7 +141,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
     const checkRedirect = (e) => {
 
-        if (e.target.id !== 'star' && !isHolding){
+        if (e.target.id !== 'star' && !isHolding && !book?.volumeInfo){
             if (duration < 500){
                 navigate(`/create-entry/${volumeId}`);
             }
@@ -173,7 +178,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                     <div className='library-book-circle'>
                         <div style={{height: 'fit-content', width: 'fit-content', position: 'absolute', top: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                             <div style={{position: 'relative'}}>
-                                <img src={addingBook ? (book?.imageLinks?.thumbnail ? book.imageLinks.thumbnail : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api') : (book?.cover ? book.cover : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api')} className='library-cover'/>
+                                <img src={book?.volumeInfo?.imageLinks?.thumbnail ? book.volumeInfo.imageLinks.thumbnail : (book?.cover ? book.cover : 'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api')} className='library-cover'/>
                                 {activeStickers?.length > 0 && activeStickers?.find(sticker => sticker?.location == 0) && (
                                     <img 
                                         src={`/${activeStickers?.find(sticker => sticker?.location == 0)?.sticker_name}-i.png`}
@@ -198,17 +203,23 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
                 </div>
 
                 <div className='library-book-info'>
-                    <div className='library-book-title'>{book?.title ? book.title : (<div class="loader3" />)}</div>
-                    <div className='library-book-author'>{addingBook ? (book?.authors[0] ? book.authors[0] : 'No author') : (book?.author ? book.author : <div class='loader3_thin'/>)}</div>
+                    <div className='library-book-title'>{book?.title ? book.title : (book?.volumeInfo?.title ? book.volumeInfo.title : (<div class="loader3" />))}</div>
+                    <div className='library-book-author'>{(book?.author ? book.author : (book?.volumeInfo?.authors ? book.volumeInfo.authors[0] : (book?.volumeInfo ? 'No Author' : <div class='loader3_thin'/>)))}</div>
 
                     {book?.title ? <div id='star' style={{marginTop: '0.625rem', width: 'fit-content'}} onClick={() => setFluidRating(prev => !prev)}>{(!fluidRating) ? <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/> : !isPreview && !addingBook ? (!addingBook && <RatingFluid tabName={'Favorites'} volumeId={volumeId} username={username} book_name={book?.title} setFluidRating={setFluidRating} setUpdatedRating={setUpdatedRating}/>) : isPreview && <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/>}</div>
-                     : (<div class='loader3_med' style={{marginTop: '0.4rem'}}/>)}
+                     : !book?.volumeInfo && (<div class='loader3_med' style={{marginTop: '0.4rem'}}/>)}
+
                     
                     {book?.title ? <div className='library-book-genre-tag' style={{color: currReadingColor, borderColor: currReadingColor, backgroundColor: lightenColor(currReadingColor, 0.28)}}>
                         <div className='library-book-genre-circle' style={{backgroundColor: currReadingColor}}/>
                         {addingBook ? (book?.categories ? book.categories : 'No genre') : book?.genre}
                     </div>
-                     : (<div class='loader3_thin' style={{marginTop: '0.2rem'}}/>)}
+                     : !book?.volumeInfo && (<div class='loader3_thin' style={{marginTop: '0.2rem'}}/>)}
+
+                    {book?.volumeInfo && (
+                        <div className='n-add-to-library' onClick={() => addBook()}><div style={{marginRight: '0.4rem', display: 'flex'}}><Add /></div> Add to Library</div>
+                    )}
+                     
 
                 </div>
 
@@ -230,11 +241,23 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, volumeId, set
 
         </div>
         
-        {!addingBook && (
+        {!addingBook && book?.title && (
             <>
-                <div id='star' className='library-page-abs' style={{color: (book?.pages_read / book?.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book?.pages_read}/{book?.total_pages} {isFavorite ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartEmpty /></div>}</div>
+                <div id='star' className='library-page-abs' style={{color: (book?.pages_read / book?.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book?.pages_read}/{book?.total_pages} {isFavorite ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginRight: '0.1rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginRight: '0.1rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartEmpty /></div>}</div>
                 <audio ref={audioRefPin} src="/staple.mp3" />
             </>
+        )}
+
+        {!addingBook && !book?.title && !book?.volumeInfo && (
+            <div id='star' className='library-page-abs' style={{marginBottom: '0.4rem', marginRight: '1rem'}}>
+                ?? / ???
+            </div>
+        )}
+
+        {book?.volumeInfo && (
+            <div id='star' className='library-page-abs' style={{marginBottom: '0.4rem', marginRight: '1rem'}}>
+                {book?.volumeInfo.pageCount} pages
+            </div>
         )}
 
         {addingBook && (

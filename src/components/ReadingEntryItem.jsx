@@ -24,7 +24,7 @@ const ReadingEntryItem = ({index, entry}) => {
                   {!entry && (<div class="loader3_small" style={{marginTop: '0.4rem'}}></div>)}
 
                   {entry?.title && (
-                    <div className='n-entry-date'>{entry?.date && `${entry.date.month} ${entry.date.day}`}</div>
+                    <div className='n-entry-date'>{entry?.date && `${entry.date.month} ${entry.date.day}, ${entry.date.year}`}</div>
                   )}
 
             </div>
