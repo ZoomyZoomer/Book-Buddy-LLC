@@ -90,6 +90,7 @@ export default async function handler(req, res) {
       let value = 10;
       let display = shelf.settings.entry_default_icon;
       let tier = 'I';
+      let id = '0';
       let desc = '"A mysterious file: Handle with care—could be a game changer or just more paperwork."';
 
       if (book.page_entries.length > 0) {
@@ -100,11 +101,13 @@ export default async function handler(req, res) {
           value = 20;
           display = 'Certificate';
           tier = 'II';
+          id = '20'
           desc = file_items['Certificate'];
         } else if (lastIcon === `${book.icon_set}_2` || lastIcon === `${book.icon_set}_3`) {
           icon = `${book.icon_set}_3`;
           rarity = 'Epic';
           value = 40;
+          id = '21'
           display = 'Love Letter';
           tier = 'III';
           desc = file_items['Love Letter'];
@@ -136,6 +139,7 @@ export default async function handler(req, res) {
         pages_added: Number(pages_added),
         new_page_total: Number(total_pages_read),
         date: { month, day, year },
+        id,
         icon: { name: icon, display, tier, rarity, value, desc },
         streak: { days: streak, dates: [`${month} ${day}`, ...prevDates] },
       };

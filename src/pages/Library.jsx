@@ -60,6 +60,8 @@ function Library() {
         fetchProfile();
       }, []);
 
+      const [maxBooks, setMaxBooks] = useState(0);
+
       const fetchCollection = async () => {
 
         if (!isAddingBook){
@@ -78,7 +80,8 @@ function Library() {
             });
 
             setReFetchStickers(prev => !prev);
-            setUserCollection(response.data);
+            setUserCollection(response.data[0]);
+            setMaxBooks(response.data[1]);
 
           } catch (e) {
             console.error({ error: e });
@@ -378,7 +381,13 @@ function Library() {
 
         <audio ref={audioRefTorch} src="scribble.wav" preload="auto" />
 
+      <div className='n-new-nav'>
+        
+      </div>
+
         <div className='library-box'>
+
+          <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
 
           <div className='n-library-left'>
             <div className='n-library-box-small'>
@@ -388,7 +397,7 @@ function Library() {
                   <img src={`./${streakInfo[0] ? 'lighter_on' : 'lighter_off'}.png`} className='n-lighter-img'/>
                 </div>
                 <div className='n-lighter-info'>
-                    <div className='n-lighter-title'>Reading Streak: {streakInfo[1]} days</div>
+                    <div className='n-lighter-title'>Reading Streak: <strong>{streakInfo[1]} days</strong></div>
                     <div>Make a flame everyday after reading a book and logging it!</div>
                     <button className={streakInfo[0] ? 'n-lighter-btn-null' : 'n-lighter-btn'} onClick={() => igniteStreak()}>{streakInfo[0] ? 'STREAK ACTIVE' : 'IGNITE'}</button>
                 </div>
@@ -421,7 +430,7 @@ function Library() {
               <div className='n-reading-entry-box'>
 
                 {threeEntries.map((entry, index) => (
-                  <ReadingEntryItem index={index} entry={entry}/>
+                  <ReadingEntryItem index={index} entry={entry} username={userInfo?.username}/>
                 ))}
 
                 <div className='n-entry-dots-box'>
@@ -446,7 +455,7 @@ function Library() {
                   <div className='n-library-input-container'>
                     <input 
                       className='n-library-input'
-                      placeholder={!isAddingBook ? `Search By ${!searchBy ? 'Title' : 'Author'}` : `Add Books By ${!searchBy ? 'Title' : 'Author'}`}
+                      placeholder={!isAddingBook ? `Search Books By ${!searchBy ? 'Title' : 'Author'}...` : `Add Books By ${!searchBy ? 'Title' : 'Author'}...`}
                       onChange={(e) => setText(e.target.value)}
                       value={text}
                       onKeyDown={handleKeyDown}
@@ -523,7 +532,7 @@ function Library() {
                         <div className='n-library-options-left'>
                           <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left'}}>
                             <div className='option-library'><div style={{display: 'flex', marginRight: '0.4rem'}}><LibraryRight /></div>{!isAddingBook ? 'Library' : 'Catalog'}</div>
-                            <div className='option-showing'>Showing 4 of 4 books</div>
+                            <div className='option-showing'>Showing {!isAddingBook ? userCollection.length : (addingCollection[0] == null ? 0 : addingCollection.length)} of {!isAddingBook ? maxBooks : (addingCollection[0] == null ? 0 : addingCollection.length)} books</div>
                           </div>
                         </div>
                         <div className='n-library-options-right'>
@@ -551,11 +560,11 @@ function Library() {
                   <div className='n-library-books-grid'>
                     
                     {(!isAddingBook) && userCollection.map((book, index) => (
-                      <LibraryBook book={book} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
+                      <LibraryBook book={book} isPreview={false} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
                     ))}
 
                     {isAddingBook && text != '' && addingCollection.map((book, index) => (
-                      <LibraryBook book={book} setIsAddingBook={setIsAddingBook} setAddingCollection={setAddingCollection} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
+                      <LibraryBook book={book} isPreview={false} setIsAddingBook={setIsAddingBook} setAddingCollection={setAddingCollection} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
                     ))}
 
               
@@ -576,6 +585,8 @@ function Library() {
                 </div>
 
             </div>
+
+          </div>
 
           </div>
 

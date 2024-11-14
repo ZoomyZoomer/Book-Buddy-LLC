@@ -58,6 +58,7 @@ export default async function handler(req, res) {
           [3, 1, 2, 2, 2, 1, 2],
           [9, 1, 1, 3, 3, 1, 8],
         ],
+        stickers_seen: ["0", "1", "2", "3", "4"]
       });
 
       await Quest.create({

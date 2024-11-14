@@ -241,27 +241,31 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, setAddingColl
 
         </div>
         
-        {!addingBook && book?.title && (
+        {!addingBook && book?.title && !isPreview && (
             <>
                 <div id='star' className='library-page-abs' style={{color: (book?.pages_read / book?.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book?.pages_read}/{book?.total_pages} {isFavorite ? <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginRight: '0.1rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartFull /></div> : <div id='star' className='library-pin' style={{display: 'flex', marginLeft: '0.3rem', marginRight: '0.1rem', marginBottom: '0.1rem'}} onClick={() => callPin()}><HeartEmpty /></div>}</div>
                 <audio ref={audioRefPin} src="/staple.mp3" />
             </>
         )}
 
-        {!addingBook && !book?.title && !book?.volumeInfo && (
+        {!addingBook && !book?.title && !book?.volumeInfo && !isPreview && (
             <div id='star' className='library-page-abs' style={{marginBottom: '0.4rem', marginRight: '1rem'}}>
                 ?? / ???
             </div>
         )}
 
-        {book?.volumeInfo && (
+        {book?.volumeInfo && !isPreview &&(
             <div id='star' className='library-page-abs' style={{marginBottom: '0.4rem', marginRight: '1rem'}}>
                 {book?.volumeInfo.pageCount} pages
             </div>
         )}
 
-        {addingBook && (
+        {addingBook && !isPreview &&(
             <div className='library-page-abs'>{book.pageCount} pages</div>
+        )}
+
+        {isPreview && (
+            <div className='library-page-abs' style={{marginBottom: '0.4rem', marginRight: '1rem'}}>Preview</div>
         )}
 
     </div>

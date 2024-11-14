@@ -1,10 +1,11 @@
 import { connectToDatabase } from './utils/db'; // Adjust the path to your DB connection utility
 import Inventory from './models/Inventory'; // Adjust the path if necessary
 import Quest from './models/Quests'; // Adjust the path if necessary
+import Bookshelf from './models/Bookshelf';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { username, index, new_file } = req.body;
+    const { username, index, new_file, notWarehouse, entry } = req.body;
 
     try {
       // Connect to the database
@@ -17,13 +18,28 @@ export default async function handler(req, res) {
       }
 
       // Remove the file from the grid
-      inventory.warehouse_grid[index[0]][index[1]] = 0;
-      inventory.markModified('warehouse_grid');
+
+      if (!notWarehouse){
+        inventory.warehouse_grid[index[0]][index[1]] = 0;
+        inventory.markModified('warehouse_grid');
+      }
+
 
       // Add new file to quantity
       const file = inventory.files.find(file => file.file_id === new_file.id);
       if (file) {
         file.quantity += 1;
+      }
+
+      if (notWarehouse){
+
+        const shelf = await Bookshelf.findOne({ username });
+
+        const rel_entry = shelf.total_entries.find((ent) => ent._id == entry._id);
+        rel_entry.is_claimed = true;
+
+        await shelf.save();
+
       }
 
       // Update File Farmer achievement (id: 1)
@@ -49,12 +65,15 @@ export default async function handler(req, res) {
       }
 
       // Update active file's index to indicate it has been claimed
-      const activeFile = inventory.active_files.find(file => 
-        file.index.every((f, i) => f === index[i])
-      );
-      if (activeFile) {
-        activeFile.index = [-1, -1];
+      if (!notWarehouse) {
+        const activeFile = inventory.active_files.find(file => 
+          file.index.every((f, i) => f === index[i])
+        );
+        if (activeFile) {
+          activeFile.index = [-1, -1];
+        }
       }
+      
 
       await inventory.save();
 

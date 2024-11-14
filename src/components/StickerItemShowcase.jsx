@@ -7,7 +7,7 @@ const StickerItemShowcase = ({sticker, stickers, setStickers}) => {
     const handleClick = () => {
 
         if (stickers.find(item => item.location === sticker.location) && !isClicked) return;
-
+    
         if (!isClicked){
 
             setStickers(prev => [...prev, sticker]);
