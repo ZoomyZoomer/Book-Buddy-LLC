@@ -398,7 +398,7 @@ function Library() {
 
         <div className='library-box'>
 
-          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+          <div className='whatever-div'>
 
           <div className='n-library-left'>
             <div className='n-library-box-small'>
