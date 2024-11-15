@@ -10,6 +10,7 @@ import {ReactComponent as Reading} from '../n-reading.svg'
 import {ReactComponent as LibraryRight} from '../n-library-right.svg';
 import {ReactComponent as Chart} from '../n-chart.svg';
 import {ReactComponent as AddBook} from '../n-add-book.svg';
+import {ReactComponent as Add} from '../n-add-circle.svg'
 import '../library.css'
 import LibraryBook from '../components/LibraryBook'
 import axios from 'axios'
@@ -262,7 +263,12 @@ function Library() {
           }
         })
 
-        setRecentEntries(res.data[0]);
+        if (res.data[0].length > 0){
+          setRecentEntries(res.data[0]);
+        } else {
+          setRecentEntries(["entry", "entry", "entry"]);
+        }
+        
         console.log(res.data[0]);
         setMaxLen(res.data[1]);
 
@@ -568,16 +574,36 @@ function Library() {
                       <LibraryBook book={book} isPreview={false} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
                     ))}
 
+                    {(!isAddingBook) && userCollection.length === 0 && (
+                      <div className='library-book-container' onClick={() => setIsAddingBook(true)}>
+
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'}}>
+
+                          <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
+                            <div className='library-book-circle'>
+                              <div style={{height: 'fit-content', width: 'fit-content', position: 'absolute', top: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                <div style={{position: 'relative'}}>
+                                  <img src={'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api'} className='library-cover'/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                            <div className='library-book-info'>
+                              <div className='library-book-title'>Blank Cover</div>
+                              <div className='library-book-author'>Click to add your first book from a collection of thousands!</div>
+                              <div className='n-add-to-library' onClick={() => setIsAddingBook(true)}><div style={{marginRight: '0.4rem', display: 'flex'}}><Add /></div> Add to Library</div>
+                            </div>
+
+                        </div>
+                      </div>
+                    )}
+
                     {isAddingBook && text != '' && addingCollection.map((book, index) => (
                       <LibraryBook book={book} isPreview={false} setIsAddingBook={setIsAddingBook} setAddingCollection={setAddingCollection} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
                     ))}
 
-              
-                    
                   </div>
-
-                  
-
                 </div>
 
                 <div className='n-library-chevron'>

@@ -1867,7 +1867,7 @@
     align-items: center;
     width: fit-content;
     position: relative;
-    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
     z-index: 10;
 }
 
@@ -1875,7 +1875,12 @@
     cursor: pointer;
     background-color: #fafafa;
     border: 1px solid #c8cace;
-    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.library-book-container:active {
+    transform: scale(0.95);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
 .library-book-circle-gray {

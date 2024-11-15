@@ -16,7 +16,7 @@ const ReadingEntryItem = ({index, entry, username}) => {
   const claimFile = async() => {
 
     if (entry?.is_claimed) return;
-    if (!entry) return;
+    if (!entry?.icon) return;
 
     await axios.post('/api/claim-file', {
       username,
@@ -38,8 +38,8 @@ const ReadingEntryItem = ({index, entry, username}) => {
 
         <div className='n-reading-entry-flex'>
             <div className='n-reading-entry-circle' style={{backgroundColor: (entry?.is_claimed || wasClicked) ? '#78C6A3' : '#E4E4E4'}} onClick={() => claimFile()}>
-                <img src={`/${entry?.icon ? entry.icon.name : 'no_file'}.png`} style={{height: '3.1rem', marginTop: '0.4rem'}} className={entry && !entry?.is_claimed && !wasClicked ? 'n-file-claim' : ''} />
-                {!entry?.is_claimed && !wasClicked && (<div className='n-claim-circle'/>)}
+                <img src={`/${entry?.icon ? entry.icon.name : 'no_file'}.png`} style={{height: '3.1rem', marginTop: '0.4rem'}} className={entry?.icon && !entry?.is_claimed && !wasClicked ? 'n-file-claim' : ''} />
+                {entry?.icon && !entry?.is_claimed && !wasClicked && (<div className='n-claim-circle'/>)}
             </div>
             <div className='n-reading-entry-info'>
                 <div className='n-ret'>
