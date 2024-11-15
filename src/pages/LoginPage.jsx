@@ -86,7 +86,7 @@ function LoginPage() {
 
             <div className="loginContainer">
                 <div style={{fontWeight: '400', fontSize: '14px'}}>
-                    Username or email address
+                    Username
                 </div>
 
                 <input className="inputBox" type="username" style={{marginBottom: '25px'}} onChange={(e) => {setUsername(e.target.value)}}></input>
