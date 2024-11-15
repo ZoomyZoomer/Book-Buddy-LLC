@@ -17,11 +17,10 @@
 
 .n-new-nav {
     height: 4rem;
-    width: 86rem;
+    width: 85rem;
     background-color: #78C6A3;
     border-radius: 0.8rem;
     border: 1px solid #454B54;
-    margin-bottom: 1rem;
 }
 
 .calendar-grid {
@@ -30,6 +29,30 @@
     align-items: center;
     gap: 0.15rem;
     width: 100%;
+}
+
+.n-new-nav-l {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+}
+
+.nn-item {
+    padding: 0rem 1rem 0rem 1rem;
+    border-radius: 0.8rem;
+    color: white;
+    font-weight: 600;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nn-item:hover {
+    cursor: pointer;
+    background-color: #69b698;
 }
 
 .week-row {

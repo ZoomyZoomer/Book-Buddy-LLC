@@ -382,12 +382,17 @@ function Library() {
         <audio ref={audioRefTorch} src="scribble.wav" preload="auto" />
 
       <div className='n-new-nav'>
-        
+        <div className='n-new-nav-l'>
+        <div className='nn-item' onClick={() => navigate('/library')}><img src='/open_book.png' style={{height: '2.4rem', display: 'flex', marginBottom: '0.3rem'}}/></div>
+          <div className='nn-item' onClick={() => navigate('/library')}>LIBRARY</div>
+          <div className='nn-item' onClick={() => navigate('/storage')}>STORAGE</div>
+          <div className='nn-item' onClick={() => navigate('/rewards')}>REWARDS</div>
+        </div>
       </div>
 
         <div className='library-box'>
 
-          <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
 
           <div className='n-library-left'>
             <div className='n-library-box-small'>
@@ -448,7 +453,7 @@ function Library() {
 
           <div className='n-library-sep'/>
 
-          <div className='n-library-right'>
+          <div className='n-library-right' style={{justifyContent: 'center', alignItems: 'center'}}>
             <div className='n-library-main'>
 
                 <div className='n-library-banner2'>
