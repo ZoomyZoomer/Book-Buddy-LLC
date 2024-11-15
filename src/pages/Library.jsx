@@ -459,7 +459,7 @@ function Library() {
 
           <div className='n-library-sep'/>
 
-          <div className='n-library-right' style={{justifyContent: 'center', alignItems: 'center'}}>
+          <div className='n-library-right' style={{alignItems: 'center'}}>
             <div className='n-library-main'>
 
                 <div className='n-library-banner2'>
