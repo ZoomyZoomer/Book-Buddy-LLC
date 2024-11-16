@@ -130,7 +130,7 @@ const InventorySchema = new Schema({
     currency:{
         coins: {
             type: Number,
-            default: 0
+            default: 200
         },
         xp: {
             type: Number,
