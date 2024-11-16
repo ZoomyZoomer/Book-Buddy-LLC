@@ -24,6 +24,7 @@
     border-radius: 0.8rem;
     border: 1px solid #454B54;
     margin-top: 2rem;
+    box-shadow: 0 4px 6px #bdbdbd;
 }
 
 .calendar-grid {
@@ -627,6 +628,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 6px #bdbdbd;
 }
 
 .n-library-wide {
