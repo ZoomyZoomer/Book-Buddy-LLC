@@ -11,6 +11,7 @@ import {ReactComponent as LibraryRight} from '../n-library-right.svg';
 import {ReactComponent as Chart} from '../n-chart.svg';
 import {ReactComponent as AddBook} from '../n-add-book.svg';
 import {ReactComponent as Add} from '../n-add-circle.svg'
+import {ReactComponent as Error} from '../n-error-book.svg'
 import '../library.css'
 import LibraryBook from '../components/LibraryBook'
 import axios from 'axios'
@@ -33,6 +34,7 @@ function Library() {
     const [updatedRating, setUpdatedRating] = useState(false);
     const [hasScrolled, setHasScrolled] = useState(false);
     const [reFetchStickers, setReFetchStickers] = useState(false);
+    const [noBooksFound, setNoBooksFound] = useState(false);
     const bottomRef = useRef(null);
     const divRef = useRef(null);
     const navigate = useNavigate('/');
@@ -64,6 +66,7 @@ function Library() {
       const [maxBooks, setMaxBooks] = useState(0);
 
       const fetchCollection = async () => {
+
 
         if (!isAddingBook){
 
@@ -178,12 +181,24 @@ function Library() {
 
         if (!searchBy) {
             const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${text}&maxResults=8&key=AIzaSyDdENboInmtpWIgPanFmuOOl4WtDzQZYyQ`, { withCredentials: false });
-            setAddingCollection(res.data.items);
+            if (res.data?.items === undefined) {
+              setAddingCollection([]);
+              setNoBooksFound(true);
+          } else {
+              setAddingCollection(res.data?.items);
+          }
+            
         }
 
         if (searchBy) {
             const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${text}&maxResults=8&key=AIzaSyDdENboInmtpWIgPanFmuOOl4WtDzQZYyQ`, { withCredentials: false });
-            setAddingCollection(res.data.items);
+            if (res.data?.items === undefined) {
+              setAddingCollection([]);
+              setNoBooksFound(true);
+          } else {
+              setAddingCollection(res.data?.items);
+          }
+
         }
 
     }
@@ -263,7 +278,7 @@ function Library() {
           }
         })
 
-        if (res.data[0].length > 0){
+        if (res.data[0]?.length > 0){
           setRecentEntries(res.data[0]);
         } else {
           setRecentEntries(["entry", "entry", "entry"]);
@@ -543,7 +558,7 @@ function Library() {
                         <div className='n-library-options-left'>
                           <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left'}}>
                             <div className='option-library'><div style={{display: 'flex', marginRight: '0.4rem'}}><LibraryRight /></div>{!isAddingBook ? 'Library' : 'Catalog'}</div>
-                            <div className='option-showing'>Showing {!isAddingBook ? userCollection.length : (addingCollection[0] == null ? 0 : addingCollection.length)} of {!isAddingBook ? maxBooks : (addingCollection[0] == null ? 0 : addingCollection.length)} books</div>
+                            <div className='option-showing'>Showing {!isAddingBook ? userCollection.length : (addingCollection?.length > 0 ? (addingCollection[0] == null ? 0 : addingCollection?.length) : '')} of {!isAddingBook ? maxBooks : (addingCollection[0] == null ? 0 : addingCollection.length)} books</div>
                           </div>
                         </div>
                         <div className='n-library-options-right'>
@@ -560,7 +575,7 @@ function Library() {
                             <div className='n-library-book-temp-info-grid'>
                               <div className='n-temp-0'> Search the Catalog for the Book of Your Interests Using the Search Bar Above </div>
                               <div className='n-temp-1'>Press ‘Enter’ to confirm your search!</div>
-                              <button className='n-temp-2' onClick={() => {setIsAddingBook(false); setAddingCollection([null, null, null, null])}}>Back To My Library</button>
+                              <button className='n-temp-2' onClick={() => {setIsAddingBook(false); setAddingCollection([null, null, null, null]); setNoBooksFound(false)}}>Back To My Library</button>
                             </div>
                             <img src='/eagle-i.png' style={{height: '4rem', position: 'absolute', right: '1.4rem', bottom: '1.4rem', transform: 'scaleX(-1)'}}/>
                             <div className='streak-tiny-circle2' style={{backgroundColor: '#D9D9D9'}}/>
@@ -568,10 +583,20 @@ function Library() {
                         </div>
                     )}
 
+                    {noBooksFound && text != '' && addingCollection.length === 0 && (
+                      <div className='n-book-not-found-cont'>
+                        <div><Error /></div>
+                        <div className='n-book-not-found-info'>
+                          <div>Oops! We couldn’t find your book in our catalog.</div>
+                          <div className='kwat'>We apologize for this convenience.</div>
+                        </div>
+                      </div>
+                    )}
+
                   <div className='n-library-books-grid'>
                     
                     {(!isAddingBook) && userCollection.map((book, index) => (
-                      <LibraryBook book={book} isPreview={false} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
+                      <LibraryBook book={book} setText={setText} setNoBooksFound={setNoBooksFound} isPreview={false} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
                     ))}
 
                     {(!isAddingBook) && userCollection.length === 0 && (
@@ -599,10 +624,9 @@ function Library() {
                       </div>
                     )}
 
-                    {isAddingBook && text != '' && addingCollection.map((book, index) => (
-                      <LibraryBook book={book} isPreview={false} setIsAddingBook={setIsAddingBook} setAddingCollection={setAddingCollection} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
+                    {isAddingBook && text != '' && addingCollection?.length > 0 && addingCollection.map((book, index) => (
+                      <LibraryBook book={book} setText={setText} setNoBooksFound={setNoBooksFound} isPreview={false} setIsAddingBook={setIsAddingBook} setAddingCollection={setAddingCollection} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
                     ))}
-
                   </div>
                 </div>
 

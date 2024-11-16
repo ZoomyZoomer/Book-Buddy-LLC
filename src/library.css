@@ -34,6 +34,33 @@
     width: 100%;
 }
 
+.n-book-not-found-cont {
+    border: 1px solid #B8B8B8;
+    padding: 0.6rem 1rem 0.6rem 1rem;
+    border-radius: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.n-book-not-found-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 17rem;
+    margin-left: 0.625rem;
+    font-weight: 600;
+}
+
+.kwat {
+    color: #8D8D8D;
+    font-weight: 500;
+    font-size: 0.8125rem;
+    margin-top: 0.4rem;
+}
+
 .n-new-nav-l {
     display: flex;
     justify-content: left;
@@ -2274,7 +2301,7 @@
     font-weight: 500;
     font-size: 0.8125em;
     color: #8D8D8D;
-    margin-top: 0.2rem;
+    margin-top: 0.4rem;
 }
 
 .n-temp-2 {

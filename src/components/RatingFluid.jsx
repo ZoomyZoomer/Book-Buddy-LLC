@@ -5,7 +5,7 @@ import { ReactComponent as StarEmpty } from '../starEmpty.svg'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const RatingFluid = ({ tabName, volumeId, username, book_name, fluidRating, setUpdatedRating}) => {
+const RatingFluid = ({ tabName, volumeId, username, book_name, fluidRating, setRating, setUpdatedRating}) => {
 
     const [ratingValue, setRatingValue] = useState(0);
     const [userInfo, setUserInfo] = useState({});
@@ -16,6 +16,9 @@ const RatingFluid = ({ tabName, volumeId, username, book_name, fluidRating, setU
     const handle_change = async() => {
 
       try{
+
+        setRating(ratingValue);
+
         await axios.post('/api/updateRating',{
           tab_name: tabName,
           volume_id: volumeId,

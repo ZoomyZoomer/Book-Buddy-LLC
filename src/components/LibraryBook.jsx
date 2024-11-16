@@ -12,10 +12,11 @@ import axios from 'axios'
 import RatingFluid from './RatingFluid'
 import BookBuddyNavbar from './BookBuddyNavbar'
 
-const LibraryBook = ({book, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, setUpdatedRating, index, isPreview, reFetchStickers}) => {
+const LibraryBook = ({book, setText, setNoBooksFound, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, setUpdatedRating, index, isPreview, reFetchStickers}) => {
 
     const [showCheck, setShowCheck] = useState(false);
     const [loadBook, setLoadBook] = useState(false);
+    const [rating, setRating] = useState(0);
     const [fluidRating, setFluidRating] = useState(false);
     const [isPinned, setIsPinned] = useState(book?.is_pinned ? book.is_pinned : false);
     const [isFavorite, setIsFavorite] = useState(book?.is_favorite ? book.is_favorite : false);
@@ -32,6 +33,10 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, setAddingColl
         audioRefPin.current.volume = 0.15;
         audioRefPin.current.play();
     };
+
+    useEffect(() => {
+        setRating(book?.rating);
+    }, [book])
 
     const audioRefHeart = useRef(null);
 
@@ -60,7 +65,9 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, setAddingColl
                 setLoadBook(false);
                 playAudioRefHeart();
                 setTimeout(() => {
+                    setText('');
                     setAddingCollection([null, null, null, null]);
+                    setNoBooksFound(false);
                     setIsAddingBook(false);
                 }, 200)
             }, 500)
@@ -206,7 +213,7 @@ const LibraryBook = ({book, addingBook, username, setIsAddingBook, setAddingColl
                     <div className='library-book-title'>{book?.title ? book.title : (book?.volumeInfo?.title ? book.volumeInfo.title : (<div class="loader3" />))}</div>
                     <div className='library-book-author'>{(book?.author ? book.author : (book?.volumeInfo?.authors ? book.volumeInfo.authors[0] : (book?.volumeInfo ? 'No Author' : <div class='loader3_thin'/>)))}</div>
 
-                    {book?.title ? <div id='star' style={{marginTop: '0.625rem', width: 'fit-content'}} onClick={() => setFluidRating(prev => !prev)}>{(!fluidRating) ? <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/> : !isPreview && !addingBook ? (!addingBook && <RatingFluid tabName={'Favorites'} volumeId={volumeId} username={username} book_name={book?.title} setFluidRating={setFluidRating} setUpdatedRating={setUpdatedRating}/>) : isPreview && <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : book?.rating)}/>}</div>
+                    {book?.title ? <div id='star' onMouseEnter={() => setFluidRating(true)} onMouseLeave={() => setFluidRating(false)} style={{marginTop: '0.625rem', width: 'fit-content'}} onClick={() => setFluidRating(prev => !prev)}>{(!fluidRating) ? <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : rating)}/> : !isPreview && !addingBook ? (!addingBook && <RatingFluid tabName={'Favorites'} volumeId={volumeId} setRating={setRating} username={username} book_name={book?.title} setFluidRating={setFluidRating} setUpdatedRating={setUpdatedRating}/>) : isPreview && <RatingStatic rating={Math.floor(addingBook ? book?.averageRating : rating)}/>}</div>
                      : !book?.volumeInfo && (<div class='loader3_med' style={{marginTop: '0.4rem'}}/>)}
 
                     
