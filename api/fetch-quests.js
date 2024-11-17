@@ -85,17 +85,14 @@ export default async function handler(req, res) {
                     await quest.save();
                 }
 
-                // Update time
-                if (quest.streakTime){
+
                     const midnightTomorrow = new Date(now);
                     midnightTomorrow.setDate(now.getDate() + 1);
                     midnightTomorrow.setHours(0, 0, 0, 0);
                     quest.daily_quest_time = midnightTomorrow;
                     quest.streakTime = false;
                     quest.questTime = false;
-                } else {
-                    quest.questTime = true;
-                }
+  
 
                 await quest.save();
 
