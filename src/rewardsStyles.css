@@ -3,10 +3,12 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-color: #F2F2F2;
     overflow-x: hidden;
     position: relative;
+    overflow-y: hidden;
 }
 
 .rewards-box {
@@ -227,7 +229,7 @@
 .quest-item-bar-abs {
     height: 100%;
     border-radius: 0.8rem;
-    width: 100%;
+    width: 0%;
     background-color: #06AB78;
 }
 
@@ -356,10 +358,24 @@
     align-items: center;
     transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
     cursor: pointer;
+    z-index: 1000;
 }
 
 .achievement-item-container {
     padding: 0.8rem;
+    border-radius: 0.8rem;
+    margin-right: 1rem;
+    border: 1px solid #DFE1E5;
+    background-color: rgb(252, 252, 252);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.achievement-item-container-load {
+    padding: 1.6rem;
     border-radius: 0.8rem;
     margin-right: 1rem;
     border: 1px solid #DFE1E5;
@@ -872,9 +888,27 @@
 .item-purchased {
     font-size: 1.4rem;
     color:#06AB78;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 0.625rem;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-item-purchased-underline {
+    height: 1px;
+    width: 100%;
+    background-color: #06AB78;
+}
+
+.n-item-purchased-use {
+    font-size: 0.7rem;
+    color: #06AB78;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .new-sticker-found {
@@ -904,6 +938,34 @@
     100% {
         transform: rotate(0deg);
     }
+}
+
+.market-purchase2 {
+    padding: 0.38rem;
+    color: white;
+    font-family: "Inter";
+    background-color: #78C6A3;
+    border-radius: 0.7rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid #454B54;
+    transition: background-color 0.3s ease-in-out;
+    width: 100%;
+    margin-top: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.market-purchase2:hover {
+    cursor: pointer;
+    background-color: #64b9a0;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.market-purchase2:active {
+    background-color: #5cb3a4;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .market-purchase {
@@ -1242,7 +1304,6 @@
 }
 
 .rewards-popup-filter {
-    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -1385,12 +1446,24 @@
     cursor: pointer; /* Cursor on hover */
   }
 
+.transaction_id {
+    position: absolute;
+    bottom: 0rem;
+    left: 1rem;
+    font-size: 0.7rem;
+    color: #959CA5;
+}
+
 .market-item-info-container-purchased {
     background-color: white;
     border-radius: 0.8rem;
     height: 40%;
+    padding-bottom: 1rem;
     width: 30%;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
     z-index: 100;
     display: flex;
     flex-direction: column;
@@ -1398,6 +1471,7 @@
     align-items: center;
     animation: pop-in 0.5s ease-in-out 1;
     overflow: hidden;
+    border: 1px solid #454b54;
 }
 
 .market-item-info-container {
@@ -1505,6 +1579,9 @@
     width: 40%;
     padding: 2rem;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
     z-index: 100;
     display: flex;
     flex-direction: column;
@@ -1569,7 +1646,7 @@
 
 .mii-close:hover {
     cursor: pointer;
-    background-color: #64b694;
+    background-color: #ececec;
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -1579,8 +1656,8 @@
 }
 
 .mii-circle {
-    height: 6rem;
-    width: 6rem;
+    height: 4.6rem;
+    width: 4.6rem;
     border-radius: 100%;
     background-color: #78C6A3;
     display: flex;
@@ -1591,11 +1668,11 @@
 
 .mii-cont {
     margin-top: 1rem;
-    padding: 1.3rem 1.5rem 1.3rem 1.5rem;
+    padding: 1.3rem 2.5rem 1.3rem 2.5rem;
     border-radius: 0.8rem;
     border: 1px solid #D9D9D9;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     background-color: white;
     z-index: 13;
@@ -1620,14 +1697,14 @@
     justify-content: left;
     align-items: center;
     font-weight: 600;
-    font-size: 0.8125rem;
-    margin-top: 0.15rem;
+    font-size: 0.7rem;
+    margin-top: 0.04rem;
 }
 
 .mii-text-1 {
     color: #9B9B9B;
     font-weight: 400;
-    font-size: 0.8125rem;
+    font-size: 0.7rem;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -1635,7 +1712,7 @@
 
 .mii-test {
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color:#06AB78;
     margin-bottom: 0.4rem;
 }
@@ -1977,7 +2054,7 @@
 
 @media screen and (min-height: 700px) and (max-height: 1100px){
     .rewards-box {
-        transform: scale(0.9);
+        transform: scale(0.8);
     } 
     .achievement-box {
         margin-top: 0.4rem;

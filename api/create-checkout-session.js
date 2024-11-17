@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 
-const stripe = new Stripe('sk_test_51PqPqkDO7zxNZCMgOY4tK4Rwpmsn3cKHPtCfgHIlUAgIZUCvavOgV1tWKsbdsgqDJJqlSEqNKw2PFU8ykcZwve2E00Og1L2F7Q');
+const stripe = new Stripe('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');
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

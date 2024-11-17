@@ -71,21 +71,23 @@ const AchievementItem = ({achievement, index, clientAchievements, isCompleted, u
     }, [achievement, index])
 
   return (
-    <div className={isCompleted || clientAchievements?.quantity >= achievement?.quantity ? 'achievement-item-container-complete': 'achievement-item-container'} onClick={() => handleClick()}>
+    <div className={isCompleted || clientAchievements?.quantity >= achievement?.quantity ? 'achievement-item-container-complete' : (achievement ? 'achievement-item-container' : 'achievement-item-container-load')} onClick={() => handleClick()}>
 
         <div id={`achieve-bg-${index}`} className='achievement-container-fill'/>
 
-        <img src={`/${achievement.icon}.png`} style={{zIndex: '3'}} draggable='false' className={clientAchievements?.quantity >= achievement?.quantity && !isCompleted ? 'claim-achievement-anim achi-img' : 'achi-img'}/>
+        {achievement && (<img src={`/${achievement.icon}.png`} style={{zIndex: '3'}} draggable='false' className={clientAchievements?.quantity >= achievement?.quantity && !isCompleted ? 'claim-achievement-anim achi-img' : 'achi-img'}/>
+)}
+        {!achievement && (<div class="loader" />)}
         
         <div id={`achieve-${index}`} className='achievement-info invalid'>
             <div className='achievement-title'>
-                <div style={{display: 'flex'}}><img src={`/${achievement.icon}.png`} style={{height: '1.2rem'}}/></div>
-                <div style={{marginLeft: '0.4rem'}}>{achievement.achievement_name} &#183; {achievement.difficulty}</div>
+                <div style={{display: 'flex'}}><img src={`/${achievement?.icon}.png`} style={{height: '1.2rem'}}/></div>
+                <div style={{marginLeft: '0.4rem'}}>{achievement?.achievement_name} &#183; {achievement?.difficulty}</div>
             </div>
             <div className='warehouse-sep'/>
             <div className='achievement-desc'>
                 <div style={{display: 'flex', marginRight: '0.2rem'}}><Notepad /></div>
-                <div>{achievement.description}</div>
+                <div>{achievement?.description}</div>
             </div>
             <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%'}}>
                 <div className='achievement-bar'>
@@ -94,7 +96,7 @@ const AchievementItem = ({achievement, index, clientAchievements, isCompleted, u
                 <div className='achievement-quant'>{isCompleted ? achievement.quantity : clientAchievements ? (clientAchievements.quantity > achievement?.quantity ? achievement?.quantity : clientAchievements.quantity) : 0}/{achievement?.quantity}</div>
             </div>
             <div className='achievement-button'>
-                <button className={clientAchievements?.quantity >= achievement?.quantity ? 'add-file' : 'add-file-blocked'} onClick={() => handleClaim()}>{isCompleted ? 'Claimed' : (<>Claim &nbsp; <img src={`/${achievement.reward?.file ? achievement.reward.file : achievement.reward?.item}.png`} style={{height: '1rem'}}/></> )}</button>
+                <button className={clientAchievements?.quantity >= achievement?.quantity ? 'add-file' : 'add-file-blocked'} onClick={() => handleClaim()}>{isCompleted ? 'Claimed' : (<>Claim &nbsp; <img src={`/${achievement?.reward?.file ? achievement?.reward.file : achievement?.reward?.item}.png`} style={{height: '1rem'}}/></> )}</button>
             </div>
         </div>
     </div>

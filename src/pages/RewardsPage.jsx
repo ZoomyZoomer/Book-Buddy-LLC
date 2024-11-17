@@ -18,7 +18,7 @@ import BookBuddyNavbar from '../components/BookBuddyNavbar';
 
 function RewardsPage() {
 
-    const [questList, setQuestList] = useState([]);
+    const [questList, setQuestList] = useState([null, null, null]);
     const [activeQuestList, setActiveQuestList] = useState([]);
     const [showItemPopup, setShowItemPopup] = useState(false);
     const [showItemPopup2, setShowItemPopup2] = useState(false);
@@ -33,9 +33,9 @@ function RewardsPage() {
     const [numCoupons, setNumCoupons] = useState(0);
     const [numCoffees, setNumCoffees] = useState(0);
     const [marketTime, setMarketTime] = useState(null);
-    const stripePromise = loadStripe('pk_test_51PqPqkDO7zxNZCMgsfeqtWlkBDi1gm4iMvyevrruLbzyJoRAcIDdOm1a2HYBqloQOMnFt5qXZWlopygafwVW9pNQ00PSvEaT4Z');
+    const stripePromise = loadStripe('pk_live_51PqPqkDO7zxNZCMgAn5mPpdIvYGJ1YLFYgZuxga5aeX2cnv4521mBkm0t82ixGJY0RXWpwrwW5WIusIv0hI32kwA00PW61ewFJ');
 
-    const [inProgressAchievements0, setInProgressAchievements0] = useState([]);
+    const [inProgressAchievements0, setInProgressAchievements0] = useState([null, null, null, null, null, null, null, null, null, null, null, null]);
     const [inProgressAchievements1, setInProgressAchievements1] = useState([]);
     const [activeAchievementTab, setActiveAchievementTab] = useState(0);
     const [switchTab, setSwitchTab] = useState(false);
@@ -236,7 +236,7 @@ function RewardsPage() {
       }
     }, [userInfo, reFetchCurrency, reFetchAchievements])
 
-    const [marketInfo, setMarketInfo] = useState([]);
+    const [marketInfo, setMarketInfo] = useState([null, null, false, false]);
     const [reFetchMarket, setReFetchMarket] = useState(false);
     const [numStickers, setNumStickers] = useState(1);
 
@@ -522,6 +522,15 @@ function RewardsPage() {
 
         <div className='rewards-box'>
 
+        <div className='n-new-nav2' style={{marginBottom: '2rem'}}>
+        <div className='n-new-nav-l'>
+        <div className='nn-item' onClick={() => navigate('/library')}><img src='/open_book.png' style={{height: '2.4rem', display: 'flex', marginBottom: '0.3rem'}}/></div>
+          <div className='nn-item' onClick={() => navigate('/library')}>LIBRARY</div>
+          <div className='nn-item' onClick={() => navigate('/storage')}>STORAGE</div>
+          <div className='nn-item' onClick={() => navigate('/rewards')}>REWARDS</div>
+        </div>
+      </div>
+
             <section className='rewards-shop-container'>
 
               <div className='rq-title2'>
@@ -555,18 +564,18 @@ function RewardsPage() {
               <div className='achievement-box'>
                 {!switchTab && (
                   activeAchievementTab === 0 ? inProgressAchievements0.map((achievement, index) => (
-                    <AchievementItem achievement={achievement} index={index} clientAchievements={clientAchievements[index]} isCompleted={false} username={userInfo.username} setReFetchAchievements={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} playAudioRefPop={playAudioRefPop}/>
+                    <AchievementItem achievement={achievement} index={index} clientAchievements={clientAchievements[index]} isCompleted={false} username={userInfo?.username} setReFetchAchievements={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} playAudioRefPop={playAudioRefPop}/>
                   )): 
                     activeAchievementTab === 1 ? inProgressAchievements1.map((achievement, index) => (
-                      <AchievementItem achievement={achievement} index={12 + index} clientAchievements={clientAchievements[12 + index]} isCompleted={false} username={userInfo.username} setReFetchAchievements={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} playAudioRefPop={playAudioRefPop}/>
+                      <AchievementItem achievement={achievement} index={12 + index} clientAchievements={clientAchievements[12 + index]} isCompleted={false} username={userInfo?.username} setReFetchAchievements={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} playAudioRefPop={playAudioRefPop}/>
                     )): <></> 
                 )}
                 {switchTab && (
                   activeAchievementTab === 0 ? completedAchievements0.map((achievement, index) => (
-                    <AchievementItem achievement={achievement} index={index} clientAchievements={clientAchievements[999]} isCompleted={true} username={userInfo.username} setReFetchAchievements={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} playAudioRefPop={playAudioRefPop}/>
+                    <AchievementItem achievement={achievement} index={index} clientAchievements={clientAchievements[999]} isCompleted={true} username={userInfo?.username} setReFetchAchievements={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} playAudioRefPop={playAudioRefPop}/>
                   )): 
                   activeAchievementTab === 1 ? completedAchievements1.map((achievement, index) => (
-                    <AchievementItem achievement={achievement} index={12 + index} clientAchievements={clientAchievements[999]} isCompleted={true} username={userInfo.username} setReFetchAchievements={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} playAudioRefPop={playAudioRefPop}/>
+                    <AchievementItem achievement={achievement} index={12 + index} clientAchievements={clientAchievements[999]} isCompleted={true} username={userInfo?.username} setReFetchAchievements={setReFetchAchievements} errorRef={errorRef} setShowError={setShowError} playAudioRefPop={playAudioRefPop}/>
                   )): <></>
                 )}
                 
@@ -608,7 +617,7 @@ function RewardsPage() {
                     </div>
 
                     {questList.map((quest, index) => (
-                      <QuestItem index={index} quest={quest} activeQuest={activeQuestList[index]} setShowItemPopup={setShowItemPopup} username={userInfo.username} setReFetchQuests={setReFetchQuests}/>
+                      <QuestItem index={index} quest={quest} activeQuest={activeQuestList[index]} setShowItemPopup={setShowItemPopup} username={userInfo?.username} setReFetchQuests={setReFetchQuests}/>
                     ))}
 
                     <div className='quest-streak-container'>

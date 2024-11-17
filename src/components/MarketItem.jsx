@@ -207,15 +207,16 @@ const MarketItem = ({type, market, setShowPopup, itemInfoRef, setReFetchMarket, 
 
         <div className='market-item-grid'>
             <div className='market-flex'>
-                <div className='market-circle-bg'><img src={`/${market?.img}.png`} className='market-img'/></div>
+                <div className='market-circle-bg'><img src={`/${market ? market.img : 'no_file'}.png`} className='market-img'/></div>
                 <div className='market-text'>
-                    <div className={type === 1 ? 'mt-0' : 'mt-0-small'}>{market?.item_name}</div>
-                    <div className={type === 1 ? 'mt-1' : 'mt-1-small'}>{market?.desc}</div>
+                    <div className={type === 1 ? 'mt-0' : 'mt-0-small'}>{market ? market.item_name : 'Unknown Item'}</div>
+                    <div className={type === 1 ? 'mt-1' : 'mt-1-small'}>{market ? market.desc : 'Loading description of an unknown item..'}</div>
                 </div>
             </div>
             <div className='market-buttons-container'>
                 <div style={{display: 'flex', marginRight: '0.4rem', cursor: 'pointer'}} onClick={() => {itemInfoRef.current = market; setShowPopup(true)}}><InfoCircle /></div>
-                <button className={(type == 2 || type == 3) && (12 - numStickers == 0) ? 'market-purchase-sold-out' : (value >= 1 ? 'market-purchase' : 'market-purchase-sold-out')} onClick={() => handlePurchase()}>{(type == 2 || type == 3) && (2 - numStickers == 0) ? 'Sold Out' : (value >= 1 ? (market?.cost?.coins ? 'Purchase' : market?.cost?.dollar ? `Purchase ${value} for $${multiplyDollarValue(market?.cost?.amount, value)}` : `Purchase ${value}`) : 'Sold Out')}</button>
+                {market && (<button className={(type == 2 || type == 3) && (12 - numStickers == 0) ? 'market-purchase-sold-out' : (value >= 1 ? 'market-purchase' : 'market-purchase-sold-out')} onClick={() => handlePurchase()}>{(type == 2 || type == 3) && (2 - numStickers == 0) ? 'Sold Out' : (value >= 1 ? (market?.cost?.coins ? 'Purchase' : market?.cost?.dollar ? `Purchase ${value} for $${multiplyDollarValue(market?.cost?.amount, value)}` : `Purchase ${value}`) : 'Sold Out')}</button>)}
+                {!market && (<button className='market-purchase-sold-out'>Loading...</button>)}
             </div>
         </div>
 
@@ -241,8 +242,13 @@ const MarketItem = ({type, market, setShowPopup, itemInfoRef, setReFetchMarket, 
         
         {type === 0 || type === 1 ? (
             <div className={type === 1 ? 'market-cost-abs-large' : type === 0 && 'market-cost-abs-small'}>
-                <img src={market?.cost?.coins ? '/coin.png' : `/${market?.cost?.file}.png`} style={{height: '50%'}}/>
-                <div className='market-cost-text' style={{fontSize: market?.cost?.coins ? '1rem' : '1.125rem'}}>{market?.cost?.coins ? (!coupon ? market?.cost?.amount : market?.cost?.discounted_amount) : `x${!coupon ? market?.cost?.amount * (value >= 1 ? value : 1) : market?.cost?.discounted_amount * (value >= 1 ? value : 1)}`}</div>
+                
+                {market && (<img src={market?.cost?.coins ? '/coin.png' : `/${market?.cost?.file}.png`} style={{height: '50%'}}/>)}
+                {!market && (<img src='/coin.png' style={{height: '50%'}}/>)}
+                
+                {market && (<div className='market-cost-text' style={{fontSize: market?.cost?.coins ? '1rem' : '1.125rem'}}>{market?.cost?.coins ? (!coupon ? market?.cost?.amount : market?.cost?.discounted_amount) : `x${!coupon ? market?.cost?.amount * (value >= 1 ? value : 1) : market?.cost?.discounted_amount * (value >= 1 ? value : 1)}`}</div>)}
+                {!market && (<div className='market-cost-text' style={{fontSize: '1rem'}}>???</div>)}
+            
             </div>
         ): <></>}
         
