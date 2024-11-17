@@ -41,7 +41,7 @@ export default async function handler(req, res) {
             let newQuests = [];
 
             // New day has started
-            if ((now >= quest.daily_quest_time) && !quest.questTime) {
+            if ((now >= quest.daily_quest_time)) {
                 for (let i = 0; i < 3; i++) {
                     let randomQuest = questMap.get((Math.floor(Math.random() * questMap.size)).toString());
 
@@ -94,7 +94,7 @@ export default async function handler(req, res) {
                     quest.questTime = false;
   
 
-                await quest.save();
+                    await quest.save();
 
                 return res.status(200).json([newQuests, quest.active_quests, quest.streak, midnightTomorrow]);
             } else {
