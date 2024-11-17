@@ -653,7 +653,7 @@ function RewardsPage() {
                     <div className='rq-0'>Fresh new stock every 6 hours</div>
                     <div className='time-remaining-abs'>
                           <img src='/coin.png' style={{height: '1rem', display: 'flex'}}/>
-                          <div className='n-curr-style'>{currency[0]}</div>
+                          <div className='n-curr-style'>{currency[0].toLocaleString()}</div>
                           <div className='time-remaining-abs-box'>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '0.2rem'}}><Clock /></div>
                             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{((marketTimeDifference[2] < 0) || (marketTimeDifference[2] === null)) ? 'Loading..' : (marketTimeDifference[0] > 1 ? `${marketTimeDifference[0]} hours` : marketTimeDifference[0] === 1 ? `${marketTimeDifference[0]} hour` : marketTimeDifference[1] > 1 ? `${marketTimeDifference[1]} minutes` : marketTimeDifference[1] === 1 ? `${marketTimeDifference[1]} minute` : marketTimeDifference[2] !== 1 ? `${marketTimeDifference[2]} seconds` : `${marketTimeDifference[2]} second`) }</div>
