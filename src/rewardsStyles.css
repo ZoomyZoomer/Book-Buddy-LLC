@@ -54,6 +54,24 @@
     box-sizing: border-box;
 }
 
+.time-remaining-abs-box {
+    padding: 0.35rem 0.5rem 0.35rem 0.5rem;
+    height: fit-content;
+    color: #454B54;
+    font-size: 0.9rem;
+    border-radius: 0.8rem;
+    background-color: #F7F7F7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-curr-style {
+    font-size: 0.7rem;
+    margin-left: 0.4rem;
+    margin-right: 1rem;
+}
+
 .time-remaining-abs {
     position: absolute;
     display: flex;
@@ -63,12 +81,6 @@
     bottom: 0;
     right: 0;
     margin: auto;
-    padding: 0.35rem 0.5rem 0.35rem 0.5rem;
-    height: fit-content;
-    color: #454B54;
-    font-size: 0.9rem;
-    border-radius: 0.8rem;
-    background-color: #F7F7F7;
 }
 
 .rq-title {
