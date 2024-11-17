@@ -611,8 +611,10 @@ function RewardsPage() {
                         <div>Book Quests</div>
                         <div className='rq-0'>New rewards every day!</div>
                         <div className='time-remaining-abs'>
-                          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '0.2rem'}}><Clock /></div>
-                          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{((timeDifference[2] < 0) || (timeDifference[2] === null)) ? 'Loading..' : (timeDifference[0] > 1 ? `${timeDifference[0]} hours` : timeDifference[0] === 1 ? `${timeDifference[0]} hour` : timeDifference[1] > 1 ? `${timeDifference[1]} minutes` : timeDifference[1] === 1 ? `${timeDifference[1]} minute` : timeDifference[2] !== 1 ? `${timeDifference[2]} seconds` : `${timeDifference[2]} second`)}</div>
+                          <div className='time-remaining-abs-box'>
+                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '0.2rem'}}><Clock /></div>
+                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{((timeDifference[2] < 0) || (timeDifference[2] === null)) ? 'Loading..' : (timeDifference[0] > 1 ? `${timeDifference[0]} hours` : timeDifference[0] === 1 ? `${timeDifference[0]} hour` : timeDifference[1] > 1 ? `${timeDifference[1]} minutes` : timeDifference[1] === 1 ? `${timeDifference[1]} minute` : timeDifference[2] !== 1 ? `${timeDifference[2]} seconds` : `${timeDifference[2]} second`)}</div>
+                          </div>
                         </div>
                     </div>
 
