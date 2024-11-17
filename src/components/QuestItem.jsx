@@ -9,7 +9,7 @@ const QuestItem = ({index, quest, activeQuest, setShowItemPopup, username, setRe
         if (!quest || !activeQuest) return;
         document.getElementById(`quest-bar-${index}`).style.width = `${(activeQuest.quantity_achieved / quest.quantity_required) > 1 ? 1 * 100 : (activeQuest.quantity_achieved / quest.quantity_required) * 100}%`;
 
-    }, [quest, index, activeQuest])
+    }, [quest, index])
 
     const handleClick = async() => {
 
