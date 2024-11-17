@@ -20,7 +20,7 @@
 
 .rewards-shop-container {
     width: 90rem;
-    height: 25%;
+    height: 20%;
     background-color: white;
     border-radius: 0.8rem;
     padding: 2%;
@@ -328,19 +328,6 @@
     margin-bottom: 0.4rem;
 }
 
-.achievement-item-container-complete {
-    padding: 0.8rem;
-    border-radius: 0.8rem;
-    margin-right: 1rem;
-    border: 1px solid #06AB78;
-    background-color: rgb(252, 252, 252);
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
-    cursor: pointer;
-}
 
 .achievement-item-container-select {
     padding: 0.8rem;
@@ -357,6 +344,20 @@
     cursor: pointer;
 }
 
+.achievement-item-container-complete {
+    padding: 0.8rem;
+    border-radius: 0.8rem;
+    margin-right: 1rem;
+    border: 1px solid #06AB78;
+    background-color: rgb(252, 252, 252);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
+    cursor: pointer;
+}
+
 .achievement-item-container {
     padding: 0.8rem;
     border-radius: 0.8rem;
@@ -368,13 +369,11 @@
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
-    filter: saturate(0.8);
 }
 
 .achievement-item-container:hover {
     cursor: pointer;
     background-color: rgb(245, 245, 245);
-    filter: saturate(0.6);
     transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
 

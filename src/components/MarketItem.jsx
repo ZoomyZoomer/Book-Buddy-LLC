@@ -98,7 +98,7 @@ const MarketItem = ({type, market, setShowPopup, itemInfoRef, setReFetchMarket, 
                 try {
 
                     if (username){
-                        await axios.post('http://localhost:4000/purchase-item', {
+                        await axios.post('/api/purchase-item', {
                             username,
                             market,
                             value,
@@ -130,7 +130,7 @@ const MarketItem = ({type, market, setShowPopup, itemInfoRef, setReFetchMarket, 
 
             try {
 
-                const response = await axios.post('http://localhost:4000/create-checkout-session', {
+                const response = await axios.post('/api/create-checkout-session', {
                     item_name: market.item_name,
                     cost: Number(market.cost.amount) * 100,
                     market,

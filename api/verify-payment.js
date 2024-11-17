@@ -2,6 +2,7 @@ import { connectToDatabase } from '../api/utils/db'
 import stripe from 'stripe'; // Ensure you have Stripe imported and configured
 const stripeClient = stripe('sk_test_51PqPqkDO7zxNZCMgOY4tK4Rwpmsn3cKHPtCfgHIlUAgIZUCvavOgV1tWKsbdsgqDJJqlSEqNKw2PFU8ykcZwve2E00Og1L2F7Q');
 import Inventory from './models/Inventory'; // Adjust the path to your Inventory model
+import Quest from './models/Quests'; // Adjust the path to your Inventory model
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {

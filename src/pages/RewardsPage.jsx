@@ -522,8 +522,6 @@ function RewardsPage() {
 
         <div className='rewards-box'>
 
-        <BookBuddyNavbar tab={1} currency={currency}/>
-
             <section className='rewards-shop-container'>
 
               <div className='rq-title2'>
