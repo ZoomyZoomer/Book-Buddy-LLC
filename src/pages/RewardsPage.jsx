@@ -15,6 +15,8 @@ import ItemInfoPopup from '../components/ItemInfoPopup';
 import { loadStripe } from '@stripe/stripe-js';
 import PickSticker from '../components/PickSticker';
 import BookBuddyNavbar from '../components/BookBuddyNavbar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RewardsPage() {
 
@@ -502,12 +504,19 @@ function RewardsPage() {
   const [showPickSticker, setShowPickSticker] = useState(false);
   const [showXp, setShowXp] = useState(false);
 
+  useEffect(() => {
+
+    if (showError){
+      toast("This is a toast notification !");
+      setShowError(false);
+    }
+    
+  }, [showError])
+
   return (
     <div className='rewards-container'>
 
     <audio ref={audioRefPop} src="/pop.mp3" />
-
-    {showError && <ErrorNotification errorRef={errorRef} setShowError={setShowError} />}
 
     {showItemPopup && <ItemRewardPopupWarehouse setShowItemPopup={setShowItemPopup} eatItem={false} username={userInfo.username} item={9} setReFetch={setReFetchAchievements} setDisplayReward={setDisplayReward}/>}
     {showItemPopup2 && <ItemRewardPopupWarehouse setShowItemPopup={setShowItemPopup2} eatItem={false} username={userInfo.username} item={8} setReFetch={setReFetchAchievements} setDisplayReward={setDisplayReward}/>}
@@ -519,6 +528,7 @@ function RewardsPage() {
 
       <div className={(showPopup || displayReward) ? 'rewards-popup-filter' : 'rewards-container'}>
 
+        <ToastContainer />
 
         <div className='rewards-box'>
 
