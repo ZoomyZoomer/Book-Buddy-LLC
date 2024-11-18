@@ -1,6 +1,6 @@
 import { connectToDatabase } from '../api/utils/db'
 import stripe from 'stripe'; // Ensure you have Stripe imported and configured
-const stripeClient = stripe('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');
+const stripeClient = stripe(process.env.STRIPE_API_KEY);
 import Inventory from './models/Inventory'; // Adjust the path to your Inventory model
 import Quest from './models/Quests'; // Adjust the path to your Inventory model
 

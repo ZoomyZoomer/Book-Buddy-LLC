@@ -8,7 +8,7 @@ export const connectToDatabase = async () => {
   }
 
   // MongoDB URI from environment variables
-  const uri = "mongodb+srv://kcw90:oJQDQrLG9h466RKf@cluster0.ajxucqi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  const uri = `mongodb+srv://kcw90:${process.env.MONGO_API_KEY}@cluster0.ajxucqi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
   // Check if the URI is defined
   if (!uri) {
