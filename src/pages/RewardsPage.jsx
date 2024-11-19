@@ -507,7 +507,7 @@ function RewardsPage() {
   useEffect(() => {
 
     if (showError){
-      toast("This is a toast notification !");
+      toast.error(errorRef.current?.message);
       setShowError(false);
     }
     
