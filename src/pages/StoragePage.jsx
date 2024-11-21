@@ -279,6 +279,27 @@ const StoragePage = () => {
       const [activeAchievementTab, setActiveAchievementTab] = useState(0);
       const [showPickSticker, setShowPickSticker] = useState(false);
 
+      const handleSwitchTab = (tab) => {
+
+        try {
+  
+          if (!switchTab){
+            document.getElementsByClassName('achievement-line-active')[0]?.classList?.add('grid-active-anim-right');
+          } else if (switchTab) {
+            document.getElementsByClassName('achievement-line-active')[0]?.classList?.add('grid-active-anim-left');
+          }
+  
+        } catch(e) {
+          
+        }
+  
+        setTimeout(() => {
+          setSwitchTab(prev => !prev); 
+        }, 698);
+  
+        
+      }
+
   return (
     <div className='storage-container'>
 
@@ -335,10 +356,31 @@ const StoragePage = () => {
                         <div className='n-num-stickers-abs'><div style={{display: 'flex', marginRight: '0.3rem'}}><img src='/n_patch.png' style={{height: '0.9rem'}}/></div>6/29 Collected</div>
                     </div>
 
+                    <div className='achievement-flex' style={{marginTop: '2rem'}}>
+                
+                    <div className={!switchTab ? 'achievement-grid-active' : 'achievement-grid-inactive'} onClick={() => {handleSwitchTab(false)}}>
+                        <div style={{position: 'relative'}}>
+                            {`In Progress (4)`}
+                        </div>
+                        <div className={'achievement-line-inactive'}>
+                            <div className={!switchTab ? 'achievement-line-active' : ''}/>
+                        </div>
+                        </div>
+
+                        <div className={switchTab ? 'achievement-grid-active' : 'achievement-grid-inactive'} onClick={() => {handleSwitchTab(true)}}>
+                        <div>{`Completed (0)`}</div>
+                        <div className={'achievement-line-inactive'}>
+                            <div className={switchTab ? 'achievement-line-active' : ''}/>
+                        </div>
+                        </div>
+
+                    </div>
+
                     <div className='n-sticker-collection-grid'>
 
                             
                         <StickerCollectionItem index={0} unlockedStickers={unlockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
                         <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
 
                     </div>

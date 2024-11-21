@@ -120,7 +120,6 @@ function RewardsPage() {
       }, 698);
 
       
-
     }
 
     const updateQuestBlock = async(qList, aqList) => {
