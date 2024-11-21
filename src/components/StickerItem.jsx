@@ -58,7 +58,7 @@ const StickerItem = ({sticker, hidden, username, isPreview, activeStickers, setR
 
   return (
     <div className={!hidden && !isPreview ? 'sticker-item' : !isPreview ? 'sticker-item-hidden' : activeStickers.find(stickery => stickery.sticker_id === sticker.sticker_id) ? 'sticker-item-active' : activeStickers.find(stickery => stickery.location == sticker.location) ? 'sticker-item-hidden' : 'sticker-item'} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)} onClick={() => handleClick()}>
-        <img src={`/${sticker.sticker_name}.png`} style={{height: '2.6rem'}} className={hidden ? 'sticker-img-hidden' : 'sticker-img'}/>
+        <img src={`/${sticker.sticker_name}.png`} style={{height: '2.2rem'}} className={hidden ? 'sticker-img-hidden' : 'sticker-img'}/>
         {isHovering && (activeStickers ? (!activeStickers.find(stickery => stickery.sticker_id === sticker.sticker_id) && !activeStickers.find(stickery => stickery.location == sticker.location)): true) && (
             <div className='sticker-item-info'>
                 <div className='sticker-item-flex' style={{fontWeight: '500'}}>

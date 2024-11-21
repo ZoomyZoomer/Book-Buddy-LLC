@@ -15,6 +15,7 @@ import ErrorNotification from '../components/ErrorNotification';
 import {ReactComponent as BookLogo} from '../book_logo.svg'
 import BookBuddyNavbar from '../components/BookBuddyNavbar';
 import PickSticker from '../components/PickSticker';
+import StickerCollectionItem from '../components/StickerCollectionItem';
 
 const StoragePage = () => {
 
@@ -30,6 +31,9 @@ const StoragePage = () => {
     const [activeIndex, setActiveIndex] = useState([0,0]);
     const [collectableFolderOpen, setCollectableFolderOpen] = useState(false);
     const [reFetchWarehouse, setReFetchWarehouse] = useState(false);
+
+    const [activeDrop, setActiveDrop] = useState(false);
+    const [swap, setSwap] = useState(false)
 
     const audioRefOpen = useRef(null);
     const audioRefClose = useRef(null);
@@ -154,6 +158,8 @@ const StoragePage = () => {
     const [ownedStickers0, setOwnedStickers0] = useState([]);
     const [ownedStickers1, setOwnedStickers1] = useState([]);
 
+    const [unlockedStickers, setUnlockedStickers] = useState([]);
+
     const fetchStickers = async() => {
 
         try {
@@ -166,6 +172,8 @@ const StoragePage = () => {
 
             setOwnedStickers0(res.data[0].slice(0, 9));
             setOwnedStickers1(res.data[0].slice(9));
+
+            setUnlockedStickers(res.data[0]);
 
             res.data[0].length === 0 ? setBarLeft(false) : setBarLeft(true);
 
@@ -294,8 +302,6 @@ const StoragePage = () => {
         <div className={(displayReward) ? 'rewards-popup-filter' : 'storage-container'}>
 
         <div className='storage-box'>
-
-        <BookBuddyNavbar tab={2} currency={currency}/>
  
             <div className='storage-top-flex'>
 
@@ -324,95 +330,20 @@ const StoragePage = () => {
                 <div className='cabinet-container'>
                     
                     <div className='cabinet-title'>
-                        <div>Your Filing Cabinet</div>
-                        <div className='ct-0'>For paperwork... yeah</div>
+                        <div>Sticker Collection Gallery</div>
+                        <div className='ct-0'>Click on a collection for details</div>
+                        <div className='n-num-stickers-abs'><div style={{display: 'flex', marginRight: '0.3rem'}}><img src='/n_patch.png' style={{height: '0.9rem'}}/></div>6/29 Collected</div>
                     </div>
 
-                    <div className={'cabinet-contents'}>
+                    <div className='n-sticker-collection-grid'>
 
-                        <audio ref={audioRefOpen} src="/open-folder.wav" />
-                        <audio ref={audioRefClose} src="/close-folder.wav" />
-                        
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'}}>
-
-                            {folderClosed && (
-                                <div className='folder-box' onClick={() => {playAudioOpen(); setFolder1(false); setFolderClosed(false); setCollectableFolderOpen(false); collectableFolderOpen ? playAudioClose(): setCollectableFolderOpen(false)}} onMouseEnter={() => setFolder0(true)} onMouseLeave={() => setFolder0(false)}>
-
-                                    <div className='folder-amount'>{ownedFiles.length}</div>
-                                    {folder0 && <div className='lmao-abs'>Files</div>}
-
-                                    <img src='/folder-closed.png' className='cabinet-folder'/>
-                                    <div className='tap-2'>Tap</div>
-                                    
-                                </div>
-                            )}
-
-                            {!folderClosed && (
-                                <div className='folder-box' onClick={() => {playAudioClose(); setFolderClosed(true)}}>
-                                    <img src='/folder-open.png' className='cabinet-folder-open'/>
-                                </div>
-                            )}
-                            {!collectableFolderOpen && (
-                                <div className='folder-box' onClick={() => {!isAddingFile ? playAudioOpen() : setCollectableFolderOpen(false); setFolder0(false); !isAddingFile ? setCollectableFolderOpen(true) : setCollectableFolderOpen(false); setFolderClosed(true); !folderClosed ? playAudioClose(): setFolderClosed(true)}} style={{marginLeft: '0.6rem'}} onMouseEnter={() => setFolder1(true)} onMouseLeave={() => setFolder1(false)}>
-
-                                    <img src='/folder-closed.png' className='cabinet-folder'/>
-                                    <div className='folder-amount'>{items.length}</div>
-                                    {folder1 && <div className='lmao-abs'>Items</div>}
-                                    
-                                    <div className='tap-0'>Tap</div>
-                                    <div className='tap-1'>Tap</div>
-                                    
-                                </div>
-                            )}
-
-                            {collectableFolderOpen && (
-                                <div className='folder-box' onClick={() => {playAudioClose(); setCollectableFolderOpen(false)}} style={{marginLeft: '0.6rem'}}>
-                                    <img src='/folder-open.png' className='cabinet-folder-open'/>
-                                </div>
-                            )}
-                        
-                        </div>
-
-                        {!folderClosed && (
-                            <div className='folder-contents'>
-                                {ownedFiles.map((file, index) => (
-                                    <StorageItem file={file} setEatItem={setEatItem} setShowItemPopup={setShowItemPopup} setItem={setItem} index={index} hidden={false} username={userInfo.username} isAddingFile={isAddingFile} activeIndex={activeIndex} setReFetchWarehouse={setReFetchWarehouse} setIsAddingFile={setIsAddingFile} setFolderClosed={setFolderClosed} playAudioClose={playAudioClose} fileWasClaimed={fileWasClaimed} setShowError={setShowError} errorRef={errorRef}/>
-                                ))}
-                            </div>
-                        )}
-
-                        {collectableFolderOpen && !isAddingFile && (
-                            <div className='folder-contents'>
-                                {items.map((item, index) => (
-                                    <StorageItem file={item} setShowPickSticker={setShowPickSticker} setEatItem={setEatItem} setShowItemPopup={setShowItemPopup} setItem={setItem} index={index} hidden={false} username={userInfo.username} isAddingFile={isAddingFile} activeIndex={activeIndex} setReFetchWarehouse={setReFetchWarehouse} setIsAddingFile={setIsAddingFile} setFolderClosed={setFolderClosed} playAudioClose={playAudioClose} fileWasClaimed={fileWasClaimed} setShowError={setShowError} errorRef={errorRef}/>
-                                ))}
-                            </div>
-                        )}
-
+                            
+                        <StickerCollectionItem index={0} unlockedStickers={unlockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
 
                     </div>
 
-                        <div className='cabinet-hidden'>
-                        
-                        <div className='hidden-title'>
-                            <div className='hidden-line'/>
-                            <div className='hidden-title-flex'>
-                                Encrypted {hiddenFiles.length === 0 ? 'Items' : 'Files'}
-                                <div style={{marginLeft: '0.4rem'}}><Arrow /></div>
-                            </div>
-                            <div className='hidden-line'/>
-                        </div>
-
-                        <div className='hidden-grid'>
-                            {hiddenFiles.map((file, index) => (
-                                <StorageItem file={file} index={index} hidden={true} username={userInfo.username} isAddingFile={isAddingFile} activeIndex={activeIndex} setReFetchWarehouse={setReFetchWarehouse} setIsAddingFile={setIsAddingFile} setFolderClosed={setFolderClosed} playAudioClose={playAudioClose} fileWasClaimed={fileWasClaimed} setShowError={setShowError} errorRef={errorRef}/>
-                            ))}
-                            {hiddenFiles.length === 0 && hiddenItems.map((file, index) => (
-                                <StorageItem file={file} index={index} hidden={true} username={userInfo.username} isAddingFile={isAddingFile} activeIndex={activeIndex} setReFetchWarehouse={setReFetchWarehouse} setIsAddingFile={setIsAddingFile} setFolderClosed={setFolderClosed} playAudioClose={playAudioClose} fileWasClaimed={fileWasClaimed} setShowError={setShowError} errorRef={errorRef}/>
-                            ))}
-                        </div>
-
-                    </div>
+                    
                   
 
                 </div>
