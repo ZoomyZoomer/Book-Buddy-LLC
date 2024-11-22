@@ -32,6 +32,16 @@ const StoragePage = () => {
     const [collectableFolderOpen, setCollectableFolderOpen] = useState(false);
     const [reFetchWarehouse, setReFetchWarehouse] = useState(false);
 
+    const stickerCollections = [
+        {collection_name: 'The Underwater Collection', collection_stickers: ['4', '5'], collection_stickers_names: 'Crabby Carl and Fishy Fred', icon: 'n-life-saver'},
+        {collection_name: 'The Cool Vibes Collection', collection_stickers: ['2', '3'], collection_stickers_names: 'Eagle Edward and Leafy Larry', icon: 'n-lettuce'},
+        {collection_name: 'The Winter Time Collection', collection_stickers: ['0', '1'], collection_stickers_names: 'Holly Hank and Darwin the Dapper Bird', icon: 'n-mountains'},
+        {collection_name: 'The Outer Space Collection', collection_stickers: ['6', '7'], collection_stickers_names: 'Planet Phil and Rocket Ricky', icon: 'n-planet'}
+    ]
+
+    const scrollRef = useRef(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
     const [activeDrop, setActiveDrop] = useState(false);
     const [swap, setSwap] = useState(false)
 
@@ -69,6 +79,13 @@ const StoragePage = () => {
     const fillXpBar = (xp) => {
         document.getElementsByClassName('xp-bar')[0].style.width = `${xp % 100}%`;
     }
+
+    const handleScroll = () => {
+        if (scrollRef.current) {
+          const { scrollTop } = scrollRef.current;
+          setIsScrolled(scrollTop > 0); // Update state if not at the top
+        }
+      };
 
     const fetchWarehouseGrid = async() => {
 
@@ -153,12 +170,38 @@ const StoragePage = () => {
 
     }
 
+    const [numLockeds, setNumLockeds] = useState([0, 0, 0, 0]);
+    const [lockCount, setLockCount] = useState(0);
+    const [stickCount, setStickCount] = useState(0);
+
+const calcLockedNum = (sticks) => {
+    const updatedNumLockeds = [...numLockeds]; // Create a local copy of the state
+    setLockCount(0);
+    setStickCount(0);
+
+    for (let i = 0; i < 4; i++) {
+        const count = sticks.filter(sticker =>
+            stickerCollections[i].collection_stickers.includes(sticker.sticker_id)
+        ).length;
+
+        updatedNumLockeds[i] = count; // Update the specific index
+        setStickCount(prev => prev + count);
+        if (count > 0){
+            setLockCount(prev => prev + 1);
+        }
+    }
+
+    setNumLockeds(updatedNumLockeds); // Update the state after the loop
+    console.log(updatedNumLockeds); // Logs the updated state
+};
+
     const [hiddenStickers0, setHiddenStickers0] = useState([]);
     const [hiddenStickers1, setHiddenStickers1] = useState([]);
     const [ownedStickers0, setOwnedStickers0] = useState([]);
     const [ownedStickers1, setOwnedStickers1] = useState([]);
 
     const [unlockedStickers, setUnlockedStickers] = useState([]);
+    const [lockedStickers, setLockedStickers] = useState([]);
 
     const fetchStickers = async() => {
 
@@ -179,6 +222,11 @@ const StoragePage = () => {
 
             setHiddenStickers0(res.data[1].slice(0, 9));
             setHiddenStickers1(res.data[1].slice(9));
+
+            setLockedStickers(res.data[1]);
+
+            calcLockedNum(res.data[1]);
+            
 
         } catch(e){
             console.error({error: e});
@@ -353,14 +401,14 @@ const StoragePage = () => {
                     <div className='cabinet-title'>
                         <div>Sticker Collection Gallery</div>
                         <div className='ct-0'>Click on a collection for details</div>
-                        <div className='n-num-stickers-abs'><div style={{display: 'flex', marginRight: '0.3rem'}}><img src='/n_patch.png' style={{height: '0.9rem'}}/></div>6/29 Collected</div>
+                        <div className='n-num-stickers-abs'><div style={{display: 'flex', marginRight: '0.3rem'}}><img src='/n_patch.png' style={{height: '0.9rem'}}/></div>{8 - stickCount}/8 Collected</div>
                     </div>
 
                     <div className='achievement-flex' style={{marginTop: '2rem'}}>
                 
                     <div className={!switchTab ? 'achievement-grid-active' : 'achievement-grid-inactive'} onClick={() => {handleSwitchTab(false)}}>
                         <div style={{position: 'relative'}}>
-                            {`In Progress (4)`}
+                            {`In Progress (${lockCount})`}
                         </div>
                         <div className={'achievement-line-inactive'}>
                             <div className={!switchTab ? 'achievement-line-active' : ''}/>
@@ -368,7 +416,7 @@ const StoragePage = () => {
                         </div>
 
                         <div className={switchTab ? 'achievement-grid-active' : 'achievement-grid-inactive'} onClick={() => {handleSwitchTab(true)}}>
-                        <div>{`Completed (0)`}</div>
+                        <div>{`Completed (${4 - lockCount})`}</div>
                         <div className={'achievement-line-inactive'}>
                             <div className={switchTab ? 'achievement-line-active' : ''}/>
                         </div>
@@ -376,12 +424,34 @@ const StoragePage = () => {
 
                     </div>
 
-                    <div className='n-sticker-collection-grid'>
+                    <div className={isScrolled ? 'n-sticker-collection-grid n-scrolling' : 'n-sticker-collection-grid'} onScroll={handleScroll} ref={scrollRef}>
 
-                            
-                        <StickerCollectionItem index={0} unlockedStickers={unlockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
-                        <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
-                        <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        {numLockeds[0] > 0 && !switchTab && (
+                            <StickerCollectionItem index={0} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        )}
+                        {numLockeds[0] === 0 && switchTab && (
+                            <StickerCollectionItem index={0} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+
+                        )}
+                        {numLockeds[1] > 0 && !switchTab && (
+                            <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        )}
+                        {numLockeds[1] === 0 && switchTab && (
+                            <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        )}
+                        {numLockeds[2] > 0 && !switchTab && (
+                            <StickerCollectionItem index={2} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        )}
+                        {numLockeds[2] === 0 && switchTab && (
+                            <StickerCollectionItem index={2} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        )}
+                        {numLockeds[3] > 0 && !switchTab && (
+                            <StickerCollectionItem index={3} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        )}
+                        {numLockeds[3] === 0 && switchTab && (
+                            <StickerCollectionItem index={3} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        )}
+
 
                     </div>
 

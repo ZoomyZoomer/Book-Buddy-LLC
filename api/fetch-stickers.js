@@ -2,14 +2,14 @@ import { connectToDatabase } from './utils/db'; // Import your DB connection uti
 import Inventory from './models/Inventory'; // Adjust the path if necessary
 
 const stickerMap = new Map([
-    ['0', {sticker_name: 'dapper-bird', sticker_id: '0', location: 0, sticker_display: 'Dapper Bird', sticker_set: {set: 'Christmas', set_item_id: 0, unique_color_name: 'Winter Mint', border_color: '#94F0E7'}}],
-    ['1', {sticker_name: 'holly', sticker_id: '1', location: 1, sticker_display: 'Holly', sticker_set: {set: 'Christmas', set_item_id: 1, unique_color_name: 'Winter Mint', border_color: '#94F0E7'}}],
-    ['2', {sticker_name: 'eagle', sticker_id: '2', location: 0, sticker_display: 'Eagle', sticker_set: {set: 'Breeze', set_item_id: 0, unique_color_name: 'Chill Green', border_color: 'white'}}],
-    ['3', {sticker_name: 'leaves', sticker_id: '3', location: 2, sticker_display: 'Island Leaves', sticker_set: {set: 'Breeze', set_item_id: 1, unique_color_name: 'Chill Green', border_color: 'white'}}],
-    ['4', {sticker_name: 'nemo', sticker_id: '4', location: 1, sticker_display: 'Nemo', sticker_set: {set: 'Ocean', set_item_id: 0, unique_color_name: 'Sea Blue', border_color: 'white'}}],
-    ['5', {sticker_name: 'crab', sticker_id: '5', location: 0, sticker_display: 'Crab', sticker_set: {set: 'Ocean', set_item_id: 1, unique_color_name: 'Sea Blue', border_color: 'white'}}],
-    ['6', {sticker_name: 'spaceship', sticker_id: '6', location: 1, sticker_display: 'Spaceship', sticker_set: {set: 'Space', set_item_id: 0, unique_color_name: 'Space Dark Blue', border_color: 'white'}}],
-    ['7', {sticker_name: 'planet', sticker_id: '7', location: 0, sticker_display: 'Planet', sticker_set: {set: 'Space', set_item_id: 1, unique_color_name: 'Space Dark Blue', border_color: 'white'}}],
+    ['0', {sticker_name: 'dapper-bird', sticker_id: '0', location: 0, sticker_display: 'Darwin the Dapper Bird', sticker_set: {set: 'Winter Time', set_item_id: 0, unique_color_name: 'Winter Mint', border_color: '#94F0E7'}}],
+    ['1', {sticker_name: 'holly', sticker_id: '1', location: 1, sticker_display: 'Holly Hank', sticker_set: {set: 'Winter Time', set_item_id: 1, unique_color_name: 'Winter Mint', border_color: '#94F0E7'}}],
+    ['2', {sticker_name: 'eagle', sticker_id: '2', location: 0, sticker_display: 'Eagle Edward', sticker_set: {set: 'Cool Vibes', set_item_id: 0, unique_color_name: 'Chill Green', border_color: 'white'}}],
+    ['3', {sticker_name: 'leaves', sticker_id: '3', location: 2, sticker_display: 'Leafy Larry', sticker_set: {set: 'Cool Vibes', set_item_id: 1, unique_color_name: 'Chill Green', border_color: 'white'}}],
+    ['4', {sticker_name: 'nemo', sticker_id: '4', location: 1, sticker_display: 'Fishy Frank', sticker_set: {set: 'Underwater', set_item_id: 0, unique_color_name: 'Sea Blue', border_color: 'white'}}],
+    ['5', {sticker_name: 'crab', sticker_id: '5', location: 0, sticker_display: 'Crabby Carl', sticker_set: {set: 'Underwater', set_item_id: 1, unique_color_name: 'Sea Blue', border_color: 'white'}}],
+    ['6', {sticker_name: 'spaceship', sticker_id: '6', location: 1, sticker_display: 'Rocket Ricky', sticker_set: {set: 'Outer Space', set_item_id: 0, unique_color_name: 'Space Dark Blue', border_color: 'white'}}],
+    ['7', {sticker_name: 'planet', sticker_id: '7', location: 0, sticker_display: 'Planet Phil', sticker_set: {set: 'Outer Space', set_item_id: 1, unique_color_name: 'Space Dark Blue', border_color: 'white'}}],
     ['8', {sticker_name: 'blue-bird', sticker_id: '8', location: 0, sticker_display: 'Blue Bird', sticker_set: {set: 'Nature', set_item_id: 0, unique_color_name: 'Nature Green', border_color: 'white'}}],
     ['9', {sticker_name: 'caterpillar', sticker_id: '9', location: 1, sticker_display: 'Caterpillar', sticker_set: {set: 'Nature', set_item_id: 1, unique_color_name: 'Nature Green', border_color: 'white'}}],
     ['10', {sticker_name: 'pagoda', sticker_id: '10', location: 0, sticker_display: 'Temple', sticker_set: {set: 'Japan', set_item_id: 0, unique_color_name: 'Japan Pink', border_color: 'white'}}],
