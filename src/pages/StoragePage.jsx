@@ -465,71 +465,20 @@ const calcLockedNum = (sticks) => {
                 
 
                 <div className='stickers-container'>
+
                     <div className='stickers-title'>
-                        <div>Stickers</div>
-                        <div className='ss-0'>Great to put on your favorite books!</div>
+                        <div>The Filing Cabinet</div>
+                        <div className='ss-0'>Everything nice and organized</div>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '0.625rem'}}>
-                        <div className='stickers-flex'>
+           
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '1rem'}}>
 
-                                <div className='stickers-grid'  onClick={() => setBarLeft(true)}>
-                                    <div style={{color: barLeft ? '#06AB78' : '#D9D9D9', fontWeight: barLeft ? '500' : '400'}}>{`Found (${ownedStickers0.length + ownedStickers1.length})`}</div>
-                                </div>
-                                <div className='stickers-grid' onClick={() => setBarLeft(false)}>
-                                    <div style={{color: !barLeft ? '#06AB78' : '#D9D9D9', fontWeight: !barLeft ? '500' : '400'}}>{`Hidden (${hiddenStickers0.length + hiddenStickers1.length})`}</div>
-                                </div>
+                        <div className='n-folder-item-cont'>
+
+                            <div className='n-folder-item-circle'></div>
 
                         </div>
-                        <div className={barLeft ? 'stickers-slider' : 'stickers-slider-right'}>
-                                    <div className='stickers-slider-fill'/>
-                                </div>
-                    </div>
 
-                    
-                    <div className='stickers-box'>
-                        <div className='owned-stickers-container'>
-                            {barLeft && activeAchievementTab == 0 && (
-                                ownedStickers0.map((sticker, index) => (
-                                    <StickerItem sticker={sticker} hidden={false} username={userInfo.username} isPreview={false}/>
-                                ))
-                            )}
-                            {barLeft && activeAchievementTab == 1 && (
-                                ownedStickers1.map((sticker, index) => (
-                                    <StickerItem sticker={sticker} hidden={false} username={userInfo.username} isPreview={false}/>
-                                ))
-                            )}
-
-                            {!barLeft && activeAchievementTab == 0 && (
-                                hiddenStickers0.map((sticker, index) => (
-                                    <StickerItem sticker={sticker} hidden={true} username={userInfo.username} isPreview={false}/>
-                                ))
-                            )}
-                            {!barLeft && activeAchievementTab == 1 && (
-                                hiddenStickers1.map((sticker, index) => (
-                                    <StickerItem sticker={sticker} hidden={true} username={userInfo.username} isPreview={false}/>
-                                ))
-                            )}
-                            
-                        </div>
-                         <div className='lil-flex'>
-                            {!barLeft && (
-                            hiddenStickers0.length + hiddenStickers1.length > 9 ? (
-                                <>
-                                <div className={activeAchievementTab === 0 ? 'ach-circle-active' : 'ach-circle-inactive'} onClick={() => setActiveAchievementTab(0)}/>
-                                <div className={activeAchievementTab === 1 ? 'ach-circle-active' : 'ach-circle-inactive'} onClick={() => setActiveAchievementTab(1)}/>
-                                </>
-                            ): <></>
-                            )}
-                            {barLeft && (
-                            ownedStickers0.length + ownedStickers1.length > 9 ? (
-                                <>
-                                <div className={activeAchievementTab === 0 ? 'ach-circle-active' : 'ach-circle-inactive'} onClick={() => setActiveAchievementTab(0)}/>
-                                <div className={activeAchievementTab === 1 ? 'ach-circle-active' : 'ach-circle-inactive'} onClick={() => setActiveAchievementTab(1)}/>
-                                </>
-                            ): <></>
-                            )}
-                            
-                        </div>
                     </div>
 
                 </div>

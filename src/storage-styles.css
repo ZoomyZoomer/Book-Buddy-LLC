@@ -137,6 +137,22 @@
     transition: box-shadow 0.3s ease-in-out;
 }
 
+.n-folder-item-cont {
+    padding: 0.6rem 0.8rem 0.6rem 0.8rem;
+    border: 1px solid gray;
+    border-radius: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-folder-item-circle {
+    border-radius: 100%;
+    background-color: #A6D8C2;
+    height: 4rem;
+    width: 4rem;
+}
+
 .n-sticker-collection-grid::-webkit-scrollbar-button {
     display: none;
 }
