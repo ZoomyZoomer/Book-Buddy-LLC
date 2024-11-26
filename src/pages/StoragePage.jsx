@@ -244,13 +244,13 @@ const calcLockedNum = (sticks) => {
       }, [userInfo, reFetchWarehouse])
 
       const playAudioOpen = () => {
-        audioRefOpen?.current?.volume = 0.2;
-        audioRefOpen?.current?.play();
+        audioRefOpen.current.volume = 0.2;
+        audioRefOpen.current.play();
       };
 
       const playAudioClose = () => {
-        audioRefClose?.current?.volume = 0.1;
-        audioRefClose?.current?.play();
+        audioRefClose.current.volume = 0.1;
+        audioRefClose.current.play();
       };
 
       function findAvailableSpaces(grid) {
