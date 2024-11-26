@@ -250,7 +250,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
 
     const callItem = async() => {
 
-        if (file.id === '0' && file.quantity > 0){
+        if (file.id === '0'){
 
             try {
 
@@ -271,7 +271,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
             }
         }
 
-        if (file.id === '1' && file.quantity > 0){
+        if (file.id === '1'){
 
             try {
 
@@ -285,9 +285,13 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
                 if (e.response?.status === 400){
                     errorRef.current = {title: 'Insufficient quantity', message: 'You do not own any coupons'};
                     setShowError(true);
+                } else if (e.response?.status === 409){
+                    errorRef.current = {title: 'Item Already Active', message: 'You already have an active coupon'};
+                    setShowError(true);
                 } else {
                     console.error({error: e});
                 }
+                
             }
         }
 
