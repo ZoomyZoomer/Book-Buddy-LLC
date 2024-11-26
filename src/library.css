@@ -14,6 +14,7 @@
     justify-content: center;
     height: 50rem;
     width: 86rem; 
+    transform: scale(0.9);
 }
 
 .n-new-nav2 {
@@ -663,7 +664,6 @@
     align-items: center;
     position: relative;
     box-shadow: 0px 4px 6px rgb(189, 189, 189);
-    transform: scale(0.9);
 }
 
 .filter-num {
