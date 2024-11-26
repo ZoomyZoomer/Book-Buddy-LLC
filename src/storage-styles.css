@@ -138,12 +138,26 @@
 }
 
 .n-folder-item-cont {
-    padding: 0.6rem 0.8rem 0.6rem 0.8rem;
+    padding: 1rem 1.8rem 1rem 1.8rem;
+    min-width: 16rem;
     border: 1px solid gray;
     border-radius: 0.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-folder-item-cont:hover {
+    cursor: pointer;
+    background-color: rgb(246, 246, 246);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-folder-status-open {
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    color: gray;
 }
 
 .n-folder-item-circle {
@@ -151,6 +165,14 @@
     background-color: #A6D8C2;
     height: 4rem;
     width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-folder-title {
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .n-sticker-collection-grid::-webkit-scrollbar-button {

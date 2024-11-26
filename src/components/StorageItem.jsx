@@ -42,7 +42,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
     }
 
     useEffect(() => {
-        if (username !== undefined){
+        if (username){
             fetchQuantity();
         }
     }, [username, file, fetchQuant, fileWasClaimed])
@@ -232,7 +232,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
 
         } catch(e) {
 
-            if (e.response.status === 400){
+            if (e.response?.status === 400){
                 errorRef.current = {title: 'Insufficient quantity', message: 'Not enough files to complete this transaction'};
                 setShowError(true);
             } else {
@@ -293,7 +293,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
     <>
         {renderItem && !hidden && (
             <div id={`${index}21`} className={hidden ? 'storage-item-container' : isAddingFile && file.id === '40' ? 'storage-item-invalid' :  'storage-item-container-seen'} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => {setIsHovering(false); setIsHeld(false); clearTimeout(holdTimeoutRef.current)}} onMouseDown={() => handleMouseDown()} onMouseUp={() => {setIsHeld(false); clearTimeout(holdTimeoutRef.current)}} onClick={() => handleClick()}>
-                <div className={quantity < 10 ? 'folder-amount' : 'folder-amount-high'}>{file?.cost ? file.quantity : quantity}</div>
+                <div className={quantity < 10 ? 'folder-amount' : 'folder-amount-high'}>{quantity}</div>
                 {isHeld && file.id !== '40' && (
                     <div className='storage-item-fill-abs' />
                 )}

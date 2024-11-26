@@ -19,7 +19,7 @@ import StickerCollectionItem from '../components/StickerCollectionItem';
 
 const StoragePage = () => {
 
-    const [folderClosed, setFolderClosed] = useState(true);
+    const [folderClosed, setFolderClosed] = useState(false);
     const [ownedFiles, setOwnedFiles] = useState([]);
     const [hiddenFiles, setHiddenFiles] = useState([]);
     const [quantity, setQuantity] = useState(0);
@@ -160,6 +160,7 @@ const StoragePage = () => {
             })
             
             setOwnedFiles(res.data[0]);
+            console.log(res.data[0]);
             setHiddenFiles(res.data[1]);
             setQuantity(res.data[2]);
             setHiddenItems(res.data[3]);
@@ -471,11 +472,38 @@ const calcLockedNum = (sticks) => {
                         <div className='ss-0'>Everything nice and organized</div>
                     </div>
            
-                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '1rem'}}>
+                    <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', marginTop: '1rem', height: '100%'}}>
 
-                        <div className='n-folder-item-cont'>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', transform: 'scale(0.9)', marginLeft: '-1rem'}}>
 
-                            <div className='n-folder-item-circle'></div>
+                            <div className='n-folder-item-cont' onClick={() => setFolderClosed(prev => !prev)}>
+
+                                <div className='n-folder-item-circle'><img src={`/${folderClosed ? 'folder-closed' : 'folder-open'}.png`} style={{height: '3.4rem', marginBottom: folderClosed ? '0.625rem' : '0.1rem'}}/></div>
+
+                                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'left', marginLeft: '1rem'}}>
+                                    <div className='n-folder-title' style={{color: folderClosed ? '#454b54' : '#06AB78'}}>{folderClosed ? 'A Closed' : 'An Open'} Folder</div>
+                                    <div className='n-folder-status-open'><strong>Currently holding:</strong> 42 items</div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', margin: '1rem'}}>
+
+                            <div style={{height: '0.4rem', width: '0.4rem', borderRadius: '100%', backgroundColor: '#D9D9D9', marginBottom: '0.7rem'}}/>
+                            <div style={{height: '2rem', width: '2px', backgroundColor: '#D9D9D9'}}/>
+                            <div style={{height: '0.4rem', width: '0.4rem', borderRadius: '100%', backgroundColor: '#D9D9D9', marginTop: '0.7rem'}}/>
+
+                        </div>
+
+                        <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%'}}>
+
+                            {ownedFiles.map((file) => (
+                                <div style={{marginRight: '1rem'}}>
+                                    <StorageItem file={file} hidden={false} isAddingFile={false} username={userInfo?.username}/>
+                                </div>
+                            ))}
 
                         </div>
 
