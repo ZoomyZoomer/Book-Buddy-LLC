@@ -20,7 +20,6 @@ const ReadingEntryItem = ({index, entry, username}) => {
 
     await axios.post('/api/claim-file', {
       username,
-      new_file: {id: entry.id},
       index: [-1,-1],
       notWarehouse: true,
       entry
