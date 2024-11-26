@@ -531,7 +531,7 @@ const calcLockedNum = (sticks) => {
                         
                             {!folderClosed && ownedFiles.map((file, index) => (
                                 <div style={{margin: '0.5rem'}}>
-                                    <StorageItem file={file} hidden={false} isAddingFile={false} username={userInfo?.username} index={index} errorRef={errorRef} setShowError={setShowError}/>
+                                    <StorageItem file={file} hidden={false} isAddingFile={false} username={userInfo?.username} index={index} errorRef={errorRef} setShowError={setShowError} setReFetchWarehouse={setReFetchWarehouse}/>
                                 </div>
                             ))}
 
