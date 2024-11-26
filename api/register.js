@@ -58,11 +58,14 @@ export default async function handler(req, res) {
           [3, 1, 2, 2, 2, 1, 2],
           [9, 1, 1, 3, 3, 1, 8],
         ],
-        stickers_seen: ["0", "1", "2", "3", "4"],
+        stickers_seen: ["0", "2", "3", "4"],
         currency:{
-          coins: 200,
+          coins: 500,
           xp: 0,
-        }
+        },
+        collectables: [{id: "14", quantity: 1}, {id: "9", quantity: 3}],
+        files_seen: ["1", "21"],
+        files: [{file_id: "1", quantity: 1}, {file_id: "21", quantity: 2}]
       });
 
       await Quest.create({
