@@ -244,13 +244,13 @@ const calcLockedNum = (sticks) => {
       }, [userInfo, reFetchWarehouse])
 
       const playAudioOpen = () => {
-        audioRefOpen.current.volume = 0.2;
-        audioRefOpen.current.play();
+        audioRefOpen?.current?.volume = 0.2;
+        audioRefOpen?.current?.play();
       };
 
       const playAudioClose = () => {
-        audioRefClose.current.volume = 0.1;
-        audioRefClose.current.play();
+        audioRefClose?.current?.volume = 0.1;
+        audioRefClose?.current?.play();
       };
 
       function findAvailableSpaces(grid) {
@@ -485,7 +485,10 @@ const calcLockedNum = (sticks) => {
 
                         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', transform: 'scale(0.8125)', marginLeft: '-1rem'}}>
 
-                            <div className='n-folder-item-cont' onClick={() => setFolderClosed(prev => !prev)}>
+                            <div className='n-folder-item-cont' onClick={() => {if (folderClosed) {playAudioOpen(); setFolderClosed(prev => !prev);} else {playAudioClose(); setFolderClosed(prev => !prev);}}}>
+
+                                <audio ref={audioRefOpen} src="/open-folder.wav" />
+                                <audio ref={audioRefClose} src="/close-folder.wav" />
 
                                 <div className='n-folder-item-circle'><img src={`/${folderClosed ? 'folder-closed' : 'folder-open'}.png`} style={{height: '3.4rem', marginBottom: folderClosed ? '0.625rem' : '0.1rem'}}/></div>
 
@@ -517,7 +520,7 @@ const calcLockedNum = (sticks) => {
 
                             {!folderClosed && items.map((item, index) => (
                                 <div style={{margin: '0.5rem'}}>
-                                    <StorageItem file={item} hidden={false} isAddingFile={false} username={userInfo?.username} index={index + ownedFiles.length}/>
+                                    <StorageItem file={item} hidden={false} isAddingFile={false} username={userInfo?.username} index={index + ownedFiles.length} setShowItemPopup={setShowItemPopup} setItem={setItem} setEatItem={setEatItem}/>
                                 </div>
                             ))}
 
@@ -527,7 +530,7 @@ const calcLockedNum = (sticks) => {
                             ))}
 
                             {folderClosed && hiddenItems.map((item, index) => (
-                                <StorageItem file={item} hidden={true} isAddingFile={false} username={userInfo?.username} index={index + hiddenFiles.length}/>
+                                <StorageItem file={item} hidden={true} isAddingFile={false} username={userInfo?.username} index={index + hiddenFiles.length} />
                             ))}
 
                             <div className='n-storage-item-abs'>
