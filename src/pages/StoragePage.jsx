@@ -20,8 +20,8 @@ import StickerCollectionItem from '../components/StickerCollectionItem';
 const StoragePage = () => {
 
     const [folderClosed, setFolderClosed] = useState(false);
-    const [ownedFiles, setOwnedFiles] = useState([]);
-    const [hiddenFiles, setHiddenFiles] = useState([]);
+    const [ownedFiles, setOwnedFiles] = useState([null, null, null, null, null, null, null, null, null]);
+    const [hiddenFiles, setHiddenFiles] = useState([null, null, null, null, null, null, null, null, null]);
     const [quantity, setQuantity] = useState(0);
     const [userInfo, setUserInfo] = useState(null);
     const [barLeft, setBarLeft] = useState(true);
@@ -139,6 +139,7 @@ const StoragePage = () => {
                 }
             })
 
+            console.log(res.data);
             setItems(res.data);
 
         } catch(e) {
@@ -160,7 +161,6 @@ const StoragePage = () => {
             })
             
             setOwnedFiles(res.data[0]);
-            console.log(res.data[0]);
             setHiddenFiles(res.data[1]);
             setQuantity(res.data[2]);
             setHiddenItems(res.data[3]);
@@ -372,7 +372,16 @@ const calcLockedNum = (sticks) => {
         <div className={(displayReward) ? 'rewards-popup-filter' : 'storage-container'}>
 
         <div className='storage-box'>
- 
+
+        <div className='n-new-nav2' style={{marginBottom: '2rem', height: '6rem'}}>
+        <div className='n-new-nav-l'>
+        <div className='nn-item' onClick={() => navigate('/library')}><img src='/open_book.png' style={{height: '2.4rem', display: 'flex', marginBottom: '0.3rem'}}/></div>
+          <div className='nn-item' onClick={() => navigate('/library')}>LIBRARY</div>
+          <div className='nn-item' onClick={() => navigate('/storage')}>STORAGE</div>
+          <div className='nn-item' onClick={() => navigate('/rewards')}>REWARDS</div>
+        </div>
+      </div>
+
             <div className='storage-top-flex'>
 
                 <div className='warehouse-container'>
@@ -474,15 +483,15 @@ const calcLockedNum = (sticks) => {
            
                     <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', marginTop: '1rem', height: '100%'}}>
 
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', transform: 'scale(0.9)', marginLeft: '-1rem'}}>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', transform: 'scale(0.8125)', marginLeft: '-1rem'}}>
 
                             <div className='n-folder-item-cont' onClick={() => setFolderClosed(prev => !prev)}>
 
                                 <div className='n-folder-item-circle'><img src={`/${folderClosed ? 'folder-closed' : 'folder-open'}.png`} style={{height: '3.4rem', marginBottom: folderClosed ? '0.625rem' : '0.1rem'}}/></div>
 
                                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'left', marginLeft: '1rem'}}>
-                                    <div className='n-folder-title' style={{color: folderClosed ? '#454b54' : '#06AB78'}}>{folderClosed ? 'A Closed' : 'An Open'} Folder</div>
-                                    <div className='n-folder-status-open'><strong>Currently holding:</strong> 42 items</div>
+                                    <div className='n-folder-title' style={{color: folderClosed ? '#454b54' : '#06AB78'}}>{folderClosed ? 'Hidden Treasures' : 'Collected Items'}</div>
+                                    <div className='n-folder-status-open'>Click to swap contents to '{folderClosed ? 'Collected Items' : 'Hidden Treasures'}'</div>
                                 </div>
 
                             </div>
@@ -497,13 +506,35 @@ const calcLockedNum = (sticks) => {
 
                         </div>
 
-                        <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%'}}>
+                        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr', justifyContent: 'left', alignItems: 'center', width: 'fit-content', position: 'relative', width: '70%'}}>
 
-                            {ownedFiles.map((file) => (
-                                <div style={{marginRight: '1rem'}}>
-                                    <StorageItem file={file} hidden={false} isAddingFile={false} username={userInfo?.username}/>
+                        
+                            {!folderClosed && ownedFiles.map((file, index) => (
+                                <div style={{margin: '0.5rem'}}>
+                                    <StorageItem file={file} hidden={false} isAddingFile={false} username={userInfo?.username} index={index}/>
                                 </div>
                             ))}
+
+                            {!folderClosed && items.map((item, index) => (
+                                <div style={{margin: '0.5rem'}}>
+                                    <StorageItem file={item} hidden={false} isAddingFile={false} username={userInfo?.username} index={index + ownedFiles.length}/>
+                                </div>
+                            ))}
+
+
+                            {folderClosed && hiddenFiles.map((file, index) => (
+                                <StorageItem file={file} hidden={true} isAddingFile={false} username={userInfo?.username} index={index}/>
+                            ))}
+
+                            {folderClosed && hiddenItems.map((item, index) => (
+                                <StorageItem file={item} hidden={true} isAddingFile={false} username={userInfo?.username} index={index + hiddenFiles.length}/>
+                            ))}
+
+                            <div className='n-storage-item-abs'>
+                                <div className='n-storage-item-line'/>
+                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Items In Storage <div style={{display: 'flex', marginLeft: '0.4rem'}}><Arrow /></div></div>
+                                <div className='n-storage-item-line'/>
+                            </div>
 
                         </div>
 

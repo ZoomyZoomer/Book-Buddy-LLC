@@ -291,9 +291,16 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
   return (
     
     <>
-        {renderItem && !hidden && (
+
+        {!file && !file?.display && !file?.img && (
+            <div className={hidden ? 'storage-item-container' : 'storage-item-container-seen'} style={{height: '2.4rem', width: '2.4rem'}}>
+                <div class="loader" />
+            </div>
+        )}
+
+        {renderItem && !hidden && file && (
             <div id={`${index}21`} className={hidden ? 'storage-item-container' : isAddingFile && file.id === '40' ? 'storage-item-invalid' :  'storage-item-container-seen'} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => {setIsHovering(false); setIsHeld(false); clearTimeout(holdTimeoutRef.current)}} onMouseDown={() => handleMouseDown()} onMouseUp={() => {setIsHeld(false); clearTimeout(holdTimeoutRef.current)}} onClick={() => handleClick()}>
-                <div className={quantity < 10 ? 'folder-amount' : 'folder-amount-high'}>{quantity}</div>
+                <div className={quantity < 10 ? 'folder-amount' : 'folder-amount-high'}>{file?.rarity ? quantity : file?.quantity}</div>
                 {isHeld && file.id !== '40' && (
                     <div className='storage-item-fill-abs' />
                 )}
@@ -345,7 +352,7 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
 
             </div>
         )}
-        {hidden && (
+        {hidden && file && (
             <div className={hidden ? 'storage-item-container' : 'storage-item-container-seen'}  onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
                 <img src={`/${file?.display ? file.display : file?.img}.png`} className={hidden ? 'storage-item-hidden' : 'storage-item-seen'}/>
                 {isHovering && (
