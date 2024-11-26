@@ -16,6 +16,8 @@ import {ReactComponent as BookLogo} from '../book_logo.svg'
 import BookBuddyNavbar from '../components/BookBuddyNavbar';
 import PickSticker from '../components/PickSticker';
 import StickerCollectionItem from '../components/StickerCollectionItem';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StoragePage = () => {
 
@@ -349,11 +351,21 @@ const calcLockedNum = (sticks) => {
         
       }
 
+      useEffect(() => {
+
+        if (showError){
+          toast.error(errorRef.current?.message);
+          setShowError(false);
+        }
+        
+      }, [showError])
+
   return (
     <div className='storage-container'>
 
+        <ToastContainer />
+
         {showItemPopup && <ItemRewardPopupWarehouse setShowItemPopup={setShowItemPopup} eatItem={eatItem} value={1} username={userInfo.username} item={item} setReFetch={setReFetchWarehouse} setDisplayReward={setDisplayReward}/>}
-        {showError && <ErrorNotification errorRef={errorRef} setShowError={setShowError} />}
         {showPickSticker && <PickSticker setShowPickSticker={setShowPickSticker} value={1} setDisplayReward={setDisplayReward} username={userInfo?.username} setShowItemPopup={setShowItemPopup}/>}
 
         {isAddingFile && (
@@ -479,7 +491,12 @@ const calcLockedNum = (sticks) => {
                     <div className='stickers-title'>
                         <div>The Filing Cabinet</div>
                         <div className='ss-0'>Everything nice and organized</div>
+                        <div className='n-curr-amount-abs'>
+                            <img src='/coin.png' style={{height: '1rem'}}/>
+                            <div className='n-curr-style'>2,688</div>
+                        </div>
                     </div>
+
            
                     <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', marginTop: '1rem', height: '100%'}}>
 
@@ -514,13 +531,13 @@ const calcLockedNum = (sticks) => {
                         
                             {!folderClosed && ownedFiles.map((file, index) => (
                                 <div style={{margin: '0.5rem'}}>
-                                    <StorageItem file={file} hidden={false} isAddingFile={false} username={userInfo?.username} index={index}/>
+                                    <StorageItem file={file} hidden={false} isAddingFile={false} username={userInfo?.username} index={index} errorRef={errorRef} setShowError={setShowError}/>
                                 </div>
                             ))}
 
                             {!folderClosed && items.map((item, index) => (
                                 <div style={{margin: '0.5rem'}}>
-                                    <StorageItem file={item} hidden={false} isAddingFile={false} username={userInfo?.username} index={index + ownedFiles.length} setShowItemPopup={setShowItemPopup} setItem={setItem} setEatItem={setEatItem}/>
+                                    <StorageItem file={item} hidden={false} isAddingFile={false} username={userInfo?.username} index={index + ownedFiles.length} setShowItemPopup={setShowItemPopup} setItem={setItem} setEatItem={setEatItem} errorRef={errorRef} setShowError={setShowError}/>
                                 </div>
                             ))}
 

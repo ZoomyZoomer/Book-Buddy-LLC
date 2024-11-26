@@ -63,7 +63,7 @@ export default async function handler(req, res) {
           coins: 500,
           xp: 0,
         },
-        collectables: [{id: "14", quantity: 1}, {id: "9", quantity: 3}],
+        collectables: [{id: "14", quantity: 1}, {id: "9", quantity: 3}, {id: "0", quantity: 1}],
         files_seen: ["1", "21"],
         files: [{file_id: "1", quantity: 1}, {file_id: "21", quantity: 2}]
       });

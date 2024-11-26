@@ -251,19 +251,44 @@ const StorageItem = ({file, setItem, setShowPickSticker, setEatItem, setShowItem
     const callItem = async() => {
 
         if (file.id === '0' && file.quantity > 0){
-            playAudioCoins2();
-            await axios.post('/api/use-coffee', {
-                username: username
-            })
-            setReFetchWarehouse();
+
+            try {
+
+                await axios.post('/api/use-coffee', {
+                    username: username
+                })
+
+                playAudioCoins2();
+                setReFetchWarehouse();
+
+            } catch (e) {
+                if (e.response?.status === 400){
+                    errorRef.current = {title: 'Insufficient quantity', message: 'You do not own any coffee'};
+                    setShowError(true);
+                } else {
+                    console.error({error: e});
+                }
+            }
         }
 
         if (file.id === '1' && file.quantity > 0){
-            playAudioCoins2();
-            await axios.post('/api/set-coupon', {
-                username: username
-            })
-            setReFetchWarehouse();
+
+            try {
+
+                await axios.post('/api/set-coupon', {
+                    username: username
+                })
+                playAudioCoins2();
+                setReFetchWarehouse();
+
+            } catch (e) {
+                if (e.response?.status === 400){
+                    errorRef.current = {title: 'Insufficient quantity', message: 'You do not own any coupons'};
+                    setShowError(true);
+                } else {
+                    console.error({error: e});
+                }
+            }
         }
 
         if ((file.id === '9' || file.id === '8' || file.id === '7' || file.id === '14') && file.quantity > 0){
