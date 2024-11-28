@@ -385,7 +385,7 @@ const calcLockedNum = (sticks) => {
 
         <div className='storage-box'>
 
-        <div className='n-new-nav2' style={{marginBottom: '2rem', height: '6rem', maxHeight: '6rem'}}>
+        <div className='n-new-nav2' style={{marginBottom: '2rem'}}>
         <div className='n-new-nav-l'>
         <div className='nn-item' onClick={() => navigate('/library')}><img src='/open_book.png' style={{height: '2.4rem', display: 'flex', marginBottom: '0.3rem'}}/></div>
           <div className='nn-item' onClick={() => navigate('/library')}>LIBRARY</div>
