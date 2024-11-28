@@ -20,7 +20,7 @@
 }
 
 .n-scrolling {
-    box-shadow: inset 0px 30px 8px -4px rgba(231, 231, 231, 0.5);
+    box-shadow: inset 0px 28px 8px -4px rgba(231, 231, 231, 0.5);
     transition: box-shadow 0.3s ease-in-out;
     z-index: 0;
 }
