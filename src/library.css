@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     background-color: #F2F2F2;
     height: 100%;
     width: 100%;
@@ -13,8 +14,7 @@
     display: flex;
     justify-content: center;
     height: 50rem;
-    width: 86rem; 
-    transform: scale(0.9);
+    width: 90rem; 
 }
 
 .n-new-nav2 {
@@ -35,7 +35,6 @@
     border: 1px solid #454B54;
     margin-top: 2rem;
     box-shadow: 0 4px 6px #bdbdbd;
-    transform: scale(0.9);
 }
 
 .calendar-grid {
@@ -619,7 +618,7 @@
 }
 
 .n-library-sep {
-    width: 3%;
+    width: 3.5%;
 }
 
 .n-library-right {

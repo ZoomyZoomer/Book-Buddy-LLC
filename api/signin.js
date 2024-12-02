@@ -39,7 +39,6 @@ export default async function handler(req, res) {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Ensure secure cookies in production
             sameSite: 'strict',
-            maxAge: 3600, // 1 hour expiry
             path: '/',
           }));
 

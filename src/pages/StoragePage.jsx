@@ -24,6 +24,7 @@ const StoragePage = () => {
     const [folderClosed, setFolderClosed] = useState(false);
     const [ownedFiles, setOwnedFiles] = useState([null, null, null, null, null, null, null, null, null]);
     const [hiddenFiles, setHiddenFiles] = useState([null, null, null, null, null, null, null, null, null]);
+    const [stickersFetched, setStickersFetched] = useState(false);
     const [quantity, setQuantity] = useState(0);
     const [userInfo, setUserInfo] = useState(null);
     const [barLeft, setBarLeft] = useState(true);
@@ -229,6 +230,8 @@ const calcLockedNum = (sticks) => {
             setLockedStickers(res.data[1]);
 
             calcLockedNum(res.data[1]);
+
+            setStickersFetched(true);
             
 
         } catch(e){
@@ -404,15 +407,18 @@ const calcLockedNum = (sticks) => {
                             <div>The Warehouse</div>
                             <div className='ss-0'>Let your files collect some dust, maybe they'll turn useful</div>
                         </div>
-                        <div className='warehouse-real'>
-                            {warehouseGrid.map((section, sectionIndex) => (
-                                <>
-                                    {section.map((item, itemIndex) => (
-                                        <WarehouseItem item={item} setEatItem={setEatItem} index={[sectionIndex, itemIndex]} availSpaces={availableSpaces} username={userInfo.username} setReFetchWarehouse={setReFetchWarehouse} setIsAddingFile={setIsAddingFile} isAddingFile={isAddingFile} setActiveIndex={setActiveIndex} setShowItemPopup={setShowItemPopup} setItem={setItem} setFileWasClaimed={setFileWasClaimed} setShowError={setShowError} errorRef={errorRef}/>
-                                    ))}
-                                </>
-                            ))}
-                        </div>
+                        {warehouseGrid.length > 0 && (
+                            <div className='warehouse-real'>
+                                {warehouseGrid.map((section, sectionIndex) => (
+                                    <>
+                                        {section.map((item, itemIndex) => (
+                                            <WarehouseItem item={item} setEatItem={setEatItem} index={[sectionIndex, itemIndex]} availSpaces={availableSpaces} username={userInfo.username} setReFetchWarehouse={setReFetchWarehouse} setIsAddingFile={setIsAddingFile} isAddingFile={isAddingFile} setActiveIndex={setActiveIndex} setShowItemPopup={setShowItemPopup} setItem={setItem} setFileWasClaimed={setFileWasClaimed} setShowError={setShowError} errorRef={errorRef}/>
+                                        ))}
+                                    </>
+                                ))}
+                            </div>
+                        )}
+                        
 
                     </div>
 
@@ -448,30 +454,38 @@ const calcLockedNum = (sticks) => {
 
                     <div className={isScrolled ? 'n-sticker-collection-grid n-scrolling' : 'n-sticker-collection-grid'} onScroll={handleScroll} ref={scrollRef}>
 
-                        {numLockeds[0] > 0 && !switchTab && (
+                        {stickersFetched && numLockeds[0] > 0 && !switchTab && (
                             <StickerCollectionItem index={0} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
                         )}
-                        {numLockeds[0] === 0 && switchTab && (
+                        {stickersFetched && numLockeds[0] === 0 && switchTab && (
                             <StickerCollectionItem index={0} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
 
                         )}
-                        {numLockeds[1] > 0 && !switchTab && (
+                        {stickersFetched && numLockeds[1] > 0 && !switchTab && (
                             <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
                         )}
-                        {numLockeds[1] === 0 && switchTab && (
+                        {stickersFetched && numLockeds[1] === 0 && switchTab && (
                             <StickerCollectionItem index={1} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
                         )}
-                        {numLockeds[2] > 0 && !switchTab && (
+                        {stickersFetched && numLockeds[2] > 0 && !switchTab && (
                             <StickerCollectionItem index={2} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
                         )}
-                        {numLockeds[2] === 0 && switchTab && (
+                        {stickersFetched && numLockeds[2] === 0 && switchTab && (
                             <StickerCollectionItem index={2} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
                         )}
-                        {numLockeds[3] > 0 && !switchTab && (
+                        {stickersFetched && numLockeds[3] > 0 && !switchTab && (
                             <StickerCollectionItem index={3} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
                         )}
-                        {numLockeds[3] === 0 && switchTab && (
+                        {stickersFetched && numLockeds[3] === 0 && switchTab && (
                             <StickerCollectionItem index={3} unlockedStickers={unlockedStickers} lockedStickers={lockedStickers} username={userInfo?.username} swap={swap} setSwap={setSwap} activeDrop={activeDrop} setActiveDrop={setActiveDrop}/>
+                        )}
+
+                        {!stickersFetched && (
+                            <>
+                                <StickerCollectionItem index={-1} />
+                                <StickerCollectionItem index={-1} />
+                                <StickerCollectionItem index={-1} />
+                            </>
                         )}
 
 

@@ -17,6 +17,8 @@ const StickerCollectionItem = ({index, unlockedStickers, username, activeDrop, s
 
     const handleClick = () => {
 
+        if (index === -1) return;
+
         if (activeDrop && isExpanded){
             setIsExpanded(false);
             setActiveDrop(false);
@@ -35,6 +37,9 @@ const StickerCollectionItem = ({index, unlockedStickers, username, activeDrop, s
     }
 
     useEffect(() => {
+
+        if (index === -1) return;
+
         // Calculate the number of locked stickers that match
         const count = lockedStickers.filter(sticker =>
           stickerCollections[index].collection_stickers.includes(sticker.sticker_id)
@@ -45,13 +50,13 @@ const StickerCollectionItem = ({index, unlockedStickers, username, activeDrop, s
       }, [lockedStickers]);
 
     useEffect(() => {
-        if (isExpanded){
+        if (isExpanded && index !== -1){
             setIsExpanded(false);
         }
     }, [swap])
 
     useEffect(() => {
-        if (numLocked !== null) {
+        if (numLocked !== null && index !== -1) {
           const progressBar = document.getElementById(`collection-bar-${index}`);
           if (progressBar) {
             const totalStickers = stickerCollections[index].collection_stickers.length;
@@ -66,17 +71,19 @@ const StickerCollectionItem = ({index, unlockedStickers, username, activeDrop, s
     <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'fit-content', height: 'fit-content', marginTop: '0.625rem'}}>
         <div className={(!isHovered || isExpanded) ? 'n-collection-container' : 'n-collection-container-fade'} style={{zIndex: '999'}}onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={() => handleClick()}>
             <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%'}}>
-                <img src={`/${stickerCollections[index].icon}.png`} style={{height: '3.6rem'}}/>
+                <img src={`/${index !== -1 ? stickerCollections[index].icon : 'no_file'}.png`} style={{height: '3.6rem'}}/>
                 <div className='n-collection-info'>
-                    <div>{stickerCollections[index].collection_name}</div>
-                    <div className='n-ci-0'>Collection Includes: {stickerCollections[index].collection_stickers_names}</div>
+                    <div>{index !== -1 && stickerCollections[index].collection_name}</div>
+                    {index === -1 && <div className='loader3'/>}
+                    <div className='n-ci-0'>{index !== -1 && `Collection Includes: ${stickerCollections[index].collection_stickers_names}`}</div>
+                    {index === -1 && <div className='loader3_med'/>}
                 </div>
             </div>
             <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '0.8125rem'}}>
                 <div className='n-collection-bar'>
                     <div id={`collection-bar-${index}`} className='n-collection-bar-fill'/>
                 </div>
-                <div style={{fontSize: '0.7rem', marginLeft: '0.4rem'}}>{stickerCollections[index].collection_stickers.length - numLocked}/{stickerCollections[index].collection_stickers.length} owned</div>
+                <div style={{fontSize: '0.7rem', marginLeft: '0.4rem'}}>{index !== -1 ? ((stickerCollections[index].collection_stickers.length - numLocked)/(stickerCollections[index].collection_stickers.length)) : '?/??'} owned</div>
             </div>
 
             {isExpanded && (
