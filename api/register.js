@@ -9,24 +9,11 @@ const colorsCollection = ["#FFA9A9", "#A9D1FF", "#C6A9FF", "#F3A9FF", "#FFE7A9",
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { username, password, email } = req.body;
+    const { email, username } = req.body;
 
     try {
       // Connect to the database
       await connectToDatabase();
-
-      // Check if user already exists
-      const existingUser = await User.findOne({ $or: [{ username }, { email }] });
-      if (existingUser) {
-        return res.status(400).json({ error: "Username or email already exists" });
-      }
-
-      // Create new user
-      const userDoc = await User.create({
-        username,
-        email,
-        password: bcrypt.hashSync(password, 10), // Adjusted salt rounds for bcrypt
-      });
 
       // Create associated documents
       await Bookshelf.create({
@@ -75,7 +62,7 @@ export default async function handler(req, res) {
       });
 
       // Return the newly created user document
-      res.status(201).json(userDoc);
+      res.status(201).json({message: 'Account successfully created.'});
     } catch (e) {
       console.error(e);
       res.status(400).json({ error: 'Registration failed' });

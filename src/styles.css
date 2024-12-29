@@ -313,7 +313,7 @@ green {
     stroke-dashoffset: 166;
     stroke-width: 2;
     stroke-miterlimit: 10;
-    stroke: #7ac142;
+    stroke: #06AB78;
     fill: none;
     animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
   }
@@ -322,20 +322,20 @@ green {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    stroke: #7ac142;
+    stroke: #06AB78;
     stroke-width: 2;
   }
   
   .checkmark {
-    width: 36px;
-    height: 36px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: block;
     stroke-width: 2;
     stroke: #fff;
     stroke-miterlimit: 10;
     margin: 10% auto;
-    box-shadow: inset 0px 0px 0px #7ac142;
+    box-shadow: inset 0px 0px 0px #06AB78;
     animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
   }
   
@@ -361,7 +361,7 @@ green {
   }
   @keyframes fill {
     100% {
-      box-shadow: inset 0px 0px 0px 30px #7ac142;
+      box-shadow: inset 0px 0px 0px 30px #06AB78;
     }
   }
 
@@ -371,7 +371,7 @@ green {
     height: 36px;
     width: 36px;
     border-radius: 30px;
-    border-color: #7ac142;
+    border-color: #06AB78;
     border-width: 2px;
     border-style: solid;
     right: 0;
@@ -379,7 +379,7 @@ green {
   }
 
   .emptyCheckBox:hover {
-    background-color: #bfe2a3;
+    background-color: #06AB78;
     transition: background-color 0.3s ease-in;
     cursor: pointer;
   }

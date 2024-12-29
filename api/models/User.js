@@ -16,6 +16,10 @@ const UserSchema = new Schema({
         unique: true,
     },
     password: {type: String, required: true},
+    verificationCode: { type: Number },
+    codeExpiresAt: { type: Date },
+    isVerified: { type: Boolean, default: false },
+    reader: {type: String, default: 'Newcomer'}
 });
 
 const UserModel = model('User', UserSchema);

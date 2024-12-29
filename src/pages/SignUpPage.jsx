@@ -3,6 +3,11 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as Logo } from '../logo.svg';
 import { useEffect } from 'react';
+import '../registerstyles.css';
+import RegisterForum_0 from '../components/RegisterForum_0';
+import RegisterForum_1 from '../components/RegisterForum_1';
+import RegisterForum_2 from '../components/RegisterForum_2';
+import RegisterForum_3 from '../components/RegisterForum_3';
 
 function SignUpPage() {
 
@@ -13,6 +18,10 @@ function SignUpPage() {
     const [email, setEmail] = useState('');
 
     const [userInfo, setUserInfo] = useState({});
+    const [currPage, setCurrPage] = useState(1);
+    const [maxPage, setMaxPage] = useState(1);
+
+    const [avid, setAvid] = useState(null);
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -36,9 +45,17 @@ function SignUpPage() {
         fetchProfile();
       }, []);
 
+      const handleCircleClick = (num) => {
+
+        if (num <= maxPage) {
+            setMaxPage(Math.max(maxPage, currPage));
+            setCurrPage(num);
+        }
+
+      }
 
 
-    
+    /*
     async function submit(e){
 
         e.preventDefault();
@@ -67,87 +84,96 @@ function SignUpPage() {
         
         
 
-    }
+    }*/
 
 
     return (
-        <div className="loginGrid">
-    
-            <div style={{marginBottom: '-30px'}}>
-                <div className="flexMiddle" style={{marginBottom: '-20px'}}>
-                    <Link id="home" to="/"style={{transform: 'scale(0.8)', cursor: 'pointer'}}>
-                        <Logo />
-                    </Link>
-                </div>
-    
-                <div className="flexMiddle">
-                    <h1 style={{fontSize: '26px', fontWeight: '200', color: '#06ab78'}}>
-                        Register on <strong>Book Buddy</strong>
-                    </h1>
-                </div>
-            </div>
-    
-           
-    
-                <form className="loginGrid" action="POST">
-    
-                <div className="loginContainer">
-                    <div style={{fontWeight: '400', fontSize: '14px'}}>
-                        Username
-                    </div>
-    
-                    <input className="inputBox" type="username" style={{marginBottom: '25px'}} onChange={(e) => {setUsername(e.target.value)}}></input>
-
-                    <div style={{fontWeight: '400', fontSize: '14px'}}>
-                        Email address
-                    </div>
-    
-                    <input className="inputBox" type="email" style={{marginBottom: '25px'}} onChange={(e) => {setEmail(e.target.value)}}></input>
-    
-    
-                    <div className="flexMiddle" style={{fontWeight: '400', fontSize: '14px'}}>
-    
-                        <div style={{display: 'flex', justifyContent: 'left', width:'314px'}}>
-                            Password
-                        </div>
-                    
-                    </div>
-    
-                    <input className="inputBox" type="password" style={{marginBottom: '25px'}} onChange={(e) => {setPassword(e.target.value)}}></input>
-    
-                    <div className="flexMiddle">
-                        <button className={"submitButton"} type="submit" onClick={submit}>
-                            Register
-                        </button>
-                    </div>
-                </div>
-    
-                </form>
-    
-                <div className="flexMiddle">
-                    <div className="newUserContainer">
-    
-                        <div className="flexMiddle" style={{fontSize: '12px'}}>
-                            Can't sign in? - <a href="mailto:kcw90@scarletmail.rutgers.edu?subject=Password%20Reset%20Request&body=Body%20Here" className="clickLink" style={{marginLeft: '5px'}}>Contact us</a>
-                        </div>
-    
-                        <div className="flexMiddle">
-    
-                            <div className="circle" />
-                            <div className="separator" />
-                            <div className="circle" />
-    
-                        </div>
-    
-                        <div className="flexMiddle" style={{fontSize: '12px', marginTop: '5px'}}>
-                            Existing users can <Link id="signin" to="/signin" className="clickLink" style={{marginLeft: '5px', textDecoration: 'none'}}> Log in</Link>
-                        </div>
-    
-                    </div>
-                </div>
+        <div className="n-register-bg">
     
             
-    
+            <section className='n-register-box'>
+
+                <div className='n-register-box2'>
+
+                <div className='n-register-logo-section' onClick={() => navigate('/')}>
+
+                    <img src='/bb-logo.png' style={{height: '2.2rem', width: '2.2rem', cursor: 'pointer'}}/>
+                    <div className='logo-title'>BOOK <strong>BUDDY</strong></div>
+
+                </div>
+
+                <div className='n-register-progress-section'>
+
+                    <div className='n-register-progress-box'>
+
+                        <div className={maxPage >= 1 ? 'n-progress-circle_0' : 'n-progress-circle_1'} onClick={() => handleCircleClick(1)}>1</div>
+                        <div className={maxPage >= 1 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
+
+                        <div className={maxPage >= 2 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
+                        <div className={maxPage >= 2 ? 'n-progress-circle_0' : 'n-progress-circle_1'} onClick={() => handleCircleClick(2)}>2</div>
+                        <div className={maxPage >= 2 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
+
+                        <div className={maxPage >= 3 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
+                        <div className={maxPage >= 3 ? 'n-progress-circle_0' : 'n-progress-circle_1'} onClick={() => handleCircleClick(3)}>3</div>
+                        <div className={maxPage >= 3? 'n-progress-line_0' : 'n-progress-line_1'}/>
+
+                        <div className={maxPage >= 4 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
+                        <div className={maxPage >= 4 ? 'n-progress-circle_0' : 'n-progress-circle_1'} onClick={() => handleCircleClick(4)}>4</div>
+
+                    </div>
+
+                </div>
+
+                {(() => {
+                    switch (currPage) {
+                    case 1:
+                        return (
+                        <RegisterForum_0
+                            setCurrPage={setCurrPage}
+                            email={email}
+                            setEmail={setEmail}
+                            username={username}
+                            setUsername={setUsername}
+                            password={password}
+                            setPassword={setPassword}
+                            setMaxPage={setMaxPage}
+                            maxPage={maxPage}
+                        />
+                        );
+                    case 2:
+                        return (
+                        <RegisterForum_1
+                            email={email}
+                            username={username}
+                            password={password}
+                            setCurrPage={setCurrPage}
+                            currPage={currPage}
+                            setMaxPage={setMaxPage}
+                            maxPage={maxPage}
+                        />
+                        )
+                    case 3:
+                        return (
+                        <RegisterForum_2 
+                            setMaxPage={setMaxPage}
+                            setCurrPage={setCurrPage}
+                            avid={avid}
+                            setAvid={setAvid}
+                            email={email}
+                        />
+                        )
+                    case 4:
+                        return (
+                        <RegisterForum_3 
+                            username={username}
+                        />
+                        )
+                    }
+                })()}
+
+                </div>
+
+            </section>
     
         </div>
       )
