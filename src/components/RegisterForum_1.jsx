@@ -104,7 +104,6 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
 
       const handleBack = () => {
 
-        setMaxPage(3);
         setCurrPage(prev => prev - 1);
 
       }

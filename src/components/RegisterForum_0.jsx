@@ -13,19 +13,52 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
 
     const submitForum = async() => {
 
-        // Check if all fields are filled properly
-        const res = await axios.get('/api/fetch-valid-account', {
-            params: {
-                email,
-                username
+        setUsernameEmpty(false);
+        setEmailEmpty(false);
+        setPasswordEmpty(false);
+        setUsernameTaken(false);
+        setEmailTaken(false);
+
+        let res = [0, 0];
+
+        if (email.length > 0 && username.length > 0){
+
+            // Check if all fields are filled properly
+            res = await axios.get('/api/fetch-valid-account', {
+                params: {
+                    email,
+                    username
+                }
+            })
+
+            if (res.data[0]){
+                setUsernameTaken(true);
             }
-        })
 
+            if (res.data[1]){
+                setEmailTaken(true);
+            }
 
-        setTimeout(() => {
-            setMaxPage(2);
-            setCurrPage(prev => prev + 1);
-        }, 450)
+        }
+
+        if (username.length === 0){
+            setUsernameEmpty(true);
+        }
+
+        if (email.length === 0){
+            setEmailEmpty(true);
+        }
+
+        if (password.length === 0){
+            setPasswordEmpty(true);
+        }
+
+        if (username.length > 0 && email.length > 0 && password.length > 0 & !res.data[0] && !res.data[1]){
+            setTimeout(() => {
+                setMaxPage(2);
+                setCurrPage(prev => prev + 1);
+            }, 450)
+        }
     
     }
 
@@ -43,28 +76,35 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
 
             <div className='n-register-input-info'>Email address</div>
 
-            <input className='n-register-input'
+            <input className={(emailEmpty || emailTaken) ? 'n-register-input-invalid' : 'n-register-input'}
                 placeholder='your-email@gmail.com'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
+            {emailEmpty && <div className='input-error'>Enter a valid email</div>}
+            {emailTaken && <div className='input-error'>This email is already in use</div>}
 
             <div className='n-register-input-info' style={{marginTop: '1.8125rem'}}>Username</div>
 
-            <input className='n-register-input'
+            <input className={(usernameEmpty || usernameTaken) ? 'n-register-input-invalid' : 'n-register-input'}
                 placeholder='WholeMilky'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
 
+            {usernameEmpty && <div className='input-error'>Enter a valid username</div>}
+            {usernameTaken && <div className='input-error'>This username is already in use</div>}
+
             <div className='n-register-input-info' style={{marginTop: '1.8125rem'}}>Password</div>
 
-            <input className='n-register-input'
+            <input className={(passwordEmpty) ? 'n-register-input-invalid' : 'n-register-input'}
                 placeholder='*********'
                 type='password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
+
+            {passwordEmpty && <div className='input-error'>Enter a valid password</div>}
 
             <button className='n-register-btn' onClick={() => submitForum()}>Create Account</button>
 
