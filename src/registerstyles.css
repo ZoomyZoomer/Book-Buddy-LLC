@@ -186,6 +186,8 @@
     font-size: 0.8125rem;
     margin-top: 0.2rem;
     margin-left: 0.4rem;
+    position: absolute;
+    top: 100%;
 }
 
 .n-register-btn {

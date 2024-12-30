@@ -76,35 +76,42 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
 
             <div className='n-register-input-info'>Email address</div>
 
-            <input className={(emailEmpty || emailTaken) ? 'n-register-input-invalid' : 'n-register-input'}
-                placeholder='your-email@gmail.com'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            {emailEmpty && <div className='input-error'>Enter a valid email</div>}
-            {emailTaken && <div className='input-error'>This email is already in use</div>}
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'relative'}}>
+                <input className={(emailEmpty || emailTaken) ? 'n-register-input-invalid' : 'n-register-input'}
+                    placeholder='your-email@gmail.com'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {emailEmpty && <div className='input-error'>Enter a valid email</div>}
+                {emailTaken && <div className='input-error'>This email is already in use</div>}
+            </div>
+            
 
             <div className='n-register-input-info' style={{marginTop: '1.8125rem'}}>Username</div>
 
-            <input className={(usernameEmpty || usernameTaken) ? 'n-register-input-invalid' : 'n-register-input'}
-                placeholder='WholeMilky'
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-
-            {usernameEmpty && <div className='input-error'>Enter a valid username</div>}
-            {usernameTaken && <div className='input-error'>This username is already in use</div>}
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'relative'}}>
+                <input className={(usernameEmpty || usernameTaken) ? 'n-register-input-invalid' : 'n-register-input'}
+                    placeholder='WholeMilky'
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                {usernameEmpty && <div className='input-error'>Enter a valid username</div>}
+                {usernameTaken && <div className='input-error'>This username is already in use</div>}
+            </div>
 
             <div className='n-register-input-info' style={{marginTop: '1.8125rem'}}>Password</div>
 
-            <input className={(passwordEmpty) ? 'n-register-input-invalid' : 'n-register-input'}
-                placeholder='*********'
-                type='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'relative'}}>
+                <input className={(passwordEmpty) ? 'n-register-input-invalid' : 'n-register-input'}
+                    placeholder='*********'
+                    type='password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                {passwordEmpty && <div className='input-error'>Enter a valid password</div>}
+            </div>
 
-            {passwordEmpty && <div className='input-error'>Enter a valid password</div>}
+            
 
             <button className='n-register-btn' onClick={() => submitForum()}>Create Account</button>
 

@@ -6,7 +6,7 @@ import confetti from 'canvas-confetti';
 const RegisterForum_3 = ({username}) => {
 
     const audioRef = useRef(null);
-    const navigate = useNavigate('/');
+    const navigate = useNavigate('/signin');
 
     const playAudio = () => {
         audioRef.current.volume = 0.1;
