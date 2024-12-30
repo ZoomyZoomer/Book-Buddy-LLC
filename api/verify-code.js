@@ -23,7 +23,7 @@ export default async function handler(req, res) {
             return res.status(200).json("success");
         }
 
-        return res.status(500).json('Invalid code');
+        return res.status(400).json('Invalid code');
 
     } catch(e) {
         return res.status(500).json({ message: 'Failed to verify email' });

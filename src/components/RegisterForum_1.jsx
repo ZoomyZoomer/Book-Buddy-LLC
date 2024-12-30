@@ -4,18 +4,14 @@ import axios from 'axios'
 
 const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setMaxPage, maxPage}) => {
 
-    const [num1, setNum1] = useState(null);
-    const [num2, setNum2] = useState(null);
-    const [num3, setNum3] = useState(null);
-    const [num4, setNum4] = useState(null);
-
-    const [generatedCode, setGeneratedCode] = useState(null);
+    const [invalidCode, setInvalidCode] = useState(false);
 
     const [inputValues, setInputValues] = useState(['', '', '', '']);
     const inputRefs = useRef([useRef(null), useRef(null), useRef(null), useRef(null)]);
 
     // Handle typing in the input boxes
     const handleInputChange = (e, index) => {
+      
         const newValue = e.target.value.slice(-1); // Only take the last character typed
     
         // Check if the new value is a number
@@ -35,6 +31,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
       };
 
       const handleKeyDown = (e, index) => {
+    
         if (e.key === 'Backspace') {
           // If the input box is empty and backspace is pressed, move to the previous input box
           if (inputValues[index] === '' && index > 0) {
@@ -94,10 +91,13 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
                     console.error("Failed to create account after verification");
                 }
                 
+            } else {
+                setInvalidCode(true);
             }
 
         } catch(e) {
             console.error("Code can't be verified");
+            setInvalidCode(true);
         }
 
       }
@@ -119,7 +119,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
 
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '3rem'}}>
 
-            <div className='n-register-code-box'>
+            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}>
                 <input
                     key={0}
                     className='n-code-input'
@@ -130,7 +130,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
                     maxLength={1} // Limit each input to 1 character
                 />
             </div>
-            <div className='n-register-code-box'><input className='n-code-input'/>
+            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}><input className='n-code-input'/>
                 <input
                     key={1}
                     className='n-code-input'
@@ -141,7 +141,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
                     maxLength={1} // Limit each input to 1 character
                 />
             </div>
-            <div className='n-register-code-box'><input className='n-code-input'/>
+            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}><input className='n-code-input'/>
                 <input
                     key={2}
                     className='n-code-input'
@@ -152,7 +152,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
                     maxLength={1} // Limit each input to 1 character
                 />
             </div>
-            <div className='n-register-code-box'><input className='n-code-input'/>
+            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}><input className='n-code-input'/>
                 <input
                     key={3}
                     className='n-code-input'
@@ -167,7 +167,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
         </div>
 
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '0.4rem'}}>
-            <div style={{color: '#8B8C8D', fontSize: '0.8rem'}}>Didn't get a code? <u style={{cursor: 'pointer'}} onClick={() => generateCode()}>Click to resend.</u></div>
+            <div style={{color: '#8B8C8D', fontSize: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>{invalidCode && <div style={{color: '#e96d5c', fontWeight: '600'}}>Invalid code &nbsp;</div>} Didn't get a code? <u style={{cursor: 'pointer'}} onClick={() => generateCode()}>Click to resend.</u></div>
         </div>
 
         <div style={{marginTop: '2rem', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
