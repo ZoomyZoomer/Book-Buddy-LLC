@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import confetti from 'canvas-confetti';
 
 const RegisterForum_3 = ({username}) => {
 
@@ -15,6 +16,11 @@ const RegisterForum_3 = ({username}) => {
     useEffect(() => {
         setTimeout(() => {
             playAudio();
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+              });
         }, 850)
     }, [])
 
