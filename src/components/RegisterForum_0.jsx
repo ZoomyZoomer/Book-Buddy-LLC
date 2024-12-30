@@ -1,8 +1,26 @@
 import React from 'react'
+import { useState } from 'react'
+import axios from 'axios';
 
 const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, username, setUsername, password, setPassword}) => {
 
-    const submitForum = () => {
+    const [usernameEmpty, setUsernameEmpty] = useState(false);
+    const [emailEmpty, setEmailEmpty] = useState(false);
+    const [passwordEmpty, setPasswordEmpty] = useState(false);
+
+    const [usernameTaken, setUsernameTaken] = useState(false);
+    const [emailTaken, setEmailTaken] = useState(false);
+
+    const submitForum = async() => {
+
+        // Check if all fields are filled properly
+        const res = await axios.get('/api/fetch-valid-account', {
+            params: {
+                email,
+                username
+            }
+        })
+
 
         setTimeout(() => {
             setMaxPage(2);
