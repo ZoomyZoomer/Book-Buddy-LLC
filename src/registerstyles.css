@@ -35,6 +35,15 @@
     margin-bottom: 5rem;
 }
 
+.n-register-logo-section2 {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 2rem;
+    margin-left: -0.4rem;
+}
+
 .n-register-progress-section {
     width: 100%;
     display: flex;

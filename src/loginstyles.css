@@ -1,0 +1,344 @@
+.n-login-bg {
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-login-box {
+    background-color: white;
+    border-radius: 2rem;
+    width: 80rem;
+    height: 48rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.86);
+    position: relative;
+    border: 1px solid #c0c6ce;
+    box-shadow: 0px 0px 20px rgb(196, 196, 202);
+}
+
+.n-login-section {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-login-m-sec {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+}
+
+.n-login-main-text {
+    color: #06AB78;
+    font-size: 1.625rem;
+    font-weight: 600;
+}
+
+.n-login-sub-text {
+    color: #727E90;
+    font-size: 0.8125rem;
+    margin-top: 0.4rem;
+}
+
+.sign-in-google {
+    border: 1px solid #CDD8EA;
+    border-radius: 0.4rem;
+    background-color: transparent;
+    height: 2.8rem;
+    margin-top: 4rem;
+    color: #454B54;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    transition: background-color 0.3s ease-in-out;
+    filter: grayscale(0.7);
+}
+
+.sign-in-google:hover {
+    cursor: not-allowed;
+    /*
+    background-color: #fafafa;
+    transition: background-color 0.3s ease-in-out;*/
+}
+
+.n-email-seg {
+    height: 1px;
+    width: 30%;
+    background-color: #CDD8EA;
+}
+
+.n-login-input {
+    border: 1px solid #CDD8EA;
+    height: 2.8rem;
+    border-radius: 0.4rem;
+    background-color: #F9FBFF;
+    padding-left: 3.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    color: #454B54;
+    font-family: "Inter";
+}
+
+.n-login-input:focus {
+    outline: 1px solid #b5c0da;
+}
+
+.n-login-input::placeholder {
+    color: #727E90;
+    font-family: "Inter";
+}
+
+.n-checkbox {
+    border: 1px solid #CDD8EA;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+}
+
+.n-checkbox-filled {
+    border: 1px solid #06AB78;
+    background-color: transparent;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.n-checkbox-bg {
+    animation: n-checkbox 0.3s ease-out 1;
+    width: 1rem;
+    height: 1rem;
+    background-color: #06AB78;
+}
+
+@keyframes n-checkbox {
+    0% {
+        margin-bottom: -2rem;
+    }
+    100% {
+        margin-bottom: 0rem;
+    }
+}
+
+.n-check-icon {
+    z-index: 999;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pop-check 0.6s ease-in-out 1;
+}
+
+@keyframes pop-check {
+    0% {
+        transform: scale(0);
+    }
+    49% {
+        transform: scale(0);
+    }
+    85% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.n-log-in-btn {
+    background-color: #06AB78;
+    width: 100%;
+    margin-top: 2rem;
+    height: 2.625rem;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.n-log-in-btn:hover {
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    background-color: #059773;
+}
+
+.n-log-in-btn:active {
+    transform: scale(0.95);
+    transition: transform 0.3s ease-in-out;
+}
+
+.patch_0 {
+    height: 6.4rem;
+    width: 6.4rem;
+    border-radius: 100%;
+    border: 0.5px dashed #898e96;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    background-color: white;
+    animation: back-forth 3s ease-in-out infinite;
+}
+
+@keyframes back-forth {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+
+}
+
+.patch_0_sub {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 100%;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 200;
+}
+
+.patch_0_shadow {
+    background-color: #E8E8E8;
+    height: 6.4rem;
+    width: 6.4rem;
+    border-radius: 100%;
+    position: absolute;
+    top: 8%;
+    left: 8%;
+    z-index: 0;
+}
+
+.patch_1 {
+    height: 4.8rem;
+    width: 4.8rem;
+    border-radius: 100%;
+    border: 0.5px dashed #898e96;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    background-color: white;
+    animation: back-forth 3.5s ease-in-out infinite;
+}
+
+.patch_1_sub {
+    height: 4.4rem;
+    width: 4.4rem;
+    border-radius: 100%;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 200;
+}
+
+.patch_1_shadow {
+    background-color: #E8E8E8;
+    height: 4.8rem;
+    width: 4.8rem;
+    border-radius: 100%;
+    position: absolute;
+    top: 8%;
+    right: 8%;
+    z-index: 0;
+}
+
+.patch_2 {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 100%;
+    border: 0.5px dashed #898e96;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    background-color: white;
+    animation: back-forth 4s ease-in-out infinite;
+}
+
+.patch_2_sub {
+    height: 2.6rem;
+    width: 2.6rem;
+    border-radius: 100%;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 200;
+}
+
+.patch_2_shadow {
+    background-color: #E8E8E8;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 100%;
+    position: absolute;
+    top: 20%;
+    right: 4%;
+    z-index: 0;
+}
+
+.patch_3 {
+    height: 4.4rem;
+    width: 4.4rem;
+    border-radius: 100%;
+    border: 0.5px dashed #898e96;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    background-color: white;
+    animation: back-forth 5s ease-in-out infinite;
+}
+
+.patch_3_sub {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 100%;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 200;
+}
+
+.patch_3_shadow {
+    background-color: #E8E8E8;
+    height: 4.4rem;
+    width: 4.4rem;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 8%;
+    left: 8%;
+    z-index: 0;
+}

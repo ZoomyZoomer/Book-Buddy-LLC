@@ -9,17 +9,14 @@ const secret = 'asdjaisd1203810';
 export default async function handler(req, res) {
 
   if (req.method === 'POST') {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     try {
       // Use the connectToDatabase function to establish a database connection
       await connectToDatabase(); // You still need to connect to the database, but you won't use the db object
 
-      // Find the user by username or email using the User model
-      let userDoc = await User.findOne({ username: username });
-      if (!userDoc) {
-        userDoc = await User.findOne({ email: username });
-      }
+      const userDoc = await User.findOne({ email });
+
 
       // If user is not found, return an error
       if (!userDoc) {
