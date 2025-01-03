@@ -59,7 +59,7 @@ const RegisterForum_3 = ({ username, setMaxPage, email, password }) => {
 
                 }
 
-             }, 2000);
+             }, 800);
 
         } catch (e) {
             console.error("Error in handleStart", e);
