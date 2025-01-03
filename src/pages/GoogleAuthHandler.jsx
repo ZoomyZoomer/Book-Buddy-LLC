@@ -19,7 +19,7 @@ const GoogleAuthHandler = () => {
                     code: code,
                     client_id: '511471509653-1ealvmjfb3tj7lpu15b01n2fd0g7o0tm.apps.googleusercontent.com',
                     client_secret: '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',
-                    redirect_uri: 'http://localhost:3000/auth',
+                    redirect_uri: 'https://book-buddy-app.com/auth',
                     grant_type: 'authorization_code',
                 }),
             })

@@ -4,7 +4,7 @@ const GoogleSignIn = () => {
 
     const handleSignInClick = () => {
         const clientId = '511471509653-1ealvmjfb3tj7lpu15b01n2fd0g7o0tm.apps.googleusercontent.com';
-        const redirectUri = 'http://localhost:3000/auth'; // Change to your redirect URI
+        const redirectUri = 'https://book-buddy-app.com/auth'; // Change to your redirect URI
         const scope = 'email profile'; // Permissions you need
         const state = 'random_state_string'; // Optionally include a state parameter
 

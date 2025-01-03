@@ -59,10 +59,6 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
     
     }
 
-    const googleSignin = () => {
-
-    }
-
   return (
     <>
 
