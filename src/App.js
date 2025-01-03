@@ -14,6 +14,7 @@ import RewardsPage from './pages/RewardsPage'
 import Library from './pages/Library'
 import CreateEntry from './pages/CreateEntry'
 import LandingPage from './pages/LandingPage'
+import GoogleAuthHandler from './pages/GoogleAuthHandler'
 
 axios.defaults.withCredentials = true;
 
@@ -34,6 +35,7 @@ function App() {
       <Route path="/register" element={<SignUpPage />} />
       <Route path="/library" element={<Library />} />
       <Route path="/add-book/:tabName" element={<AddBook />} />
+      <Route path='/auth' element={<GoogleAuthHandler />}/>
       <Route path="/book-contents/:tab_name/:volume_id" element={<BookDetails />} />
       <Route path='/create-entry/:volume_id' element={<CreateEntry />}/>
       <Route path='/rewards' element={<RewardsPage />}/>

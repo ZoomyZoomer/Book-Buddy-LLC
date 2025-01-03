@@ -7,7 +7,10 @@ import { UserContext } from '../components/UserContext';
 import {ReactComponent as Email} from '../n-email.svg'
 import {ReactComponent as Lock} from '../n-lock.svg'
 import {ReactComponent as Check} from '../n-checkm.svg'
+import { Helmet } from 'react-helmet';
+
 import '../loginstyles.css'
+import GoogleSignIn from '../components/GoogleSignIn';
 
 
 function LoginPage() {
@@ -28,26 +31,6 @@ function LoginPage() {
             audioRef.current.play();
         }, 300)
     };
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-          try {
-            const response = await axios.get('/api/profile', {
-              withCredentials: true,
-            });
-            setUserInfo(response.data.user);
-
-            if (response.data.user){
-            
-            }
-            
-          } catch (e) {
-            console.log(e);
-          }
-        };
-    
-        fetchProfile();
-      }, []);
 
       const handleRemember = async(isRemembered) => {
 
@@ -128,9 +111,7 @@ function LoginPage() {
                     <div className='n-login-main-text'>Log in to your Account</div>
                     <div className='n-login-sub-text'>Welcome back! Select a method to log in:</div>
 
-                    <button className='sign-in-google'>
-                        <img src='/google-icon.png' style={{height: '1.8rem', marginRight: '0.2rem'}}/> Sign in with Google
-                    </button>
+                    <GoogleSignIn />
 
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem', marginBottom: '2rem', width: '100%'}}>
 

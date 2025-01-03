@@ -57,20 +57,19 @@
     background-color: transparent;
     height: 2.8rem;
     margin-top: 4rem;
+    width: 100%;
     color: #454B54;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 600;
     transition: background-color 0.3s ease-in-out;
-    filter: grayscale(0.7);
 }
 
 .sign-in-google:hover {
-    cursor: not-allowed;
-    /*
+    cursor: pointer;
     background-color: #fafafa;
-    transition: background-color 0.3s ease-in-out;*/
+    transition: background-color 0.3s ease-in-out;
 }
 
 .n-email-seg {
@@ -96,6 +95,27 @@
 }
 
 .n-login-input::placeholder {
+    color: #727E90;
+    font-family: "Inter";
+}
+
+.n-login-input-error {
+    border: 1px solid rgb(231, 108, 104);
+    height: 2.8rem;
+    border-radius: 0.4rem;
+    background-color: #F9FBFF;
+    padding-left: 3.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    color: #454B54;
+    font-family: "Inter";
+}
+
+.n-login-input-error:focus {
+    outline: 1px solid rgb(219, 106, 91);
+}
+
+.n-login-input-error::placeholder {
     color: #727E90;
     font-family: "Inter";
 }

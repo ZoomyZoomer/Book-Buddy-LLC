@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios';
+import {ReactComponent as Email} from '../n-email.svg'
+import {ReactComponent as Lock} from '../n-lock.svg'
 
 const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, username, setUsername, password, setPassword}) => {
 
@@ -21,7 +23,7 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
 
         let res = [0, 0];
 
-        if (email.length > 0 && username.length > 0){
+        if (email.length > 0){
 
             // Check if all fields are filled properly
             res = await axios.get('/api/fetch-valid-account', {
@@ -31,9 +33,6 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
                 }
             })
 
-            if (res.data[0]){
-                setUsernameTaken(true);
-            }
 
             if (res.data[1]){
                 setEmailTaken(true);
@@ -41,9 +40,6 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
 
         }
 
-        if (username.length === 0){
-            setUsernameEmpty(true);
-        }
 
         if (email.length === 0){
             setEmailEmpty(true);
@@ -53,7 +49,7 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
             setPasswordEmpty(true);
         }
 
-        if (username.length > 0 && email.length > 0 && password.length > 0 & !res.data[0] && !res.data[1]){
+        if (email.length > 0 && password.length > 0 && !res.data[1]){
             setTimeout(() => {
                 setMaxPage(2);
                 setCurrPage(prev => prev + 1);
@@ -65,59 +61,61 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
   return (
     <>
 
-        <div className='n-register-main-text'>
-            <div>Let's get the pages turning...</div>
-            <div style={{fontSize: '0.7em', color: '#8B8C8D', fontWeight: '400', marginTop: '0.425rem'}}>First, we need some basic information.</div>
-        </div>
+        <div className='n-register-right-content'>
 
-        <div className='n-register-input-boxes'>
+            <img src='/bb-logo.png' style={{width: '4rem', marginTop: '4rem'}}/>
+            <div className='n-register-top-0'>Create a free Account</div>
+            <div className='n-register-top-1'>Provide your credentials to create an account.</div>
 
-            <div style={{width: '22rem', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+            <button className='sign-in-google' style={{marginBottom: '2.4rem', marginTop: '4rem'}}>
+                <img src='/google-icon.png' style={{height: '1.8rem', marginRight: '0.2rem'}}/> Sign up with Google
+            </button>
 
-            <div className='n-register-input-info'>Email address</div>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+                <div className='n-email-seg'/>
+                    <div style={{color: '#727E90', fontSize: '0.625rem', width: '40%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>or continue with email</div>
+                <div className='n-email-seg'/>
+            </div>
 
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'relative'}}>
-                <input className={(emailEmpty || emailTaken) ? 'n-register-input-invalid' : 'n-register-input'}
-                    placeholder='your-email@gmail.com'
+            <div style={{position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2.4rem'}}>
+                <input className={(!emailEmpty && !emailTaken) ? 'n-login-input' : 'n-login-input-error'}
+                    placeholder='Email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                {emailEmpty && <div className='input-error'>Enter a valid email</div>}
-                {emailTaken && <div className='input-error'>This email is already in use</div>}
-            </div>
-            
 
-            <div className='n-register-input-info' style={{marginTop: '1.8125rem'}}>Username</div>
+                <div style={{position: 'absolute', left: '5%', display: 'flex'}}><Email /></div>
 
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'relative'}}>
-                <input className={(usernameEmpty || usernameTaken) ? 'n-register-input-invalid' : 'n-register-input'}
-                    placeholder='WholeMilky'
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                {usernameEmpty && <div className='input-error'>Enter a valid username</div>}
-                {usernameTaken && <div className='input-error'>This username is already in use</div>}
+                {emailEmpty && <div className='n-register-error'>Enter a valid email</div>}
+                {emailTaken && <div className='n-register-error'>Email is already in use</div>}
+
             </div>
 
-            <div className='n-register-input-info' style={{marginTop: '1.8125rem'}}>Password</div>
-
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', position: 'relative'}}>
-                <input className={(passwordEmpty) ? 'n-register-input-invalid' : 'n-register-input'}
-                    placeholder='*********'
+            <div style={{position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1.8125rem'}}>
+                <input className={!passwordEmpty ? 'n-login-input' : 'n-login-input-error'}
+                    placeholder='Password'
                     type='password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                {passwordEmpty && <div className='input-error'>Enter a valid password</div>}
-            </div>
 
-            
+                <div style={{position: 'absolute', left: '5%', display: 'flex'}}><Lock /></div>
 
-            <button className='n-register-btn' onClick={() => submitForum()}>Create Account</button>
+                {passwordEmpty && <div className='n-register-error'>Enter a valid password</div>}
 
             </div>
 
-        </div>
+            <button className='n-log-in-btn' style={{marginTop: '2.4rem'}} onClick={() => {submitForum()}}>Continue</button>
+
+            <div className='n-register-right-progress-flex'>
+                <div className='n-progress-active'/>
+                <div className='n-progress-inactive'/>
+                <div className='n-progress-inactive'/>
+                <div className='n-progress-inactive'/>
+            </div>
+
+        </div>        
+
     </>
   )
 }

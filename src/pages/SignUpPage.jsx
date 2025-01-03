@@ -1,9 +1,15 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { ReactComponent as Logo } from '../logo.svg';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import {ReactComponent as User} from '../n-user-reg.svg'
+import {ReactComponent as UserWhite} from '../n-user-reg-white.svg'
+import {ReactComponent as Email} from '../n-email-reg.svg'
+import {ReactComponent as Question} from '../n-question-reg.svg'
+import {ReactComponent as Checkmark} from '../n-checkmark-reg.svg'
+import {ReactComponent as LeftArrow} from '../n-left-reg.svg'
 import { useEffect } from 'react';
 import '../registerstyles.css';
+import '../loginstyles.css';
 import RegisterForum_0 from '../components/RegisterForum_0';
 import RegisterForum_1 from '../components/RegisterForum_1';
 import RegisterForum_2 from '../components/RegisterForum_2';
@@ -23,27 +29,8 @@ function SignUpPage() {
 
     const [avid, setAvid] = useState(null);
 
-    useEffect(() => {
-        const fetchProfile = async () => {
-          try {
-            const response = await axios.get('/api/profile', {
-              withCredentials: true,
-            });
-            setUserInfo(response.data.user);
-
-            if (response.data.user){
-
-            }
-
-            console.log(userInfo);
-            
-          } catch (e) {
-            console.log(e);
-          }
-        };
-    
-        fetchProfile();
-      }, []);
+    const location = useLocation();  // Get the location object
+    const { auth_email } = location.state || {};  // Extract the parameters from state
 
       const handleCircleClick = (num) => {
 
@@ -86,94 +73,118 @@ function SignUpPage() {
 
     }*/
 
+        useEffect(() => {
+            if (auth_email){
+                setMaxPage(3);
+                setCurrPage(3);
+            }
+        }, [auth_email])
+
 
     return (
         <div className="n-register-bg">
     
-            
-            <section className='n-register-box'>
+            <div className='n-register-box'>
 
-                <div className='n-register-box2'>
+                <div className='n-register-left-sec'>
 
-                <div className='n-register-logo-section' onClick={() => navigate('/')}>
+                    <div style={{display: 'flex', justifyContent: 'left', flexDirection: 'column', height: '100%', position: 'relative', width: '20rem'}}>
 
-                    <img src='/bb-logo.png' style={{height: '2.2rem', width: '2.2rem', cursor: 'pointer'}}/>
-                    <div className='logo-title'>BOOK <strong>BUDDY</strong></div>
+                    <img src='/bb-logo.png' className='n-register-shadow-logo'/>
 
-                </div>
+                    <div style={{height: '100%', width: '75%', display: 'flex', flexDirection: 'column', justifyContent: 'left', alignItems: 'center'}}>
 
-                <div className='n-register-progress-section'>
+                        <div className='n-register-logo-section' onClick={() => navigate('/')}>
+                            <img src='/bb-logo.png' style={{height: '2.2rem', width: '2.2rem', cursor: 'pointer'}}/>
+                            <div className='logo-title'>BOOK <strong>BUDDY</strong></div>
+                        </div>
 
-                    <div className='n-register-progress-box'>
+                        <div className='n-register-sections-container'>
 
-                        <div className={maxPage >= 1 ? 'n-progress-circle_0' : 'n-progress-circle_1'} onClick={() => handleCircleClick(1)}>1</div>
-                        <div className={maxPage >= 1 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
+                            <div className='n-register-lvl-flex'>
 
-                        <div className={maxPage >= 2 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
-                        <div className={maxPage >= 2 ? 'n-progress-circle_0' : 'n-progress-circle_1'} onClick={() => handleCircleClick(2)}>2</div>
-                        <div className={maxPage >= 2 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
+                                <div className={maxPage === 1 ? 'n-register-lvl-box-current' : 'n-register-lvl-box-complete'}>
+                                    {maxPage <= 1 ? <User /> : <UserWhite />}
+                                    <div className={maxPage <= 1 ? 'n-register-lvl-line-incomplete' : 'n-register-lvl-line-complete'}/>
+                                </div>
+                                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left', marginLeft: '1.6rem'}}>
+                                    <div className={maxPage <= 1 ? 'n-register-lvl-0-incomplete' : 'n-register-lvl-0-complete'}>Your details</div>
+                                    <div className={maxPage <= 1 ? 'n-register-lvl-1-incomplete' : 'n-register-lvl-1-complete'}>Provide an email & password</div>
+                                </div>
 
-                        <div className={maxPage >= 3 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
-                        <div className={maxPage >= 3 ? 'n-progress-circle_0' : 'n-progress-circle_1'} onClick={() => handleCircleClick(3)}>3</div>
-                        <div className={maxPage >= 3? 'n-progress-line_0' : 'n-progress-line_1'}/>
+                            </div>
 
-                        <div className={maxPage >= 4 ? 'n-progress-line_0' : 'n-progress-line_1'}/>
-                        <div className={maxPage >= 4 ? 'n-progress-circle_0' : 'n-progress-circle_1'} onClick={() => handleCircleClick(4)}>4</div>
+                            <div style={{height: '2.4375rem', width: '100%'}}/>
+
+                            <div className='n-register-lvl-flex'>
+
+                                <div className={maxPage < 2 ? 'n-register-lvl-box' : maxPage === 2 ? 'n-register-lvl-box-current' : 'n-register-lvl-box-complete'}>
+                                    <Email />
+                                    <div className='n-register-lvl-line-incomplete'/>
+                                </div>
+                                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left', marginLeft: '1.6rem'}}>
+                                    <div className='n-register-lvl-0-incomplete'>Verify your email</div>
+                                    <div className='n-register-lvl-1-incomplete'>Enter your verification code</div>
+                                </div>
+
+                            </div>
+
+                            <div style={{height: '2.4375rem', width: '100%'}}/>
+
+                            <div className='n-register-lvl-flex'>
+
+                                <div className='n-register-lvl-box'>
+                                    <Question />
+                                    <div className='n-register-lvl-line-incomplete'/>
+                                </div>
+                                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left', marginLeft: '1.6rem'}}>
+                                    <div className='n-register-lvl-0-incomplete'>Quick questions</div>
+                                    <div className='n-register-lvl-1-incomplete'>Tell us about your reading habits</div>
+                                </div>
+
+                            </div>
+
+                            <div style={{height: '2.4375rem', width: '100%'}}/>
+
+                            <div className='n-register-lvl-flex'>
+
+                                <div className='n-register-lvl-box'>
+                                    <Checkmark />
+                                </div>
+                                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left', marginLeft: '1.6rem'}}>
+                                    <div className='n-register-lvl-0-incomplete'>Welcome!</div>
+                                    <div className='n-register-lvl-1-incomplete'>Begin your journey</div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                        <div className='n-register-left-back' onClick={() => navigate('/')}><LeftArrow />&nbsp;Back to Home</div>
+                        <div className='n-register-left-sign-in' onClick={() => navigate('/signin')}>Sign in</div>
 
                     </div>
 
                 </div>
 
+                <div className='n-register-right-sec'>
+
                 {(() => {
                     switch (currPage) {
-                    case 1:
-                        return (
-                        <RegisterForum_0
-                            setCurrPage={setCurrPage}
-                            email={email}
-                            setEmail={setEmail}
-                            username={username}
-                            setUsername={setUsername}
-                            password={password}
-                            setPassword={setPassword}
-                            setMaxPage={setMaxPage}
-                            maxPage={maxPage}
-                        />
-                        );
-                    case 2:
-                        return (
-                        <RegisterForum_1
-                            email={email}
-                            username={username}
-                            password={password}
-                            setCurrPage={setCurrPage}
-                            currPage={currPage}
-                            setMaxPage={setMaxPage}
-                            maxPage={maxPage}
-                        />
-                        )
-                    case 3:
-                        return (
-                        <RegisterForum_2 
-                            setMaxPage={setMaxPage}
-                            setCurrPage={setCurrPage}
-                            avid={avid}
-                            setAvid={setAvid}
-                            email={email}
-                        />
-                        )
-                    case 4:
-                        return (
-                        <RegisterForum_3 
-                            username={username}
-                        />
-                        )
+                        case 1:
+                            return <RegisterForum_0 setMaxPage={setMaxPage} setCurrPage={setCurrPage} username={'null'} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>;
+                        default:
+                            return null;
                     }
                 })()}
+                    
 
                 </div>
 
-            </section>
+            </div>
     
         </div>
       )

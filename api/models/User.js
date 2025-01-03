@@ -19,7 +19,8 @@ const UserSchema = new Schema({
     verificationCode: { type: Number },
     codeExpiresAt: { type: Date },
     isVerified: { type: Boolean, default: false },
-    reader: {type: String, default: 'Newcomer'}
+    reader: {type: String, default: 'Newcomer'},
+    googleAuth: {type: Boolean, default: false}
 });
 
 const UserModel = model('User', UserSchema);
