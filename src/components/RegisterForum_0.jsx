@@ -3,6 +3,7 @@ import { useState } from 'react'
 import axios from 'axios';
 import {ReactComponent as Email} from '../n-email.svg'
 import {ReactComponent as Lock} from '../n-lock.svg'
+import GoogleSignIn from './GoogleSignIn';
 
 const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, username, setUsername, password, setPassword}) => {
 
@@ -58,8 +59,8 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
     
     }
 
-    const GoogleSignin = () => {
-        
+    const googleSignin = () => {
+
     }
 
   return (
@@ -71,11 +72,9 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
             <div className='n-register-top-0'>Create a free Account</div>
             <div className='n-register-top-1'>Provide your credentials to create an account.</div>
 
-            <button className='sign-in-google' style={{marginBottom: '2.4rem', marginTop: '4rem'}}>
-                <img src='/google-icon.png' style={{height: '1.8rem', marginRight: '0.2rem'}} onClick={() => googleSignin()}/> Sign up with Google
-            </button>
+            <GoogleSignIn />
 
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '2.4rem'}}>
                 <div className='n-email-seg'/>
                     <div style={{color: '#727E90', fontSize: '0.625rem', width: '40%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>or continue with email</div>
                 <div className='n-email-seg'/>

@@ -16,11 +16,9 @@ const GoogleSignIn = () => {
     };
 
     return (
-        <div>
-            <button className='sign-in-google' onClick={handleSignInClick}>
-                <img src='/google-icon.png' style={{height: '1.8rem', marginRight: '0.2rem'}}/> Sign in with Google
-            </button>
-        </div>
+        <button className='sign-in-google' onClick={handleSignInClick}>
+            <img src='/google-icon.png' style={{height: '1.8rem', marginRight: '0.2rem'}}/> Sign in with Google
+        </button>
     );
 };
 
