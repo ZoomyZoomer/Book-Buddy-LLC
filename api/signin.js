@@ -22,9 +22,16 @@ export default async function handler(req, res) {
       if (!userDoc) {
         return res.status(400).json('Wrong credentials');
       }
+      let validPassword = false;
 
-      // Validate the password
-      const validPassword = bcrypt.compareSync(password, userDoc.password);
+      if (!userDoc.googleAuth){
+        validPassword = bcrypt.compareSync(password, userDoc.password);
+      } else {
+        if (userDoc.password == password){
+          validPassword = true;
+        }
+      }
+    
 
       if (validPassword) {
         // Use userDoc.username for the token payload instead of the input username
