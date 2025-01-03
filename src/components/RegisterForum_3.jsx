@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 import axios from 'axios';
 
-const RegisterForum_3 = ({ username, setMaxPage, email }) => {
+const RegisterForum_3 = ({ username, setMaxPage, email, password }) => {
 
     const audioRef = useRef(null);
     const navigate = useNavigate();
@@ -43,7 +43,23 @@ const RegisterForum_3 = ({ username, setMaxPage, email }) => {
             })
 
             setMaxPage(5);
-            setTimeout(() => { navigate('/signin'); }, 800);
+            setTimeout(async() => { 
+
+                try {
+                    await axios.post("/api/signin", {
+                        email,
+                        password
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    navigate('/library');
+                } catch(e){
+
+                }
+
+             }, 800);
 
         } catch (e) {
             console.error("Error in handleStart", e);

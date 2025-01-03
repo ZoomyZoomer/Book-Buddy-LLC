@@ -79,6 +79,7 @@ function SignUpPage() {
         useEffect(() => {
             if (auth_email){
                 setEmail(auth_email);
+                setPassword(auth_email + "_null");
                 setMaxPage(3);
                 setCurrPage(3);
             }
@@ -185,7 +186,7 @@ function SignUpPage() {
                         case 3:
                             return <RegisterForum_2 setAvid={setAvid} email={email} avid={avid} setMaxPage={setMaxPage} setCurrPage={setCurrPage} setUsername={setUsername} username={username}/>
                         case 4:
-                            return <RegisterForum_3 username={username} setMaxPage={setMaxPage} email={email}/>
+                            return <RegisterForum_3 username={username} setMaxPage={setMaxPage} email={email} password={password}/>
                         default:
                             return null;
                     }
