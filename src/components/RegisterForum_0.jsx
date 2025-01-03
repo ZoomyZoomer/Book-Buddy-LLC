@@ -22,6 +22,7 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
         setEmailTaken(false);
 
         let res = [0, 0];
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (email.length > 0){
 
@@ -40,8 +41,7 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
 
         }
 
-
-        if (email.length === 0){
+        if ((email.length === 0) || !emailRegex.test(email)){
             setEmailEmpty(true);
         }
 
@@ -49,13 +49,17 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
             setPasswordEmpty(true);
         }
 
-        if (email.length > 0 && password.length > 0 && !res.data[1]){
+        if (email.length > 0 && password.length > 0 && !res.data[1] && emailRegex.test(email)){
             setTimeout(() => {
                 setMaxPage(2);
-                setCurrPage(prev => prev + 1);
+                setCurrPage(2);
             }, 450)
         }
     
+    }
+
+    const GoogleSignin = () => {
+        
     }
 
   return (
@@ -68,7 +72,7 @@ const RegisterForum_0 = ({setCurrPage, setMaxPage, maxPage, email, setEmail, use
             <div className='n-register-top-1'>Provide your credentials to create an account.</div>
 
             <button className='sign-in-google' style={{marginBottom: '2.4rem', marginTop: '4rem'}}>
-                <img src='/google-icon.png' style={{height: '1.8rem', marginRight: '0.2rem'}}/> Sign up with Google
+                <img src='/google-icon.png' style={{height: '1.8rem', marginRight: '0.2rem'}} onClick={() => googleSignin()}/> Sign up with Google
             </button>
 
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}>

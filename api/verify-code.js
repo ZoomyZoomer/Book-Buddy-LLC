@@ -16,8 +16,7 @@ export default async function handler(req, res) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        if ((user.verificationCode === code) && !user.isVerified){
-            user.isVerified = true;
+        if ((user.verificationCode === code)){
             await user.save();
 
             return res.status(200).json("success");

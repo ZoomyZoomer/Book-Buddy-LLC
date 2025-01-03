@@ -53,7 +53,9 @@ const GoogleAuthHandler = () => {
                             navigate('/library');
                         } else if (res.data === 0){
                             navigate('/register', {state: {auth_email: userInfo.email}});
-                        } 
+                        } else if (res.data === 2){
+                            navigate('/signin');
+                        }
 
                     }
 

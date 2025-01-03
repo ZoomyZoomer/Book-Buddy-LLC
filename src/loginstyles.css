@@ -181,6 +181,7 @@
         transform: scale(1);
     }
 }
+
 .n-log-in-btn {
     background-color: #06AB78;
     width: 100%;
@@ -201,6 +202,19 @@
 .n-log-in-btn:active {
     transform: scale(0.95);
     transition: transform 0.3s ease-in-out;
+}
+
+.n-log-in-btn-null {
+    background-color: #06AB78;
+    width: 100%;
+    margin-top: 2rem;
+    height: 2.625rem;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    filter: grayscale(0.7);
+    cursor: not-allowed;
 }
 
 .patch_0 {

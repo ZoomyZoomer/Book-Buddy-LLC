@@ -4,8 +4,11 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {ReactComponent as User} from '../n-user-reg.svg'
 import {ReactComponent as UserWhite} from '../n-user-reg-white.svg'
 import {ReactComponent as Email} from '../n-email-reg.svg'
+import {ReactComponent as EmailWhite} from '../n-email-reg-white.svg'
 import {ReactComponent as Question} from '../n-question-reg.svg'
+import {ReactComponent as QuestionWhite} from '../n-question-reg-white.svg'
 import {ReactComponent as Checkmark} from '../n-checkmark-reg.svg'
+import {ReactComponent as CheckmarkWhite} from '../n-checkmark-reg-white.svg'
 import {ReactComponent as LeftArrow} from '../n-left-reg.svg'
 import { useEffect } from 'react';
 import '../registerstyles.css';
@@ -75,6 +78,7 @@ function SignUpPage() {
 
         useEffect(() => {
             if (auth_email){
+                setEmail(auth_email);
                 setMaxPage(3);
                 setCurrPage(3);
             }
@@ -108,8 +112,8 @@ function SignUpPage() {
                                     <div className={maxPage <= 1 ? 'n-register-lvl-line-incomplete' : 'n-register-lvl-line-complete'}/>
                                 </div>
                                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left', marginLeft: '1.6rem'}}>
-                                    <div className={maxPage <= 1 ? 'n-register-lvl-0-incomplete' : 'n-register-lvl-0-complete'}>Your details</div>
-                                    <div className={maxPage <= 1 ? 'n-register-lvl-1-incomplete' : 'n-register-lvl-1-complete'}>Provide an email & password</div>
+                                    <div className={maxPage < 1 ? 'n-register-lvl-0-incomplete' : 'n-register-lvl-0-complete'}>Your details</div>
+                                    <div className={maxPage < 1 ? 'n-register-lvl-1-incomplete' : 'n-register-lvl-1-complete'}>Provide an email & password</div>
                                 </div>
 
                             </div>
@@ -119,12 +123,12 @@ function SignUpPage() {
                             <div className='n-register-lvl-flex'>
 
                                 <div className={maxPage < 2 ? 'n-register-lvl-box' : maxPage === 2 ? 'n-register-lvl-box-current' : 'n-register-lvl-box-complete'}>
-                                    <Email />
-                                    <div className='n-register-lvl-line-incomplete'/>
+                                    {maxPage <= 2 ? <Email /> : <EmailWhite />}
+                                    <div className={maxPage <= 2 ? 'n-register-lvl-line-incomplete' : 'n-register-lvl-line-complete'}/>
                                 </div>
                                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left', marginLeft: '1.6rem'}}>
-                                    <div className='n-register-lvl-0-incomplete'>Verify your email</div>
-                                    <div className='n-register-lvl-1-incomplete'>Enter your verification code</div>
+                                    <div className={maxPage < 2 ? 'n-register-lvl-0-incomplete' : 'n-register-lvl-0-complete'}>Verify your email</div>
+                                    <div className={maxPage < 2 ? 'n-register-lvl-1-incomplete' : 'n-register-lvl-1-complete'}>Enter your verification code</div>
                                 </div>
 
                             </div>
@@ -133,13 +137,13 @@ function SignUpPage() {
 
                             <div className='n-register-lvl-flex'>
 
-                                <div className='n-register-lvl-box'>
-                                    <Question />
-                                    <div className='n-register-lvl-line-incomplete'/>
+                                <div className={maxPage < 3 ? 'n-register-lvl-box' : maxPage === 3 ? 'n-register-lvl-box-current' : 'n-register-lvl-box-complete'}>
+                                {maxPage <= 3 ? <Question /> : <QuestionWhite />}
+                                    <div className={maxPage <= 3 ? 'n-register-lvl-line-incomplete' : 'n-register-lvl-line-complete'}/>
                                 </div>
                                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left', marginLeft: '1.6rem'}}>
-                                    <div className='n-register-lvl-0-incomplete'>Quick questions</div>
-                                    <div className='n-register-lvl-1-incomplete'>Tell us about your reading habits</div>
+                                    <div className={maxPage < 3 ? 'n-register-lvl-0-incomplete' : 'n-register-lvl-0-complete'}>Quick question</div>
+                                    <div className={maxPage < 3 ? 'n-register-lvl-1-incomplete' : 'n-register-lvl-1-complete'}>Tell us about your reading habits</div>
                                 </div>
 
                             </div>
@@ -148,12 +152,12 @@ function SignUpPage() {
 
                             <div className='n-register-lvl-flex'>
 
-                                <div className='n-register-lvl-box'>
-                                    <Checkmark />
+                                <div className={maxPage < 4 ? 'n-register-lvl-box' : maxPage === 4 ? 'n-register-lvl-box-current' : 'n-register-lvl-box-complete'}>
+                                {maxPage <= 4 ? <Checkmark /> : <CheckmarkWhite />}
                                 </div>
                                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left', marginLeft: '1.6rem'}}>
-                                    <div className='n-register-lvl-0-incomplete'>Welcome!</div>
-                                    <div className='n-register-lvl-1-incomplete'>Begin your journey</div>
+                                    <div className={maxPage < 4 ? 'n-register-lvl-0-incomplete' : 'n-register-lvl-0-complete'}>Welcome!</div>
+                                    <div className={maxPage < 4 ? 'n-register-lvl-1-incomplete' : 'n-register-lvl-1-complete'}>Begin your journey</div>
                                 </div>
 
                             </div>
@@ -176,6 +180,12 @@ function SignUpPage() {
                     switch (currPage) {
                         case 1:
                             return <RegisterForum_0 setMaxPage={setMaxPage} setCurrPage={setCurrPage} username={'null'} email={email} setEmail={setEmail} password={password} setPassword={setPassword}/>;
+                        case 2:
+                            return <RegisterForum_1 email={email} setCurrPage={setCurrPage} password={password} setMaxPage={setMaxPage}/>
+                        case 3:
+                            return <RegisterForum_2 setAvid={setAvid} email={email} avid={avid} setMaxPage={setMaxPage} setCurrPage={setCurrPage} setUsername={setUsername} username={username}/>
+                        case 4:
+                            return <RegisterForum_3 username={username} setMaxPage={setMaxPage} email={email}/>
                         default:
                             return null;
                     }

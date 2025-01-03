@@ -5,6 +5,7 @@ import axios from 'axios'
 const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setMaxPage, maxPage}) => {
 
     const [invalidCode, setInvalidCode] = useState(false);
+    let mutex = false;
 
     const [inputValues, setInputValues] = useState(['', '', '', '']);
     const inputRefs = useRef([useRef(null), useRef(null), useRef(null), useRef(null)]);
@@ -54,7 +55,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
             
             await axios.post('/api/send-code', {
                 email,
-                username,
+                username: email,
                 password
             })
 
@@ -66,7 +67,10 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
       }
 
       useEffect(() => {
-        generateCode();
+        if (!mutex){
+            mutex = true;
+            generateCode();
+        }
       }, [])
 
       const verifyCode = async() => {
@@ -79,18 +83,10 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
             })
 
             if (res.status === 200){
-                try {
-                    await axios.post('/api/register', {
-                        email,
-                        username
-                    })
-
-                    setMaxPage(Math.max(maxPage, 3));
-                    setCurrPage(prev => prev + 1);
-                } catch(e){
-                    console.error("Failed to create account after verification");
-                }
-                
+            
+                setMaxPage(3);
+                setCurrPage(3);
+  
             } else {
                 setInvalidCode(true);
             }
@@ -103,21 +99,19 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
       }
 
       const handleBack = () => {
-
         setCurrPage(prev => prev - 1);
-
       }
 
   return (
     <>
     
-        <div className='n-register-main-text'>
-            <div>Now let's verify your email</div>
-            <div style={{fontSize: '0.7em', color: '#8B8C8D', fontWeight: '400', marginTop: '0.425rem'}}>We've sent a code to <strong>{email}</strong></div>
-            <div style={{fontSize: '0.7em', color: '#8B8C8D', fontWeight: '400', marginTop: '0.1rem'}}>{'> Please check your spam folder <'}</div>
-        </div>
+    <div className='n-register-right-content'>
+        
+            <img src='/bb-logo.png' style={{width: '4rem', marginTop: '4rem'}}/>
+            <div className='n-register-top-0'>Verify your email address</div>
+            <div className='n-register-top-1'>We’ve sent a code to {email}</div>
 
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '3rem'}}>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '5rem'}}>
 
             <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}>
                 <input
@@ -130,7 +124,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
                     maxLength={1} // Limit each input to 1 character
                 />
             </div>
-            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}><input className='n-code-input'/>
+            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}>
                 <input
                     key={1}
                     className='n-code-input'
@@ -141,7 +135,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
                     maxLength={1} // Limit each input to 1 character
                 />
             </div>
-            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}><input className='n-code-input'/>
+            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}>
                 <input
                     key={2}
                     className='n-code-input'
@@ -152,7 +146,7 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
                     maxLength={1} // Limit each input to 1 character
                 />
             </div>
-            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}><input className='n-code-input'/>
+            <div className={!invalidCode ? 'n-register-code-box' : 'n-register-code-box-invalid'}>
                 <input
                     key={3}
                     className='n-code-input'
@@ -166,14 +160,24 @@ const RegisterForum_1 = ({email, username, password, setCurrPage, currPage, setM
 
         </div>
 
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '0.4rem'}}>
-            <div style={{color: '#8B8C8D', fontSize: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>{invalidCode && <div style={{color: '#e96d5c', fontWeight: '600'}}>Invalid code &nbsp;</div>} Didn't get a code? <u style={{cursor: 'pointer'}} onClick={() => generateCode()}>Click to resend.</u></div>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '1rem'}}>
+            <div style={{color: '#727E90', fontSize: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>{invalidCode && <div style={{color: '#e96d5c', fontWeight: '600'}}>Invalid code &nbsp;</div>} Didn't get a code?&nbsp;<u style={{cursor: 'pointer'}} onClick={() => {mutex = false; setTimeout(() => {generateCode()},300)}}>Click to resend.</u></div>
         </div>
+        <div style={{color: '#06AB78', fontWeight: '600', marginTop: '0.4rem', fontSize: '1rem'}}>{'> Please check your spam folder <'}</div>
 
         <div style={{marginTop: '2rem', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <button className='n-go-back-btn' onClick={() => handleBack()}>Go Back</button>
             <button className='n-verify-btn' onClick={() => verifyCode()}>Verify</button>
         </div>
+
+        <div className='n-register-right-progress-flex'>
+            <div className='n-progress-active'/>
+            <div className='n-progress-active'/>
+            <div className='n-progress-inactive'/>
+            <div className='n-progress-inactive'/>
+        </div>
+
+    </div>
 
     </>
   )
