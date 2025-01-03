@@ -24,7 +24,7 @@ const RegisterForum_3 = ({ username, setMaxPage, email }) => {
             confetti({
                 particleCount: 100,
                 spread: 70,
-                origin: { y: 0.6 },
+                origin: { y: 0.6, x: 0.6 },
             });
         }, 850);
     }, []);
