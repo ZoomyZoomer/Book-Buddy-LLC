@@ -17,7 +17,7 @@ export default async function handler(req, res) {
             await User.create({
                 username: name,
                 email,
-                password: email + '_null', // Assuming your schema allows `null` for Google Auth
+                password: email + '_null', // Assuming your schema allows a placeholder password
                 googleAuth: true
             });
 
@@ -25,37 +25,33 @@ export default async function handler(req, res) {
         }
 
         if (userDoc.googleAuth) {
-            const token = await new Promise((resolve, reject) => {
-                jwt.sign(
-                    { username: userDoc.username, id: userDoc._id },
-                    secret,
-                    {},
-                    (err, token) => {
-                        if (err) reject(err);
-                        resolve(token);
+            jwt.sign(
+                { username: userDoc.username, id: userDoc._id },
+                secret,
+                {},
+                (err, token) => {
+                    if (err) {
+                        console.error('JWT sign error:', err);
+                        return res.status(500).json({ error: 'Token generation failed' });
                     }
-                );
-            });
-
-            jwt.sign({ username: userDoc.username, id: userDoc._id }, secret, {}, (err, token) => {
-                      if (err) throw err;
-            
-                      // Set the token in cookies
-                      res.setHeader('Set-Cookie', cookie.serialize('token', token, {
-                        httpOnly: true,
-                        secure: process.env.NODE_ENV === 'production', // Ensure secure cookies in production
-                        sameSite: 'strict',
-                        path: '/',
-                      }));
-            
-                      // Return user details as a JSON response
-                      res.status(200).json(1);
-            });
+                    res.setHeader(
+                        'Set-Cookie',
+                        cookie.serialize('token', token, {
+                            httpOnly: true,
+                            secure: process.env.NODE_ENV === 'production',
+                            sameSite: 'strict',
+                            path: '/',
+                        })
+                    );
+                    return res.status(200).json(1);
+                }
+            );
+            return; // Prevent further execution since response has been sent inside jwt.sign
         }
 
         return res.status(200).json(2);
     } catch (e) {
-        console.error('Error in handler:', e); // Log the error for debugging
+        console.error('Error in handler:', e);
         return res.status(500).json({ error: e.message || e });
     }
 }
