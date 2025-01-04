@@ -37,17 +37,20 @@ export default async function handler(req, res) {
                 );
             });
 
-            res.setHeader(
-                'Set-Cookie',
-                cookie.serialize('token', token, {
-                    httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production',
-                    sameSite: 'strict',
-                    path: '/',
-                })
-            );
-
-            return res.status(200).json(1);
+            jwt.sign({ username: userDoc.username, id: userDoc._id }, secret, {}, (err, token) => {
+                      if (err) throw err;
+            
+                      // Set the token in cookies
+                      res.setHeader('Set-Cookie', cookie.serialize('token', token, {
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV === 'production', // Ensure secure cookies in production
+                        sameSite: 'strict',
+                        path: '/',
+                      }));
+            
+                      // Return user details as a JSON response
+                      res.status(200).json(1);
+            });
         }
 
         return res.status(200).json(2);
