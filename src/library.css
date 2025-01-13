@@ -848,18 +848,14 @@
     height: 26px;
     width: 26px;
     left: 4px;
-    bottom: 4px;
+    bottom: 5px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
   }
   
   input:checked + .slider {
-    background-color: #06AB78;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #06AB78;
+    background-color: #27AE85;
   }
   
   input:checked + .slider:before {
@@ -1892,15 +1888,15 @@
     transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
-.library-book-container {
-    border: 1px solid #898989;
+.library-book-container-held {
+    border: 1px solid #cc382e;
     background-color: white;
     padding: 1.2rem;
-    box-shadow: 0px 4px 6px rgb(215, 215, 215);
     padding-bottom: 2rem;
     border-radius: 0.8rem;
     padding-right: 2rem;
     padding-left: 1rem;
+    box-sizing: border-box;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -1908,21 +1904,69 @@
     align-items: center;
     width: fit-content;
     position: relative;
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     z-index: 10;
+    transform: scale(0.8125);
+    height: 155.84px;
+    max-height: 155.84px;
+    cursor: pointer;
+}
+
+.library-book-container-delete {
+    border: 1px solid #7d8694;
+    background-color: white;
+    padding: 1.2rem;
+    padding-bottom: 2rem;
+    border-radius: 0.8rem;
+    padding-right: 2rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    position: relative;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    z-index: 10;
+    transform: scale(0.8125);
+    height: 155.84px;
+    max-height: 155.84px;
+    cursor: pointer;
+}
+
+.library-book-container {
+    border: 1px solid #7d8694;
+    background-color: white;
+    padding: 1.2rem;
+    padding-bottom: 2rem;
+    border-radius: 0.8rem;
+    padding-right: 2rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    position: relative;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    z-index: 10;
+    transform: scale(0.8125);
+    height: 155.84px;
+    max-height: 155.84px;
 }
 
 .library-book-container:hover {
     cursor: pointer;
     background-color: #fafafa;
-    border: 1px solid #c8cace;
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    border: 1px solid #6c7585;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0px 4px 4px rgb(221, 221, 221);
 }
 
-.library-book-container:active {
-    transform: scale(0.95);
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
-}
 
 .library-book-circle-gray {
     height: 6rem;
@@ -1940,8 +1984,8 @@
     height: 6rem;
     width: 6rem;
     border-radius: 100%;
-    background-color: #A6D8C2;
-    border: 1px solid #78C6A3;
+    background-color: #7eceac;
+    border: 1px solid rgb(120, 175, 163);
     position: relative;
     display: flex;
     justify-content: center;
@@ -1952,7 +1996,7 @@
     height: 6.5rem;
     width: 4rem;
     border-radius: 0.2rem;
-    border: 1px solid #454B54;
+    border: 1px solid #878f9b;
 }
 
 .sticker0y-abs {
@@ -2026,7 +2070,7 @@
     justify-content: end;
     align-items: end;
     height: fit-content;
-    margin-left: 0.4rem;
+    margin-left: 1.2rem;
 }
 
 .library-vert-bar {
@@ -2045,7 +2089,7 @@
     width: 100%;
     height: 0%;
     border-radius: 0.8rem;
-    background-color: #78C6A3;
+    background-color: #27AE85;
 }
 
 .heart-empty {
@@ -2071,12 +2115,12 @@
     justify-content: center;
     align-items: left;
     font-size: 0.8125rem;
-    margin-bottom: -1.2rem;
-    width: 12rem;
+    margin-bottom: -0.8rem;
+    width: 11rem;
 }
 
 .library-book-title {
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: 700;
     width: 11rem;
     display: -webkit-box;
@@ -2114,7 +2158,7 @@
 }
 
 .library-book-author {
-    font-size: 0.8125em;
+    font-size: 0.9em;
     font-weight: 500;
     color: #5A5A5A;
     margin-top: 0.1rem;
@@ -2129,7 +2173,7 @@
     border-radius: 20rem;
     background-color: #FFF3F3;
     border: 1px solid #FFA9A9;
-    font-size: 0.7em;
+    font-size: 0.8125em;
     color: #FFA9A9;
     margin-top: 0.4rem;
 }
@@ -2259,22 +2303,15 @@
 }
 
 .n-add-to-library {
-    color: #78C6A3;
+    color: #27AE85;
     font-weight: 600;
     display: flex;
     justify-content: left;
     align-items: center;
-    margin-top: 1.2rem;
-    padding: 0.3rem 0.45rem 0.3rem 0.45rem;
+    margin-top: 1rem;
     transition: background-color 0.3s ease-in-out;
     border-radius: 0.4rem;
     width: fit-content;
-}
-
-.n-add-to-library:hover {
-    cursor: pointer;
-    background-color: rgb(233, 233, 233);
-    transition: background-color 0.3s ease-in-out;
 }
 
 .n-adding-info-box {
@@ -2407,14 +2444,15 @@
 
 .library-page-abs {
     position: absolute;
-    right: 1.15rem;
-    bottom: 0.2rem;
+    right: 2rem;
+    bottom: 0.8rem;
     font-size: 0.7rem;
     font-weight: 500;
     color: #5A5A5A;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .heart-icon {

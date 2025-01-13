@@ -5,7 +5,7 @@ import { ReactComponent as StarEmpty } from '../starEmpty.svg'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const RatingFluid = ({ tabName, volumeId, username, book_name, fluidRating, setRating, setUpdatedRating}) => {
+const RatingFluid = ({ tabName, volumeId, username, fluidRating, setRating}) => {
 
     const [ratingValue, setRatingValue] = useState(0);
     const [userInfo, setUserInfo] = useState({});
@@ -23,12 +23,8 @@ const RatingFluid = ({ tabName, volumeId, username, book_name, fluidRating, setR
           tab_name: tabName,
           volume_id: volumeId,
           rating: ratingValue,
-          username: username,
-          book_name: book_name
+          username: username
         })
-
-        setUpdatedRating(prev => !prev);
-        fluidRating(false);
 
       } catch(e) {
         console.error({error: e});

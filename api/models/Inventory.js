@@ -118,6 +118,10 @@ const InventorySchema = new Schema({
     market_large: [],
     selected_stickers: [],
     purchase_orders: [],
+    max_patch: {
+        type: Number,
+        default: 0
+    },
     market_time: {
         type: Date,
         default: null

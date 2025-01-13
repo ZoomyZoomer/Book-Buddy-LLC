@@ -1,45 +1,66 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {ReactComponent as ChevronDown} from '../n-chevron-down.svg'
-import {ReactComponent as ChevronDownBlack} from '../n-chevron-down-black.svg'
-import {ReactComponent as Close} from '../n-close-filter.svg';
-import {ReactComponent as Sort} from '../n-sort.svg'
-import {ReactComponent as LastRead} from '../n-last-read.svg';
-import {ReactComponent as Favorite} from '../n-favorite.svg';
-import {ReactComponent as Completed} from '../n-completed.svg';
-import {ReactComponent as Reading} from '../n-reading.svg'
-import {ReactComponent as LibraryRight} from '../n-library-right.svg';
-import {ReactComponent as Chart} from '../n-chart.svg';
-import {ReactComponent as AddBook} from '../n-add-book.svg';
-import {ReactComponent as Add} from '../n-add-circle.svg'
-import {ReactComponent as Error} from '../n-error-book.svg'
-import '../library.css'
-import LibraryBook from '../components/LibraryBook'
+import '../new_library.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import GoalSectionItem from '../components/GoalSectionItem'
-import BookBuddyNavbar from '../components/BookBuddyNavbar'
-import LibraryGoal from '../components/LibraryGoal'
-import ReadingEntryItem from '../components/ReadingEntryItem'
+import {ReactComponent as CheckList} from '../n-checklist.svg'
+import {ReactComponent as CheckListFilled} from '../n-checklist-filled.svg'
+import {ReactComponent as Chat} from '../n-chat.svg'
+import {ReactComponent as ChatFilled} from '../n-chat-filled.svg'
+import {ReactComponent as Inbox} from '../n-inbox.svg'
+import {ReactComponent as InboxFilled} from '../n-inbox-filled.svg'
+import {ReactComponent as Medal} from '../n-medal.svg'
+import {ReactComponent as MedalFilled} from '../n-medal-filled.svg'
+import {ReactComponent as ChevDown} from '../n-chev-down.svg'
+import {ReactComponent as ChevDownFilled} from '../n-chev-down-inactive.svg'
+import {ReactComponent as Settings} from '../n-settings.svg'
+import {ReactComponent as Logout} from '../n-log-out.svg'
+import {ReactComponent as Lupa} from '../n-lupa.svg'
+import {ReactComponent as RightSquare} from '../n-right-square.svg'
+import {ReactComponent as AddCircle} from '../n-add-book-circle.svg'
+import {ReactComponent as Trash} from '../n-trash.svg'
+import {ReactComponent as Sort} from '../n-sort-vertical.svg'
+import {ReactComponent as Clipboard} from '../n-clipboard.svg'
+import {ReactComponent as ScrapBook} from '../n-scrapbook.svg'
+import {ReactComponent as PieChart} from '../pie-chart.svg'
+import {ReactComponent as Alarm} from '../n-alarm.svg'
+import LibraryBook from '../components/LibraryBook'
+import ScrapPatch from '../components/ScrapPatch'
+import LineChart from '../components/LineChart'
+
 
 function Library() {
 
-    const [searchBy, setSearchBy] = useState(false);
+    const [searchBy, setSearchBy] = useState(true);
     const [text, setText] = useState('');
+    const [searchEntered, setSearchEntered] = useState(false);
     const [showDropDown, setShowDropDown] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
     const [isAddingBook, setIsAddingBook] = useState(false);
     const [userCollection, setUserCollection] = useState([]);
     const [addingCollection, setAddingCollection] = useState([null, null, null, null]);
-    const [dropFilter, setDropFilter] = useState('Last Read');
+    const [dropFilter, setDropFilter] = useState('Recent');
     const [updatedRating, setUpdatedRating] = useState(false);
     const [hasScrolled, setHasScrolled] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
     const [reFetchStickers, setReFetchStickers] = useState(false);
     const [noBooksFound, setNoBooksFound] = useState(false);
+    const [maxPatch, setMaxPatch] = useState(undefined);
+    const [showGraphDropDown, setShowGraphDropDown] = useState(false);
+    const [graphItem, setGraphItem] = useState('Past week');
     const bottomRef = useRef(null);
     const divRef = useRef(null);
     const navigate = useNavigate('/');
     const tab = 'Favorites';
 
+    const patchBook = new Map([
+      [0, {name: 'Potted Plant', desc: 'Where it starts!', src: 'patch_1', id: 0}],
+      [1, {name: 'Pawn', desc: 'Calculated moves', src: 'patch_4', id: 1}],
+      [2, {name: '7 Ball', desc: '0 luck, All skill', src: 'patch_5', id: 2}],
+      [3, {name: 'Camping Trip', desc: "Cozy stortelling", src: 'patch_6', id: 3}],
+      [4, {name: 'Coffee', desc: "Caffeinated reading", src: 'patch_7', id: 4}],
+      [5, {name: 'Stopwatch', desc: "All about patience", src: 'patch_8', id: 5}],
+      [6, {name: 'Checklist', desc: "Check, check, check!", src: 'patch_9', id: 6}],
+  ])
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -77,7 +98,7 @@ function Library() {
               params: {
                 username: userInfo.username,
                 tab_name: tab,
-                title: searchBy ? 'author' : 'title',
+                title: searchBy ? 'title' : 'author',
                 search_query: text,
                 filter: dropFilter
               },
@@ -103,83 +124,19 @@ function Library() {
         })
       }
 
+      const [bookDeleted, setBookDeleted] = useState(false);
+
       useEffect(() => {
         if (userInfo?.username) { // Ensure userInfo is not null
           fetchCollection();
         }
-      }, [userInfo, text, updatedRating, dropFilter, isAddingBook]);
+      }, [userInfo, text, updatedRating, dropFilter, isAddingBook, bookDeleted]);
 
-
-    const [expand, setExpand] = useState(false);
-    const [texty, setTexty] = useState(false);
-
-    const expandLibrary = () => {
-
-    try {
-      if (!expand){
-
-        setTexty(false);
-
-        const elem = document.getElementsByClassName('goals-section')[0];
-        elem?.classList.remove('goals-section');
-        elem?.classList.add('goals-section-hide');
-
-        const elem2 = document.getElementsByClassName('library-section')[0];
-        elem2?.classList.remove('library-section');
-        elem2?.classList.add('library-section-expand');
-
-        setTimeout(() => {
-          const elem3 = document.getElementsByClassName('library-grid')[0];
-          elem3?.classList.remove('library-grid');
-          elem3?.classList.add('library-grid-expand');
-        }, 400)
-
-        setTimeout(() => {
-          setExpand(prev => !prev);
-        }, 699)
-
-      } else {
-
-        setExpand(prev => !prev);
-
-        const elem = document.getElementsByClassName('goals-section-hide')[0];
-        elem?.classList.remove('goals-section-hide');
-        elem?.classList.add('goals-section');
-
-        const elem2 = document.getElementsByClassName('library-section-expand')[0];
-        elem2?.classList.remove('library-section-expand');
-        elem2?.classList.add('library-section');
-
-        setTimeout(() => {
-          const elem3 = document.getElementsByClassName('library-grid-expand')[0];
-          elem3?.classList.remove('library-grid-expand');
-          elem3?.classList.add('library-grid');
-          setTexty(true);
-        }, 400)
-
-      }
-
-    } catch(e) {
-
-    }
-
-
-    }
-
-    const [torch, setTorch] = useState(0);
-    const audioRefTorch = useRef(null);
-    const [miniFire, setMiniFire] = useState(false);
-
-    const playAudioRefTorch = () => {
-      audioRefTorch.current.volume = 0.1;
-      audioRefTorch.current.play();
-    };
+  
 
     const callBooksApi = async() => {
 
-        if (text == '') return;
-
-        if (!searchBy) {
+        if (searchBy) {
             const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${text}&maxResults=8&key=AIzaSyDdENboInmtpWIgPanFmuOOl4WtDzQZYyQ`, { withCredentials: false });
             if (res.data?.items === undefined) {
               setAddingCollection([]);
@@ -190,7 +147,7 @@ function Library() {
             
         }
 
-        if (searchBy) {
+        if (!searchBy) {
             const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${text}&maxResults=8&key=AIzaSyDdENboInmtpWIgPanFmuOOl4WtDzQZYyQ`, { withCredentials: false });
             if (res.data?.items === undefined) {
               setAddingCollection([]);
@@ -205,125 +162,11 @@ function Library() {
     
 
     const handleKeyDown = (event) => {
-        if ((event?.key === 'Enter') && (isAddingBook)) {
-          callBooksApi();
-        }
+      if (event?.key === 'Enter' && isAddingBook) {
+        setSearchEntered(true);
+        callBooksApi();
+      }
     };
-
-    const [streakInfo, setStreakInfo] = useState([false,0, [[], []]]);
-    const [streakClicked, setStreakClicked] = useState(false);
-
-    const igniteStreak = async() => {
-
-      try {
-
-        await axios.post('/api/ignite-streak' , {
-          username: userInfo.username
-        });
-        setStreakClicked(prev => !prev)
-        playAudioRefTorch();
-
-      } catch(e) {
-
-      }
-
-    }
-
-    const fetchStreak = async() => {
-
-      const res = await axios.get('/api/fetch-ignite-streak', {
-        params: {
-          username: userInfo.username
-        }
-      })
-
-      setStreakInfo(res.data);
-
-    }
-
-    useEffect(() => {
-      if (userInfo){
-        fetchStreak();
-      }
-  
-    }, [userInfo, streakClicked])
-
-    useEffect(() => {
-        if (!isAddingBook){
-            setText('');
-        }
-    }, [isAddingBook])
-
-    const [recentEntries, setRecentEntries] = useState([null, null, null]);
-    const [ind, setInd] = useState(0);
-    const [maxLen, setMaxLen] = useState(0);
-    const [reFetchEntries, setReFetchEntries] = useState(false);
-    const [threeEntries, setThreeEntries] = useState([null, null, null]);
-    const [filter, setFilter] = useState('recent');
-    const [filterQuery, setFilterQuery] = useState('');
-
-    const fetchAllEntries = async() => {
-
-      setThreeEntries([null, null, null]);
-      setRecentEntries([null, null, null]);
-
-      try {
-
-        const res = await axios.get('/api/fetch-all-entries', {
-          params: {
-            username: userInfo.username,
-            index: ind,
-            filter: filter,
-            filterQuery
-          }
-        })
-
-        if (res.data[0]?.length > 0){
-          setRecentEntries(res.data[0]);
-        } else {
-          setRecentEntries(["entry", "entry", "entry"]);
-        }
-        
-        console.log(res.data[0]);
-        setMaxLen(res.data[1]);
-
-
-      } catch(e) {
-
-      }
-
-    }
-
-    useEffect(() => {
-      if (userInfo?.username){
-        fetchAllEntries();
-      }
-    }, [userInfo, reFetchEntries, filter, filterQuery])
-
-    useEffect(() => {
-      setUserCollection([null, null, null, null])
-    }, [isAddingBook])
-
-    const lightTorch = async() => {
-
-      try {
-
-        await axios.post('/api/ignite-streak', {
-          username: userInfo?.username
-        })
-
-        setTorch(prev => prev + 1);
-        setMiniFire(true);
-        playAudioRefTorch();
-        setReFetchEntries(prev => !prev);
-
-      } catch(e) {
-
-      }
-
-
-    }
-
 
     const [currency, setCurrency] = useState([0,0,0]);
 
@@ -345,309 +188,345 @@ function Library() {
 
     }
 
-    const processNewDay = async() => {
-
-      try {
-
-        await axios.post('/api/process-new-day', {
-          username: userInfo.username
-        })
-
-      } catch(e) {
-
-      }
-
-    }
-
     useEffect(() => {
       if (userInfo){
         fetchCurrency();
-        processNewDay();
       }
     }, [userInfo])
 
-    const [goals, setGoals] = useState([undefined, undefined]);
+    const fetchPatch = async() => {
 
-    const fetchGoals = async() => {
-
-        const res = await axios.get('/api/fetch-goals', {
-            params: {
-                username: userInfo?.username
-            }
-        })
-
-        setGoals(res.data);
-
-    }
-
-    useEffect(() => {
-        if (userInfo){
-            fetchGoals();
+      const res = await axios.get('/api/fetch-patches', {
+        params: {
+          username: userInfo?.username
         }
-    }, [userInfo])
+      })
 
-    const sortArray = () => {
-      setThreeEntries(recentEntries.slice(ind, parseInt(ind) + 3).slice(0, 3));
+      setMaxPatch(res.data);
+
     }
 
     useEffect(() => {
+
       if (userInfo){
-        sortArray();
+        fetchPatch();
       }
-    }, [ind, recentEntries])
+
+    }, [userInfo])
 
 
   return (
-    <div className='library-container'>
+    <div className='n-library-bg'>
 
-        <audio ref={audioRefTorch} src="scribble.wav" preload="auto" />
+        <div className='n-library-container'>
 
-    <div className='rewards-box'>
+          <div className='n-library-left-bar'>
 
-      <div className='n-new-nav2' style={{marginBottom: '2rem'}}>
-        <div className='n-new-nav-l'>
-        <div className='nn-item' onClick={() => navigate('/library')}><img src='/open_book.png' style={{height: '2.4rem', display: 'flex', marginBottom: '0.3rem'}}/></div>
-          <div className='nn-item' onClick={() => navigate('/library')}>LIBRARY</div>
-          <div className='nn-item' onClick={() => navigate('/storage')}>STORAGE</div>
-          <div className='nn-item' onClick={() => navigate('/rewards')}>REWARDS</div>
-        </div>
-      </div>
+            <div style={{height: '8%', display: 'flex', flexDirection: 'column', justifyContent: 'left', width: '100%'}}>
 
-        <div className='library-box'>
-
-          <div className='whatever-div'>
-
-          <div className='n-library-left'>
-            <div className='n-library-box-small'>
-
-              <div className='n-streak-container'>
-                <div className='n-streak-circle'>
-                  <img src={`./${streakInfo[0] ? 'lighter_on' : 'lighter_off'}.png`} className='n-lighter-img'/>
-                </div>
-                <div className='n-lighter-info'>
-                    <div className='n-lighter-title'>Reading Streak: <strong>{streakInfo[1]} days</strong></div>
-                    <div>Make a flame everyday after reading a book and logging it!</div>
-                    <button className={streakInfo[0] ? 'n-lighter-btn-null' : 'n-lighter-btn'} onClick={() => igniteStreak()}>{streakInfo[0] ? 'STREAK ACTIVE' : 'IGNITE'}</button>
-                </div>
+              <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', height: '100%'}}>
+                <img src='/bb-logo.png' style={{height: '2rem', width: '2rem', cursor: 'pointer'}}/>
+                <div className='logo-title' style={{fontSize: '0.9rem'}}>BOOK <strong>BUDDY</strong></div>
               </div>
 
-              <div className='streak-tiny-circle1'/>
-              <div className='streak-tiny-circle2'/>
+              <div className='n-navbar-separator'/>
 
             </div>
 
-            <div className='n-library-box-sep' />
+            <div className='n-main-menu-sec'>
+              <div className='n-navbar-main-txt'>MAIN MENU</div>
+              <button className='n-main-menu-btn-active' style={{marginTop: '1rem'}}>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><CheckList /></div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Library</div>
+              </button>
+              <button className='n-main-menu-btn'>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><MedalFilled /></div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Rewards</div>
+              </button>
+              <button className='n-main-menu-btn'>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><InboxFilled /></div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Storage</div>
+              </button>
+              <button className='n-main-menu-btn'>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><ChatFilled /></div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Social</div>
+              </button>
+            </div>
 
-            <div className='n-library-box-med'>
+            
 
-              <div className='filter-list'>
-                <div className='filter-num'><div className='filter-num-title'>Filter</div></div>
-                <div className='filter-bar'/>
-                <div className={filter != 'recent' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'recent' && setFilter('recent')}>Most Recent {filter == 'recent' && <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '-0.1rem'}}><Close /></div>}</div>
-                <div className={filter != 'pages' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'pages' ? setFilter('pages') : setFilter('recent')}>Pages Read {filter == 'pages' && <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '-0.1rem'}}><Close /></div>}</div>
-                <div className={filter != 'title' ? 'filter-item' : 'filter-item-active'} onClick={() => filter !== 'title' ? setFilter('title') : setFilter('recent')}>Title {filter == 'title' && <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '-0.1rem'}}><Close /></div>}</div>
-              </div>
-
-              <input 
-                className='filter-search'
-                placeholder='Search Entry Title...'
-                value={filterQuery}
-                onChange={(e) => {setFilterQuery(e.target.value); setInd(0)}}
-              />
-
-              <div className='n-reading-entry-box'>
-
-                {threeEntries.map((entry, index) => (
-                  <ReadingEntryItem index={index} entry={entry} username={userInfo?.username}/>
-                ))}
-
-                <div className='n-entry-dots-box'>
-                  {maxLen >= 3 && (<div className={ind !== 0 ? 'n-dot-empty' : 'n-dot-full'} onClick={() => setInd(0)}/>)}
-                  {maxLen >= 6 && (<div className={ind !== 3 ? 'n-dot-empty' : 'n-dot-full'} onClick={() => setInd(3)}/>)}
-                  {maxLen >= 9 && (<div className={ind !== 6 ? 'n-dot-empty' : 'n-dot-full'} onClick={() => setInd(6)}/>)}
-                  {maxLen >= 12 && (<div className={ind !== 9 ? 'n-dot-empty' : 'n-dot-full'} onClick={() => setInd(9)}/>)}
-                </div>
-
-              </div>
-
+            <div className='n-main-menu-sec' style={{marginTop: '25rem'}}>
+              <button className='n-main-menu-btn'>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Settings /></div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Settings</div>
+              </button>
+              <button className='n-main-menu-btn'>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Logout /></div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Log out</div>
+              </button>
+              <div className='n-navbar-separator' style={{marginTop: '1rem'}}/>
+              <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#9BA4B6', fontSize: '0.8125rem', marginTop: '1rem'}}>© 2025 Book Buddy LLC</div>
             </div>
 
           </div>
 
-          <div className='n-library-sep'/>
+          <div style={{display: 'flex', flexDirection: 'column', height: '100%', width: '78%'}}>
 
-          <div className='n-library-right' style={{alignItems: 'center'}}>
-            <div className='n-library-main'>
+            <div className='n-library-middle-bar'>
 
-                <div className='n-library-banner2'>
-                  <div className='n-library-input-container'>
+              
+
+              <div className='n-library-middle-navbar'>
+              
+              </div>
+
+              <div style={{paddingLeft: '4rem', paddingRight: '4rem', width: '100%', boxSizing: 'border-box', marginTop: '1.625rem', display: 'flex'}}>
+
+                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '50%'}}>
+
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '28rem', position: 'relative'}}>
                     <input 
-                      className='n-library-input'
-                      placeholder={!isAddingBook ? `Search Books By ${!searchBy ? 'Title' : 'Author'}...` : `Add Books By ${!searchBy ? 'Title' : 'Author'}...`}
-                      onChange={(e) => setText(e.target.value)}
+                      className='n-library-middle-input'
+                      placeholder={`Search By ${searchBy ? 'Title' : 'Author'}...`}
                       value={text}
+                      onChange={(e) => {setText(e.target.value); setSearchEntered(false)}}
                       onKeyDown={handleKeyDown}
-                    >
-                    </input>
-                    <div className='n-switch-container'>
-                      <label class="switch">
-                        <input type="checkbox" />
-                        <span class="slider round" onClick={() => setSearchBy(prev => !prev)}/>
-                      </label>
-                    </div>
-                  </div>
-                  <div className='n-library-filter-box' onClick={() => setShowDropDown(prev => !prev)}>
-                        <div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
-
-                          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.625rem'}}>
-                            <Sort />
-                          </div>
-                          {dropFilter}
-                          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.2rem'}}>
-                            <ChevronDownBlack />
-                          </div>
-
-                          {showDropDown && (
-                          <div className='n-filter-dropdown-box'>
-
-                            {dropFilter !== 'Last Read' && (
-                              <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Last Read')}>
-                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
-                                  <LastRead /> 
-                                </div>
-                                Last Read
-                              </div>
-                            )}
-
-                            {dropFilter !== 'Completed' && (
-                              <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Completed')}>
-                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
-                                  <Completed /> 
-                                </div>
-                                Completed
-                              </div>
-                            )}
-
-                            {dropFilter !== 'Reading' && (
-                              <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Reading')}>
-                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
-                                  <Reading /> 
-                                </div>
-                                Reading
-                              </div>
-                            )}
-
-                            {dropFilter !== 'Favorites' && (
-                              <div className='n-dropdown-filter-item' onClick={() => setDropFilter('Favorites')}>
-                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.2rem', marginLeft: '0.7rem'}}>
-                                  <Favorite /> 
-                                </div>
-                                Favorites
-                              </div>
-                            )}
-                              
-                          </div>
-                        )}
-
-                        </div>
-
-                  </div>
+                    />
+                    <div className='n-lupa'><Lupa /></div>
+                    <label class="switch" style={{position: 'absolute', right: '0.4rem', bottom: '63%'}}>
+                      <input type="checkbox"/>
+                      <span class="slider round" onClick={() => setSearchBy(prev => !prev)}></span>
+                    </label>
                 </div>
 
-                <div className='n-library-books-container' ref={bottomRef}>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'right', alignItems: 'center', width: '50%'}}>
+                    <button className={!isDeleting ? 'n-small-btn' : 'n-small-btn-null'} onClick={() => !isDeleting && setIsAddingBook(prev => !prev)}>{!isAddingBook ? <AddCircle /> : 'Return to Library'}</button>
+                    <button className={!isAddingBook ? (isDeleting ? 'n-small-btn-delete' : 'n-small-btn') : 'n-small-btn-null'} style={{marginLeft: '0.8125rem'}} onClick={() => !isAddingBook && setIsDeleting(prev => !prev)}>{!isDeleting ? <Trash /> : 'Cancel Deletion'}</button>
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.8125rem', position: 'relative'}}>
 
-                  <div className='n-library-options-nav'>
-                        <div className='n-library-options-left'>
-                          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left'}}>
-                            <div className='option-library'><div style={{display: 'flex', marginRight: '0.4rem'}}><LibraryRight /></div>{!isAddingBook ? 'Library' : 'Catalog'}</div>
-                            <div className='option-showing'>Showing {!isAddingBook ? userCollection.length : (addingCollection?.length > 0 ? (addingCollection[0] == null ? 0 : addingCollection?.length) : '')} of {!isAddingBook ? maxBooks : (addingCollection[0] == null ? 0 : addingCollection.length)} books</div>
-                          </div>
+                      <div className='n-select-filter'>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                          <Sort />
                         </div>
-                        <div className='n-library-options-right'>
-                            <div className='option-right-item' onClick={() => {setIsAddingBook(prev => !prev); setAddingCollection([null, null, null, null])}}>{isAddingBook ? 'Return To Library' : 'Add Books'}<div style={{display: 'flex', marginLeft: '0.4rem'}}><AddBook /></div></div>
-                            <div className='option-right-item'><Chart /></div>
-                        </div>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.4rem'}}>Filter</div>
+                      </div>
+                      <div className={!isAddingBook ? 'n-select-filter-item' : 'n-select-filter-item-null'} onClick={() => !isAddingBook && setShowDropDown(prev => !prev)} onMouseLeave={() => setShowDropDown(false)}>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>{dropFilter}</div>
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.7rem', position: 'absolute', right: '1rem'}}><ChevDownFilled /></div>
+                        {showDropDown && <div className='n-dropdown-menu'>
+                          {dropFilter !== 'Recent' && <div className='n-filter-item' onClick={() => setDropFilter('Recent')}>
+                            <div style={{marginLeft: '0.4rem', width: '100%', display: 'flex', justifyContent: 'left'}}>Recent</div>
+                          </div>}
+                          {dropFilter !== 'Completed' && <div className='n-filter-item' onClick={() => setDropFilter('Completed')}>
+                            <div style={{marginLeft: '0.4rem'}}>Completed</div>
+                          </div>}
+                          {dropFilter !== 'Reading' && <div className='n-filter-item' onClick={() => setDropFilter('Reading')}>
+                            <div style={{marginLeft: '0.4rem'}}>Reading</div>
+                          </div>}
+                          {dropFilter !== 'Favorites' && <div className='n-filter-item'  onClick={() => setDropFilter('Favorites')}>
+                            <div style={{marginLeft: '0.4rem'}}>Favorites</div>
+                          </div>}
+                        </div>}
+                      </div>
+
+                  
+
+                    </div>
+                </div>
+
+              </div>
+
+              <div style={{paddingLeft: '4rem', paddingRight: '4rem', width: '100%', boxSizing: 'border-box', marginTop: '1rem', display: 'flex', flexDirection: 'column'}}>
+                <div className='n-navbar-separator'/>
+
+                <div style={{height: '24rem', overflowY: 'auto', width: '100%', overflowX: 'hidden'}} className='n-scroll-content'>
+                  <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridAutoRows: '12rem', justifyContent: 'left',  alignItems: 'center', boxSizing: 'border-box', marginLeft: '-1rem'}}>
+                    {!isAddingBook &&  userCollection.map((book, index) => (
+                      <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9rem'}}><LibraryBook book={book} setIsDeleting={setIsDeleting} setBookDeleted={setBookDeleted} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
+                    ))}
+                    {isAddingBook && searchEntered && addingCollection.map((book, index) => (
+                      <>
+                        <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9.5rem'}}><LibraryBook book={book} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
+                      </>
+                    ))}
                   </div>
 
-                  {isAddingBook && text == '' && (
-                        <div className='n-adding-info-box'>
-                            <div className='library-book-circle-gray'>
-                              <img style={{height: '6.5rem', width: '4.2rem', marginTop: '1rem', border: '1px solid #454b54'}} src='http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api'/>
-                            </div>
-                            <div className='n-library-book-temp-info-grid'>
-                              <div className='n-temp-0'> Search the Catalog for the Book of Your Interests Using the Search Bar Above </div>
-                              <div className='n-temp-1'>Press ‘Enter’ to confirm your search!</div>
-                              <button className='n-temp-2' onClick={() => {setIsAddingBook(false); setAddingCollection([null, null, null, null]); setNoBooksFound(false)}}>Back To My Library</button>
-                            </div>
-                            <img src='/eagle-i.png' style={{height: '4rem', position: 'absolute', right: '1.4rem', bottom: '1.4rem', transform: 'scaleX(-1)'}}/>
-                            <div className='streak-tiny-circle2' style={{backgroundColor: '#D9D9D9'}}/>
-                            <div className='streak-tiny-circle1' style={{backgroundColor: '#D9D9D9'}}/>
-                        </div>
-                    )}
+                  {isAddingBook && !searchEntered && (
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'}}>
+                      <div className='enter-search-notif'>
 
-                    {noBooksFound && text != '' && addingCollection.length === 0 && (
-                      <div className='n-book-not-found-cont'>
-                        <div><Error /></div>
-                        <div className='n-book-not-found-info'>
-                          <div>Oops! We couldn’t find your book in our catalog.</div>
-                          <div className='kwat'>We apologize for this convenience.</div>
-                        </div>
-                      </div>
-                    )}
-
-                  <div className='n-library-books-grid'>
-                    
-                    {(!isAddingBook) && userCollection.map((book, index) => (
-                      <LibraryBook book={book} setText={setText} setNoBooksFound={setNoBooksFound} isPreview={false} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
-                    ))}
-
-                    {(!isAddingBook) && userCollection.length === 0 && (
-                      <div className='library-book-container' onClick={() => setIsAddingBook(true)}>
-
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'}}>
+                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
 
                           <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
-                            <div className='library-book-circle'>
-                              <div style={{height: 'fit-content', width: 'fit-content', position: 'absolute', top: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                <div style={{position: 'relative'}}>
-                                  <img src={'http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api'} className='library-cover'/>
-                                </div>
-                              </div>
+
+                            <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'fit-content'}}>
+                              <img src='/patch_9.png' style={{height: '2.6rem', zIndex: '30'}}/>
+                              <div style={{position: 'absolute', height: '3rem', width: '3rem', borderRadius: '100%', backgroundColor: '#EAEAEA', zIndex: '4', bottom: '0rem'}}/>
                             </div>
+
+                            <div style={{marginLeft: '1rem', display: 'flex', flexDirection: 'column', justifyContent: 'left', alignItems: 'center'}}>
+                                <div style={{display: 'flex', justifyContent: 'left', width: '100%'}} className='n-notif-0'>Click ‘Enter’ to Confirm Search</div>
+                                <div style={{display: 'flex', justifyContent: 'left', width: '100%'}} className='n-notif-1'>API requests don’t grow on trees! Also, please make sure your search contains at least 5 characters.</div>
+                            </div>
+
                           </div>
 
-                            <div className='library-book-info'>
-                              <div className='library-book-title'>Blank Cover</div>
-                              <div className='library-book-author'>Click to add your first book from a collection of thousands!</div>
-                              <div className='n-add-to-library' onClick={() => setIsAddingBook(true)}><div style={{marginRight: '0.4rem', display: 'flex'}}><Add /></div> Add to Library</div>
-                            </div>
+                          <div className='n-notif-bar'>
+                            <div className='n-notif-fill'/>
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className='n-library-bottom-bar'>
+
+              <div className='n-library-bottom-bar-left'>
+
+                <div className='n-library-chart-section'>
+
+                  <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', height: 'fit-content', position: 'relative'}}>
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><PieChart /></div>
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.4rem'}}>READING PROGRESS</div>
+
+
+                    <div style={{position: 'absolute', right: '0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+
+                      <div className='n-select-filter'>
+                        <Alarm />
+                      </div>
+
+                      <div style={{position: 'relative'}}>
+                        <div className='n-chart-date' onClick={() => setShowGraphDropDown(prev => !prev)} onMouseLeave={() => setShowGraphDropDown(false)}>
+
+                            <div style={{marginLeft: '0.4rem'}}>{graphItem}</div>
+                            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.8125rem'}}><ChevDownFilled /></div>
+                            {showGraphDropDown && 
+                              <div className='n-chart-dropdown'>
+                                {graphItem !== 'Past week' && <div className='n-chart-item' onClick={() => setGraphItem('Past week')}>
+                                  <div style={{marginLeft: '0.7rem'}}>Past week</div>
+                                </div>}
+                                {graphItem !== 'Past month' && <div className='n-chart-item' onClick={() => setGraphItem('Past month')}>
+                                  <div style={{marginLeft: '0.7rem'}}>Past month</div>
+                                </div>}
+                                {graphItem !== 'Past year' && <div className='n-chart-item' onClick={() => setGraphItem('Past year')}>
+                                  <div style={{marginLeft: '0.7rem'}}>Past year</div>
+                                </div>}
+                              </div>
+                            }
 
                         </div>
                       </div>
-                    )}
+                    </div>
 
-                    {isAddingBook && text != '' && addingCollection?.length > 0 && addingCollection.map((book, index) => (
-                      <LibraryBook book={book} setText={setText} setNoBooksFound={setNoBooksFound} isPreview={false} setIsAddingBook={setIsAddingBook} setAddingCollection={setAddingCollection} index={index} addingBook={false} username={userInfo?.username} volumeId={book?.volume_id}/>
+                  </div>
+
+                    <div style={{height: '80%', display: 'flex', alignItems: 'center', marginTop: '2rem', position: 'relative'}}>
+                      <LineChart />
+                      <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', top: '10%', left: '80%'}}>
+                          <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
+                            <div style={{height: '1rem', width: '1rem', backgroundColor: '#27AE85', borderRadius: '0.3rem'}}/>
+                            <div style={{marginLeft: '0.4rem', fontSize: '0.8125rem', fontWeight: '500'}}>Pages read</div>
+                          </div>
+                          <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', marginTop: '0.8125rem'}}>
+                            <div style={{height: '1rem', width: '1rem', backgroundColor: '#ADDFC9', borderRadius: '0.3rem'}}/>
+                            <div style={{marginLeft: '0.4rem', fontSize: '0.8125rem', fontWeight: '500'}}>Expected</div>
+                          </div>
+                      </div>
+                    </div>
+
+                </div>
+
+                <div className='n-library-chart-info-section' style={{position: 'relative'}}>
+
+                  <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%'}}>
+                      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Clipboard /></div>
+                      <div style={{marginLeft: '0.625rem', fontWeight: '600', fontSize: '1rem'}}>Set reading goals and <br></br> get patches for your profile.</div>
+                  </div>
+
+                  <div style={{color: '#808893', fontSize: '0.74rem', lineHeight: '1.2rem', marginTop: '0.7rem'}}>Meet or exceed your reading expectations in streaks of 3 days for a unique patch to display to the world!</div>
+
+                  <div style={{display: 'flex', justifyContent: 'left', width: '100%', marginTop: '5.2rem'}}>
+                    <button className='n-get-started'>Get Started</button>
+                  </div>
+
+                  <div style={{position: 'absolute', bottom: '17%', right: '24%', transform: 'scale(1.4)'}} className='n-xd'>
+
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
+                        <div className='patch_1' style={{zIndex: '200', animation: 'none'}}>
+                            <div className='patch_1_sub' style={{zIndex: '200', animation: 'none'}}>
+                                <div style={{backgroundColor: '#E6E6E6', height: '60%', width: '60%', borderRadius: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', marginTop: '0.4rem', marginLeft: '0.4rem', zIndex: '200'}}>
+                                    <img src='/patch_1.png' style={{position: 'absolute', height: '3.2rem', bottom: '4%', transform: 'rotate(15deg)', right: '0%', zIndex: '200'}}/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                  </div>
+
+                  <div style={{position: 'absolute', bottom: '10%', right: '10%', transform: 'scale(1)'}}>
+
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
+                        <div className='patch_1' style={{zIndex: '200', borderColor: '#454b54'}}>
+                            <div className='patch_1_sub' style={{zIndex: '200'}}>
+                                <div style={{backgroundColor: '#E6E6E6', height: '60%', width: '60%', borderRadius: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', marginTop: '0.4rem', marginLeft: '0.4rem', zIndex: '200'}}>
+                                    <img src='/patch_1.png' style={{position: 'absolute', height: '3.2rem', bottom: '4%', transform: 'rotate(15deg)', right: '0%', zIndex: '200'}}/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div className='patch_1_shadow' style={{backgroundColor: '#D0D0D0'}}/>
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+              </div>
+
+              <div className='n-library-bottom-bar-right'>
+
+                <div className="fixed-header">
+                  <div style={{fontWeight: '600', fontSize: '0.8125rem', display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '0.1rem'}}><ScrapBook /></div>
+                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.4rem'}}>SCRAP BOOK</div>
+                  </div>
+                  <div style={{fontWeight: '400', fontSize: '0.7rem', color: '#808893', marginTop: '0.4rem'}}>Tiny reminders of your success in meeting your weekly reading goals.</div>
+                  <div className='n-navbar-separator' style={{marginTop: '0.8125rem'}} />
+                </div>
+
+                <div className="scrollable-content">
+                  <div className="flex-container">
+                      {patchBook && patchBook.size > 0 && Array.from({ length: Math.ceil(patchBook.size / 6) }, (_, gridIndex) => (
+                      <div className="n-scrap-book-grid" key={`grid-${gridIndex}`}>
+                        {Array.from({ length: Math.min(6, patchBook.size - gridIndex * 6) }, (_, i) => {
+                          const patchIndex = gridIndex * 6 + i;
+                          const patch = patchBook.get ? patchBook.get(patchIndex) : patchBook[patchIndex];
+                          const claimed = patchIndex <= maxPatch;
+                          return patch ? <ScrapPatch index={patchIndex} patch={patch} claimed={claimed} /> : null;
+                        })}
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                <div className='n-library-chevron'>
-                  {(userCollection.length > 4 && !isAddingBook) && (
-                    <div className='n-library-chevron-circle' onClick={() => scrollToBottom()}>
-                      <ChevronDown />
-                    </div>
-                  )}
-                    
-                </div>
+              </div>
+
 
             </div>
 
           </div>
-
-          </div>
-
-        </div>
 
         </div>
 

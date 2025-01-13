@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../landingpage.css'
+import '../library.css'
 import MarketItemShowcase from '../components/MarketItemShowcase'
 import StorageItemShowcase from '../components/StorageItemShowcase';
 import {ReactComponent as Arrow} from '../pointer-arrow.svg'

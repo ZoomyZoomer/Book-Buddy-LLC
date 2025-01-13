@@ -1,10 +1,9 @@
 import { connectToDatabase } from './utils/db'; // Adjust the path to your database utility
 import Bookshelf from './models/Bookshelf'; // Adjust the path to your Bookshelf model
-import Rating from './models/Ratings'; // Adjust the path to your Rating model
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { tab_name, rating, volume_id, book_name, username } = req.body;
+    const { tab_name, rating, volume_id, username } = req.body;
 
     try {
       // Connect to the database
@@ -33,31 +32,6 @@ export default async function handler(req, res) {
 
       // Save the updated bookshelf document
       await shelf.save();
-
-      // Find or create a volume in the Rating collection
-      let volume = await Rating.findOne({ volume_id });
-      if (!volume) {
-        volume = new Rating({
-          book_name,
-          volume_id,
-          ratings: [{ username, rating_value: rating, date: new Date() }]
-        });
-
-        await volume.save();
-        return res.status(201).json({ message: 'New volume entry successfully created' });
-      }
-
-      // Check if the user already rated the book, update or create a new rating
-      const userRating = volume.ratings.find(rating => rating.username === username);
-      if (!userRating) {
-        volume.ratings.push({ username, rating_value: rating, date: new Date() });
-      } else {
-        userRating.rating_value = rating;
-        userRating.date = new Date();
-      }
-
-      // Save the updated volume document
-      await volume.save();
 
       res.status(200).json({ message: "Rating successfully updated" });
 
