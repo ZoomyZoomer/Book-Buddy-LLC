@@ -12,7 +12,7 @@ import axios from 'axios'
 import RatingFluid from './RatingFluid'
 import BookBuddyNavbar from './BookBuddyNavbar'
 
-const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isDeleting, setText, setNoBooksFound, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, index, isPreview, reFetchStickers}) => {
+const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isDeleting, activeStickers, setText, setNoBooksFound, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, index, isPreview, reFetchStickers}) => {
 
     const [showCheck, setShowCheck] = useState(false);
     const [loadBook, setLoadBook] = useState(false);
@@ -21,7 +21,6 @@ const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isD
     const [isPinned, setIsPinned] = useState(book?.is_pinned ? book.is_pinned : false);
     const [isFavorite, setIsFavorite] = useState(book?.is_favorite ? book.is_favorite : false);
     const [isHolding, setIsHolding] = useState(false);
-    const [activeStickers, setActiveStickers] = useState([]);
     const [duration, setDuration] = useState(null);
     const [isHovering, setIsHovering] = useState(false);
     const navigate = useNavigate('/');
@@ -160,6 +159,10 @@ const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isD
             return;
         }
 
+        if (isPreview){
+            return;
+        }
+
         if (isDeleting){
             return;
         }
@@ -173,11 +176,6 @@ const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isD
 
     }
 
-    const fetchActiveStickers = () => {
-
-        setActiveStickers(book?.active_stickers);
-
-    }
 
     const deleteBook = async() => {
 
@@ -197,12 +195,6 @@ const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isD
         }
 
     }
-
-    useEffect(() => {
-        if (!addingBook){
-            fetchActiveStickers();
-        }
-    }, [reFetchStickers, book])
 
     const handleMouseDown = () => {
         setHeld(true);
@@ -298,7 +290,7 @@ const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isD
 
             </div>
             
-            {!addingBook && book?.title && !isPreview && (
+            {!addingBook && book?.title && (
                 <>
                     <div id='star' className='library-page-abs' style={{color: (book?.pages_read / book?.total_pages) < 1 ? '#5A5A5A' : '#06AB78'}}>{book?.pages_read}/{book?.total_pages} </div>
                 </>
@@ -314,10 +306,6 @@ const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isD
                 <div id='star' className='library-page-abs'>
                     {book?.volumeInfo.pageCount} pages
                 </div>
-            )}
-
-            {isPreview && (
-                <div className='library-page-abs' style={{marginBottom: '0.4rem', marginRight: '1rem'}}>Preview</div>
             )}
 
         </div>

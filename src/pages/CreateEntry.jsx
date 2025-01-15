@@ -1,37 +1,23 @@
 import React from 'react'
 import '../createEntry.css'
-import {ReactComponent as Plus} from '../right-circle.svg'
-import {ReactComponent as Minus} from '../left-circle.svg'
-import {ReactComponent as Clock} from '../clock_green.svg'
-import {ReactComponent as Arrow} from '../arr-right.svg'
-import {ReactComponent as Arrow2} from '../library-arrow2.svg'
-import {ReactComponent as Check} from '../checky.svg'
-import {ReactComponent as CheckBig} from '../checky_green.svg'
-import {ReactComponent as ArrowBack} from '../entry-back.svg'
-import {ReactComponent as Delete} from '../n-delete.svg'
 import axios from 'axios'
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
-import StickerItem from '../components/StickerItem'
-import LibraryBook from '../components/LibraryBook'
-import StickerItemShowcase2 from '../components/StickerItemShowcase2'
-import LibraryBookShowcase2 from '../components/LibraryBookShowcase2'
+import {ReactComponent as Notes} from '../notes.svg'
+import {ReactComponent as Book} from '../n-book-circle.svg'
+import {ReactComponent as NoteBook} from '../n-notebook.svg'
+import ManageBook from '../components/ManageBook'
+
 
 const CreateEntry = () => {
 
     const [value, setValue] = useState(0);
     const [maxPage, setMaxPage] = useState(null);
     const [pagesRead, setPagesRead] = useState(0);
-    const [checkHover, setCheckHover] = useState(false);
-    const [checkHover2, setCheckHover2] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
-    const [isChecked2, setIsChecked2] = useState(false);
     const [dropdown, setDropdown] = useState(false);
-    const [dropdownItem, setDropdownItem] = useState(`Morning (9AM EST)`);
-    const [nullHover, setNullHover] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
     const [book, setBook] = useState(null);
-    const [stickers, setStickers] = useState([null, null, null, null]);
+    const [stickers, setStickers] = useState([]);
     const [selectedStickers, setSelectedStickers] = useState([]);
     const [reFetchStickers, setReFetchStickers] = useState(false);
 
@@ -95,7 +81,7 @@ const CreateEntry = () => {
             }
         })
 
-        setStickers(res.data[0]);
+        setStickers([res.data[0], res.data[1]]);
 
         const res2 = await axios.get('/api/fetchActiveStickers', {
             params: {
@@ -213,152 +199,35 @@ const CreateEntry = () => {
 
     }
 
-    const showNotification = (title, options) => {
-        if (Notification.permission === 'granted') {
-            const notification = new Notification(title, options);
-            console.log('Notification created');
-    
-            notification.onclick = (event) => {
-                event.preventDefault();
-                window.open('https://www.example.com', '_blank');
-            };
-        } else {
-            console.log('No permission to show notifications.');
-        }
-    };
-    
-    const callNotif = async () => {
-        setIsChecked(prev => !prev);
-    
-        // Check if permission is already granted
-        if (Notification.permission === 'granted') {
-            setTimeout(() => {
-                showNotification('Scheduled Reminder', {
-                    body: 'This notification was scheduled 5 seconds ago.'
-                });
-            }, 5000);
-        } else if (Notification.permission === 'default') {
-            // Request permission if not already granted
-            Notification.requestPermission().then(permission => {
-                if (permission === 'granted') {
-                    setTimeout(() => {
-                        showNotification('Scheduled Reminder', {
-                            body: 'This notification was scheduled 5 seconds ago.'
-                        });
-                    }, 5000);
-                } else {
-                    console.log('Notification permission denied.');
-                }
-            });
-        } else {
-            console.log('Notification permission denied or blocked.');
-        }
-    };
-
-
-    const deleteBook = async() => {
-
-        try {
-
-            await axios.post('/api/deleteBook', {
-                username: userInfo?.username,
-                volume_id,
-                tab_name: 'Favorites'
-            })
-
-            navigate('/library');
-
-        } catch(e) {
-
-        }
-
-        
-
-    }
-
-    useEffect(() => {
-        document.getElementById('n-entry-s-a').style.width = `${(value / maxPage) * 100}%`;
-    }, [value])
-
-
   return (
-    <div className='n-create-entry-box'>
-        <audio ref={audioRefCheck} src="/scribble.wav" />
+    <div className='n-book-options-container'>
+       
+        <div className='n-book-options-box'>
 
-        <div className='n-create-entry-cont'>
-
-            <div className='n-ce-nav'>
-                <div className='n-ce-nav-l'>
-                    <div className='okk' onClick={() => navigate('/library')}>
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.4rem'}}><ArrowBack /></div>
-                        SAVE AND RETURN
+            <div className='n-book-options-left'>
+                <div style={{display: 'flex', justifyContent: 'left', height: 'fit-content'}}>
+                    <div style={{display: 'flex', marginRight: '0.4rem'}}><Notes /></div>
+                    <div style={{display: 'flex', position: 'relative', height: 'fit-content'}}>
+                        <div className='n-book-options-main-header'>Harry Potter and the Sorcerer's Stone</div>
+                        <div className='n-book-options-main-abs'>J.K. Rowling</div>
                     </div>
                 </div>
-                <div className='n-ce-nav-r'>
-                    <div className='okk' onClick={() => deleteBook()}>
-                        DELETE BOOK
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.4rem'}}><Delete /></div>
+                <div className='n-temp-txt'>Track your pages read, change the stickers that go on your cover, or import a custom cover entirely. The choice is yours.</div>
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', marginTop: '7rem'}}>
+                    <div className='n-navbar-main-txt' style={{marginBottom: '0.625rem'}}>OPTIONS</div>
+                    <div className='n-menu-option-btn'>
+                        <div style={{display: 'flex'}}><Book /></div>
+                        <div style={{display: 'flex', marginLeft: '0.4rem'}}>Manage Book</div>
+                    </div>
+                    <div className='n-menu-option-btn'>
+                        <div style={{display: 'flex'}}><NoteBook /></div>
+                        <div style={{display: 'flex', marginLeft: '0.4rem'}}>Customize Cover</div>
                     </div>
                 </div>
-                
             </div>
 
-            <div className='n-book-sticker-box'>
-                <div className='n-mbs'>Modify Book Stickers</div>
-                <div className='n-mbs-l'/>
-
-                <div className='n-mbs-box'>
-                    <LibraryBookShowcase2 value={-9} explore={true} stickers={selectedStickers} book={book}/>
-                </div>
-
-                <div className='ys-flex'>
-                    <div className='ys-bar'/>
-                        Your Stickers
-                    <div className='ys-bar'/>
-                </div>
-
-                <div className='n-stickers-grid'>
-                    {stickers.map((sticker, index) => (
-                        <StickerItemShowcase2 sticker={sticker} setStickers={setSelectedStickers} stickers={selectedStickers} volume_id={volume_id} username={userInfo?.username}/>
-                    ))}
-                </div>
-
-            </div>
-
-            <div className='n-book-sticker-box2' style={{marginTop: '1rem'}}>
-                <div className='n-mbs'>Create A New Entry
-                <div className='n-mbs-l'/>
-                </div>
-                
-
-                <div className='create-entry-xd' style={{border: '1px solid #DFE1E5', scale: '0.9', marginTop: '1.4rem'}}>
-                    <div className='create-entry-pageNum'>
-                        {maxPage ? (
-                            <>
-                                <div>{value}&nbsp;</div>
-                                <div style={{display: 'flex', fontSize: '0.8125rem', marginBottom: '0.25rem', color: '#9D9D9D', fontWeight: '400'}}>of {maxPage} pages</div>
-                            </>
-                        ) : 'Loading..'}
-                        
-                    </div>
-                    <div class="create-entry-slider-cont" style={{marginTop: '1rem'}}>
-                        <div style={{display: 'flex', width: '80%', alignItems: 'center', justifyContent: 'center'}}>
-                            <div style={{display: 'flex'}} onClick={() => value - 1 < 0 ? setValue(0) : setValue(prev => prev - 1)}><Minus /></div>
-                            <div style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'fit-content', position: 'relative'}}>
-                                <input type="range" min='0' max={maxPage} value={value} onChange={(e) => setValue(Number(e.target.value))} class="create-entry-slider" id="my-Range"/>
-                                <div id='n-entry-s-a' className='n-entry-slider-abs'/>
-                                <div className='n-entry-slider-abs-norm'/>
-                            </div>
-                            <div style={{display: 'flex'}} onClick={() => setValue(prev => (prev + 1) > maxPage ? maxPage : prev + 1)}><Plus /></div>
-                        </div>
-                    </div>
-                </div>
-
-                <button className={!entrySent ? 'n-create-entry' : 'n-create-entry-null'} onClick={() => sendEntry()}>
-                    {(!sendingEntry && !entrySent) ? ('CREATE ENTRY') : !entrySent ? <div className='loader-circle-white' style={{scale: '0.4'}}/> : 'ENTRY SENT'}
-                    
-                </button>
-
+            <div className='n-book-options-right'>
+                <ManageBook book={book} stickers={stickers} selectedStickers={selectedStickers} setSelectedStickers={setSelectedStickers} username={userInfo?.username}/>
             </div>
 
         </div>
