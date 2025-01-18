@@ -228,7 +228,11 @@ const bookshelfSchema = new Schema({
   curr_day: {
     type: Date
   },
+  goals_set: {
+    type: Object
+  },
   goals: [goalInfoSchema],
+  dates: [],
   settings: {
     bookBot_intro: {
       type: Boolean

@@ -46,7 +46,13 @@ function Library() {
     const [noBooksFound, setNoBooksFound] = useState(false);
     const [maxPatch, setMaxPatch] = useState(undefined);
     const [showGraphDropDown, setShowGraphDropDown] = useState(false);
+    const [sampleData, setSampleData] = useState([[
+      {timeframe: 'Wed', pages: 40}, {timeframe: 'Tue', pages: 30}, {timeframe: 'Mon', pages: 38}, {timeframe: 'Sun', pages: 45}, {timeframe: 'Sat', pages: 67}, {timeframe: 'Fri', pages: 27}, {timeframe: 'Thu', pages: 16}],
+       [{timeframe: '1/12', pages: 67}, {timeframe: '1/5', pages: 106}, {timeframe: '12/29', pages: 78}, {timeframe: '12/22', pages: 149}, {timeframe: '12/15', pages: 122}, {timeframe: '12/8', pages: 177}, {timeframe: '12/1', pages: 107}],
+      [{timeframe: 'Jan', pages: 467}, {timeframe: 'Dec', pages: 567}, {timeframe: 'Nov', pages: 376}, {timeframe: 'Oct', pages: 452}, {timeframe: 'Sep', pages: 239}, {timeframe: 'Jul', pages: 432}, {timeframe: 'Jun', pages: 129}]])
     const [graphItem, setGraphItem] = useState('Past week');
+    const [graphData, setGraphData] = useState(null);
+    const [goalsSet, setGoalsSet] = useState([]);
     const bottomRef = useRef(null);
     const divRef = useRef(null);
     const navigate = useNavigate('/');
@@ -206,10 +212,24 @@ function Library() {
 
     }
 
+    const fetchGraphData = async() => {
+
+      const res = await axios.get('/api/fetch-graph-data', {
+        params: {
+          username: userInfo?.username
+        }
+      })
+
+      setGraphData([res.data[0], res.data[1], res.data[2]]);
+      setGoalsSet(res.data[3])
+
+    }
+
     useEffect(() => {
 
       if (userInfo){
         fetchPatch();
+        fetchGraphData();
       }
 
     }, [userInfo])
@@ -431,7 +451,10 @@ function Library() {
                   </div>
 
                     <div style={{height: '80%', display: 'flex', alignItems: 'center', marginTop: '2rem', position: 'relative'}}>
-                      <LineChart />
+                      <div style={{height: '100%', width: '100%', position: 'relative', display: 'flex', alignItems: 'center'}}>
+                        <LineChart realData={goalsSet.length > 0 ? (graphData ? graphItem === 'Past week' ? graphData[0] : (graphItem === 'Past month' ? graphData[1] : graphData[2]) : new Array(1)) : (graphItem === 'Past week' ? sampleData[0].reverse() : (graphItem === 'Past month' ? sampleData[1].reverse() : sampleData[2].reverse()))}/>
+                        {goalsSet.length === 0 && <div style={{position: 'absolute', top: '30%', bottom: '0', left: '20%', transform: 'rotate(-20deg)', fontSize: '2rem', opacity: '0.2'}}>SAMPLE DATA</div>}
+                      </div>
                       <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', top: '10%', left: '80%'}}>
                           <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
                             <div style={{height: '1rem', width: '1rem', backgroundColor: '#27AE85', borderRadius: '0.3rem'}}/>
@@ -450,13 +473,13 @@ function Library() {
 
                   <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%'}}>
                       <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Clipboard /></div>
-                      <div style={{marginLeft: '0.625rem', fontWeight: '600', fontSize: '1rem'}}>Set reading goals and <br></br> get patches for your profile.</div>
+                      <div style={{marginLeft: '0.625rem', fontWeight: '600', fontSize: '1rem'}}>Set reading goals and get <br></br> patches for your profile.</div>
                   </div>
 
-                  <div style={{color: '#808893', fontSize: '0.74rem', lineHeight: '1.2rem', marginTop: '0.7rem'}}>Meet or exceed your reading expectations in streaks of 3 days for a unique patch to display to the world!</div>
+                  <div style={{color: '#808893', fontSize: '0.74rem', lineHeight: '1.2rem', marginTop: '0.7rem'}}>Meet or exceed your reading expectations in streaks of 3 days in a row for a unique patch to display on your profile to the world!</div>
 
                   <div style={{display: 'flex', justifyContent: 'left', width: '100%', marginTop: '5.2rem'}}>
-                    <button className='n-get-started'>Get Started</button>
+                    <button className='n-get-started' onClick={() => navigate('/set-goals')}>Get Started</button>
                   </div>
 
                   <div style={{position: 'absolute', bottom: '17%', right: '24%', transform: 'scale(1.4)'}} className='n-xd'>

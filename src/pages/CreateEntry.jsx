@@ -5,8 +5,11 @@ import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 import {ReactComponent as Notes} from '../notes.svg'
 import {ReactComponent as Book} from '../n-book-circle.svg'
+import {ReactComponent as BookWhite} from '../n-book-circle-white.svg'
 import {ReactComponent as NoteBook} from '../n-notebook.svg'
+import {ReactComponent as NoteBookWhite} from '../n-notebook-white.svg'
 import ManageBook from '../components/ManageBook'
+import {ReactComponent as LeftArrow} from '../n-left-reg.svg'
 
 
 const CreateEntry = () => {
@@ -20,6 +23,7 @@ const CreateEntry = () => {
     const [stickers, setStickers] = useState([]);
     const [selectedStickers, setSelectedStickers] = useState([]);
     const [reFetchStickers, setReFetchStickers] = useState(false);
+    const [optionSelect, setOptionSelect] = useState(true);
 
     const [sendingEntry, setSendingEntry] = useState(false);
     const [entrySent, setEntrySent] = useState(false);
@@ -205,22 +209,48 @@ const CreateEntry = () => {
         <div className='n-book-options-box'>
 
             <div className='n-book-options-left'>
+                <div style={{position: 'absolute', display: 'flex', justifyContent: 'left', bottom: '4rem', left: '2rem'}} className='n-back-btn' onClick={() => navigate('/library')}>
+                    <div style={{display: 'flex'}}><LeftArrow /></div>
+                    <div style={{display: 'flex', color: '#52637D', fontSize: '0.8125rem', marginLeft: '0.4rem'}}>Back to Library</div>
+                </div>
                 <div style={{display: 'flex', justifyContent: 'left', height: 'fit-content'}}>
                     <div style={{display: 'flex', marginRight: '0.4rem'}}><Notes /></div>
                     <div style={{display: 'flex', position: 'relative', height: 'fit-content'}}>
-                        <div className='n-book-options-main-header'>Harry Potter and the Sorcerer's Stone</div>
-                        <div className='n-book-options-main-abs'>J.K. Rowling</div>
+                        <div className='n-book-options-main-header'>{book?.title ? book.title : 'Loading book...'}</div>
+                        <div className='n-book-options-main-abs'>{book?.author}</div>
                     </div>
                 </div>
-                <div className='n-temp-txt'>Track your pages read, change the stickers that go on your cover, or import a custom cover entirely. The choice is yours.</div>
-                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', marginTop: '7rem'}}>
+                <div className='n-temp-txt'>
+                    <div style={{paddingLeft: '1rem'}}>BOOK INFORMATION</div>
+                    <div style={{display: 'flex', justifyContent: 'left', fontSize: '0.8125rem', marginTop: '0.625rem', paddingLeft: '1rem'}}>
+                        <div style={{color: '#52637D'}}>Volume ID:&nbsp;</div>
+                        <div>{book?.volume_id ? book.volume_id : '...'}</div>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'left', fontSize: '0.8125rem', marginTop: '0.3rem', paddingLeft: '1rem'}}>
+                        <div style={{color: '#52637D'}}>Title:&nbsp;</div>
+                        <div>{book?.title ? book.title : '...'}</div>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'left', fontSize: '0.8125rem', marginTop: '0.3rem', paddingLeft: '1rem'}}>
+                        <div style={{color: '#52637D'}}>Author:&nbsp;</div>
+                        <div>{book?.author ? book.author : '...'}</div>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'left', fontSize: '0.8125rem', marginTop: '0.3rem', paddingLeft: '1rem'}}>
+                        <div style={{color: '#52637D'}}>Genre:&nbsp;</div>
+                        <div>{book?.genre ? book.genre : '...'}</div>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'left', fontSize: '0.8125rem', marginTop: '0.3rem', paddingLeft: '1rem'}}>
+                        <div style={{color: '#52637D'}}>Page Count:&nbsp;</div>
+                        <div>{book?.total_pages ? book.total_pages : '...'}</div>
+                    </div>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', marginTop: '4rem'}}>
                     <div className='n-navbar-main-txt' style={{marginBottom: '0.625rem'}}>OPTIONS</div>
-                    <div className='n-menu-option-btn'>
-                        <div style={{display: 'flex'}}><Book /></div>
+                    <div className={optionSelect ? 'n-menu-option-btn-active' : 'n-menu-option-btn'} onClick={() => setOptionSelect(true)}>
+                        <div style={{display: 'flex'}}>{optionSelect ? <BookWhite /> : <Book />}</div>
                         <div style={{display: 'flex', marginLeft: '0.4rem'}}>Manage Book</div>
                     </div>
-                    <div className='n-menu-option-btn'>
-                        <div style={{display: 'flex'}}><NoteBook /></div>
+                    <div className={!optionSelect ? 'n-menu-option-btn-active' : 'n-menu-option-btn'} onClick={() => setOptionSelect(false)}>
+                        <div style={{display: 'flex'}}>{!optionSelect ? <NoteBookWhite /> : <NoteBook />}</div>
                         <div style={{display: 'flex', marginLeft: '0.4rem'}}>Customize Cover</div>
                     </div>
                 </div>

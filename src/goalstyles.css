@@ -1,0 +1,191 @@
+.n-goal-container {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.n-goal-box {
+    height: 46rem;
+    width: 68rem;
+    border: 1px solid #B8C0CC;
+    border-radius: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1rem;
+    padding-left: 3rem;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 20px rgb(196, 196, 202);
+}
+
+.n-goals-right {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    color: #52637D;
+}
+
+.n-goals-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.n-goal-border {
+    border: 1px solid #B8C0CC;
+    border-radius: 0.8rem;
+    padding: 1.4rem;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.n-goals-abs {
+    position: absolute;
+    right: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wpm-btn-active {
+    background-color: #27AE85;
+    border: 1px solid #1c9480;
+    padding: 0.2rem 0.625rem 0.2rem 0.625rem;
+    border-radius: 0.4rem;
+    color: white;
+    font-weight: 500;
+    font-family: "Inter";
+    cursor: pointer;
+}
+
+.wpm-btn {
+    border: 1px solid #B8C0CC;
+    background-color: white;
+    padding: 0.2rem 0.625rem 0.2rem 0.625rem;
+    border-radius: 0.4rem;
+    transition: background-color 0.3s ease-in-out;
+    color: #52637D;
+    font-family: "Inter";
+}
+
+.wpm-btn:hover {
+    cursor: pointer;
+    background-color: #f1f2f5;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-goal-dropdown {
+    border: 1px solid #B8C0CC;
+    padding: 0.2rem 0.7rem 0.2rem 0.7rem;
+    width: 5.625rem;
+    border-radius: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    font-size: 0.8125rem;
+}
+
+.n-goal-dropdown:hover {
+    cursor: pointer;
+    background-color: #f1f2f5;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-make-public {
+    border: 1px solid #B8C0CC;
+    height: 1.6rem;
+    border-radius: 0.4rem;
+    padding: 0.2rem 0.8rem 0.2rem 0.8rem;
+    width: 7rem;
+    font-family: "Inter";
+    color: #52637D;
+    background-color: white;
+    font-size: 0.8125rem;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.n-make-public:hover {
+    cursor: pointer;
+    background-color: #f1f2f5;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-discard-btn {
+    border: 1px solid #B8C0CC;
+    font-family: "Inter";
+    color:#52637D;
+    padding: 0.7rem 1.4rem 0.7rem 1.4rem;
+    background-color: white;
+    border-radius: 0.4rem;
+    width: 11rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-discard-btn:hover {
+    cursor: pointer;
+    background-color: #f1f2f5;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-create-habit-btn {
+    border: 1px solid #1c948e;
+    font-family: "Inter";
+    color:white;
+    padding: 0.7rem 1.4rem 0.7rem 1.4rem;
+    background-color: #27AE85;
+    border-radius: 0.4rem;
+    width: 11rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-create-habit-btn:hover {
+    cursor: pointer;
+    background-color: #198a80;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-goal-close-btn {
+    padding: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 0.4rem;
+}
+
+.n-goal-close-btn:hover {
+    cursor: pointer;
+    background-color: #f1f2f5;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.loader-circle {
+    width: 10px;
+    padding: 4px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #27AE85;
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+  }
+  @keyframes l3 {to{transform: rotate(1turn)}}

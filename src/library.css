@@ -872,7 +872,7 @@
   
   .slider.round:before {
     border-radius: 50%;
-    margin-bottom: -0.1rem;
+    margin-bottom: -0.15rem;
     margin-left: -0.05rem;
   }
 

@@ -146,6 +146,19 @@ export default async function handler(req, res) {
       book.page_entries.push(newEntry);
       shelf.total_entries.push(newEntry);
 
+      // Update dates for graph tracking
+      const currDay = new Date();
+      if (shelf.dates.length > 0){
+        let isEqual = currDay.getDate() === shelf.dates[shelf.dates.length - 1].date.getDate() && currDay.getMonth() === shelf.dates[shelf.dates.length - 1].date.getMonth() && currDay.getYear() === shelf.dates[shelf.dates.length - 1].date.getYear();
+        if (isEqual) {
+          shelf.dates[shelf.dates.length - 1].pages += pages_added;
+        } else {
+          shelf.dates.push({date: new Date(), pages: pages_added});
+        }
+      } else {
+        shelf.dates.push({date: new Date(), pages: pages_added});
+      }
+
       // Save the updated bookshelf
       await shelf.save();
 
