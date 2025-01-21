@@ -26,6 +26,7 @@ import {ReactComponent as Alarm} from '../n-alarm.svg'
 import LibraryBook from '../components/LibraryBook'
 import ScrapPatch from '../components/ScrapPatch'
 import LineChart from '../components/LineChart'
+import EmojiPopup from '../components/EmojiPopup'
 
 
 function Library() {
@@ -66,7 +67,12 @@ function Library() {
       [4, {name: 'Coffee', desc: "Caffeinated reading", src: 'patch_7', id: 4}],
       [5, {name: 'Stopwatch', desc: "All about patience", src: 'patch_8', id: 5}],
       [6, {name: 'Checklist', desc: "Check, check, check!", src: 'patch_9', id: 6}],
-  ])
+    ])
+
+    const emojiPopups = new Map([
+      [0, {name: 'Happy Time', desc: 'You’ve created your official Book Buddy account!', id: 0, button_desc: 'SMILE :)', img: 'smile-emoji-solo', reward: false, colors: {main: '#918FF3', c_0: '#80D1B4', c_1: '#FFC436', c_2: '#918FF3', c_3: '#FE8BA9', c_4: '#70F9FD'}}],
+      [1, {name: 'Gift for U', desc: 'I went shopping and got ya a present :)', id: 1, button_desc: 'OPEN IT', img: 'wink-emoji-solo', reward: true, colors: {main: '#FE8BA9', c_0: '#70F9FD', c_1: '#918FF3', c_2: '#FFC436', c_3: '#FE8BA9', c_4: '#80D1B4'}}]
+    ])
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -225,6 +231,32 @@ function Library() {
 
     }
 
+    const [popupInfo, setPopupInfo] = useState(null);
+    const [fetchPopup, setFetchPopup] = useState(false);
+
+    const processPopup = (popupList) => {
+
+      const popup = popupList.find((popup) => popup.show);
+
+      if (popup && (!popupInfo || popup.id !== popupInfo.id)) {
+        setPopupInfo(emojiPopups.get(popup.id));
+      }
+
+    }
+
+
+    const fetchEmojiPopups = async() => {
+
+      const res = await axios.get('/api/emojiPopups', {
+        params: {
+          username: userInfo?.username
+        }
+      })
+
+      processPopup(res.data);
+
+    }
+
     useEffect(() => {
 
       if (userInfo){
@@ -234,9 +266,21 @@ function Library() {
 
     }, [userInfo])
 
+    useEffect(() => {
+      if (userInfo){
+        fetchEmojiPopups();
+      }
+    }, [userInfo, fetchPopup])
+
+
 
   return (
-    <div className='n-library-bg'>
+
+    <div style={{height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
+
+      {popupInfo && <EmojiPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} username={userInfo?.username} setFetchPopup={setFetchPopup}/>}
+
+    <div className='n-library-bg' style={{filter: popupInfo ? 'brightness(0.3)' : 'none', pointerEvents: popupInfo? 'none' : 'all'}}>
 
         <div className='n-library-container'>
 
@@ -452,8 +496,8 @@ function Library() {
 
                     <div style={{height: '80%', display: 'flex', alignItems: 'center', marginTop: '2rem', position: 'relative'}}>
                       <div style={{height: '100%', width: '100%', position: 'relative', display: 'flex', alignItems: 'center'}}>
-                        <LineChart realData={goalsSet.length > 0 ? (graphData ? graphItem === 'Past week' ? graphData[0] : (graphItem === 'Past month' ? graphData[1] : graphData[2]) : new Array(1)) : (graphItem === 'Past week' ? sampleData[0].reverse() : (graphItem === 'Past month' ? sampleData[1].reverse() : sampleData[2].reverse()))}/>
-                        {goalsSet.length === 0 && <div style={{position: 'absolute', top: '30%', bottom: '0', left: '20%', transform: 'rotate(-20deg)', fontSize: '2rem', opacity: '0.2'}}>SAMPLE DATA</div>}
+                        <LineChart realData={goalsSet?.length > 0 ? (graphData ? graphItem === 'Past week' ? graphData[0] : (graphItem === 'Past month' ? graphData[1] : graphData[2]) : new Array(1)) : (graphItem === 'Past week' ? sampleData[0].reverse() : (graphItem === 'Past month' ? sampleData[1].reverse() : sampleData[2].reverse()))}/>
+                        {goalsSet?.length === 0 && <div style={{position: 'absolute', top: '30%', bottom: '0', left: '20%', transform: 'rotate(-20deg)', fontSize: '2rem', opacity: '0.2'}}>SAMPLE DATA</div>}
                       </div>
                       <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', top: '10%', left: '80%'}}>
                           <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
@@ -552,6 +596,8 @@ function Library() {
           </div>
 
         </div>
+
+    </div>
 
     </div>
   )

@@ -159,6 +159,25 @@ export default async function handler(req, res) {
         shelf.dates.push({date: new Date(), pages: pages_added});
       }
 
+      // Show reward notification
+      const popup = shelf.emoji_popups.find((pop) => pop.id === 1);
+      const currDate = new Date();
+
+      if (popup){
+
+        const difference = Math.abs(popup.time - currDate);
+
+        if (difference >= (24 * 60 * 60 * 1000)){ // 24 hours has passed
+          popup.show = true;
+          popup.time = currDate;
+        }
+
+      } else {
+
+        shelf.emoji_popups.push({id: 1, show: true, claimed_today: false, num_used: 0, time: currDate});
+
+      }
+
       // Save the updated bookshelf
       await shelf.save();
 

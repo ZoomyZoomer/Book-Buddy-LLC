@@ -198,6 +198,27 @@ const goalInfoSchema = new Schema({
   }
 })
 
+const emojiSchema = new Schema({
+  num_used: {
+    type: Number,
+    default: 0
+  },
+  claimed_today: {
+    type: Boolean,
+    default: false
+  },
+  show: {
+    type: Boolean,
+    default: false
+  },
+  time: {
+    type: Date
+  },
+  id: {
+    type: Number
+  }
+})
+
 const bookshelfSchema = new Schema({
   username: {
     type: String,
@@ -232,6 +253,7 @@ const bookshelfSchema = new Schema({
     type: Object
   },
   goals: [goalInfoSchema],
+  emoji_popups: [emojiSchema],
   dates: [],
   settings: {
     bookBot_intro: {

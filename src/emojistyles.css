@@ -1,0 +1,323 @@
+.n-emoji-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    height: 19rem;
+    width: 17rem;
+    padding: 0rem 2rem 0rem 2rem;
+    box-sizing: border-box;
+    background-color: white;
+    border: 1px solid #918FF3;
+    border-radius: 0.8rem;
+    z-index: 9999;
+    animation: popup 0.5s ease-in-out 1;
+    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+@keyframes popup {
+    0% {
+        transform: scale(0.8);
+    }
+    85% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.n-emoji-title {
+    margin-top: 5rem;
+    color: #918FF3;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.n-emoji-desc {
+    color: #9BA4B6;
+    font-size: 0.8125rem;
+    margin-top: 1.4rem;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.n-emoji-btn {
+    margin-top: 3rem;
+    background-color: #918FF3;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 4rem;
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    font-family: "Inter";
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.n-emoji-btn:hover {
+    cursor: pointer;
+    filter: brightness(0.94) hue-rotate(-10deg);
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.n-emoji-btn:active {
+    transform: scale(0.98);
+    transform-origin: center;
+    transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.emoji-partcle-0 {
+    position: absolute;
+    height: 0.4rem;
+    width: 0.4rem;
+    border-radius: 100%;
+    bottom: 1rem;
+    left: 100%;
+    animation: mini-circle 1.2s ease-in-out infinite;
+}
+
+@keyframes mini-circle {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(0.2rem);
+    }
+    100% {
+        transform: translateY(0rem);
+    }
+}
+
+@keyframes large-circle {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateX(0.2rem);
+    }
+    100% {
+        transform: translateX(0rem);
+    }
+}
+
+.emoji-partcle-0-1 {
+    position: absolute;
+    height: 0.4rem;
+    width: 0.4rem;
+    border-radius: 100%;
+    bottom: 1rem;
+    right: 100%;
+    animation: mini-circle 1.5s ease-in-out infinite;
+}
+
+.emoji-partcle-1 {
+    position: absolute;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 100%;
+    bottom: 2rem;
+    left: 130%;
+    animation: large-circle 1.8s ease-in-out infinite;
+}
+
+.emoji-partcle-1-1 {
+    position: absolute;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 100%;
+    bottom: 2rem;
+    right: 130%;
+    animation: mini-star 1.4s ease-in-out infinite;
+}
+
+.emoji-partcle-2 {
+    position: absolute;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 100%;
+    bottom: 4rem;
+    left: 115%;
+    animation: mini-circle 1.5s ease-in-out infinite;
+}
+
+.emoji-partcle-2-1 {
+    position: absolute;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 100%;
+    bottom: 4rem;
+    right: 115%;
+    animation: mini-circle 1.2s ease-in-out infinite;
+}
+
+.emoji-partcle-3-0 {
+    position: absolute;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 100%;
+    bottom: 6rem;
+    left: 135%;
+    animation: mini-star 1.2s ease-in-out infinite;
+}
+
+.emoji-partcle-3-1 {
+    position: absolute;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 100%;
+    bottom: 6rem;
+    right: 135%;
+    animation: large-circle 1.5s ease-in-out infinite;
+}
+
+@keyframes mini-star {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.2);
+    }
+    75% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.strobe-anim {
+    animation: strobe-anim 3s linear infinite;
+}
+
+.strobe-anim-2 {
+    animation: strobe-anim 3.4s linear infinite;
+}
+
+.strobe-anim-3 {
+    animation: strobe-anim 3.6s linear infinite;
+}
+
+@keyframes strobe-anim {
+    0% {
+        opacity: 0.25;
+        transform: scale(1);
+    }
+    25% {
+        opacity: 0.4;
+        transform: scale(1.1);
+    }
+    50% {
+        opacity: 0.25;
+        transform: scale(1);
+    }
+    75% {
+        opacity: 0.15;
+        transform: scale(0.8125);
+    }
+    100% {
+        opacity: 0.25;
+        transform: scale(1);
+    }
+}
+
+.n-open-reward {
+    animation: n-open-reward 3s ease-in-out 1;
+}
+
+@keyframes n-open-reward {
+   0% {
+    transform: rotate(0deg) scale(1);
+   }
+   10% {
+    transform: rotate(5deg) scale(1);
+   }
+   20% {
+    transform: rotate(-5deg) scale(1); 
+   }
+   30% {
+    transform: rotate(5deg) scale(1.3);
+   }
+   40% {
+    transform: rotate(-5deg) scale(1.2); 
+   }
+   50% {
+    transform: rotate(5deg) scale(1.2);
+   }
+   60% {
+    transform: rotate(-5deg) scale(1.2); 
+   }
+   70% {
+    transform: rotate(0deg) scale(1.2);
+   }
+   80% {
+    transform: rotate(0deg) scale(1.2);
+   }
+   90% {
+    transform: scale(1.4);
+    opacity: 0.8;
+   }
+   100% {
+    transform: scale(0.5);
+    opacity: 0.6;
+   }
+}
+
+.gift-active:active {
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+}
+
+.n-emoji-reward {
+    height: 5rem;
+    animation: show-reward 1s ease-in-out 1;
+    margin-top: 3rem;
+}
+
+@keyframes show-reward {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.6;
+    }
+    80% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.n-emoji-reward-hover {
+    height: 5rem;
+    animation: show-reward-hover 2s ease-in-out infinite;
+    margin-top: 3rem;
+}
+
+@keyframes show-reward-hover {
+    0% {
+        transform: translateY(0);
+    }
+    25% {
+        transform: translateY(-0.2rem);
+    }
+    60% {
+        transform: translateY(0.4rem);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.hover-shadow {
+    position: absolute;
+    width: 6rem;
+    height: 1rem;
+    border-radius: 100%;
+    top: 115%;
+    background-color: #918FF3;
+    opacity: 0.3;
+}

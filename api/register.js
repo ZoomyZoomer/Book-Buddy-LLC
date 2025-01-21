@@ -26,6 +26,7 @@ export default async function handler(req, res) {
           bookBot_intro: true,
           entry_default_icon: "File",
         },
+        emoji_popups: [{id: 0, show: true, claimed_today: false, num_used: 0, time: new Date()}]
       });
 
       await Inventory.create({
