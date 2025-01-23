@@ -124,6 +124,10 @@ const bookEntrySchema = new Schema({
     min: 0,
     max: 5
   },
+  reward_claimed: {
+    type: Boolean,
+    default: false
+  },
   active_stickers: [],
   is_favorite: {
     type: Boolean,

@@ -12,7 +12,7 @@ import axios from 'axios'
 import RatingFluid from './RatingFluid'
 import BookBuddyNavbar from './BookBuddyNavbar'
 
-const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isDeleting, activeStickers, setText, setNoBooksFound, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, index, isPreview, reFetchStickers}) => {
+const LibraryBook = ({book, setSearchEntered, setFetchPopup, setUpdatedRating, setIsDeleting, setBookDeleted, isDeleting, activeStickers, setText, setNoBooksFound, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, index, isPreview, reFetchStickers}) => {
 
     const [showCheck, setShowCheck] = useState(false);
     const [loadBook, setLoadBook] = useState(false);
@@ -152,7 +152,24 @@ const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isD
         }
     }, [book])
 
+    const claimBookReward = async() => {
+
+        await axios.post('/api/claim-book-reward', {
+            username,
+            volume_id: volumeId
+        })
+
+        setFetchPopup(prev => !prev);
+        setUpdatedRating(prev => !prev);
+
+    }
+
     const checkRedirect = (e) => {
+
+        if (!book?.reward_claimed && (book?.pages_read >= book?.total_pages)){
+            claimBookReward();
+            return;
+        }
 
         if (addingBook){
             addBook();
@@ -214,13 +231,22 @@ const LibraryBook = ({book, setSearchEntered, setIsDeleting, setBookDeleted, isD
     <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center'}} onMouseDown={handleMouseDown} onMouseLeave={handleMouseUp} onMouseUp={handleMouseUp}>
 
 
-        <div className={!isDeleting ? 'library-book-container' : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)}>
+            {!book?.reward_claimed && (book?.pages_read >= book?.total_pages) && (
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute', zIndex: '194', cursor: 'pointer'}} onClick={() => claimBookReward()}>
+                    <div style={{display: 'flex', position: 'relative'}}>
+                        <img src='/gift-2d.png' style={{height: '3.2rem', cursor: 'pointer', zIndex: "987"}} className='present-dance'/>
+                        <div className='strobe-anim-32' style={{position: 'absolute', left: '-1rem', bottom: '0.6rem', height: '2.4rem', width: '2.4rem', borderRadius: '100%', backgroundColor: '#FE8BA9', opacity: '0.45'}}/>
+                        <div className='strobe-anim-22' style={{position: 'absolute', right: '-1rem', bottom: '0.2rem', height: '3.4rem', width: '3.4rem', borderRadius: '100%', backgroundColor: '#918FF3', opacity: '0.25'}}/>
+                        <div className='strobe-anim2' style={{position: 'absolute', right: '0.6rem', bottom: '2rem', height: '2.4rem', width: '2.4rem', borderRadius: '100%', backgroundColor: '#80D1B4', opacity: '0.25'}}/>
+                    </div>
+                </div>
+            )}
+
+        <div className={!isDeleting ? (!book?.reward_claimed && (book?.pages_read >= book?.total_pages) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)}>
 
                 <audio ref={audioRefHeart} src="/pop.mp3" />
 
             {isDeleting && held && <div className='n-library-book-fill'/>}
-
-                
 
             {!addingBook && isHolding && (
                 <div className='favorite-progress'/>

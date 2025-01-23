@@ -189,6 +189,41 @@
     }
 }
 
+.strobe-anim2 {
+    animation: strobe-anim2 3s linear infinite;
+}
+
+.strobe-anim-22 {
+    animation: strobe-anim2 3.4s linear infinite;
+}
+
+.strobe-anim-32 {
+    animation: strobe-anim2 3.6s linear infinite;
+}
+
+@keyframes strobe-anim2 {
+    0% {
+        opacity: 0.45;
+        transform: scale(1);
+    }
+    25% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+    50% {
+        opacity: 0.45;
+        transform: scale(1);
+    }
+    75% {
+        opacity: 0.35;
+        transform: scale(0.8125);
+    }
+    100% {
+        opacity: 0.45;
+        transform: scale(1);
+    }
+}
+
 .strobe-anim {
     animation: strobe-anim 3s linear infinite;
 }
@@ -274,7 +309,7 @@
 .n-emoji-reward {
     height: 5rem;
     animation: show-reward 1s ease-in-out 1;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 @keyframes show-reward {
@@ -294,7 +329,7 @@
 .n-emoji-reward-hover {
     height: 5rem;
     animation: show-reward-hover 2s ease-in-out infinite;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 @keyframes show-reward-hover {
@@ -320,4 +355,21 @@
     top: 115%;
     background-color: #918FF3;
     opacity: 0.3;
+    animation: shadow-change 2s ease-in-out infinite;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+@keyframes shadow-change {
+    0% {
+        background-color: #8878e2;
+        transform: scale(0.8125);
+    }
+    50% {
+        background-color: #918FF3;
+        transform: scale(1);
+    }
+    100% {
+        background-color: #8878e2;
+        transform: scale(0.8125);
+    }
 }

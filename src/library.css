@@ -1936,6 +1936,36 @@
     cursor: pointer;
 }
 
+.library-book-container-claim {
+    border: 1px solid #7d8694;
+    background-color: white;
+    padding: 1.2rem;
+    padding-bottom: 2rem;
+    border-radius: 0.8rem;
+    padding-right: 2rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    position: relative;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    z-index: 10;
+    transform: scale(0.8125);
+    height: 155.84px;
+    max-height: 155.84px;
+    filter: opacity(0.3);
+}
+
+.library-book-container-claim:hover {
+    cursor: pointer;
+    background-color: rgb(238, 238, 238);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
 .library-book-container {
     border: 1px solid #7d8694;
     background-color: white;

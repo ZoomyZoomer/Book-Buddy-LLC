@@ -112,8 +112,8 @@
     background-color: #D9D9D9;
     width: 100%;
     height: 1px;
-    margin-top: 0.2rem;
-    margin-bottom: 0.2rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
 }
 
 .n-navbar-bookshelf-txt-active {
@@ -138,7 +138,7 @@
 
 .n-library-middle-navbar {
     background-color: #27AE85;
-    height: 60px;
+    height: 80px;
     width: 100%;
     border-top-left-radius: 0.625rem;
     border-top-right-radius: 0.625rem;
@@ -200,7 +200,7 @@
     background-color: #FCD1D1;
     border: 1px solid #d84b4b;
     border-radius: 0.4rem;
-    padding: 0.35rem 0.55rem 0.35rem 0.55rem;
+    padding: 0.55rem 0.85rem 0.55rem 0.85rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -221,7 +221,7 @@
     background-color: white;
     border: 1px solid #8895AA;
     border-radius: 0.4rem;
-    padding: 0.35rem 0.55rem 0.35rem 0.55rem;
+    padding: 0.55rem 0.85rem 0.55rem 0.85rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -230,6 +230,7 @@
     color: #52637D;
     font-weight: 500;
     font-family: "Inter";
+    font-size: 0.8125rem;
 }
 
 .n-small-btn:hover {
@@ -244,7 +245,7 @@
     border-top-left-radius: 0.4rem;
     border-bottom-left-radius: 0.4rem;
     font-weight: 600;
-    padding: 0.35rem 1rem 0.35rem 1rem;
+    padding: 0.55rem 1rem 0.55rem 1rem;
     font-size: 0.8125rem;
     color: #52637D;
     display: flex;
@@ -257,7 +258,7 @@
     font-size: 0.8125rem;
     border: 1px solid #8895AA;
     background-color: #F7F7F7;
-    padding: 0.35rem 1rem 0.35rem 1rem;
+    padding: 0.55rem 1rem 0.55rem 1rem;
     border-top-right-radius: 0.4rem;
     border-bottom-right-radius: 0.4rem;
     color: #52637D;
@@ -277,7 +278,7 @@
     font-size: 0.8125rem;
     border: 1px solid #8895AA;
     background-color: white;
-    padding: 0.35rem 1rem 0.35rem 1rem;
+    padding: 0.55rem 1rem 0.55rem 1rem;
     border-top-right-radius: 0.4rem;
     border-bottom-right-radius: 0.4rem;
     color: #52637D;
@@ -712,7 +713,7 @@
 
 .n-chart-date {
     border: 1px solid #8895AA;
-    padding: 0.35rem 0.55rem 0.35rem 0.55rem;
+    padding: 0.55rem 0.55rem 0.55rem 0.55rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -760,4 +761,38 @@
 
 .n-chart-item:hover {
     background-color: rgb(247, 247, 247);
+}
+
+.present-dance {
+    animation: present-dance 2s ease-in-out infinite;
+}
+
+@keyframes present-dance {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: translateY(-10px) rotate(0deg);
+    }
+    20% {
+        transform: rotate(-10deg) translateY(-15px);
+    }
+    30% {
+        transform: rotate(10deg) translateY(-15px);
+    }
+    40% {
+        transform: rotate(-10deg) translateY(-15px);
+    }
+    50% {
+        transform: rotate(10deg) translateY(-15px);
+    }
+    60% {
+        transform: rotate(-10deg) translateY(-10px);
+    }
+    70% {
+        transform: rotate(4deg) translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
 }

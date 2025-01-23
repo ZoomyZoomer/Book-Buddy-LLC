@@ -7,6 +7,7 @@ const EmojiPopup = ( {popupInfo, setPopupInfo, username, setFetchPopup}) => {
 
   const [reward, setReward] = useState(null);
   const [openedReward, setOpenedReward] = useState(false);
+  const [file, setFile] = useState(null);
   const [showReward, setShowReward] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const audioRef = useRef(null);
@@ -17,6 +18,11 @@ const EmojiPopup = ( {popupInfo, setPopupInfo, username, setFetchPopup}) => {
   const rewards = new Map([
     [0, {name: 'Shopping Bag', desc: 'An abnormally light shopping bag... Is it empty?', color: '#918FF3', img: 'shopping-bag', id: 0}],
     [1, {name: 'Small Present', desc: 'A tiny present holding a tiny reward... probably', color: '#FE8BA9', img: 'present_icon', id: 1}]
+  ])
+
+  const fileMap = new Map([
+    [0, {name: 'Certificate', id: '20', value: 28, rarity: 'Rare', display: 'file_2', desc: `"Proof that you’ve mastered something—at least on paper!"`}],
+    [1, {name: 'Diploma', id: '40', value: 58, rarity: 'Epic', display: 'file_5', desc: `"A rare testament to your dedication and achievement, a symbol of hard-earned knowledge and success."`}]
   ])
 
   const handleClick = async() => {
@@ -54,10 +60,13 @@ const EmojiPopup = ( {popupInfo, setPopupInfo, username, setFetchPopup}) => {
     }
   };
 
-  const openReward = () => {
+  const openReward = async() => {
 
     setOpenedReward(true);
     playAudio2();
+
+    const file_item = fileMap.get(Math.round(Math.random()));
+    setFile(file_item);
 
     setTimeout(() => {
       setOpenedReward(false);
@@ -68,8 +77,22 @@ const EmojiPopup = ( {popupInfo, setPopupInfo, username, setFetchPopup}) => {
       }, 1000)
       setTimeout(() => {
         setDisplayDelay(false);
+        playAudio();
       }, 260)
     }, 2800)
+
+    // Register item as claimed
+    await axios.post('/api/addFile', {
+      username,
+      id: file_item.id,
+      quantity: 1
+    })
+
+    await axios.post('/api/updatePopup', {
+      username,
+      id: popupInfo.id
+    })
+
 
   }
 
@@ -144,9 +167,10 @@ const EmojiPopup = ( {popupInfo, setPopupInfo, username, setFetchPopup}) => {
 
         {showReward && !displayDelay && (
           <>
-            <div className='n-emoji-title' style={{marginTop: '2rem'}}>★ Diploma ★</div>
+            <div className='n-emoji-title' style={{marginTop: '2rem'}}>★ {file.name} ★</div>
+            <div style={{color: '#918FF3', marginTop: '0.2rem'}}>{file.rarity}</div>
             <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <img src='/file_5.png' className={!isHovering ? 'n-emoji-reward' : 'n-emoji-reward-hover'}/>
+              <img src={`/${file.display}.png`} className={!isHovering ? 'n-emoji-reward' : 'n-emoji-reward-hover'}/>
               <div className='hover-shadow'/>
             </div>
             <button className='n-emoji-btn' style={{marginTop: '4rem'}} onClick={() => closeReward()}>Wowow</button>

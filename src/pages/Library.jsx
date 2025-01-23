@@ -71,7 +71,8 @@ function Library() {
 
     const emojiPopups = new Map([
       [0, {name: 'Happy Time', desc: 'You’ve created your official Book Buddy account!', id: 0, button_desc: 'SMILE :)', img: 'smile-emoji-solo', reward: false, colors: {main: '#918FF3', c_0: '#80D1B4', c_1: '#FFC436', c_2: '#918FF3', c_3: '#FE8BA9', c_4: '#70F9FD'}}],
-      [1, {name: 'Gift for U', desc: 'I went shopping and got ya a present :)', id: 1, button_desc: 'OPEN IT', img: 'wink-emoji-solo', reward: true, colors: {main: '#FE8BA9', c_0: '#70F9FD', c_1: '#918FF3', c_2: '#FFC436', c_3: '#FE8BA9', c_4: '#80D1B4'}}]
+      [1, {name: 'Gift for U', desc: 'I went shopping and got ya a present :)', id: 1, button_desc: 'OPEN IT', img: 'wink-emoji-solo', reward: true, colors: {main: '#FE8BA9', c_0: '#70F9FD', c_1: '#918FF3', c_2: '#FFC436', c_3: '#FE8BA9', c_4: '#80D1B4'}}],
+      [2, {name: 'Reading Rewards', desc: "You're SO cool for finishing that book!", id: 2, button_desc: 'GET REWARD', img: 'cool-emoji-solo', reward: true, colors: {main: '#80D1B4', c_0: '#FFC436', c_1: '#918FF3', c_2: '#70F9FD', c_3: '#FE8BA9', c_4: '#FE8BA9'}}],
     ])
 
     useEffect(() => {
@@ -341,12 +342,6 @@ function Library() {
               
 
               <div className='n-library-middle-navbar'>
-              
-              </div>
-
-              <div style={{paddingLeft: '4rem', paddingRight: '4rem', width: '100%', boxSizing: 'border-box', marginTop: '1.625rem', display: 'flex'}}>
-
-                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '50%'}}>
 
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '28rem', position: 'relative'}}>
                     <input 
@@ -362,10 +357,24 @@ function Library() {
                       <span class="slider round" onClick={() => setSearchBy(prev => !prev)}></span>
                     </label>
                 </div>
+              
+              </div>
+
+              <div style={{paddingLeft: '4rem', paddingRight: '4rem', width: '100%', boxSizing: 'border-box', marginTop: '1.625rem', display: 'flex'}}>
+
+                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '30%'}}>
+
+                    <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', position: 'relative'}}>
+                      <div style={{display: 'flex', position: 'absolute', top: '0'}}><RightSquare /></div>
+                      <div style={{display: 'flex', marginLeft: '1.625rem', color: '#27AE85', fontSize: '1rem', fontWeight: '500', position: 'relative', flexDirection: 'column', justifyContent: 'left'}}>
+                        <div>Library Collection</div>
+                        <div style={{fontWeight: '400', fontSize: '0.7rem', color: '#808893'}}>Showing {!isAddingBook ? userCollection.length : addingCollection.length} of {!isAddingBook ? maxBooks : addingCollection.length} books</div>
+                      </div>
+                    </div>
 
                 </div>
-                <div style={{display: 'flex', justifyContent: 'right', alignItems: 'center', width: '50%'}}>
-                    <button className={!isDeleting ? 'n-small-btn' : 'n-small-btn-null'} onClick={() => !isDeleting && setIsAddingBook(prev => !prev)}>{!isAddingBook ? <AddCircle /> : 'Return to Library'}</button>
+                <div style={{display: 'flex', justifyContent: 'right', alignItems: 'center', width: '70%'}}>
+                    <button className={!isDeleting ? 'n-small-btn' : 'n-small-btn-null'} onClick={() => !isDeleting && setIsAddingBook(prev => !prev)}>{!isAddingBook ? <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><div style={{display: 'flex', marginRight: '0.4rem'}}><AddCircle /></div>Add Book</div> : 'Return to Library'}</button>
                     <button className={!isAddingBook ? (isDeleting ? 'n-small-btn-delete' : 'n-small-btn') : 'n-small-btn-null'} style={{marginLeft: '0.8125rem'}} onClick={() => !isAddingBook && setIsDeleting(prev => !prev)}>{!isDeleting ? <Trash /> : 'Cancel Deletion'}</button>
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.8125rem', position: 'relative'}}>
 
@@ -407,7 +416,7 @@ function Library() {
                 <div style={{height: '24rem', overflowY: 'auto', width: '100%', overflowX: 'hidden'}} className='n-scroll-content'>
                   <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridAutoRows: '12rem', justifyContent: 'left',  alignItems: 'center', boxSizing: 'border-box', marginLeft: '-1rem'}}>
                     {!isAddingBook &&  userCollection.map((book, index) => (
-                      <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9rem'}}><LibraryBook book={book} setIsDeleting={setIsDeleting} setBookDeleted={setBookDeleted} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
+                      <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9rem'}}><LibraryBook book={book} setUpdatedRating={setUpdatedRating} setFetchPopup={setFetchPopup} setIsDeleting={setIsDeleting} setBookDeleted={setBookDeleted} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
                     ))}
                     {isAddingBook && searchEntered && addingCollection.map((book, index) => (
                       <>
