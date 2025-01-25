@@ -1966,6 +1966,33 @@
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+.library-book-null {
+    border: 1px solid #7d8694;
+    background-color: rgb(243, 243, 243);
+    padding: 1.2rem;
+    padding-bottom: 2rem;
+    border-radius: 0.8rem;
+    padding-right: 2rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    position: relative;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    z-index: 10;
+    transform: scale(0.8125);
+    height: 155.84px;
+    max-height: 155.84px;
+    will-change: transform;
+    backface-visibility: hidden;
+    filter: grayscale(0.7) opacity(0.6);
+    cursor: not-allowed;
+}
+
 .library-book-container {
     border: 1px solid #7d8694;
     background-color: white;
@@ -1987,16 +2014,34 @@
     transform: scale(0.8125);
     height: 155.84px;
     max-height: 155.84px;
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .library-book-container:hover {
     cursor: pointer;
-    background-color: #fafafa;
+    background-color: #f7f7f7;
     border: 1px solid #6c7585;
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    box-shadow: 0px 4px 4px rgb(221, 221, 221);
+    box-shadow: 0px 4px 8px rgb(204, 204, 204);
 }
 
+.library-book-container:active {
+    transform: scale(0.74);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+@keyframes book-container-anim {
+    0% {
+        transform: scale(0.7);
+    }
+    80% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(0.8125);
+    }
+}
 
 .library-book-circle-gray {
     height: 6rem;
@@ -2101,6 +2146,7 @@
     align-items: end;
     height: fit-content;
     margin-left: 1.2rem;
+    height: 100%;
 }
 
 .library-vert-bar {

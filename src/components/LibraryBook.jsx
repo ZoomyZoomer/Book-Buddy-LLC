@@ -12,7 +12,7 @@ import axios from 'axios'
 import RatingFluid from './RatingFluid'
 import BookBuddyNavbar from './BookBuddyNavbar'
 
-const LibraryBook = ({book, setSearchEntered, setFetchPopup, setUpdatedRating, setIsDeleting, setBookDeleted, isDeleting, activeStickers, setText, setNoBooksFound, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, index, isPreview, reFetchStickers}) => {
+const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetchPopup, setUpdatedRating, setIsDeleting, setBookDeleted, isDeleting, activeStickers, setText, setNoBooksFound, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, index, isPreview, reFetchStickers}) => {
 
     const [showCheck, setShowCheck] = useState(false);
     const [loadBook, setLoadBook] = useState(false);
@@ -26,6 +26,7 @@ const LibraryBook = ({book, setSearchEntered, setFetchPopup, setUpdatedRating, s
     const navigate = useNavigate('/');
     const [timer, setTimer] = useState(null);
     const [held, setHeld] = useState(false);
+    const [loadAnim, setLoadAnim] = useState(false);
 
     const audioRefPin = useRef(null);
 
@@ -48,7 +49,8 @@ const LibraryBook = ({book, setSearchEntered, setFetchPopup, setUpdatedRating, s
     const addBook = async() => {
 
             setLoadBook(true);
-            setSearchEntered(false);
+            setLoadAnim(true);
+            setGlobalNull(true);
             
             try {
 
@@ -67,6 +69,8 @@ const LibraryBook = ({book, setSearchEntered, setFetchPopup, setUpdatedRating, s
                     setTimeout(() => {
                         setText('');
                         setAddingCollection([null, null, null, null]);
+                        setGlobalNull(false);
+                        setSearchEntered(false);
                         setIsAddingBook(false);
                     }, 200)
                 }, 500)
@@ -226,6 +230,30 @@ const LibraryBook = ({book, setSearchEntered, setFetchPopup, setUpdatedRating, s
         setHeld(false); // Reset the state if needed
       };
 
+      const [style, setStyle] = useState({ transform: "perspective(500px) rotateX(0deg) rotateY(0deg) scale(0.8125)" });
+      
+          const handleMouseMove = (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left; // X position relative to the container
+            const y = e.clientY - rect.top;  // Y position relative to the container
+        
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+        
+            // Invert the rotation directions by negating the values
+            const rotateX = -((y - centerY) / centerY) * 4; // Max tilt of 10 degrees
+            const rotateY = -((centerX - x) / centerX) * 4;
+        
+            setStyle({
+              transform: `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(0.8125)`,
+              transition: "transform 0.1s ease-out, background-color 0.3s ease-in-out",
+            });
+          };
+      
+        const handleMouseLeave = () => {
+          setStyle({ transform: "perspective(500px) rotateX(0deg) rotateY(0deg) scale(0.8125)", transition: "transform 0.5s ease-out, background-color 0.3s ease-in-out" });
+        };
+
   return (
 
     <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center'}} onMouseDown={handleMouseDown} onMouseLeave={handleMouseUp} onMouseUp={handleMouseUp}>
@@ -242,7 +270,7 @@ const LibraryBook = ({book, setSearchEntered, setFetchPopup, setUpdatedRating, s
                 </div>
             )}
 
-        <div className={!isDeleting ? (!book?.reward_claimed && (book?.pages_read >= book?.total_pages) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)}>
+        <div style={{...style}}className={(globalNull && !loadAnim) ? 'library-book-null' : !isDeleting ? ((!book?.reward_claimed && (book?.pages_read >= book?.total_pages) || loadAnim) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
 
                 <audio ref={audioRefHeart} src="/pop.mp3" />
 

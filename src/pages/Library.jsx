@@ -23,6 +23,7 @@ import {ReactComponent as Clipboard} from '../n-clipboard.svg'
 import {ReactComponent as ScrapBook} from '../n-scrapbook.svg'
 import {ReactComponent as PieChart} from '../pie-chart.svg'
 import {ReactComponent as Alarm} from '../n-alarm.svg'
+import {ReactComponent as Add} from '../n-add-circle.svg'
 import LibraryBook from '../components/LibraryBook'
 import ScrapPatch from '../components/ScrapPatch'
 import LineChart from '../components/LineChart'
@@ -273,7 +274,31 @@ function Library() {
       }
     }, [userInfo, fetchPopup])
 
+    const [style, setStyle] = useState({ transform: "perspective(500px) rotateX(0deg) rotateY(0deg) scale(0.8125)" });
 
+    const handleMouseMove = (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left; // X position relative to the container
+      const y = e.clientY - rect.top;  // Y position relative to the container
+  
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+  
+      // Invert the rotation directions by negating the values
+      const rotateX = -((y - centerY) / centerY) * 4; // Max tilt of 10 degrees
+      const rotateY = -((centerX - x) / centerX) * 4;
+  
+      setStyle({
+        transform: `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(0.8125)`,
+        transition: "transform 0.1s ease-out, background-color 0.3s ease-in-out",
+      });
+    };
+
+  const handleMouseLeave = () => {
+    setStyle({ transform: "perspective(500px) rotateX(0deg) rotateY(0deg) scale(0.8125)", transition: "transform 0.5s ease-out, background-color 0.3s ease-in-out" });
+  };
+
+  const [globalNull, setGlobalNull] = useState(false);
 
   return (
 
@@ -416,13 +441,30 @@ function Library() {
                 <div style={{height: '24rem', overflowY: 'auto', width: '100%', overflowX: 'hidden'}} className='n-scroll-content'>
                   <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridAutoRows: '12rem', justifyContent: 'left',  alignItems: 'center', boxSizing: 'border-box', marginLeft: '-1rem'}}>
                     {!isAddingBook &&  userCollection.map((book, index) => (
-                      <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9rem'}}><LibraryBook book={book} setUpdatedRating={setUpdatedRating} setFetchPopup={setFetchPopup} setIsDeleting={setIsDeleting} setBookDeleted={setBookDeleted} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
+                      <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9rem'}}><LibraryBook book={book} globalNull={globalNull} setGlobalNull={setGlobalNull} setUpdatedRating={setUpdatedRating} setFetchPopup={setFetchPopup} setIsDeleting={setIsDeleting} setBookDeleted={setBookDeleted} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
                     ))}
                     {isAddingBook && searchEntered && addingCollection.map((book, index) => (
                       <>
-                        <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9.5rem'}}><LibraryBook book={book} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
+                        <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9.5rem'}}><LibraryBook book={book} globalNull={globalNull} setGlobalNull={setGlobalNull} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
                       </>
                     ))}
+                    {!isAddingBook && userCollection.length === 0 && (
+                      <div className='library-book-container' style={{flexDirection: 'row', ...style}} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => setIsAddingBook(true)}>
+                        <div className='library-book-circle-gray'>
+                          <img src='http://books.google.com/books/publisher/content?id=Z5nYDwAAQBAJ&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71w0_tgIHfDMwhEsvV-pEgZJhDOzyolKwNKjxdBne8QcH_cUZmfHby5Yem38_R8itwP5Oa0wKe2ygqV8APiUmP35Fpb568w3g-eGs5-5rc5zVgNLHRfTotPzpj7QrrfoYrtIp-9&source=gbs_api' className='library-cover'/>
+                        </div>
+                        <div className='library-book-info'>
+                          <div className='library-book-title'>Empty Book Slot</div>
+                          <div className='library-book-author' style={{marginTop: '0.2rem'}}>Click to add from a collection of thousands!</div>
+                          <div className='n-add-to-library'><div style={{marginRight: '0.4rem', display: 'flex'}}><Add /></div>Click to Add Book</div>
+                        </div>
+                          <div className='library-vert-bar-container'>
+                            <div className='library-vert-bar'>
+                                <div className='library-vert-bar-fill'/>
+                            </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {isAddingBook && !searchEntered && (
