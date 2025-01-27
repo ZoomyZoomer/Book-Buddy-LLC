@@ -270,7 +270,13 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
                 </div>
             )}
 
-        <div style={{...style}}className={(globalNull && !loadAnim) ? 'library-book-null' : !isDeleting ? ((!book?.reward_claimed && (book?.pages_read >= book?.total_pages) || loadAnim) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+            {loadAnim && (
+                <div className='n-load-anim-cont'>
+                    <div className='n-load-anim-fill'/>
+                </div>
+            )}
+
+        <div style={{...style}}className={loadAnim ? 'library-book-load-anim' : (globalNull && !loadAnim) ? 'library-book-null' : !isDeleting ? ((!book?.reward_claimed && (book?.pages_read >= book?.total_pages)) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
 
                 <audio ref={audioRefHeart} src="/pop.mp3" />
 

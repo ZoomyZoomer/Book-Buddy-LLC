@@ -796,3 +796,30 @@
         transform: translateY(0px) rotate(0deg);
     }
 }
+
+.n-load-anim-cont {
+    position: absolute;
+    margin: auto;
+    width: 60%;
+    height: 1rem;
+    border-radius: 0.8rem;
+    background-color: rgb(222, 222, 222);
+    z-index: 989;
+}
+
+.n-load-anim-fill {
+    height: 1rem;
+    border-radius: 0.8rem;
+    background-color: #27AE85;
+    width: 100%;
+    animation: load-anim-fill 2s ease-in-out 1;
+}
+
+@keyframes load-anim-fill {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
