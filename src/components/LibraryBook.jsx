@@ -272,19 +272,10 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
             )}
 
             {loadAnim && (
-<<<<<<< HEAD
                 <div className='n-load-anim-base'>
                     <div className='n-load-anim-fill'/>
                 </div>
             )}
-=======
-                <div className='n-load-anim-cont'>
-                    <div className='n-load-anim-fill'/>
-                </div>
-            )}
-
-        <div style={{...style}}className={loadAnim ? 'library-book-load-anim' : (globalNull && !loadAnim) ? 'library-book-null' : !isDeleting ? ((!book?.reward_claimed && (book?.pages_read >= book?.total_pages)) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
->>>>>>> 86c5ee9b9d7c935b5c30bf594486d92c22aa8cad
 
         <div  className={loadAnim ? 'my-cont-book' : (globalNull && !loadAnim) ? 'library-book-null' : !isDeleting ? ((!book?.reward_claimed && (book?.pages_read >= book?.total_pages)) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
 
