@@ -2065,6 +2065,46 @@
     will-change: transform;
   }
 
+.library-book-load-anim {
+    border: 1px solid #7d8694;
+    background-color: rgb(243, 243, 243);
+    padding: 1.2rem;
+    padding-bottom: 2rem;
+    border-radius: 0.8rem;
+    padding-right: 2rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    position: relative;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    z-index: 10;
+    transform: scale(0.8125);
+    height: 155.84px;
+    max-height: 155.84px;
+    will-change: transform;
+    backface-visibility: hidden;
+    filter: grayscale(0.7) opacity(0.1);
+    cursor: not-allowed;
+    animation: do-something 0.5s ease-in-out 1;
+}
+
+@keyframes do-something {
+    0% {
+        transform: scale(0.7);
+    }
+    80% {
+        transform: scale(0.88);
+    }
+    100% {
+        transform: scale(0.8125);
+    }
+}
+
 .library-book-container {
     border: 1px solid #7d8694;
     background-color: white;
