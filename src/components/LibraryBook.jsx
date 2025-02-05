@@ -27,6 +27,7 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
     const [timer, setTimer] = useState(null);
     const [held, setHeld] = useState(false);
     const [loadAnim, setLoadAnim] = useState(false);
+    const [style, setStyle] = useState({ transform: "perspective(500px) rotateX(0deg) rotateY(0deg) scale(0.8125)" });
 
     const audioRefPin = useRef(null);
 
@@ -51,6 +52,8 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
             setLoadBook(true);
             setLoadAnim(true);
             setGlobalNull(true);
+            playAudioRefHeart();
+            setStyle('');
             
             try {
 
@@ -229,8 +232,6 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
         clearTimeout(timer); // Clear timeout if the mouse is released early
         setHeld(false); // Reset the state if needed
       };
-
-      const [style, setStyle] = useState({ transform: "perspective(500px) rotateX(0deg) rotateY(0deg) scale(0.8125)" });
       
           const handleMouseMove = (e) => {
             const rect = e.currentTarget.getBoundingClientRect();
@@ -270,19 +271,25 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
                 </div>
             )}
 
-        <div style={{...style}}className={(globalNull && !loadAnim) ? 'library-book-null' : !isDeleting ? ((!book?.reward_claimed && (book?.pages_read >= book?.total_pages) || loadAnim) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+            {loadAnim && (
+                <div className='n-load-anim-base'>
+                    <div className='n-load-anim-fill'/>
+                </div>
+            )}
 
-                <audio ref={audioRefHeart} src="/pop.mp3" />
+        <div  className={loadAnim ? 'my-cont-book' : (globalNull && !loadAnim) ? 'library-book-null' : !isDeleting ? ((!book?.reward_claimed && (book?.pages_read >= book?.total_pages)) ? 'library-book-container-claim' : 'library-book-container') : (held ? 'library-book-container-held' : 'library-book-container-delete')} onClick={(e) => checkRedirect(e)} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+
+                <audio ref={audioRefHeart} src="/popon-sound.mp3" />
 
             {isDeleting && held && <div className='n-library-book-fill'/>}
 
             {!addingBook && isHolding && (
                 <div className='favorite-progress'/>
             )}
-            
-            <div style={{zIndex: '4000'}}>
 
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'}}>
+            <div className='b-flip-card-front'>
+
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'}}>
                     <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
                         <div className={addingBook ? 'library-book-circle-gray' : 'library-book-circle'}>
                             <div style={{height: 'fit-content', width: 'fit-content', position: 'absolute', top: '4%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -343,6 +350,9 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
                 </div>
 
             </div>
+
+            <div className='b-flip-card-back'></div>
+
             
             {!addingBook && book?.title && (
                 <>
