@@ -2122,7 +2122,7 @@
     width: fit-content;
     position: relative;
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    z-index: 10;
+    z-index: 29;
     transform: translateZ(0) scale(0.8125);
     height: 155.84px;
     max-height: 155.84px;
@@ -3397,11 +3397,23 @@
     width: 60%;
     border-radius: 0.8rem;
     background-color: rgb(221, 221, 221);
-    border: 1px solid rgb(201, 201, 201);
     z-index: 989;
     display: flex;
     justify-content: left;
     align-items: center;
+    animation: lol-pop 1s ease-in-out 1;
+}
+
+@keyframes lol-pop {
+    0% {
+        transform: scale(0.7);
+    }
+    80% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .n-load-anim-fill {
@@ -3416,11 +3428,14 @@
 @keyframes big-width {
     0% {
         width: 0%;
+        transform: scale(0.7);
     }
     70% {
         width: 50%;
+        transform: scale(1.1);
     }
     100% {
         width: 100%;
+        transform: scale(1);
     }
 }
