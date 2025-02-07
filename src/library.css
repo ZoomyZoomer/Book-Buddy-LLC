@@ -1936,9 +1936,12 @@
     cursor: pointer;
 }
 
+.library-book-container-claim{ 
+    background-color: white;
+}
+
 .library-book-container-claim {
     border: 1px solid #7d8694;
-    background-color: white;
     padding: 1.2rem;
     padding-bottom: 2rem;
     border-radius: 0.8rem;
@@ -1953,16 +1956,20 @@
     width: fit-content;
     position: relative;
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    z-index: 10;
-    transform: scale(0.8125);
+    z-index: 29;
+    transform: translateZ(0) scale(0.8125);
     height: 155.84px;
     max-height: 155.84px;
+    width: 26rem;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: flat;
     filter: opacity(0.3);
 }
 
 .library-book-container-claim:hover {
     cursor: pointer;
-    background-color: rgb(238, 238, 238);
+    background-color: rgb(233, 233, 233);
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 

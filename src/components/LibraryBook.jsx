@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import RatingFluid from './RatingFluid'
 import BookBuddyNavbar from './BookBuddyNavbar'
+import Particles from './Particles'
 
 const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetchPopup, setUpdatedRating, setIsDeleting, setBookDeleted, isDeleting, activeStickers, setText, setNoBooksFound, addingBook, username, setIsAddingBook, setAddingCollection, volumeId, index, isPreview, reFetchStickers}) => {
 
@@ -263,10 +264,7 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
             {!book?.reward_claimed && (book?.pages_read >= book?.total_pages) && (
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute', zIndex: '194', cursor: 'pointer'}} onClick={() => claimBookReward()}>
                     <div style={{display: 'flex', position: 'relative'}}>
-                        <img src='/gift-2d.png' style={{height: '3.2rem', cursor: 'pointer', zIndex: "987"}} className='present-dance'/>
-                        <div className='strobe-anim-32' style={{position: 'absolute', left: '-1rem', bottom: '0.6rem', height: '2.4rem', width: '2.4rem', borderRadius: '100%', backgroundColor: '#FE8BA9', opacity: '0.45'}}/>
-                        <div className='strobe-anim-22' style={{position: 'absolute', right: '-1rem', bottom: '0.2rem', height: '3.4rem', width: '3.4rem', borderRadius: '100%', backgroundColor: '#918FF3', opacity: '0.25'}}/>
-                        <div className='strobe-anim2' style={{position: 'absolute', right: '0.6rem', bottom: '2rem', height: '2.4rem', width: '2.4rem', borderRadius: '100%', backgroundColor: '#80D1B4', opacity: '0.25'}}/>
+                        <img src='/gift-2d.png' style={{height: '3rem', cursor: 'pointer', zIndex: "987"}} className='present-dance'/>
                     </div>
                 </div>
             )}
@@ -285,6 +283,12 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
 
             {!addingBook && isHolding && (
                 <div className='favorite-progress'/>
+            )}
+
+            {(!book?.reward_claimed && (book?.pages_read >= book?.total_pages)) && (
+                <div style={{position: 'absolute'}}>
+                    <Particles />
+                </div>
             )}
 
             <div className='b-flip-card-front'>

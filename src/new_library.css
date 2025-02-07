@@ -763,8 +763,14 @@
     background-color: rgb(247, 247, 247);
 }
 
+.present-dance:active {
+    transform: scale(0.8125);
+    transition: transform 0.3s ease-in-out;
+}
+
 .present-dance {
     animation: present-dance 2s ease-in-out infinite;
+    transition: transform 0.3s ease-in-out;
 }
 
 @keyframes present-dance {

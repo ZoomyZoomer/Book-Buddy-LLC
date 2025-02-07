@@ -1,0 +1,26 @@
+html, body { 
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background: #262546;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: shoot 6s ease-out infinite, fade 6s ease-out infinite; /* Even slower */
+    transform: translate(-50%, -50%);
+}
+
+@keyframes shoot {
+    0% { transform: translate(-50%, -50%); }
+    100% { transform: translate(var(--x), var(--y)); }
+}
+
+@keyframes fade { 
+    to { opacity: 0; } 
+}
