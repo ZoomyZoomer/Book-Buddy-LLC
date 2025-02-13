@@ -34,6 +34,7 @@ function Library() {
 
     const [searchBy, setSearchBy] = useState(true);
     const [text, setText] = useState('');
+    const [showText, setShowText] = useState(false);
     const [searchEntered, setSearchEntered] = useState(false);
     const [showDropDown, setShowDropDown] = useState(false);
     const [userInfo, setUserInfo] = useState(null);
@@ -47,6 +48,7 @@ function Library() {
     const [reFetchStickers, setReFetchStickers] = useState(false);
     const [noBooksFound, setNoBooksFound] = useState(false);
     const [maxPatch, setMaxPatch] = useState(undefined);
+    const [eligible, setEligible] = useState(false);
     const [showGraphDropDown, setShowGraphDropDown] = useState(false);
     const [sampleData, setSampleData] = useState([[
       {timeframe: 'Wed', pages: 40}, {timeframe: 'Tue', pages: 30}, {timeframe: 'Mon', pages: 38}, {timeframe: 'Sun', pages: 45}, {timeframe: 'Sat', pages: 67}, {timeframe: 'Fri', pages: 27}, {timeframe: 'Thu', pages: 16}],
@@ -59,6 +61,8 @@ function Library() {
     const divRef = useRef(null);
     const navigate = useNavigate('/');
     const tab = 'Favorites';
+
+    const [patchClicked, setPatchClicked] = useState(false);
 
     const patchBook = new Map([
       [0, {name: 'Potted Plant', desc: 'Where it starts!', src: 'patch_1', id: 0}],
@@ -121,6 +125,7 @@ function Library() {
             setReFetchStickers(prev => !prev);
             setUserCollection(response.data[0]);
             setMaxBooks(response.data[1]);
+            setEligible(response.data[2]);
 
           } catch (e) {
             console.error({ error: e });
@@ -300,6 +305,32 @@ function Library() {
 
   const [globalNull, setGlobalNull] = useState(false);
 
+  const clickPatch = () => {
+
+      if (patchClicked){
+        closePatch();
+      } else {
+        setPatchClicked(prev => !prev);
+        setTimeout(() => {
+          setShowText(true);
+        }, 450)
+      }
+
+  }
+
+  const closePatch = () => {
+    document?.getElementsByClassName('n-patch-clicked')[0]?.classList.add('n-patch-close');
+    document?.getElementsByClassName('n-patch-clicked-end')[0]?.classList.add('n-patch-close-end');
+    document?.getElementsByClassName('n-patch-clicked')[0]?.classList.remove('n-patch-clicked');
+    document?.getElementsByClassName('n-patch-clicked-end')[0]?.classList.remove('n-patch-clicked-end');
+    setTimeout(() => {
+      setShowText(false);
+    }, 50)
+    setTimeout(() => {
+      setPatchClicked(false);
+    }, 500)
+  }
+
   return (
 
     <div style={{height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
@@ -366,7 +397,7 @@ function Library() {
 
               
 
-              <div className='n-library-middle-navbar'>
+              <div className='n-library-middle-navbar' style={{position: 'relative'}}>
 
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '28rem', position: 'relative'}}>
                     <input 
@@ -382,6 +413,29 @@ function Library() {
                       <span class="slider round" onClick={() => setSearchBy(prev => !prev)}></span>
                     </label>
                 </div>
+
+                {/*<div style={{position: 'absolute', right: '4rem', display: 'flex', justifyContent: 'center'}}>
+
+                  <div style={{position: 'relative'}} className={'n-patch-claimed'} onClick={() => clickPatch()} onMouseLeave={() => closePatch()}>
+
+                    <div className='patch_1-alt' style={{zIndex: '998', animation: 'none', height: '3.4rem', width: '3.4rem', borderWidth: '1px', borderStyle: 'solid'}}>
+                      <img src={`/${eligible ? 'gift-inside-icon' : 'present_icon'}.png`} style={{position: 'absolute', height: eligible ? '2.1rem' : '1.8rem', zIndex: '200'}}/>           
+                    </div>
+
+                    {eligible && (<div></div>)}
+
+                    {patchClicked && <div className='n-patch-clicked-end' style={{zIndex: '997'}}>
+                      {showText && (
+                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', alignItems: 'center', marginRight: '2rem'}}>
+                          <div style={{fontWeight: '600', fontSize: '0.8125rem', display: 'flex', width: '100%', justifyContent: 'left'}}>★ Small Present ★</div>
+                          <div style={{fontWeight: '400', color: '#808893', fontSize: '0.6rem', marginTop: '0.2rem'}}><strong>Unlock:</strong> Create a reading entry</div>
+                        </div>
+                      )}
+                    </div>}
+
+                  </div>
+
+                </div>*/}
               
               </div>
 
@@ -392,7 +446,7 @@ function Library() {
                     <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', position: 'relative'}}>
                       <div style={{display: 'flex', position: 'absolute', top: '0'}}><RightSquare /></div>
                       <div style={{display: 'flex', marginLeft: '1.625rem', color: '#27AE85', fontSize: '1rem', fontWeight: '500', position: 'relative', flexDirection: 'column', justifyContent: 'left'}}>
-                        <div>Library Collection</div>
+                        <div>Your Library Collection</div>
                         <div style={{fontWeight: '400', fontSize: '0.7rem', color: '#808893'}}>Showing {!isAddingBook ? userCollection.length : addingCollection.length} of {!isAddingBook ? maxBooks : addingCollection.length} books</div>
                       </div>
                     </div>
@@ -435,11 +489,11 @@ function Library() {
 
               </div>
 
-              <div style={{paddingLeft: '4rem', paddingRight: '4rem', width: '100%', boxSizing: 'border-box', marginTop: '1rem', display: 'flex', flexDirection: 'column'}}>
+              <div style={{width: '100%', boxSizing: 'border-box', marginTop: '1rem', display: 'flex', flexDirection: 'column'}}>
                 <div className='n-navbar-separator'/>
 
-                <div style={{height: '24rem', overflowY: 'auto', width: '100%', overflowX: 'hidden'}} className='n-scroll-content'>
-                  <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridAutoRows: '12rem', justifyContent: 'left',  alignItems: 'center', boxSizing: 'border-box', marginLeft: '-1rem'}}>
+                <div style={{height: '25.4rem', overflowY: 'auto', width: '100%', overflowX: 'hidden'}} className='n-scroll-content'>
+                  <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridAutoRows: '12rem', justifyContent: 'left',  alignItems: 'center', boxSizing: 'border-box'}}>
                     {!isAddingBook &&  userCollection.map((book, index) => (
                       <div style={{width: '100%', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '9rem'}}><LibraryBook book={book} globalNull={globalNull} setGlobalNull={setGlobalNull} setUpdatedRating={setUpdatedRating} setFetchPopup={setFetchPopup} setIsDeleting={setIsDeleting} setBookDeleted={setBookDeleted} volumeId={book?.volume_id} isDeleting={isDeleting} index={index} username={userInfo?.username} addingBook={isAddingBook} isPreview={false} setText={setText} setAddingCollection={setAddingCollection} setIsAddingBook={setIsAddingBook} setSearchEntered={setSearchEntered}/></div>
                     ))}
@@ -516,7 +570,7 @@ function Library() {
 
                     <div style={{position: 'absolute', right: '0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 
-                      <div className='n-select-filter'>
+                      <div className='n-select-filter' style={{padding: '0.45rem 1rem 0.45rem 1rem'}}>
                         <Alarm />
                       </div>
 

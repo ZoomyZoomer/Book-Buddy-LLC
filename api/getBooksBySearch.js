@@ -56,7 +56,7 @@ export default async function handler(req, res) {
         matchingBooks = [...pinnedFavoriteBooks, ...nonPinnedFavoriteBooks];
       }
 
-      res.status(200).json([matchingBooks, tab.books.length]);
+      res.status(200).json([matchingBooks, tab.books.length, shelf.daily_eligible]);
 
     } catch (e) {
       console.error('Error fetching books:', e);

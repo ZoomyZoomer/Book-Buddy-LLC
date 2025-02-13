@@ -2129,7 +2129,7 @@
     width: fit-content;
     position: relative;
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    z-index: 29;
+    z-index: 28;
     transform: translateZ(0) scale(0.8125);
     height: 155.84px;
     max-height: 155.84px;
@@ -3408,18 +3408,24 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    animation: lol-pop 1s ease-in-out 1;
+    animation: lol-pop 1.5s ease-in-out 1;
 }
 
 @keyframes lol-pop {
     0% {
+        opacity: 0;
+    }
+    40% {
         transform: scale(0.7);
+        opacity: 1;
     }
     80% {
         transform: scale(1.05);
+        opacity: 1;
     }
     100% {
         transform: scale(1);
+        opacity: 1;
     }
 }
 

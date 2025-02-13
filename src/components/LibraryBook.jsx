@@ -162,6 +162,8 @@ const LibraryBook = ({book, setSearchEntered, globalNull, setGlobalNull, setFetc
 
     const claimBookReward = async() => {
 
+        playAudioRefHeart();
+
         await axios.post('/api/claim-book-reward', {
             username,
             volume_id: volumeId

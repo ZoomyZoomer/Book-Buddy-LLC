@@ -12,8 +12,8 @@ const stickerMap = new Map([
     ['7', {sticker_name: 'planet', sticker_id: '7', location: 0, sticker_display: 'Planet Phil', sticker_set: {set: 'Outer Space', set_item_id: 1, unique_color_name: 'Space Dark Blue', border_color: 'white'}}],
     ['8', {sticker_name: 'blue-bird', sticker_id: '8', location: 0, sticker_display: 'Blue Bird', sticker_set: {set: 'Nature', set_item_id: 0, unique_color_name: 'Nature Green', border_color: 'white'}}],
     ['9', {sticker_name: 'caterpillar', sticker_id: '9', location: 1, sticker_display: 'Caterpillar', sticker_set: {set: 'Nature', set_item_id: 1, unique_color_name: 'Nature Green', border_color: 'white'}}],
-    ['10', {sticker_name: 'pagoda', sticker_id: '10', location: 0, sticker_display: 'Temple', sticker_set: {set: 'Japan', set_item_id: 0, unique_color_name: 'Japan Pink', border_color: 'white'}}],
-    ['11', {sticker_name: 'bonsai', sticker_id: '11', location: 1, sticker_display: 'Octo-Bonsai', sticker_set: {set: 'Japan', set_item_id: 1, unique_color_name: 'Japan Pink', border_color: 'white'}}],
+    ['10', {sticker_name: 'crown', sticker_id: '10', location: 0, sticker_display: 'Crown', sticker_set: {set: 'Chess', set_item_id: 0, unique_color_name: 'Chess White', border_color: 'white'}}],
+    ['11', {sticker_name: 'bishop', sticker_id: '11', location: 1, sticker_display: 'Bishop', sticker_set: {set: 'Chess', set_item_id: 1, unique_color_name: 'Chess White', border_color: 'white'}}],
 ])
 
 export default async function handler(req, res) {

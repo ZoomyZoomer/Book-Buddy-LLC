@@ -178,6 +178,11 @@ export default async function handler(req, res) {
 
       }
 
+      if (!shelf.daily_eligible && !shelf.daily_claimed) {
+        shelf.daily_claim_time = new Date();
+        shelf.daily_eligible = true;
+      }
+
       // Save the updated bookshelf
       await shelf.save();
 

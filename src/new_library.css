@@ -113,7 +113,6 @@
     width: 100%;
     height: 1px;
     margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
 }
 
 .n-navbar-bookshelf-txt-active {
@@ -449,6 +448,10 @@
     background: #23a795; /* Darker thumb on hover */
 }
 
+.n-scroll-content {
+    background-color: #f5f5f5;
+}
+
 .n-patch-claimed {
     position: relative;
     display: flex;
@@ -663,7 +666,7 @@
     border-top: none;
     border-bottom-right-radius: 0.8rem;
     border-bottom-left-radius: 0.8rem;
-    z-index: 18;
+    z-index: 998;
     background-color: white;
 }
 
@@ -713,7 +716,7 @@
 
 .n-chart-date {
     border: 1px solid #8895AA;
-    padding: 0.55rem 0.55rem 0.55rem 0.55rem;
+    padding: 0.45rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -724,6 +727,7 @@
     transition: background-color 0.3s ease-in-out;
     z-index: 400;
     width: 7rem;
+    font-size: 12px;
 }
 
 .n-chart-date:hover {

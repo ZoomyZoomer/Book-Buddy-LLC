@@ -46,7 +46,7 @@ export default async function handler(req, res) {
           [3, 1, 2, 2, 2, 1, 2],
           [9, 1, 1, 3, 3, 1, 8],
         ],
-        stickers_seen: ["0", "2", "3", "4"],
+        stickers_seen: ["0", "2", "3", "4", "10", "11"],
         currency:{
           coins: 500,
           xp: 0,

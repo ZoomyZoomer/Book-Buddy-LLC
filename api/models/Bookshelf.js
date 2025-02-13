@@ -256,6 +256,17 @@ const bookshelfSchema = new Schema({
   goals_set: {
     type: Object
   },
+  daily_claimed: {
+    type: Boolean,
+    default: false
+  },
+  daily_eligible: {
+    type: Boolean,
+    default: false
+  },
+  daily_claim_time: {
+    type: Date
+  },
   goals: [goalInfoSchema],
   emoji_popups: [emojiSchema],
   dates: [],
