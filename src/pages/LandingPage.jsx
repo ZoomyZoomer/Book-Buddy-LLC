@@ -108,6 +108,10 @@ const stickerMap = [
 ]
 
   useEffect(() => {
+    navigate('/signin');
+  })
+
+  useEffect(() => {
 
     if (market){
       if (itemsMap.length < 5){
@@ -122,6 +126,7 @@ const stickerMap = [
         
       }
     }
+
 
 
     const val = Math.floor(Math.random() * 2);
