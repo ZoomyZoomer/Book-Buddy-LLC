@@ -358,7 +358,7 @@ function Library() {
 
               <div className='n-main-menu-sec'>
                 <div className='n-navbar-main-txt'>MAIN MENU</div>
-                <button className='n-main-menu-btn-active' style={{marginTop: '1.5rem'}}>
+                <button className='n-main-menu-btn-active' style={{marginTop: '1rem'}}>
                   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><CheckList /></div>
                   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Library</div>
                 </button>
@@ -378,7 +378,7 @@ function Library() {
 
               
 
-              <div className='n-main-menu-sec' style={{marginTop: '7rem'}}>
+              <div className='n-main-menu-sec' style={{marginTop: '7.5rem'}}>
                 <button className='n-main-menu-btn'>
                   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Settings /></div>
                   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Settings</div>
