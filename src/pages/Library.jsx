@@ -343,50 +343,58 @@ function Library() {
 
           <div className='n-library-left-bar'>
 
-            <div style={{height: '8%', display: 'flex', flexDirection: 'column', justifyContent: 'left', width: '100%'}}>
+            <div style={{display: 'flex', flexDirection: 'column'}} className='n-left-bar-0'>
 
-              <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', height: '100%'}}>
-                <img src='/bb-logo.png' style={{height: '2rem', width: '2rem', cursor: 'pointer'}}/>
-                <div className='logo-title' style={{fontSize: '0.9rem'}}>BOOK <strong>BUDDY</strong></div>
+              <div style={{height: '8%', display: 'flex', flexDirection: 'column', justifyContent: 'left', width: '100%'}}>
+
+                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', height: '100%', marginTop: '1.5rem'}}>
+                  <img src='/bb-logo.png' style={{height: '2rem', width: '2rem', cursor: 'pointer'}}/>
+                  <div className='logo-title' style={{fontSize: '0.9rem'}}>BOOK <strong>BUDDY</strong></div>
+                </div>
+
+                <div className='n-navbar-separator'/>
+
               </div>
 
-              <div className='n-navbar-separator'/>
+              <div className='n-main-menu-sec'>
+                <div className='n-navbar-main-txt'>MAIN MENU</div>
+                <button className='n-main-menu-btn-active' style={{marginTop: '1.5rem'}}>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><CheckList /></div>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Library</div>
+                </button>
+                <button className='n-main-menu-btn'>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><MedalFilled /></div>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Rewards</div>
+                </button>
+                <button className='n-main-menu-btn'>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><InboxFilled /></div>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Storage</div>
+                </button>
+                <button className='n-main-menu-btn'>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><ChatFilled /></div>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Social</div>
+                </button>
+              </div>
+
+              
+
+              <div className='n-main-menu-sec' style={{marginTop: '7rem'}}>
+                <button className='n-main-menu-btn'>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Settings /></div>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Settings</div>
+                </button>
+                <button className='n-main-menu-btn'>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Logout /></div>
+                  <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Log out</div>
+                </button>
+                <div className='n-navbar-separator' style={{marginTop: '1rem'}}/>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#9BA4B6', fontSize: '0.8125rem', marginTop: '1rem'}}>© 2025 Book Buddy LLC</div>
+              </div>
 
             </div>
 
-            <div className='n-main-menu-sec'>
-              <div className='n-navbar-main-txt'>MAIN MENU</div>
-              <button className='n-main-menu-btn-active' style={{marginTop: '1rem'}}>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><CheckList /></div>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Library</div>
-              </button>
-              <button className='n-main-menu-btn'>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><MedalFilled /></div>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Rewards</div>
-              </button>
-              <button className='n-main-menu-btn'>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><InboxFilled /></div>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Storage</div>
-              </button>
-              <button className='n-main-menu-btn'>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><ChatFilled /></div>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Social</div>
-              </button>
-            </div>
+            <div style={{height: '32%'}} className='n-left-bar-1'>
 
-            
-
-            <div className='n-main-menu-sec' style={{marginTop: '25rem'}}>
-              <button className='n-main-menu-btn'>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Settings /></div>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Settings</div>
-              </button>
-              <button className='n-main-menu-btn'>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Logout /></div>
-                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Log out</div>
-              </button>
-              <div className='n-navbar-separator' style={{marginTop: '1rem'}}/>
-              <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', color: '#9BA4B6', fontSize: '0.8125rem', marginTop: '1rem'}}>© 2025 Book Buddy LLC</div>
             </div>
 
           </div>
@@ -439,7 +447,7 @@ function Library() {
               
               </div>
 
-              <div style={{paddingLeft: '4rem', paddingRight: '4rem', width: '100%', boxSizing: 'border-box', marginTop: '1.625rem', display: 'flex'}}>
+              <div style={{paddingLeft: '4rem', paddingRight: '4rem', width: '100%', boxSizing: 'border-box', marginTop: '1.3rem', display: 'flex'}}>
 
                 <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '30%'}}>
 

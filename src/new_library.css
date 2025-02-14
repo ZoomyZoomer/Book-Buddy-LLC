@@ -17,17 +17,38 @@
 }
 
 .n-library-left-bar {
-    background-color: white;
     height: 100%;
     width: 18%;
     padding: 1.5rem;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
     box-sizing: border-box;
-    border-radius: 0.8rem;
-    border: 1px solid #C6C8C9;
     position: relative;
     margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.n-left-bar-0 {
+    border-radius: 0.8rem;
+    border: 1px solid #C6C8C9;
+    background-color: white;
+    height: 64.8%;
+    width: 100%;
+    padding: 1.5rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    margin-bottom: 1rem;
+}
+
+.n-left-bar-1 {
+    border-radius: 0.8rem;
+    border: 1px solid #C6C8C9;
+    background-color: white;
+    width: 100%;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
 }
 
 .n-library-top-bar {
@@ -45,7 +66,8 @@
     border-radius: 0.8rem;
     display: flex;
     flex-direction: column;
-    height: 854px;
+    max-height: 65%;
+    min-height: 65%;
     margin-bottom: 1rem;
     box-sizing: border-box;
     position: relative;
@@ -63,7 +85,7 @@
     display: flex;
     flex-direction: column;
     justify-content: left;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
 }
 
 .n-navbar-main-txt {
