@@ -19,7 +19,6 @@
 .n-library-left-bar {
     height: 100%;
     width: 18%;
-    padding: 1.5rem;
     padding-top: 0rem;
     padding-bottom: 0rem;
     box-sizing: border-box;
@@ -34,12 +33,16 @@
     border-radius: 0.8rem;
     border: 1px solid #C6C8C9;
     background-color: white;
-    height: 64.8%;
+    height: 65%;
     width: 100%;
     padding: 1.5rem;
     padding-top: 0rem;
     padding-bottom: 0rem;
     margin-bottom: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .n-left-bar-1 {
@@ -47,8 +50,8 @@
     border: 1px solid #C6C8C9;
     background-color: white;
     width: 100%;
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
+    padding: 1.4rem 1.8rem 1.4rem 1.8rem;
+    box-sizing: border-box;
 }
 
 .n-library-top-bar {
@@ -854,4 +857,62 @@
     100% {
         width: 100%;
     }
+}
+
+.n-profile-box {
+    border: 1px solid #D9D9D9;
+    border-radius: 0.8rem;
+    padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 2rem;
+}
+
+.n-profile-box:hover {
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-profile-circle {
+    border: 1px solid #91969f;
+    border-radius: 100%;
+    height: 3.2rem;
+    width: 3.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.n-username-text {
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.n-username-subtext {
+    font-size: 0.7rem;
+    margin-top: 0.1rem;
+    color: #52637D;
+}
+
+.n-support-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem 0rem 0.6rem 0rem;
+    border-radius: 0.4rem;
+    border: 1px solid #D9D9D9;
+    color: #52637D;
+    margin-top: 1rem;
+    background-color: rgb(246, 246, 246);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-support-btn:hover {
+    cursor: pointer;
+    background-color: rgb(241, 241, 241);
+    transition: background-color 0.3s ease-in-out;
 }

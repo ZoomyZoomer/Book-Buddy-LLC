@@ -21,9 +21,12 @@ import {ReactComponent as Trash} from '../n-trash.svg'
 import {ReactComponent as Sort} from '../n-sort-vertical.svg'
 import {ReactComponent as Clipboard} from '../n-clipboard.svg'
 import {ReactComponent as ScrapBook} from '../n-scrapbook.svg'
+import {ReactComponent as UserCircle} from '../user-circle-icon.svg'
 import {ReactComponent as PieChart} from '../pie-chart.svg'
+import {ReactComponent as Alert} from '../n-bell-icon.svg'
 import {ReactComponent as Alarm} from '../n-alarm.svg'
 import {ReactComponent as Add} from '../n-add-circle.svg'
+import {ReactComponent as Ticket} from '../n-ticket-icon.svg'
 import LibraryBook from '../components/LibraryBook'
 import ScrapPatch from '../components/ScrapPatch'
 import LineChart from '../components/LineChart'
@@ -394,6 +397,50 @@ function Library() {
             </div>
 
             <div style={{height: '32%'}} className='n-left-bar-1'>
+
+              <div style={{fontWeight: '600', fontSize: '0.8125rem', display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', position: 'relative'}}>
+
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '0.1rem'}}><UserCircle /></div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.4rem'}}>ACCOUNT</div>
+
+                <div style={{position: 'absolute', right: '0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+
+                  <div style={{position: 'relative'}}>
+                    <div className='n-chart-date' style={{width: '2rem', borderLeft: '1px solid #8895AA', borderRadius: '0.4rem', height: '1.2rem'}}>
+                      <div><Alert/></div>
+                    </div>
+                  </div>
+                  
+                </div>
+
+              </div>
+
+              <div className='n-profile-box'>
+
+                <div>
+                  <div className='n-profile-circle'>
+                    <img src='/lion-0.png' style={{height: '2.2rem'}}/>
+                    <div style={{position: 'absolute', right: '0', bottom: '0', height: '0.8125rem', width: '0.8125rem', borderRadius: '100%', backgroundColor: '#27AE85'}}/>
+                  </div>
+                </div>
+
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', width: '100%', marginLeft: '1rem'}}>
+                  <div className='n-username-text'>Whole Milk Omega</div>
+                  <div className='n-username-subtext'>☆ Novice Reader</div>
+                </div>
+
+              </div>
+
+              <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: '1.25rem'}}>
+                <div style={{height: '1px', backgroundColor: '#D9D9D9', width: '25%'}}/>
+                <div style={{fontSize: '0.7rem', color: '#D9D9D9', width: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Have a problem?</div>
+                <div style={{height: '1px', backgroundColor: '#D9D9D9', width: '25%'}}/>
+              </div>
+
+              <button className='n-support-btn'>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.4rem', height: '100%'}}><Ticket /></div>
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', marginTop: '0.1rem'}}>Create Support Ticket</div>
+              </button>
 
             </div>
 
