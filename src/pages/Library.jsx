@@ -31,6 +31,7 @@ import LibraryBook from '../components/LibraryBook'
 import ScrapPatch from '../components/ScrapPatch'
 import LineChart from '../components/LineChart'
 import EmojiPopup from '../components/EmojiPopup'
+import Notifications from '../components/Notifications'
 
 
 function Library() {
@@ -81,6 +82,10 @@ function Library() {
       [0, {name: 'Happy Time', desc: 'You’ve created your official Book Buddy account!', id: 0, button_desc: 'SMILE :)', img: 'smile-emoji-solo', reward: false, colors: {main: '#918FF3', c_0: '#80D1B4', c_1: '#FFC436', c_2: '#918FF3', c_3: '#FE8BA9', c_4: '#70F9FD'}}],
       [1, {name: 'Gift for U', desc: 'I went shopping and got ya a present :)', id: 1, button_desc: 'OPEN IT', img: 'wink-emoji-solo', reward: true, colors: {main: '#FE8BA9', c_0: '#70F9FD', c_1: '#918FF3', c_2: '#FFC436', c_3: '#FE8BA9', c_4: '#80D1B4'}}],
       [2, {name: 'Reading Rewards', desc: "You're SO cool for finishing that book!", id: 2, button_desc: 'GET REWARD', img: 'cool-emoji-solo', reward: true, colors: {main: '#80D1B4', c_0: '#FFC436', c_1: '#918FF3', c_2: '#70F9FD', c_3: '#FE8BA9', c_4: '#FE8BA9'}}],
+    ])
+
+    const notifications = new Map([
+      [0]
     ])
 
     useEffect(() => {
@@ -334,13 +339,16 @@ function Library() {
     }, 500)
   }
 
+  const [showNotifications, setShowNotifications] = useState(false);
+
   return (
 
     <div style={{height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
 
       {popupInfo && <EmojiPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} username={userInfo?.username} setFetchPopup={setFetchPopup}/>}
+      {showNotifications && <Notifications />}
 
-    <div className='n-library-bg' style={{filter: popupInfo ? 'brightness(0.3)' : 'none', pointerEvents: popupInfo? 'none' : 'all'}}>
+    <div className='n-library-bg' style={{filter: (popupInfo || showNotifications) ? 'brightness(0.3)' : 'none', pointerEvents: (popupInfo || showNotifications) ? 'none' : 'all'}}>
 
         <div className='n-library-container'>
 
@@ -381,7 +389,7 @@ function Library() {
 
               
 
-              <div className='n-main-menu-sec' style={{marginTop: '7.5rem'}}>
+              <div className='n-main-menu-sec' style={{marginTop: '7rem'}}>
                 <button className='n-main-menu-btn'>
                   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Settings /></div>
                   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Settings</div>
@@ -406,7 +414,7 @@ function Library() {
                 <div style={{position: 'absolute', right: '0', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 
                   <div style={{position: 'relative'}}>
-                    <div className='n-chart-date' style={{width: '2rem', borderLeft: '1px solid #8895AA', borderRadius: '0.4rem', height: '1.2rem'}}>
+                    <div className='n-chart-date' style={{width: '2rem', borderLeft: '1px solid #8895AA', borderRadius: '0.4rem', height: '1.2rem'}} onClick={() => setShowNotifications(prev => !prev)}>
                       <div><Alert/></div>
                     </div>
                   </div>
@@ -425,7 +433,7 @@ function Library() {
                 </div>
 
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', width: '100%', marginLeft: '1rem'}}>
-                  <div className='n-username-text'>Whole Milk Omega</div>
+                  <div className='n-username-text'>{userInfo?.username}</div>
                   <div className='n-username-subtext'>☆ Novice Reader</div>
                 </div>
 
