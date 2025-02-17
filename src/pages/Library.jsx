@@ -346,7 +346,7 @@ function Library() {
     <div style={{height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative'}}>
 
       {popupInfo && <EmojiPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} username={userInfo?.username} setFetchPopup={setFetchPopup}/>}
-      {showNotifications && <Notifications />}
+      {showNotifications && <Notifications username={userInfo?.username} setFetchPopup={setFetchPopup} popupInfo={popupInfo} setShowNotifications={setShowNotifications}/>}
 
     <div className='n-library-bg' style={{filter: (popupInfo || showNotifications) ? 'brightness(0.3)' : 'none', pointerEvents: (popupInfo || showNotifications) ? 'none' : 'all'}}>
 
