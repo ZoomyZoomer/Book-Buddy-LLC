@@ -30,7 +30,13 @@ export default async function handler(req, res) {
 
         await shelf.save();
 
-        user.globalNotificationsSeen.push(rel_id);
+        const rel_notification = user.globalNotificationsSeen.find((notif) => notif.id === rel_id);
+        if (rel_notification){
+            rel_notification.claimed = true;
+            user.markModified('globalNotificationsSeen');
+        } else {
+            user.globalNotificationsSeen.push({id: rel_id, important: false, claimed: true});
+        }
 
         await user.save();
         

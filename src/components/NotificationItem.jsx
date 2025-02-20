@@ -1,5 +1,6 @@
 import react, { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
+import {ReactComponent as Dots} from '../n-notif-dots.svg'
 
 const NotificationItem = ({notif, key, username, setFetchPopup, setReFetchNotifs}) => {
 
@@ -8,6 +9,7 @@ const NotificationItem = ({notif, key, username, setFetchPopup, setReFetchNotifs
     ])
 
     const [relNotif, setRelNotif] = useState(notif);
+    const [dotsDrop, setDotsDrop] = useState(false);
 
     useEffect(() => {
         if (!notif?.id){
@@ -28,7 +30,7 @@ const NotificationItem = ({notif, key, username, setFetchPopup, setReFetchNotifs
 
     const claimGift = async() => {
 
-        if (notif?.seen) return;
+        if (notif?.claimed) return;
 
         await axios.post('/api/claim-gift', {
             username,
@@ -58,6 +60,18 @@ const NotificationItem = ({notif, key, username, setFetchPopup, setReFetchNotifs
 
     }
 
+    const handleImportant = async() => {
+
+        await axios.post('/api/handle-important', {
+            username,
+            isImportant: notif?.important,
+            rel_id: notif?.id
+        })
+
+        setReFetchNotifs(prev => !prev);
+
+    }
+
     return (
             <div className='n-notification-box'>
 
@@ -78,10 +92,17 @@ const NotificationItem = ({notif, key, username, setFetchPopup, setReFetchNotifs
                         </div>
                     </div>
 
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: '1rem'}}>
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '0.8125rem'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', marginLeft: '1rem', width: '100%'}}>
+                        <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', fontSize: '0.8125rem', width: '100%', position: 'relative'}}>
                             <div style={{fontWeight: '600', marginRight: '0.4rem'}}>@BookBuddyOfficial</div>
                             <div style={{color: '#52637D'}}>{notif?.header}</div>
+                            <div className='n-notif-dots' onClick={() => setDotsDrop(prev => !prev)} onMouseLeave={() => setDotsDrop(false)}>
+                                <div style={{position: 'relative', width: '100%', height: '100%'}}>
+                                    <Dots />
+                                    {dotsDrop && 
+                                    <div className='n-notif-chart-item' onClick={() => handleImportant()}>{notif?.important ? 'Unmark Important' : 'Mark Important'}</div>}
+                                </div>
+                            </div>
                         </div>
                         <div style={{color: '#8892A2', fontSize: '0.7rem', marginTop: '0.2rem', fontWeight: '400'}}>{notif?.timeSent?.toLocaleDateString('en-US', { weekday: 'long' })} {notif?.timeSent?.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })} · {notif?.type}</div>
                     </div>
@@ -93,12 +114,12 @@ const NotificationItem = ({notif, key, username, setFetchPopup, setReFetchNotifs
                         <div>{notif?.messageContents}</div>
                         {notif?.hasButton && <button className={notif?.seen ? 'n-notif-message-button-claimed' : 'n-notif-message-button'} onClick={() => pressButton()}>{notif?.seen ? 'UNAVAILABLE' : 'START TUTORIAL'}</button>}
                         {notif?.hasGift && 
-                        <div className={notif?.seen ? 'n-gift-container-claimed' : 'n-gift-container'} onClick={() => claimGift()}>
+                        <div className={notif?.claimed ? 'n-gift-container-claimed' : 'n-gift-container'} onClick={() => claimGift()}>
                             <img src='/present_icon.png' style={{height: '2.2rem'}}/>
-                            <div className={notif?.seen ? 'n-gift-status-claimed' : 'n-gift-status'}>
+                            <div className={notif?.claimed ? 'n-gift-status-claimed' : 'n-gift-status'}>
                                 <div style={{height: '100%', width: '100%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                    <div style={{color: notif?.seen ? '#454b54' : 'white'}}>{notif?.seen ? 'Gift Claimed' : 'Unclaimed Gift'}</div>
-                                    <div className='n-gift-arrow' style={{backgroundColor: notif?.seen ? '#e2e2e2' : '#27AE85'}}/>
+                                    <div style={{color: notif?.claimed ? '#454b54' : 'white'}}>{notif?.claimed ? 'Gift Claimed' : 'Unclaimed Gift'}</div>
+                                    <div className='n-gift-arrow' style={{backgroundColor: notif?.claimed ? '#e2e2e2' : '#27AE85'}}/>
                                 </div>
                             </div>
                         </div>}

@@ -35,12 +35,37 @@
     margin-right: 0.8125rem;
     font-size: 0.8125rem;
     transition: background-color 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
 .n-notif-select:hover {
     cursor: pointer;
     background-color: rgb(245, 245, 245);
     transition: background-color 0.3s ease-in-out;
+}
+
+.n-notif-select-active {
+    min-width: 2rem;
+    padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+    background-color: #27AE85;
+    border: 1px solid #1a8d7e;
+    color: white;
+    border-radius: 0.4rem;
+    margin-right: 0.8125rem;
+    font-size: 0.8125rem;
+    transition: background-color 0.3s ease-in-out;
+    transform-origin: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.n-notif-select-active:hover {
+    cursor: pointer;
 }
 
 .notif-bar {
@@ -269,5 +294,39 @@
 .exit-notif:hover {
     cursor: pointer;
     background-color: rgb(243, 243, 243);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-notif-dots {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0.3rem 0.4rem 0.3rem 0.4rem;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 0.4rem;
+}
+
+.n-notif-dots:hover {
+    cursor: pointer;
+    background-color: rgb(224, 224, 224);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-notif-chart-item {
+    position: absolute;
+    top: 120%;
+    right: -0.4rem;
+    border-radius: 0.4rem;
+    background-color: white;
+    padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+    width: max-content;
+    border: 1px solid rgb(238, 238, 238);
+    box-shadow: 2px 4px 6px rgb(224, 224, 224);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-notif-chart-item:hover {
+    cursor: pointer;
+    background-color: rgb(238, 238, 238);
     transition: background-color 0.3s ease-in-out;
 }
