@@ -94,6 +94,18 @@
     transition: background-color 0.3s ease-in-out;
 }
 
+.n-new-circle2 {
+    height: 0.7rem;
+    width: 0.7rem;
+    background-color: #27AE85;
+    border: 1px solid #188870;
+    border-radius: 100%;
+    position: absolute;
+    top: -0.2rem;
+    right: -0.2rem;
+    animation: notif-circle 6s ease-in-out infinite;
+}
+
 .n-new-circle {
     height: 0.7rem;
     width: 0.7rem;

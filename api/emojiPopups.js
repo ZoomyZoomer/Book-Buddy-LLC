@@ -1,5 +1,6 @@
 import { connectToDatabase } from './utils/db';
 import Bookshelf from './models/Bookshelf';
+import User from './models/User'
 
 export default async function handler(req, res) {
 
@@ -14,11 +15,17 @@ export default async function handler(req, res) {
             return res.status(404).json({ message: 'Bookshelf not found' });
         }
 
-        return res.status(200).json(shelf.emoji_popups.map((popup) => ({ 
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+
+        return res.status(200).json([shelf.emoji_popups.map((popup) => ({ 
             id: popup.id, 
             claimed_today: popup.claimed_today, 
             show: popup.show 
-        })));
+        })), user.globalNotificationsSeen.length]);
         
 
     } catch(e) {

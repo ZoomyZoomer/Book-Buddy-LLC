@@ -24,6 +24,7 @@ import {ReactComponent as ScrapBook} from '../n-scrapbook.svg'
 import {ReactComponent as UserCircle} from '../user-circle-icon.svg'
 import {ReactComponent as PieChart} from '../pie-chart.svg'
 import {ReactComponent as Alert} from '../n-bell-icon.svg'
+import {ReactComponent as Alert2} from '../n-bell-bing.svg'
 import {ReactComponent as Alarm} from '../n-alarm.svg'
 import {ReactComponent as Add} from '../n-add-circle.svg'
 import {ReactComponent as Ticket} from '../n-ticket-icon.svg'
@@ -32,6 +33,7 @@ import ScrapPatch from '../components/ScrapPatch'
 import LineChart from '../components/LineChart'
 import EmojiPopup from '../components/EmojiPopup'
 import Notifications from '../components/Notifications'
+import TicketPortal from '../components/TicketPortal'
 
 
 function Library() {
@@ -248,6 +250,7 @@ function Library() {
 
     const [popupInfo, setPopupInfo] = useState(null);
     const [fetchPopup, setFetchPopup] = useState(false);
+    const [newNotifs, setNewNotifs] = useState(false);
 
     const processPopup = (popupList) => {
 
@@ -268,7 +271,8 @@ function Library() {
         }
       })
 
-      processPopup(res.data);
+      processPopup(res.data[0]);
+      setNewNotifs(res.data[1] - 2 < 0);
 
     }
 
@@ -340,6 +344,7 @@ function Library() {
   }
 
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showTicketPortal, setShowTicketPortal] = useState(false);
 
   return (
 
@@ -347,8 +352,9 @@ function Library() {
 
       {popupInfo && <EmojiPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} username={userInfo?.username} setFetchPopup={setFetchPopup}/>}
       {showNotifications && <Notifications username={userInfo?.username} setFetchPopup={setFetchPopup} popupInfo={popupInfo} setShowNotifications={setShowNotifications}/>}
+      {showTicketPortal && <TicketPortal username={userInfo?.username} setShowTicketPortal={setShowTicketPortal}/>}
 
-    <div className='n-library-bg' style={{filter: (popupInfo || showNotifications) ? 'brightness(0.3)' : 'none', pointerEvents: (popupInfo || showNotifications) ? 'none' : 'all'}}>
+    <div className='n-library-bg' style={{filter: (popupInfo || showNotifications || showTicketPortal) ? 'brightness(0.3)' : 'none', pointerEvents: (popupInfo || showNotifications || showTicketPortal) ? 'none' : 'all'}}>
 
         <div className='n-library-container'>
 
@@ -415,8 +421,9 @@ function Library() {
 
                   <div style={{position: 'relative'}}>
                     <div className='n-chart-date' style={{width: '2rem', borderLeft: '1px solid #8895AA', borderRadius: '0.4rem', height: '1.2rem'}} onClick={() => setShowNotifications(prev => !prev)}>
-                      <div><Alert/></div>
+                      <div>{newNotifs ? <Alert2 /> : <Alert/>}</div>
                     </div>
+                    {newNotifs && <div className='n-new-circle2'/>}
                   </div>
                   
                 </div>
@@ -445,7 +452,7 @@ function Library() {
                 <div style={{height: '1px', backgroundColor: '#D9D9D9', width: '25%'}}/>
               </div>
 
-              <button className='n-support-btn'>
+              <button className='n-support-btn' onClick={() => setShowTicketPortal(prev => !prev)}>
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.4rem', height: '100%'}}><Ticket /></div>
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', marginTop: '0.1rem'}}>Create Support Ticket</div>
               </button>

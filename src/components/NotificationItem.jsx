@@ -56,6 +56,7 @@ const NotificationItem = ({notif, key, username, setFetchPopup, setReFetchNotifs
             rel_id: notif?.id
         })
 
+        setFetchPopup(prev => !prev);
         setReFetchNotifs(prev => !prev);
 
     }
@@ -68,6 +69,7 @@ const NotificationItem = ({notif, key, username, setFetchPopup, setReFetchNotifs
             rel_id: notif?.id
         })
 
+        setFetchPopup(prev => !prev);
         setReFetchNotifs(prev => !prev);
 
     }
