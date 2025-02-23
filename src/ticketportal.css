@@ -72,17 +72,20 @@
 .n-history-0 {
     color: #52637D;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.8125rem;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
 }
 
 .n-history-1 {
     color: #9BA4B6;
     font-weight: 400;
-    font-size: 0.7rem;
+    font-size: 0.64rem;
     margin-top: 0.1rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
 
 .n-ticket-sep {
@@ -93,15 +96,247 @@
 
 .n-ticket-entry {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 100%;
     border-radius: 0.8rem;
     transition: background-color 0.3s ease-in-out;
-    padding: 1.2rem 0rem 1.2rem 0rem;
+    padding: 1.2rem 0.8125rem 1.2rem 0.8125rem;
+    box-sizing: border-box;
 }
 
 .n-ticket-entry:hover {
     cursor: pointer;
     background-color: #f5f5f7;
     transition: background-color 0.3s ease-in-out;
+}
+
+.n-create-ticket-input-box {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #9BA4B6;
+    border-radius: 0.8rem;
+    margin-top: 3rem;
+    box-sizing: border-box;
+    padding: 1.4rem 0.7rem 1.4rem 0.7rem;
+    position: relative;
+}
+
+.n-ticket-input-header {
+    font-weight: 600;
+    font-size: 0.8125rem;
+}
+
+.n-ticket-input {
+    border: 1px solid #A4A4A4;
+    border-radius: 0.4rem;
+    width: 100%;
+    height: 2.4rem;
+    font-size: 0.8125rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    font-family: "Inter";
+    color: #454b54;
+    margin-top: 0.625rem;
+    max-width: 100%;
+    max-height: 10rem;
+    min-height: 2.4rem;
+    min-width: 100%;
+}
+
+.n-ticket-input:focus {
+    outline: 1px solid #727272;
+}
+
+.n-ticket-input::placeholder {
+    font-family: "Inter";
+    color: #A3A6AB;
+    font-weight: 400;
+}
+
+.n-ticket-dropdown {
+    border: 1px solid #A4A4A4;
+    border-radius: 0.4rem;
+    width: 100%;
+    height: 2.4rem;
+    font-size: 0.8125rem;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    margin-top: 0.625rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    position: relative;
+}
+
+.n-ticket-dropdown:hover {
+    cursor: pointer;
+}
+
+.n-ticket-option-item {
+    height: 2.4rem;
+    width: 9.2rem;
+    border: 1px solid #A4A4A4;
+    border-radius: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-ticket-option-item:hover {
+    cursor: pointer;
+    background-color: #f5f5f7;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-ticket-option-item-active {
+    height: 2.4rem;
+    width: 9.2rem;
+    border: 1px solid #1c977c;
+    background-color: #27AE85;
+    color: white;
+    border-radius: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.n-submit-ticket {
+    background-color: #27AE85;
+    font-family: "Inter";
+    color: white;
+    border: 1px solid #27AE85;
+    font-size: 0.8125rem;
+    width: 12rem;
+    height: 2.6rem;
+    border-radius: 0.4rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-submit-ticket:hover {
+    cursor: pointer;
+    background-color: #1c968c;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-submit-ticket:active {
+    background-color: #188a80;
+    transition: backgrrgb(23, 136, 139)lor 0.3s ease-in-out;
+}
+
+.n-cancel-ticket {
+    background-color: white;
+    font-family: "Inter";
+    color: #454b54;
+    border: 1px solid #A4A4A4;
+    font-size: 0.8125rem;
+    width: 12rem;
+    height: 2.6rem;
+    border-radius: 0.4rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-cancel-ticket:hover {
+    cursor: pointer;
+    background-color: #f5f5f7;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-cancel-ticket:active {
+    background-color: #ededf0;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-ticket-dropdown-container {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    border-radius: 0.4rem;
+    background-color: white;
+    border: 1px solid rgb(184, 184, 184);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 6px 6px rgb(197, 197, 197);
+    z-index: 998;
+}
+
+.n-ticket-dropdown-container > div {
+    width: 100%;
+    padding: 0.625rem 1rem 0.625rem 1rem;
+    border-radius: 0.4rem;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-ticket-dropdown-container > div:hover {
+    cursor: pointer;
+    background-color: #f5f5f7;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.n-ticket-error {
+    position: absolute;
+    left: 0.3rem;
+    margin-top: 0.2rem;
+    font-size: 0.7rem;
+    top: 100%;
+    color: rgb(235, 59, 59);
+    z-index: 24;
+}
+
+.n-ticket-message {
+    background-color: white;
+    border: 1px solid #E5E5E5;
+    border-radius: 0.8rem;
+    width: 24rem;
+    padding: 0.6rem 0.8rem 0.6rem 0.8rem;
+    box-sizing: border-box;
+    margin-left: 1rem;
+    font-size: 0.8125rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.n-ticket-message:hover {
+    cursor: pointer;
+}
+
+.n-ticket-stuff-box {
+    width: 100%;
+    padding: 1rem;
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 0.8rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.ticket-status-box {
+    border: 1px solid #A4A4A4;
+    width: 80%;
+    border-radius: 0.4rem;
+    box-sizing: border-box;
+    padding: 1rem 2rem 1rem 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f7;
+    cursor: not-allowed;
+    position: absolute;
+    bottom: 3rem;
 }

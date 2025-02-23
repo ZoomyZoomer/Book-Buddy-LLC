@@ -1,4 +1,3 @@
-const { faBullseye } = require('@fortawesome/free-solid-svg-icons');
 const mongoose = require('mongoose');
 const {Schema, model} = mongoose;
 
@@ -48,7 +47,8 @@ const UserSchema = new Schema({
     reader: {type: String, default: 'Newcomer'},
     googleAuth: {type: Boolean, default: false},
     notifications: [NotifSchema],
-    globalNotificationsSeen: []
+    globalNotificationsSeen: [],
+    supportTicketIds: []
 });
 
 const UserModel = model('User', UserSchema);
