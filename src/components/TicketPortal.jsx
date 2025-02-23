@@ -58,8 +58,8 @@ const TicketPortal = ({username, setShowTicketPortal}) => {
 
                 <div style={{height: '1px', width: '100%', backgroundColor: '#D9D9D9', marginBottom: '2rem', marginTop: '2rem'}}/>
 
-                {viewTicket?.ticketReponse?.length > 0 && <SupportTicketChat ticket={viewTicket} isUser={false}/>}
-                {viewTicket?.ticketResponse?.length > 0 && <div style={{height: '1px', width: '100%', backgroundColor: '#F7F7F7'}}/>}
+                {viewTicket?.ticketStatus === 'Resolved' && <SupportTicketChat ticket={viewTicket} isUser={false}/>}
+                {viewTicket?.ticketStatus === 'Resolved' && <div style={{height: '1px', width: '100%', backgroundColor: '#F7F7F7'}}/>}
                 <SupportTicketChat ticket={viewTicket} isUser={true} />
 
                 <div className='ticket-status-box'>
