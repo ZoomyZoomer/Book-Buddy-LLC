@@ -17,7 +17,7 @@ const SupportTicketChat = ({ticket, isUser}) => {
                             <div style={{fontWeight: '600', marginRight: '0.4rem'}}>{isUser ? `@${ticket.sentBy}` : '@BookBuddySupport'}</div>
                             <div style={{color: '#52637D'}}>{isUser ? 'created a ticket' : 'reviewed your ticket'}</div>
                         </div>
-                        <div style={{color: '#8892A2', fontSize: '0.7rem', marginTop: '0.2rem', fontWeight: '400'}}>{new Intl.DateTimeFormat('en-US', {weekday: 'long', hour: '2-digit', minute: '2-digit', hour12: true}).format(isUser ? new Date(ticket?.dateSent) : new Date(ticket?.repsonseDate))}</div>
+                        <div style={{color: '#8892A2', fontSize: '0.7rem', marginTop: '0.2rem', fontWeight: '400'}}>{new Intl.DateTimeFormat('en-US', {weekday: 'long', hour: '2-digit', minute: '2-digit', hour12: true}).format(isUser ? new Date(ticket?.dateSent) : new Date(ticket?.responseDate))}</div>
                     </div>
                 </div>
 
