@@ -524,6 +524,13 @@ function RewardsPage() {
   const [showProfile, setShowProfile] = useState(false);
   const [fetchPopup, setFetchPopup] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null);
+  const [newNotifs, setNewNotifs] = useState(null);
+
+  const emojiPopups = new Map([
+    [0, {name: 'Happy Time', desc: 'You’ve created your official Book Buddy account!', id: 0, button_desc: 'SMILE :)', img: 'smile-emoji-solo', reward: true, colors: {main: '#918FF3', c_0: '#80D1B4', c_1: '#FFC436', c_2: '#918FF3', c_3: '#FE8BA9', c_4: '#70F9FD'}}],
+    [1, {name: 'Gift for U', desc: 'I went shopping and got ya a present :)', id: 1, button_desc: 'OPEN IT', img: 'wink-emoji-solo', reward: true, colors: {main: '#FE8BA9', c_0: '#70F9FD', c_1: '#918FF3', c_2: '#FFC436', c_3: '#FE8BA9', c_4: '#80D1B4'}}],
+    [2, {name: 'Reading Rewards', desc: "You're SO cool for finishing that book!", id: 2, button_desc: 'GET REWARD', img: 'cool-emoji-solo', reward: true, colors: {main: '#80D1B4', c_0: '#FFC436', c_1: '#918FF3', c_2: '#70F9FD', c_3: '#FE8BA9', c_4: '#FE8BA9'}}],
+  ])
 
   const processPopup = (popupList) => {
 
