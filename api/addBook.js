@@ -51,20 +51,24 @@ export default async function handler(req, res) {
         });
       } else {
         // If the tab exists, add the book to the existing tab
-        tab.books.push({
-          volume_id: volumeId,
-          title,
-          is_favorite: false,
-          author,
-          cover,
-          genre: genre[0],
-          rating: 0,
-          pages_read: 0,
-          total_pages: pages || 0,
-          banner_items: null,
-          reward_tiers_claimed: [false, false, false, false],
-          icon_set: 'file'
-        });
+        if (tab.books.find((bookk) => bookk.volume_id === volumeId)){
+
+        } else {
+          tab.books.push({
+            volume_id: volumeId,
+            title,
+            is_favorite: false,
+            author,
+            cover,
+            genre: genre[0],
+            rating: 0,
+            pages_read: 0,
+            total_pages: pages || 0,
+            banner_items: null,
+            reward_tiers_claimed: [false, false, false, false],
+            icon_set: 'file'
+          });
+        }
       }
 
       // Update quest progress for Something New (id: 6)
