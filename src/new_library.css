@@ -127,6 +127,22 @@
     margin-top: 0.1rem;
 }
 
+.n-main-menu-btn-wip {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background-color: rgb(241, 241, 241);
+    border: none;
+    border-radius: 0.625rem;
+    padding: 0.7rem 1rem 0.7rem 1rem;
+    color: #52637D;
+    font-family: "Inter";
+    font-weight: 500;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 0.1rem;
+    cursor: not-allowed;
+}
+
 .n-main-menu-btn:hover {
     background-color: rgb(241, 241, 241);
     cursor: pointer;

@@ -6,6 +6,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import {ReactComponent as BookLogo} from '../book_logo.svg'
 import {ReactComponent as Clock} from '../clock.svg'
 import {ReactComponent as BookSquare} from '../book-square.svg'
+import {ReactComponent as Trophy} from '../rewards-trophy.svg'
+import {ReactComponent as Bill} from '../rewards-bill.svg'
+import {ReactComponent as Gift} from '../rewards-gift.svg'
 import QuestItem from '../components/QuestItem';
 import ItemRewardPopupWarehouse from '../components/ItemRewardPopupWarehouse';
 import AchievementItem from '../components/AchievementItem';
@@ -17,6 +20,10 @@ import PickSticker from '../components/PickSticker';
 import BookBuddyNavbar from '../components/BookBuddyNavbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LibraryLeftBar from '../components/LibraryLeftBar';
+import Notifications from '../components/Notifications';
+import TicketPortal from '../components/TicketPortal';
+import ProfilePage from '../components/ProfilePage';
 
 function RewardsPage() {
 
@@ -512,6 +519,11 @@ function RewardsPage() {
     
   }, [showError])
 
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showTicketPortal, setShowTicketPortal] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  
+
   return (
     <div className='rewards-container'>
 
@@ -522,28 +534,29 @@ function RewardsPage() {
     {showItemPopup3 && <ItemRewardPopupWarehouse setShowItemPopup={setShowItemPopup3} eatItem={false} value={value} username={userInfo.username} item={14} setReFetch={setReFetchAchievements} setDisplayReward={setDisplayReward}/>}
     {showItemPopup4 && <ItemRewardPopupWarehouse setShowItemPopup={setShowItemPopup4} eatItem={false} value={value} username={userInfo.username} item={15} setReFetch={setReFetchAchievements} setDisplayReward={setDisplayReward}/>}
     {showPickSticker && <PickSticker setShowPickSticker={setShowPickSticker} value={value} setDisplayReward={setDisplayReward} username={userInfo?.username} setShowItemPopup={setShowItemPopup4}/>}
+    {showNotifications && <Notifications username={userInfo?.username} setFetchPopup={setFetchPopup} popupInfo={popupInfo} setShowNotifications={setShowNotifications}/>}
+    {showTicketPortal && <TicketPortal username={userInfo?.username} setShowTicketPortal={setShowTicketPortal}/>}
+    {showProfile && <ProfilePage username={userInfo?.username} setShowProfile={setShowProfile}/>}
     {(showPopup) && <ItemInfoPopup setShowItemPopup={setShowItemPopup3} setShowPickSticker={setShowPickSticker} setShowPopup={setShowPopup} value={value} market={itemInfoRef.current} wasPurchased={wasPurchased} setWasPurchased={setWasPurchased} username={userInfo?.username}/>}
 
 
-      <div className={(showPopup || displayReward) ? 'rewards-popup-filter' : 'rewards-container'}>
+      <div className='rewards-container' style={{filter: (showNotifications || showTicketPortal || showProfile || showItemPopup || showItemPopup2 || showPickSticker) ? 'brightness(0.3)' : 'none', pointerEvents: (showNotifications || showTicketPortal || showProfile || showItemPopup || showItemPopup2 || showPickSticker) ? 'none' : 'all'}}>
 
         <ToastContainer />
 
-        <div className='rewards-box'>
+        <div className='n-new-cont-XDD'>
 
-        <div className='n-new-nav2' style={{marginBottom: '2rem'}}>
-        <div className='n-new-nav-l'>
-        <div className='nn-item' onClick={() => navigate('/library')}><img src='/open_book.png' style={{height: '2.4rem', display: 'flex', marginBottom: '0.3rem'}}/></div>
-          <div className='nn-item' onClick={() => navigate('/library')}>LIBRARY</div>
-          <div className='nn-item' onClick={() => navigate('/storage')}>STORAGE</div>
-          <div className='nn-item' onClick={() => navigate('/rewards')}>REWARDS</div>
-        </div>
-      </div>
+        <LibraryLeftBar userInfo={userInfo} setShowNotifications={setShowNotifications} setShowTicketPortal={setShowTicketPortal} setShowProfile={setShowProfile}/>
+
+        <div className='rewards-box'>
 
             <section className='rewards-shop-container'>
 
               <div className='rq-title2'>
-                <div>Achievements</div>
+                <div style={{display: 'flex'}}>
+                  <div style={{display: 'flex', marginRight: '0.4rem'}}><Trophy /></div>
+                  <div style={{display: 'flex'}}>Achievements</div>
+                </div>
                 <div className='rq-0'>A little something to work towards</div>
               </div>
 
@@ -617,7 +630,10 @@ function RewardsPage() {
                 <section className='rewards-quests-container'>
 
                     <div className='rq-title'>
-                        <div>Book Quests</div>
+                        <div style={{display: 'flex'}}>
+                          <div style={{display: 'flex', marginRight: '0.4rem'}}><Gift /></div>
+                          <div style={{display: 'flex'}}>Book Quests</div>
+                        </div>
                         <div className='rq-0'>New rewards every day!</div>
                         <div className='time-remaining-abs'>
                           <div className='time-remaining-abs-box'>
@@ -658,7 +674,10 @@ function RewardsPage() {
                 <section className='rewards-achievements-container'>
 
                   <div className='rq-title2'>
-                    <div>Rewards Market</div>
+                  <div style={{display: 'flex'}}>
+                  <div style={{display: 'flex', marginRight: '0.4rem'}}><Bill /></div>
+                  <div style={{display: 'flex'}}>Rewards Market</div>
+                </div>
                     <div className='rq-0'>Fresh new stock every 6 hours</div>
                     <div className='time-remaining-abs'>
                           <img src='/coin.png' style={{height: '1rem', display: 'flex'}}/>
@@ -781,6 +800,9 @@ function RewardsPage() {
             </div>
 
         </div>
+
+        </div>
+
         </div>
 
     </div>

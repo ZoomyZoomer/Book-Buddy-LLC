@@ -243,17 +243,6 @@ const CreateEntry = () => {
                         <div>{book?.total_pages ? book.total_pages : '...'}</div>
                     </div>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'left', marginTop: '4rem'}}>
-                    <div className='n-navbar-main-txt' style={{marginBottom: '0.625rem'}}>OPTIONS</div>
-                    <div className={optionSelect ? 'n-menu-option-btn-active' : 'n-menu-option-btn'} onClick={() => setOptionSelect(true)}>
-                        <div style={{display: 'flex'}}>{optionSelect ? <BookWhite /> : <Book />}</div>
-                        <div style={{display: 'flex', marginLeft: '0.4rem'}}>Manage Book</div>
-                    </div>
-                    <div className={!optionSelect ? 'n-menu-option-btn-active' : 'n-menu-option-btn'} onClick={() => setOptionSelect(false)}>
-                        <div style={{display: 'flex'}}>{!optionSelect ? <NoteBookWhite /> : <NoteBook />}</div>
-                        <div style={{display: 'flex', marginLeft: '0.4rem'}}>Customize Cover</div>
-                    </div>
-                </div>
             </div>
 
             <div className='n-book-options-right'>

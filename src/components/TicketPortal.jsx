@@ -8,6 +8,7 @@ import {ReactComponent as UserCircle} from '../user-circle-icon.svg'
 import {ReactComponent as DollarCircle} from '../dollar-circle.svg'
 import {ReactComponent as QuestionCircle} from '../question-circle.svg'
 import {ReactComponent as Document} from '../document-icon.svg'
+import {ReactComponent as Back} from '../n-arrow-back.svg'
 import CreateSupportTicket from './CreateSupportTicket'
 import axios from 'axios'
 import SupportTicketChat from './SupportTicketChat'
@@ -36,30 +37,40 @@ const TicketPortal = ({username, setShowTicketPortal}) => {
         }
     }, [isMakingTicket, username])
 
+    const handleExit = () => {
+        if (viewTicket) {
+            setViewTicket(null);
+        } else {
+            setShowTicketPortal(prev => !prev);
+        }
+    }
+
   return (
     <div className='n-tickets-container'>
 
-        <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', fontWeight: '600', fontSize: '0.9rem'}}>
+        <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', fontWeight: '600', fontSize: '0.9rem', position: 'relative'}}>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.4rem'}}><Ticket /></div>
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>{viewTicket ? `Ticket ST#${viewTicket.ticketId}` : (isMakingTicket ? 'CREATE SUPPORT TICKET' : 'SUPPORT TICKET PORTAL')}</div>
-            <div style={{position: 'absolute', right: '2rem'}} onClick={() => setShowTicketPortal(prev => !prev)} className='exit-notif'><Close /></div>
+            <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <div style={{display: 'block', maxWidth: '14rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', position: 'relative'}}>
+                    {viewTicket ? `Ticket: ${viewTicket.ticketInfo.ticketName}` : (isMakingTicket ? 'CREATE SUPPORT TICKET' : 'SUPPORT TICKET PORTAL')}
+                </div>
+                {viewTicket && 
+                <div style={{position: 'absolute', left: '105%', width: 'max-content', backgroundColor: viewTicket.ticketStatus === 'In Progress' ? '#E89C51' : '#27AE85', borderRadius: '0.8rem', fontSize: '0.7rem', color: 'white', fontWeight: '600', padding: '0.3rem 1.1rem 0.3rem 1.1rem'}}>
+                    {viewTicket.ticketStatus === 'In Progress' ? 'In Progress' : 'Resolved'}
+                </div>}
+            </div>
+            <div style={{position: 'absolute', right: '0rem'}} onClick={() => handleExit()} className='exit-notif'>{viewTicket ? <Back /> : <Close />}</div>
+            {viewTicket && <div style={{position: 'absolute', top: '125%', left: '0%', fontSize: '0.7rem', color: '#8892A2', fontWeight: '400'}}>
+                Submitted by: {viewTicket.sentBy} &#183; ST#{viewTicket.ticketId}
+            </div>}
         </div>
 
         {viewTicket && (
             <>
-                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', marginTop: '4rem', position: 'relative'}}>
-                    <div style={{display: 'flex', marginRight: '0.4rem'}}><Document /></div>
-                    <div style={{display: 'flex'}}><strong>{viewTicket.ticketInfo.ticketName}</strong></div>
-                </div>
-
-                <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center', width: '100%', fontSize: '0.8125rem', color: '#8892A2', marginTop: '0.2rem'}}>
-                    Submitted by: {viewTicket.sentBy}
-                </div>
-
-                <div style={{height: '1px', width: '100%', backgroundColor: '#D9D9D9', marginBottom: '2rem', marginTop: '2rem'}}/>
+                <div style={{height: '1px', width: '100%', backgroundColor: '#D9D9D9', marginBottom: '2rem', marginTop: '3rem'}}/>
 
                 {viewTicket?.ticketStatus === 'Resolved' && <SupportTicketChat ticket={viewTicket} isUser={false}/>}
-                {viewTicket?.ticketStatus === 'Resolved' && <div style={{height: '1px', width: '100%', backgroundColor: '#F7F7F7'}}/>}
+                {viewTicket?.ticketStatus === 'Resolved' && <div style={{height: '1px', width: '100%', backgroundColor: '#F7F7F7', marginTop: '1rem', marginBottom: '1rem'}}/>}
                 <SupportTicketChat ticket={viewTicket} isUser={true} />
 
                 <div className='ticket-status-box'>
@@ -79,7 +90,7 @@ const TicketPortal = ({username, setShowTicketPortal}) => {
                     <div style={{color: '#9BA4B6', fontWeight: '400', fontSize: '0.76rem', marginTop: '0.2rem'}}>or view your current ticket status below</div>
                 </div>
 
-                <div style={{display: 'flex', justifyContent: 'left', flexDirection: 'column', width: '100%', marginTop: '2.5rem', height: '14rem'}}>
+                <div style={{display: 'flex', justifyContent: 'left', flexDirection: 'column', width: '100%', marginTop: '2.5rem', height: '15.75rem'}}>
                     <div style={{display: 'flex', justifyContent: 'left', fontSize: '0.9rem', fontWeight: '600'}}>
                         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '0.4rem'}}><Clock /></div>
                         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>RECENT TICKET HISTORY</div>

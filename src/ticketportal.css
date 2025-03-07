@@ -315,13 +315,19 @@
     padding-bottom: 2rem;
     box-sizing: border-box;
     background-color: white;
+    border: 1px solid rgb(231, 231, 231);
     display: flex;
     flex-direction: column;
     justify-content: left;
-    transition: background-color 0.3s ease-in-out;
+    transition: border-color 0.3s ease-in-out;
     border-radius: 0.8rem;
     position: relative;
+}
+
+.n-ticket-stuff-box:hover {
     cursor: pointer;
+    border: 1px solid rgb(168, 168, 168);
+    transition: border-color 0.3s ease-in-out;
 }
 
 .ticket-status-box {

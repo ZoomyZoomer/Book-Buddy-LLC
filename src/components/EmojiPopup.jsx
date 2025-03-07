@@ -28,7 +28,7 @@ const EmojiPopup = ( {popupInfo, setPopupInfo, username, setFetchPopup}) => {
   const handleClick = async() => {
 
     if (popupInfo.reward){
-      setReward(rewards.get(Math.random()));
+      setReward(rewards.get(Math.round(Math.random())));
       return;
     }
 
