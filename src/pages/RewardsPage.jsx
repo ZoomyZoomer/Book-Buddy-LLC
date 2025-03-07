@@ -522,6 +522,37 @@ function RewardsPage() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showTicketPortal, setShowTicketPortal] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [fetchPopup, setFetchPopup] = useState(false);
+  const [popupInfo, setPopupInfo] = useState(null);
+
+  const processPopup = (popupList) => {
+
+    const popup = popupList.find((popup) => popup.show);
+
+    if (popup && (!popupInfo || popup.id !== popupInfo.id)) {
+      setPopupInfo(emojiPopups.get(popup.id));
+    }
+
+  }
+
+  const fetchEmojiPopups = async() => {
+
+    const res = await axios.get('/api/emojiPopups', {
+      params: {
+        username: userInfo?.username
+      }
+    })
+
+    processPopup(res.data[0]);
+    setNewNotifs(res.data[1] - 2 < 0);
+
+  }
+
+  useEffect(() => {
+        if (userInfo){
+          fetchEmojiPopups();
+        }
+      }, [userInfo, fetchPopup])
   
 
   return (

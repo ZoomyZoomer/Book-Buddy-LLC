@@ -23,6 +23,7 @@ const ShowcaseBook = ({book}) => {
       }
 
   return (
+    {/*
     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', transform: 'scale(0.7)', marginLeft: '-5rem'}}>
                     <div style={{display: 'flex', justifyContent: 'left', alignItems: 'center'}}>
                         <div className={'library-book-circle'}>
@@ -75,7 +76,7 @@ const ShowcaseBook = ({book}) => {
 
                     </div>
 
-                </div>
+                </div>*/}
   )
 }
 
