@@ -15,11 +15,20 @@ import {ReactComponent as Alert2} from '../n-bell-bing.svg'
 import {ReactComponent as Ticket} from '../n-ticket-icon.svg'
 import {ReactComponent as Settings} from '../n-settings.svg'
 import {ReactComponent as Logout} from '../n-log-out.svg'
+import axios from 'axios'
 
 const LibraryLeftBar = ({userInfo, setShowTicketPortal, setShowNotifications, setShowProfile, newNotifs}) => {
 
     const navigate = useNavigate('/');
     const location = useLocation();
+
+    const logout = async() => {
+
+      await axios.post('/api/logout');
+
+      navigate('/signin');
+
+    }
 
 
   return (
@@ -60,8 +69,8 @@ const LibraryLeftBar = ({userInfo, setShowTicketPortal, setShowNotifications, se
 
               
 
-              <div className='n-main-menu-sec' style={{marginTop: '11rem'}}>
-                <button className='n-main-menu-btn'>
+              <div className='n-main-menu-sec' style={{marginTop: '10rem'}}>
+                <button className='n-main-menu-btn' onClick={() => logout()}>
                   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Logout /></div>
                   <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '0.625rem'}}>Log out</div>
                 </button>
@@ -91,7 +100,7 @@ const LibraryLeftBar = ({userInfo, setShowTicketPortal, setShowNotifications, se
 
               </div>
 
-              <div className='n-profile-box' onClick={() => setShowProfile(prev => !prev)}>
+              <div className='n-profile-box'>
 
                 <div>
                   <div className='n-profile-circle'>

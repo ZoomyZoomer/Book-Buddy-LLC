@@ -3453,3 +3453,18 @@
         transform: scale(1);
     }
 }
+
+@media screen and (max-height: 900px) {
+    .n-library-container {
+        transform: scale(0.74);
+    }
+    .n-notifications-container {
+        transform: scale(0.74);
+    }
+    .n-new-cont-XDD {
+        transform: scale(0.74);
+    }
+    .n-tickets-container {
+        transform: scale(0.74);
+    }
+  }
